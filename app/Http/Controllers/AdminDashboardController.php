@@ -15,10 +15,6 @@ use Carbon\Carbon;
 
 class AdminDashboardController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('admin');
-    }
 
     /**
      * Display the admin dashboard.
