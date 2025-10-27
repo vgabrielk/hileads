@@ -31,6 +31,145 @@ class PlanController extends Controller
     }
 
     /**
+     * Display admin management of plans.
+     */
+    public function admin()
+    {
+        $this->authorize('manage', Plan::class);
+        
+        $plans = Plan::orderBy('sort_order')
+            ->orderBy('price')
+            ->get();
+
+        return view('plans.admin', compact('plans'));
+    }
+
+    /**
+     * Show the form for creating a new plan.
+     */
+    public function create()
+    {
+        $this->authorize('create', Plan::class);
+        
+        return view('plans.create');
+    }
+
+    /**
+     * Store a newly created plan.
+     */
+    public function store(Request $request)
+    {
+        $this->authorize('create', Plan::class);
+        
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'price' => 'required|numeric|min:0',
+            'interval' => 'required|in:monthly,yearly',
+            'interval_count' => 'required|integer|min:1',
+            'max_contacts' => 'nullable|integer|min:0',
+            'max_campaigns' => 'nullable|integer|min:0',
+            'max_mass_sendings' => 'nullable|integer|min:0',
+            'features' => 'nullable|array',
+            'features.*' => 'string',
+            'is_active' => 'boolean',
+            'is_popular' => 'boolean',
+            'sort_order' => 'integer|min:0',
+        ]);
+
+        $plan = Plan::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'price' => $request->price,
+            'price_cents' => (int) ($request->price * 100),
+            'interval' => $request->interval,
+            'interval_count' => $request->interval_count,
+            'max_contacts' => $request->max_contacts,
+            'max_campaigns' => $request->max_campaigns,
+            'max_mass_sendings' => $request->max_mass_sendings,
+            'features' => $request->features ?? [],
+            'is_active' => $request->boolean('is_active', true),
+            'is_popular' => $request->boolean('is_popular', false),
+            'sort_order' => $request->sort_order ?? 0,
+        ]);
+
+        return redirect()->route('plans.admin')
+            ->with('success', 'Plano criado com sucesso!');
+    }
+
+    /**
+     * Show the form for editing the specified plan.
+     */
+    public function edit(Plan $plan)
+    {
+        $this->authorize('update', $plan);
+        
+        return view('plans.edit', compact('plan'));
+    }
+
+    /**
+     * Update the specified plan.
+     */
+    public function update(Request $request, Plan $plan)
+    {
+        $this->authorize('update', $plan);
+        
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'price' => 'required|numeric|min:0',
+            'interval' => 'required|in:monthly,yearly',
+            'interval_count' => 'required|integer|min:1',
+            'max_contacts' => 'nullable|integer|min:0',
+            'max_campaigns' => 'nullable|integer|min:0',
+            'max_mass_sendings' => 'nullable|integer|min:0',
+            'features' => 'nullable|array',
+            'features.*' => 'string',
+            'is_active' => 'boolean',
+            'is_popular' => 'boolean',
+            'sort_order' => 'integer|min:0',
+        ]);
+
+        $plan->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'price' => $request->price,
+            'price_cents' => (int) ($request->price * 100),
+            'interval' => $request->interval,
+            'interval_count' => $request->interval_count,
+            'max_contacts' => $request->max_contacts,
+            'max_campaigns' => $request->max_campaigns,
+            'max_mass_sendings' => $request->max_mass_sendings,
+            'features' => $request->features ?? [],
+            'is_active' => $request->boolean('is_active', true),
+            'is_popular' => $request->boolean('is_popular', false),
+            'sort_order' => $request->sort_order ?? 0,
+        ]);
+
+        return redirect()->route('plans.admin')
+            ->with('success', 'Plano atualizado com sucesso!');
+    }
+
+    /**
+     * Remove the specified plan.
+     */
+    public function destroy(Plan $plan)
+    {
+        $this->authorize('delete', $plan);
+        
+        // Check if plan has active subscriptions
+        if ($plan->subscriptions()->where('status', 'active')->exists()) {
+            return redirect()->route('plans.admin')
+                ->with('error', 'Não é possível excluir um plano que possui assinaturas ativas.');
+        }
+
+        $plan->delete();
+
+        return redirect()->route('plans.admin')
+            ->with('success', 'Plano excluído com sucesso!');
+    }
+
+    /**
      * Display the specified plan.
      */
     public function show(Plan $plan)

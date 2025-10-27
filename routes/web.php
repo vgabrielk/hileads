@@ -119,6 +119,16 @@ Route::middleware('auth')->group(function () {
     Route::get('/plans/{plan}', [PlanController::class, 'show'])->name('plans.show');
     Route::post('/plans/{plan}/checkout', [PlanController::class, 'checkout'])->name('plans.checkout');
     Route::get('/plans/{plan}/checkout-page', [PlanController::class, 'checkoutPage'])->name('plans.checkout-page');
+    
+    // Plans admin routes (only for admins)
+    Route::middleware(['auth', 'admin'])->group(function () {
+        Route::get('/admin/plans', [PlanController::class, 'admin'])->name('plans.admin');
+        Route::get('/admin/plans/create', [PlanController::class, 'create'])->name('plans.create');
+        Route::post('/admin/plans', [PlanController::class, 'store'])->name('plans.store');
+        Route::get('/admin/plans/{plan}/edit', [PlanController::class, 'edit'])->name('plans.edit');
+        Route::put('/admin/plans/{plan}', [PlanController::class, 'update'])->name('plans.update');
+        Route::delete('/admin/plans/{plan}', [PlanController::class, 'destroy'])->name('plans.destroy');
+    });
 
     // Subscriptions routes (specific routes first to avoid conflicts)
     Route::get('/subscriptions', [SubscriptionController::class, 'index'])->name('subscriptions.index');
