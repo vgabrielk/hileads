@@ -306,8 +306,8 @@ function removeFeature(button) {
 @if(old('features'))
     @foreach(old('features') as $feature)
         document.getElementById('add-feature').click();
-        const inputs = document.querySelectorAll('input[name="features[]"]');
-        inputs[inputs.length - 1].value = '{{ $feature }}';
+        const oldInputs = document.querySelectorAll('input[name="features[]"]');
+        oldInputs[oldInputs.length - 1].value = '{{ $feature }}';
     @endforeach
 @endif
 </script>
