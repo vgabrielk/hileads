@@ -4,6 +4,7 @@ use Monolog\Handler\NullHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\SyslogUdpHandler;
 use Monolog\Processor\PsrLogMessageProcessor;
+use App\Logging\CustomSocketHandler;
 
 return [
 
@@ -125,6 +126,37 @@ return [
 
         'emergency' => [
             'path' => storage_path('logs/laravel.log'),
+        ],
+
+        // Canal com fallback para evitar falhas de logging
+        'robust' => [
+            'driver' => 'stack',
+            'channels' => ['single', 'daily'],
+            'ignore_exceptions' => true, // Ignorar exceções para não quebrar a aplicação
+        ],
+
+        // Canal para logs críticos com timeout otimizado
+        'critical_socket' => [
+            'driver' => 'monolog',
+            'level' => env('LOG_LEVEL', 'critical'),
+            'handler' => CustomSocketHandler::class,
+            'handler_with' => [
+                'connectionString' => env('LOG_SOCKET_URL', 'tcp://localhost:514'),
+                'connectionTimeout' => env('LOG_CONNECTION_TIMEOUT', 10),
+                'writeTimeout' => env('LOG_WRITE_TIMEOUT', 30),
+                'maxRetries' => env('LOG_MAX_RETRIES', 3),
+                'retryDelay' => env('LOG_RETRY_DELAY', 1000),
+            ],
+            'processors' => [PsrLogMessageProcessor::class],
+        ],
+
+        // Canal de fallback que nunca falha
+        'fallback' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/fallback.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
+            'days' => 7, // Manter apenas 7 dias para logs de fallback
+            'replace_placeholders' => true,
         ],
 
     ],

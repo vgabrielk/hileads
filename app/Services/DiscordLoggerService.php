@@ -4,14 +4,17 @@ namespace App\Services;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use App\Services\RobustLoggerService;
 
 class DiscordLoggerService
 {
     private string $webhookUrl;
+    private RobustLoggerService $robustLogger;
     
     public function __construct()
     {
         $this->webhookUrl = 'https://discord.com/api/webhooks/1432468525787910256/ps84js_j2OacGgrzPdZbQplMkSvQNLL2s8vCD3ULrq5snTdKtkCFC483OqPW5u1QQJxY';
+        $this->robustLogger = new RobustLoggerService();
     }
     
     /**
@@ -22,7 +25,7 @@ class DiscordLoggerService
         try {
             // Verificar se a URL do webhook está configurada
             if (empty($this->webhookUrl)) {
-                \Log::warning('Discord Webhook URL não configurada. Pulando envio para Discord.');
+                $this->robustLogger->warning('Discord Webhook URL não configurada. Pulando envio para Discord.');
                 return;
             }
             
@@ -61,8 +64,12 @@ class DiscordLoggerService
                 ->post($this->webhookUrl, $payload);
             
         } catch (\Exception $e) {
-            // Se falhar ao enviar para Discord, logar normalmente sem usar Log::error para evitar loop
-            error_log('Falha ao enviar log para Discord: ' . $e->getMessage());
+            // Se falhar ao enviar para Discord, usar robust logger para evitar loops
+            $this->robustLogger->error('Falha ao enviar log para Discord: ' . $e->getMessage(), [
+                'title' => $title,
+                'original_message' => $message,
+                'context' => $context
+            ]);
         }
     }
     
@@ -74,7 +81,7 @@ class DiscordLoggerService
         try {
             // Verificar se a URL do webhook está configurada
             if (empty($this->webhookUrl)) {
-                \Log::warning('Discord Webhook URL não configurada. Pulando envio para Discord.');
+                $this->robustLogger->warning('Discord Webhook URL não configurada. Pulando envio para Discord.');
                 return;
             }
             
@@ -106,8 +113,12 @@ class DiscordLoggerService
                 ->post($this->webhookUrl, $payload);
             
         } catch (\Exception $e) {
-            // Se falhar ao enviar para Discord, logar normalmente sem usar Log::error para evitar loop
-            error_log('Falha ao enviar log para Discord: ' . $e->getMessage());
+            // Se falhar ao enviar para Discord, usar robust logger para evitar loops
+            $this->robustLogger->error('Falha ao enviar log para Discord: ' . $e->getMessage(), [
+                'title' => $title,
+                'original_message' => $message,
+                'context' => $context
+            ]);
         }
     }
     
@@ -119,7 +130,7 @@ class DiscordLoggerService
         try {
             // Verificar se a URL do webhook está configurada
             if (empty($this->webhookUrl)) {
-                \Log::warning('Discord Webhook URL não configurada. Pulando envio para Discord.');
+                $this->robustLogger->warning('Discord Webhook URL não configurada. Pulando envio para Discord.');
                 return;
             }
             
@@ -151,8 +162,12 @@ class DiscordLoggerService
                 ->post($this->webhookUrl, $payload);
             
         } catch (\Exception $e) {
-            // Se falhar ao enviar para Discord, logar normalmente sem usar Log::error para evitar loop
-            error_log('Falha ao enviar log para Discord: ' . $e->getMessage());
+            // Se falhar ao enviar para Discord, usar robust logger para evitar loops
+            $this->robustLogger->error('Falha ao enviar log para Discord: ' . $e->getMessage(), [
+                'title' => $title,
+                'original_message' => $message,
+                'context' => $context
+            ]);
         }
     }
 }
