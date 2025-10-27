@@ -28,12 +28,13 @@ class MassSendingController extends Controller
 
     public function create(Request $request)
     {
-        // Check if this is a group-based mass sending
-        $group = null;
-        if ($request->has('group_id')) {
-            $group = \App\Models\Group::findOrFail($request->group_id);
-            $this->authorize('view', $group);
-        }
+        try {
+            // Check if this is a group-based mass sending
+            $group = null;
+            if ($request->has('group_id')) {
+                $group = \App\Models\Group::findOrFail($request->group_id);
+                $this->authorize('view', $group);
+            }
 
         // Get WhatsApp groups in real-time from Wuzapi API
         $wuzapiGroups = collect();
@@ -68,28 +69,42 @@ class MassSendingController extends Controller
                 
                 if ($response['success'] ?? false) {
                     $wuzapiGroups = collect($response['data'] ?? [])->map(function($group) {
-                        // Get all participant JIDs (including @lid)
-                        $participantJIDs = collect($group['Participants'] ?? [])
-                            ->pluck('JID')
-                            ->filter()
-                            ->values()
-                            ->all();
-                        
-                        // Generate group avatar
-                        $groupPhoto = $this->generateGroupAvatar($group['Name'] ?? 'Grupo');
-                        
-                        return [
-                            'jid' => $group['JID'] ?? '',
-                            'name' => $group['Name'] ?? 'Grupo sem nome',
-                            'participants_count' => count($group['Participants'] ?? []),
-                            'participant_jids' => $participantJIDs,
-                            'participants' => $group['Participants'] ?? [],
-                            'is_announce' => $group['IsAnnounce'] ?? false,
-                            'created_at' => $group['GroupCreated'] ?? null,
-                            'photo' => $groupPhoto,
-                            'from_api' => true,
-                        ];
-                    });
+                        try {
+                            // Validar se o grupo tem dados mínimos necessários
+                            if (!is_array($group) || empty($group)) {
+                                \Log::warning('Grupo inválido ignorado: dados vazios ou não array');
+                                return null;
+                            }
+                            
+                            // Get all participant JIDs (including @lid)
+                            $participantJIDs = collect($group['Participants'] ?? [])
+                                ->pluck('JID')
+                                ->filter()
+                                ->values()
+                                ->all();
+                            
+                            // Generate group avatar com tratamento de erro
+                            $groupPhoto = $this->generateGroupAvatar($group['Name'] ?? 'Grupo');
+                            
+                            return [
+                                'jid' => $group['JID'] ?? '',
+                                'name' => $group['Name'] ?? 'Grupo sem nome',
+                                'participants_count' => count($group['Participants'] ?? []),
+                                'participant_jids' => $participantJIDs,
+                                'participants' => $group['Participants'] ?? [],
+                                'is_announce' => $group['IsAnnounce'] ?? false,
+                                'created_at' => $group['GroupCreated'] ?? null,
+                                'photo' => $groupPhoto,
+                                'from_api' => true,
+                            ];
+                        } catch (\Exception $e) {
+                            \Log::error('Erro ao processar grupo da API:', [
+                                'group_data' => $group,
+                                'error' => $e->getMessage()
+                            ]);
+                            return null;
+                        }
+                    })->filter(); // Remove grupos nulos
                     
                     \Log::info('✅ Grupos obtidos com sucesso:', [
                         'total_groups' => $wuzapiGroups->count()
@@ -101,7 +116,15 @@ class MassSendingController extends Controller
                 }
             }
         } catch (\Exception $e) {
-            \Log::error('💥 Erro ao buscar grupos da API Wuzapi: ' . $e->getMessage());
+            \Log::error('💥 Erro ao buscar grupos da API Wuzapi: ' . $e->getMessage(), [
+                'error_message' => $e->getMessage(),
+                'error_file' => $e->getFile(),
+                'error_line' => $e->getLine(),
+                'error_trace' => $e->getTraceAsString(),
+                'user_id' => auth()->id(),
+                'request_url' => request()->url(),
+                'request_method' => request()->method()
+            ]);
             $apiError = true;
             $apiErrorMessage = $e->getMessage();
             
@@ -185,6 +208,29 @@ class MassSendingController extends Controller
         ]);
             
         return view('mass-sendings.create', compact('validGroups', 'apiError', 'apiErrorMessage', 'connectionIssue', 'needsConnection', 'needsLogin', 'group'));
+        
+        } catch (\Exception $e) {
+            \Log::error('💥 Erro crítico no método create:', [
+                'error_message' => $e->getMessage(),
+                'error_file' => $e->getFile(),
+                'error_line' => $e->getLine(),
+                'error_trace' => $e->getTraceAsString(),
+                'user_id' => auth()->id(),
+                'request_url' => request()->url(),
+                'request_method' => request()->method()
+            ]);
+            
+            // Retornar view com erro genérico para evitar 500
+            return view('mass-sendings.create', [
+                'validGroups' => [],
+                'apiError' => true,
+                'apiErrorMessage' => 'Erro interno do servidor. Tente novamente em alguns minutos.',
+                'connectionIssue' => true,
+                'needsConnection' => false,
+                'needsLogin' => false,
+                'group' => null
+            ]);
+        }
     }
 
     /**
@@ -241,38 +287,74 @@ class MassSendingController extends Controller
      */
     private function generateGroupAvatar(string $groupName): string
     {
-        // Cores disponíveis para os avatares
-        $colors = [
-            'bg-red-500', 'bg-blue-500', 'bg-green-500', 'bg-yellow-500',
-            'bg-purple-500', 'bg-pink-500', 'bg-indigo-500', 'bg-teal-500',
-            'bg-orange-500', 'bg-cyan-500', 'bg-lime-500', 'bg-amber-500'
-        ];
-        
-        // Pega as primeiras letras do nome do grupo
-        $initials = '';
-        $words = explode(' ', trim($groupName));
-        foreach ($words as $word) {
-            if (!empty($word)) {
-                $initials .= strtoupper(substr($word, 0, 1));
-                if (strlen($initials) >= 2) break;
+        try {
+            // Cores disponíveis para os avatares
+            $colors = [
+                'bg-red-500', 'bg-blue-500', 'bg-green-500', 'bg-yellow-500',
+                'bg-purple-500', 'bg-pink-500', 'bg-indigo-500', 'bg-teal-500',
+                'bg-orange-500', 'bg-cyan-500', 'bg-lime-500', 'bg-amber-500'
+            ];
+            
+            // Limpar e sanitizar o nome do grupo
+            $cleanName = trim($groupName);
+            if (empty($cleanName)) {
+                $cleanName = 'Grupo';
             }
-        }
-        
-        // Se não conseguir pegar iniciais, usa as primeiras letras do nome
-        if (empty($initials)) {
-            $initials = strtoupper(substr($groupName, 0, 2));
-        }
-        
-        // Seleciona uma cor baseada no hash do nome
-        $colorIndex = crc32($groupName) % count($colors);
-        $color = $colors[$colorIndex];
-        
-        return "data:image/svg+xml;base64," . base64_encode("
-            <svg width='56' height='56' viewBox='0 0 56 56' xmlns='http://www.w3.org/2000/svg'>
+            
+            // Limitar o tamanho do nome para evitar problemas
+            $cleanName = substr($cleanName, 0, 50);
+            
+            // Pega as primeiras letras do nome do grupo
+            $initials = '';
+            $words = explode(' ', $cleanName);
+            foreach ($words as $word) {
+                if (!empty($word)) {
+                    // Remover caracteres especiais e pegar apenas letras
+                    $cleanWord = preg_replace('/[^a-zA-Z0-9]/', '', $word);
+                    if (!empty($cleanWord)) {
+                        $initials .= strtoupper(substr($cleanWord, 0, 1));
+                        if (strlen($initials) >= 2) break;
+                    }
+                }
+            }
+            
+            // Se não conseguir pegar iniciais, usa as primeiras letras do nome
+            if (empty($initials)) {
+                $cleanName = preg_replace('/[^a-zA-Z0-9]/', '', $cleanName);
+                $initials = strtoupper(substr($cleanName, 0, 2));
+                if (empty($initials)) {
+                    $initials = 'G';
+                }
+            }
+            
+            // Seleciona uma cor baseada no hash do nome
+            $colorIndex = abs(crc32($cleanName)) % count($colors);
+            $color = $colors[$colorIndex];
+            
+            // Escapar caracteres especiais no SVG
+            $escapedInitials = htmlspecialchars($initials, ENT_QUOTES, 'UTF-8');
+            
+            $svg = "<svg width='56' height='56' viewBox='0 0 56 56' xmlns='http://www.w3.org/2000/svg'>
                 <rect width='56' height='56' rx='12' fill='currentColor' class='{$color}'/>
-                <text x='28' y='32' text-anchor='middle' fill='white' font-family='system-ui, sans-serif' font-size='16' font-weight='bold'>{$initials}</text>
-            </svg>
-        ");
+                <text x='28' y='32' text-anchor='middle' fill='white' font-family='system-ui, sans-serif' font-size='16' font-weight='bold'>{$escapedInitials}</text>
+            </svg>";
+            
+            return "data:image/svg+xml;base64," . base64_encode($svg);
+            
+        } catch (\Exception $e) {
+            \Log::error('Erro ao gerar avatar do grupo: ' . $e->getMessage(), [
+                'group_name' => $groupName,
+                'error' => $e->getMessage()
+            ]);
+            
+            // Retornar avatar padrão em caso de erro
+            return "data:image/svg+xml;base64," . base64_encode("
+                <svg width='56' height='56' viewBox='0 0 56 56' xmlns='http://www.w3.org/2000/svg'>
+                    <rect width='56' height='56' rx='12' fill='currentColor' class='bg-blue-500'/>
+                    <text x='28' y='32' text-anchor='middle' fill='white' font-family='system-ui, sans-serif' font-size='16' font-weight='bold'>G</text>
+                </svg>
+            ");
+        }
     }
 
     public function store(Request $request)
