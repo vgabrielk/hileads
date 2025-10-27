@@ -35,11 +35,35 @@ class MassSendingController extends Controller
     public function create(Request $request)
     {
         try {
+            // Log de entrada no método
+            \Log::info('🚀 Iniciando método create do MassSendingController', [
+                'user_id' => auth()->id(),
+                'request_url' => request()->url(),
+                'request_method' => request()->method(),
+                'has_group_id' => $request->has('group_id')
+            ]);
+            
+            // Enviar log de entrada para Discord
+            try {
+                $this->discordLogger()->logSuccess(
+                    '🚀 Mass Sendings Create - Início',
+                    'Método create iniciado com sucesso',
+                    [
+                        'user_id' => auth()->id(),
+                        'request_url' => request()->url(),
+                        'has_group_id' => $request->has('group_id')
+                    ]
+                );
+            } catch (\Exception $e) {
+                \Log::error('Erro ao enviar log de entrada para Discord: ' . $e->getMessage());
+            }
             // Check if this is a group-based mass sending
             $group = null;
             if ($request->has('group_id')) {
+                \Log::info('🔍 Processando grupo específico', ['group_id' => $request->group_id]);
                 $group = \App\Models\Group::findOrFail($request->group_id);
                 $this->authorize('view', $group);
+                \Log::info('✅ Grupo autorizado com sucesso');
             }
 
         // Get WhatsApp groups in real-time from Wuzapi API
@@ -254,6 +278,42 @@ class MassSendingController extends Controller
                 "Erro crítico no método create: {$e->getMessage()}",
                 $errorContext
             );
+            
+            // Retornar view com erro genérico para evitar 500
+            return view('mass-sendings.create', [
+                'validGroups' => [],
+                'apiError' => true,
+                'apiErrorMessage' => 'Erro interno do servidor. Tente novamente em alguns minutos.',
+                'connectionIssue' => true,
+                'needsConnection' => false,
+                'needsLogin' => false,
+                'group' => null
+            ]);
+        } catch (\Throwable $e) {
+            // Catch global para qualquer erro, incluindo erros fatais
+            $errorContext = [
+                'error_message' => $e->getMessage(),
+                'error_file' => $e->getFile(),
+                'error_line' => $e->getLine(),
+                'error_trace' => $e->getTraceAsString(),
+                'user_id' => auth()->id(),
+                'request_url' => request()->url(),
+                'request_method' => request()->method(),
+                'error_type' => get_class($e)
+            ];
+            
+            \Log::error('💥 ERRO FATAL no método create:', $errorContext);
+            
+            // Enviar para Discord
+            try {
+                $this->discordLogger()->logError(
+                    '💥 ERRO FATAL - Mass Sendings Create',
+                    "ERRO FATAL no método create: {$e->getMessage()}",
+                    $errorContext
+                );
+            } catch (\Exception $discordError) {
+                \Log::error('Erro ao enviar para Discord: ' . $discordError->getMessage());
+            }
             
             // Retornar view com erro genérico para evitar 500
             return view('mass-sendings.create', [
