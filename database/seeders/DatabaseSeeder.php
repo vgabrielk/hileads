@@ -16,6 +16,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // Chamar outros seeders primeiro
+        $this->call([
+            PlanSeeder::class,
+            AdminUserSeeder::class,
+        ]);
+
         // Criar usuário administrador
         $admin = User::create([
             'name' => 'Administrador',

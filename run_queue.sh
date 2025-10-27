@@ -205,3 +205,4 @@ while true; do
     # Check for paused campaigns to resume
     check_paused_campaigns
 done
+

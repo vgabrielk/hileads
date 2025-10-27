@@ -76,3 +76,4 @@ class FixCampaignStatus extends Command
         }
     }
 }
+
