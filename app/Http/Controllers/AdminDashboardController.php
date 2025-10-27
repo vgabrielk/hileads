@@ -25,7 +25,7 @@ class AdminDashboardController extends Controller
         $stats = [
             'total_users' => User::count(),
             'active_users' => User::where('is_active', true)->count(),
-            'admin_users' => User::where('is_admin', true)->count(),
+            'admin_users' => User::where('role', 'admin')->count(),
             'total_plans' => Plan::count(),
             'active_plans' => Plan::where('is_active', true)->count(),
             'total_subscriptions' => Subscription::count(),
