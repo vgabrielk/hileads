@@ -75,6 +75,18 @@ class MassSendingController extends Controller
         $needsLogin = false;
         
         try {
+            // TEMPORARIAMENTE DESABILITADO PARA DEBUG - Pular verificação da API
+            \Log::info('🔍 PULANDO verificação da API Wuzapi para debug');
+            $connectionIssue = true;
+            $apiError = true;
+            $apiErrorMessage = 'API temporariamente desabilitada para debug';
+            $needsConnection = false;
+            $needsLogin = false;
+            
+            // Pular toda a lógica da API e ir direto para grupos de exemplo
+            $wuzapiGroups = collect();
+            
+            /* COMENTADO TEMPORARIAMENTE
             // Primeiro, verificar se a conexão WhatsApp está ativa
             \Log::info('🔍 Verificando status da conexão WhatsApp');
             $connectionCheck = $this->service()->checkConnectionBeforeGroups();
@@ -156,6 +168,7 @@ class MassSendingController extends Controller
                     \Log::warning('❌ Falha ao obter grupos da API Wuzapi: ' . $apiErrorMessage);
                 }
             }
+            */
         } catch (\Exception $e) {
             $errorContext = [
                 'error_message' => $e->getMessage(),
