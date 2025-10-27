@@ -20,6 +20,12 @@ class DiscordLoggerService
     public function logError(string $title, string $message, array $context = []): void
     {
         try {
+            // Verificar se a URL do webhook está configurada
+            if (empty($this->webhookUrl)) {
+                \Log::warning('Discord Webhook URL não configurada. Pulando envio para Discord.');
+                return;
+            }
+            
             $embed = [
                 'title' => $title,
                 'description' => $message,
@@ -28,11 +34,18 @@ class DiscordLoggerService
                 'fields' => []
             ];
             
-            // Adicionar campos do contexto
+            // Adicionar campos do contexto (limitando tamanho)
             foreach ($context as $key => $value) {
+                $fieldValue = is_array($value) ? json_encode($value, JSON_PRETTY_PRINT) : (string)$value;
+                
+                // Limitar tamanho do campo (Discord tem limite de 1024 caracteres)
+                if (strlen($fieldValue) > 1000) {
+                    $fieldValue = substr($fieldValue, 0, 997) . '...';
+                }
+                
                 $embed['fields'][] = [
                     'name' => $key,
-                    'value' => is_array($value) ? json_encode($value, JSON_PRETTY_PRINT) : (string)$value,
+                    'value' => $fieldValue,
                     'inline' => false
                 ];
             }
@@ -42,11 +55,14 @@ class DiscordLoggerService
                 'embeds' => [$embed]
             ];
             
-            Http::timeout(10)->post($this->webhookUrl, $payload);
+            // Usar timeout menor e retry
+            Http::timeout(5)
+                ->retry(2, 1000)
+                ->post($this->webhookUrl, $payload);
             
         } catch (\Exception $e) {
-            // Se falhar ao enviar para Discord, logar normalmente
-            Log::error('Falha ao enviar log para Discord: ' . $e->getMessage());
+            // Se falhar ao enviar para Discord, logar normalmente sem usar Log::error para evitar loop
+            error_log('Falha ao enviar log para Discord: ' . $e->getMessage());
         }
     }
     
@@ -56,6 +72,12 @@ class DiscordLoggerService
     public function logSuccess(string $title, string $message, array $context = []): void
     {
         try {
+            // Verificar se a URL do webhook está configurada
+            if (empty($this->webhookUrl)) {
+                \Log::warning('Discord Webhook URL não configurada. Pulando envio para Discord.');
+                return;
+            }
+            
             $embed = [
                 'title' => $title,
                 'description' => $message,
@@ -78,10 +100,14 @@ class DiscordLoggerService
                 'embeds' => [$embed]
             ];
             
-            Http::timeout(10)->post($this->webhookUrl, $payload);
+            // Usar timeout menor e retry
+            Http::timeout(5)
+                ->retry(2, 1000)
+                ->post($this->webhookUrl, $payload);
             
         } catch (\Exception $e) {
-            Log::error('Falha ao enviar log para Discord: ' . $e->getMessage());
+            // Se falhar ao enviar para Discord, logar normalmente sem usar Log::error para evitar loop
+            error_log('Falha ao enviar log para Discord: ' . $e->getMessage());
         }
     }
     
@@ -91,6 +117,12 @@ class DiscordLoggerService
     public function logWarning(string $title, string $message, array $context = []): void
     {
         try {
+            // Verificar se a URL do webhook está configurada
+            if (empty($this->webhookUrl)) {
+                \Log::warning('Discord Webhook URL não configurada. Pulando envio para Discord.');
+                return;
+            }
+            
             $embed = [
                 'title' => $title,
                 'description' => $message,
@@ -113,10 +145,14 @@ class DiscordLoggerService
                 'embeds' => [$embed]
             ];
             
-            Http::timeout(10)->post($this->webhookUrl, $payload);
+            // Usar timeout menor e retry
+            Http::timeout(5)
+                ->retry(2, 1000)
+                ->post($this->webhookUrl, $payload);
             
         } catch (\Exception $e) {
-            Log::error('Falha ao enviar log para Discord: ' . $e->getMessage());
+            // Se falhar ao enviar para Discord, logar normalmente sem usar Log::error para evitar loop
+            error_log('Falha ao enviar log para Discord: ' . $e->getMessage());
         }
     }
 }
