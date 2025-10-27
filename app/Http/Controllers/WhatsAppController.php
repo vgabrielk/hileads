@@ -243,6 +243,26 @@ class WhatsAppController extends Controller
     }
 
     /**
+     * Verifica o status de login do WhatsApp
+     */
+    public function checkStatus()
+    {
+        try {
+            $wuzapiService = $this->getWuzapiService();
+            $result = $wuzapiService->checkLoginStatus();
+
+            return response()->json($result);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Erro ao verificar status: ' . $e->getMessage(),
+                'connected' => false,
+                'logged_in' => false
+            ]);
+        }
+    }
+
+    /**
      * Desconecta do WhatsApp (mantém sessão)
      */
     public function disconnect()

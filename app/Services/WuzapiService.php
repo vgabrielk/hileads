@@ -145,6 +145,49 @@ class WuzapiService
     }
 
     /**
+     * Verifica se o usuário está logado após escanear o QR code.
+     */
+    public function checkLoginStatus(): array
+    {
+        try {
+            $this->checkToken();
+
+            $response = Http::withHeaders([
+                'token' => $this->token,
+            ])->get($this->baseUrl . '/session/status');
+
+            if (!$response->successful()) {
+                return [
+                    'success' => false,
+                    'message' => 'Falha ao verificar status: ' . $response->body(),
+                    'connected' => false,
+                    'logged_in' => false
+                ];
+            }
+
+            $data = $response->json()['data'] ?? [];
+            $connected = $data['Connected'] ?? $data['connected'] ?? false;
+            $loggedIn = $data['LoggedIn'] ?? $data['loggedIn'] ?? false;
+
+            return [
+                'success' => true,
+                'connected' => (bool)$connected,
+                'logged_in' => (bool)$loggedIn,
+                'message' => $loggedIn ? 'Usuário logado com sucesso!' : 'Aguardando login...'
+            ];
+
+        } catch (\Exception $e) {
+            Log::error('Erro ao verificar status de login: ' . $e->getMessage());
+            return [
+                'success' => false,
+                'message' => 'Erro ao verificar status: ' . $e->getMessage(),
+                'connected' => false,
+                'logged_in' => false
+            ];
+        }
+    }
+
+    /**
      * Obtém QR code.
      */
     public function getQrCode(): array

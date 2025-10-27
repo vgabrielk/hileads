@@ -76,9 +76,26 @@
                     </div>
 
                     <!-- Loading indicator -->
-                    <div class="mt-8 flex items-center justify-center space-x-2 text-sm text-gray-600">
+                    <div id="loading-indicator" class="mt-8 flex items-center justify-center space-x-2 text-sm text-gray-600">
                         <div class="spinner"></div>
                         <span>Aguardando conexão...</span>
+                    </div>
+
+                    <!-- Success indicator -->
+                    <div id="success-indicator" class="mt-8 hidden">
+                        <div class="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4">
+                            <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-semibold text-green-800 mb-2">Conectado com sucesso!</h3>
+                        <p class="text-green-600 mb-4">Seu WhatsApp foi conectado à plataforma.</p>
+                        <a href="{{ route('whatsapp.index') }}" class="btn-ripple inline-flex items-center px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-medium rounded-xl shadow-sm transition-all">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            Continuar
+                        </a>
                     </div>
                 </div>
             @else
@@ -119,4 +136,50 @@
         </div>
     </div>
 </div>
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const loadingIndicator = document.getElementById('loading-indicator');
+    const successIndicator = document.getElementById('success-indicator');
+    
+    if (loadingIndicator && successIndicator) {
+        // Verificar status a cada 3 segundos
+        const checkStatus = setInterval(async function() {
+            try {
+                const response = await fetch('{{ route("whatsapp.status") }}', {
+                    method: 'GET',
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    }
+                });
+                
+                const data = await response.json();
+                
+                if (data.success && data.logged_in) {
+                    // Usuário logado com sucesso
+                    loadingIndicator.style.display = 'none';
+                    successIndicator.classList.remove('hidden');
+                    clearInterval(checkStatus);
+                } else if (data.success && data.connected && !data.logged_in) {
+                    // Conectado mas ainda não logado - continuar aguardando
+                    console.log('Conectado, aguardando login...');
+                } else if (!data.success) {
+                    // Erro na verificação
+                    console.error('Erro ao verificar status:', data.message);
+                }
+            } catch (error) {
+                console.error('Erro na requisição:', error);
+            }
+        }, 3000);
+        
+        // Limpar o intervalo após 5 minutos para evitar requisições infinitas
+        setTimeout(() => {
+            clearInterval(checkStatus);
+        }, 300000); // 5 minutos
+    }
+});
+</script>
+@endpush
 @endsection

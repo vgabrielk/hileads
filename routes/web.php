@@ -57,6 +57,7 @@ Route::middleware('auth')->group(function () {
     // WhatsApp Connections
     Route::get('/whatsapp', [WhatsAppController::class, 'index'])->name('whatsapp.index')->middleware('subscription.security');
     Route::get('/whatsapp/connect', [WhatsAppController::class, 'connect'])->name('whatsapp.connect')->middleware('subscription.security');
+    Route::get('/whatsapp/status', [WhatsAppController::class, 'checkStatus'])->name('whatsapp.status')->middleware('subscription.security');
     Route::post('/whatsapp/disconnect', [WhatsAppController::class, 'disconnect'])->name('whatsapp.disconnect')->middleware('subscription.security');
     Route::post('/whatsapp/logout', [WhatsAppController::class, 'logout'])->name('whatsapp.logout')->middleware('subscription.security');
     Route::get('/whatsapp/{whatsapp}', [WhatsAppController::class, 'show'])->name('whatsapp.show')->middleware('subscription.security');
