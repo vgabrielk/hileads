@@ -11,9 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('campaigns', function (Blueprint $table) {
-            $table->json('contact_ids')->nullable()->after('message');
-        });
+        // Check if the column already exists before adding it
+        if (!Schema::hasColumn('mass_sendings', 'contact_ids')) {
+            Schema::table('mass_sendings', function (Blueprint $table) {
+                $table->json('contact_ids')->nullable()->after('message');
+            });
+        }
     }
 
     /**
@@ -21,8 +24,11 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('campaigns', function (Blueprint $table) {
-            $table->dropColumn('contact_ids');
-        });
+        // Check if the column exists before dropping it
+        if (Schema::hasColumn('mass_sendings', 'contact_ids')) {
+            Schema::table('mass_sendings', function (Blueprint $table) {
+                $table->dropColumn('contact_ids');
+            });
+        }
     }
 };
