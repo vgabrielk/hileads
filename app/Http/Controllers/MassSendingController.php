@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\MassSending;
 use App\Models\ExtractedContact;
 use App\Services\WuzapiService;
+use App\Services\DiscordLoggerService;
 use App\Jobs\ProcessMassSendingJob;
 
 class MassSendingController extends Controller
@@ -13,6 +14,11 @@ class MassSendingController extends Controller
     private function service(): WuzapiService
     {
         return new WuzapiService(auth()->user()->api_token);
+    }
+    
+    private function discordLogger(): DiscordLoggerService
+    {
+        return new DiscordLoggerService();
     }
 
     public function index()
@@ -98,10 +104,21 @@ class MassSendingController extends Controller
                                 'from_api' => true,
                             ];
                         } catch (\Exception $e) {
-                            \Log::error('Erro ao processar grupo da API:', [
+                            $errorContext = [
                                 'group_data' => $group,
-                                'error' => $e->getMessage()
-                            ]);
+                                'error' => $e->getMessage(),
+                                'user_id' => auth()->id()
+                            ];
+                            
+                            \Log::error('Erro ao processar grupo da API:', $errorContext);
+                            
+                            // Enviar para Discord
+                            $this->discordLogger()->logError(
+                                '📊 Erro ao Processar Grupo da API',
+                                "Erro ao processar grupo da API: {$e->getMessage()}",
+                                $errorContext
+                            );
+                            
                             return null;
                         }
                     })->filter(); // Remove grupos nulos
@@ -116,15 +133,24 @@ class MassSendingController extends Controller
                 }
             }
         } catch (\Exception $e) {
-            \Log::error('💥 Erro ao buscar grupos da API Wuzapi: ' . $e->getMessage(), [
+            $errorContext = [
                 'error_message' => $e->getMessage(),
                 'error_file' => $e->getFile(),
                 'error_line' => $e->getLine(),
-                'error_trace' => $e->getTraceAsString(),
                 'user_id' => auth()->id(),
                 'request_url' => request()->url(),
                 'request_method' => request()->method()
-            ]);
+            ];
+            
+            \Log::error('💥 Erro ao buscar grupos da API Wuzapi: ' . $e->getMessage(), $errorContext);
+            
+            // Enviar para Discord
+            $this->discordLogger()->logError(
+                '🚨 Erro na API Wuzapi - Mass Sendings Create',
+                "Erro ao buscar grupos da API Wuzapi: {$e->getMessage()}",
+                $errorContext
+            );
+            
             $apiError = true;
             $apiErrorMessage = $e->getMessage();
             
@@ -210,7 +236,7 @@ class MassSendingController extends Controller
         return view('mass-sendings.create', compact('validGroups', 'apiError', 'apiErrorMessage', 'connectionIssue', 'needsConnection', 'needsLogin', 'group'));
         
         } catch (\Exception $e) {
-            \Log::error('💥 Erro crítico no método create:', [
+            $errorContext = [
                 'error_message' => $e->getMessage(),
                 'error_file' => $e->getFile(),
                 'error_line' => $e->getLine(),
@@ -218,7 +244,16 @@ class MassSendingController extends Controller
                 'user_id' => auth()->id(),
                 'request_url' => request()->url(),
                 'request_method' => request()->method()
-            ]);
+            ];
+            
+            \Log::error('💥 Erro crítico no método create:', $errorContext);
+            
+            // Enviar para Discord
+            $this->discordLogger()->logError(
+                '🚨 Erro Crítico - Mass Sendings Create',
+                "Erro crítico no método create: {$e->getMessage()}",
+                $errorContext
+            );
             
             // Retornar view com erro genérico para evitar 500
             return view('mass-sendings.create', [
@@ -342,10 +377,20 @@ class MassSendingController extends Controller
             return "data:image/svg+xml;base64," . base64_encode($svg);
             
         } catch (\Exception $e) {
-            \Log::error('Erro ao gerar avatar do grupo: ' . $e->getMessage(), [
+            $errorContext = [
                 'group_name' => $groupName,
-                'error' => $e->getMessage()
-            ]);
+                'error' => $e->getMessage(),
+                'user_id' => auth()->id()
+            ];
+            
+            \Log::error('Erro ao gerar avatar do grupo: ' . $e->getMessage(), $errorContext);
+            
+            // Enviar para Discord
+            $this->discordLogger()->logError(
+                '🎨 Erro ao Gerar Avatar do Grupo',
+                "Erro ao gerar avatar do grupo: {$e->getMessage()}",
+                $errorContext
+            );
             
             // Retornar avatar padrão em caso de erro
             return "data:image/svg+xml;base64," . base64_encode("
