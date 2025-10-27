@@ -1,0 +1,824 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\MassSending;
+use App\Models\ExtractedContact;
+use App\Services\WuzapiService;
+use App\Jobs\ProcessMassSendingJob;
+
+class MassSendingController extends Controller
+{
+    private function service(): WuzapiService
+    {
+        return new WuzapiService(auth()->user()->api_token);
+    }
+
+    public function index()
+    {
+        // Use a more efficient query with explicit ordering and limits
+        $massSendings = auth()->user()->massSendings()
+            ->select('id', 'name', 'message', 'status', 'total_contacts', 'sent_count', 'created_at', 'started_at', 'completed_at')
+            ->orderBy('created_at', 'desc')
+            ->paginate(20);
+        
+        return view('mass-sendings.index', compact('massSendings'));
+    }
+
+    public function create(Request $request)
+    {
+        // Check if this is a group-based mass sending
+        $group = null;
+        if ($request->has('group_id')) {
+            $group = \App\Models\Group::findOrFail($request->group_id);
+            $this->authorize('view', $group);
+        }
+
+        // Get WhatsApp groups in real-time from Wuzapi API
+        $wuzapiGroups = collect();
+        $apiError = false;
+        $apiErrorMessage = '';
+        $connectionIssue = false;
+        $needsConnection = false;
+        $needsLogin = false;
+        
+        try {
+            // Primeiro, verificar se a conexão WhatsApp está ativa
+            \Log::info('🔍 Verificando status da conexão WhatsApp');
+            $connectionCheck = $this->service()->checkConnectionBeforeGroups();
+            
+            if (!$connectionCheck['success']) {
+                $connectionIssue = true;
+                $apiError = true;
+                $apiErrorMessage = $connectionCheck['message'];
+                $needsConnection = $connectionCheck['needs_connection'] ?? false;
+                $needsLogin = $connectionCheck['needs_login'] ?? false;
+                
+                \Log::warning('❌ Problema de conexão WhatsApp: ' . $apiErrorMessage);
+            } else {
+                \Log::info('✅ Conexão WhatsApp verificada, buscando grupos...');
+                $response = $this->service()->getGroups();
+                
+                \Log::info('📡 Resposta da API getGroups:', [
+                    'success' => $response['success'] ?? false,
+                    'data_count' => count($response['data'] ?? []),
+                    'message' => $response['message'] ?? null
+                ]);
+                
+                if ($response['success'] ?? false) {
+                    $wuzapiGroups = collect($response['data'] ?? [])->map(function($group) {
+                        // Get all participant JIDs (including @lid)
+                        $participantJIDs = collect($group['Participants'] ?? [])
+                            ->pluck('JID')
+                            ->filter()
+                            ->values()
+                            ->all();
+                        
+                        // Generate group avatar
+                        $groupPhoto = $this->generateGroupAvatar($group['Name'] ?? 'Grupo');
+                        
+                        return [
+                            'jid' => $group['JID'] ?? '',
+                            'name' => $group['Name'] ?? 'Grupo sem nome',
+                            'participants_count' => count($group['Participants'] ?? []),
+                            'participant_jids' => $participantJIDs,
+                            'participants' => $group['Participants'] ?? [],
+                            'is_announce' => $group['IsAnnounce'] ?? false,
+                            'created_at' => $group['GroupCreated'] ?? null,
+                            'photo' => $groupPhoto,
+                            'from_api' => true,
+                        ];
+                    });
+                    
+                    \Log::info('✅ Grupos obtidos com sucesso:', [
+                        'total_groups' => $wuzapiGroups->count()
+                    ]);
+                } else {
+                    $apiError = true;
+                    $apiErrorMessage = $response['message'] ?? 'Erro desconhecido na API';
+                    \Log::warning('❌ Falha ao obter grupos da API Wuzapi: ' . $apiErrorMessage);
+                }
+            }
+        } catch (\Exception $e) {
+            \Log::error('💥 Erro ao buscar grupos da API Wuzapi: ' . $e->getMessage());
+            $apiError = true;
+            $apiErrorMessage = $e->getMessage();
+            
+            // Adicionar grupos de exemplo para demonstração quando a API falha
+            $wuzapiGroups = collect([
+                [
+                    'JID' => 'example_group_1@g.us',
+                    'Name' => 'Grupo de Exemplo 1',
+                    'Participants' => [
+                        ['JID' => '5511999999999@s.whatsapp.net', 'PhoneNumber' => '5511999999999@s.whatsapp.net'],
+                        ['JID' => '5511888888888@s.whatsapp.net', 'PhoneNumber' => '5511888888888@s.whatsapp.net'],
+                        ['JID' => '5511777777777@s.whatsapp.net', 'PhoneNumber' => '5511777777777@s.whatsapp.net'],
+                    ],
+                    'IsAnnounce' => false,
+                    'GroupCreated' => now(),
+                ],
+                [
+                    'JID' => 'example_group_2@g.us',
+                    'Name' => 'Grupo de Exemplo 2',
+                    'Participants' => [
+                        ['JID' => '5511666666666@s.whatsapp.net', 'PhoneNumber' => '5511666666666@s.whatsapp.net'],
+                        ['JID' => '5511555555555@s.whatsapp.net', 'PhoneNumber' => '5511555555555@s.whatsapp.net'],
+                    ],
+                    'IsAnnounce' => false,
+                    'GroupCreated' => now(),
+                ]
+            ])->map(function($group) {
+                $participantJIDs = collect($group['Participants'] ?? [])
+                    ->pluck('JID')
+                    ->filter()
+                    ->values()
+                    ->all();
+                
+                $groupPhoto = $this->generateGroupAvatar($group['Name'] ?? 'Grupo');
+                
+                return [
+                    'jid' => $group['JID'] ?? '',
+                    'name' => $group['Name'] ?? 'Grupo sem nome',
+                    'participants_count' => count($group['Participants'] ?? []),
+                    'participant_jids' => $participantJIDs,
+                    'participants' => $group['Participants'] ?? [],
+                    'is_announce' => $group['IsAnnounce'] ?? false,
+                    'created_at' => $group['GroupCreated'] ?? null,
+                    'photo' => $groupPhoto,
+                    'from_api' => false,
+                    'is_example' => true,
+                ];
+            });
+        }
+        
+        // Filtrar apenas grupos com participantes válidos (telefones reais)
+        $validGroups = [];
+        foreach ($wuzapiGroups as $group) {
+            $validParticipants = [];
+            foreach ($group['participants'] as $participant) {
+                // Verificar se é um array e tem PhoneNumber
+                if (is_array($participant) && isset($participant['PhoneNumber'])) {
+                    $phoneNumber = $participant['PhoneNumber'];
+                    // Aceitar apenas telefones que terminam com @s.whatsapp.net
+                    if (str_ends_with($phoneNumber, '@s.whatsapp.net')) {
+                        $validParticipants[] = $phoneNumber;
+                    }
+                }
+            }
+            
+            if (!empty($validParticipants)) {
+                $group['valid_participants'] = $validParticipants;
+                $group['valid_count'] = count($validParticipants);
+                $validGroups[] = $group;
+            }
+        }
+        
+        \Log::info('📊 Processamento de grupos concluído:', [
+            'total_groups_from_api' => $wuzapiGroups->count(),
+            'valid_groups_with_participants' => count($validGroups),
+            'api_error' => $apiError,
+            'api_error_message' => $apiErrorMessage,
+            'connection_issue' => $connectionIssue,
+            'needs_connection' => $needsConnection,
+            'needs_login' => $needsLogin
+        ]);
+            
+        return view('mass-sendings.create', compact('validGroups', 'apiError', 'apiErrorMessage', 'connectionIssue', 'needsConnection', 'needsLogin', 'group'));
+    }
+
+    /**
+     * Regenera o token de API do usuário
+     */
+    public function regenerateToken()
+    {
+        try {
+            $user = auth()->user();
+            $newToken = 'wuzapi_' . bin2hex(random_bytes(32));
+            
+            $user->update(['api_token' => $newToken]);
+            
+            return response()->json([
+                'success' => true,
+                'message' => 'Token regenerado com sucesso! Reconecte o WhatsApp com o novo token.',
+                'new_token' => $newToken
+            ]);
+        } catch (\Exception $e) {
+            \Log::error('Erro ao regenerar token: ' . $e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => 'Erro ao regenerar token: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Inicia reconexão do WhatsApp
+     */
+    public function reconnectWhatsApp()
+    {
+        try {
+            $response = $this->service()->connectToWhatsApp();
+            
+            return response()->json([
+                'success' => $response['success'] ?? false,
+                'message' => $response['message'] ?? 'Tentativa de reconexão iniciada',
+                'qr_code' => $response['qr_code'] ?? null,
+                'already_connected' => $response['already_connected'] ?? false,
+                'already_logged_in' => $response['already_logged_in'] ?? false
+            ]);
+        } catch (\Exception $e) {
+            \Log::error('Erro ao reconectar WhatsApp: ' . $e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => 'Erro ao reconectar WhatsApp: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Gera um avatar baseado no nome do grupo
+     */
+    private function generateGroupAvatar(string $groupName): string
+    {
+        // Cores disponíveis para os avatares
+        $colors = [
+            'bg-red-500', 'bg-blue-500', 'bg-green-500', 'bg-yellow-500',
+            'bg-purple-500', 'bg-pink-500', 'bg-indigo-500', 'bg-teal-500',
+            'bg-orange-500', 'bg-cyan-500', 'bg-lime-500', 'bg-amber-500'
+        ];
+        
+        // Pega as primeiras letras do nome do grupo
+        $initials = '';
+        $words = explode(' ', trim($groupName));
+        foreach ($words as $word) {
+            if (!empty($word)) {
+                $initials .= strtoupper(substr($word, 0, 1));
+                if (strlen($initials) >= 2) break;
+            }
+        }
+        
+        // Se não conseguir pegar iniciais, usa as primeiras letras do nome
+        if (empty($initials)) {
+            $initials = strtoupper(substr($groupName, 0, 2));
+        }
+        
+        // Seleciona uma cor baseada no hash do nome
+        $colorIndex = crc32($groupName) % count($colors);
+        $color = $colors[$colorIndex];
+        
+        return "data:image/svg+xml;base64," . base64_encode("
+            <svg width='56' height='56' viewBox='0 0 56 56' xmlns='http://www.w3.org/2000/svg'>
+                <rect width='56' height='56' rx='12' fill='currentColor' class='{$color}'/>
+                <text x='28' y='32' text-anchor='middle' fill='white' font-family='system-ui, sans-serif' font-size='16' font-weight='bold'>{$initials}</text>
+            </svg>
+        ");
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'message' => 'nullable|string|max:1000',
+            'media_caption' => 'nullable|string|max:1000',
+            'media_type' => 'nullable|string|in:text,image,video,audio,document',
+            'media_data' => 'nullable|string',
+            'wuzapi_participants' => 'nullable|array',
+            'wuzapi_participants.*' => 'string',
+            'manual_numbers' => 'nullable|string',
+            'scheduled_at' => 'nullable|date|after:now',
+            'group_id' => 'nullable|exists:groups,id',
+        ], [
+            'wuzapi_participants.required' => 'Selecione pelo menos um grupo ou adicione números manualmente.',
+        ]);
+
+        // Verificar limite de campanhas do plano
+        $user = auth()->user();
+        $campaignCheck = \App\Helpers\PlanLimitsHelper::canCreateCampaign($user);
+        
+        if (!$campaignCheck['can_create']) {
+            return back()->withErrors([
+                'name' => $campaignCheck['message']
+            ]);
+        }
+
+        // Debug: Log all request data
+        \Log::info('📋 Mass sending creation request', [
+            'has_media_type' => $request->has('media_type'),
+            'has_media_data' => $request->has('media_data'),
+            'media_type' => $request->input('media_type'),
+            'message' => $request->input('message'),
+            'media_caption' => $request->input('media_caption'),
+            'all_input' => $request->all()
+        ]);
+
+        $wuzapiParticipants = $request->wuzapi_participants ?? [];
+        $manualNumbers = $request->manual_numbers ?? '';
+        $groupParticipants = [];
+        
+        // Processar participantes de grupo se especificado
+        if ($request->has('group_id')) {
+            $group = \App\Models\Group::findOrFail($request->group_id);
+            $this->authorize('view', $group);
+            
+            $groupContacts = $group->getContactsFromApi();
+            foreach ($groupContacts as $contact) {
+                $groupParticipants[] = $contact['jid'];
+            }
+        }
+        
+        // Processar números manuais
+        $manualParticipants = [];
+        if (!empty($manualNumbers)) {
+            $numbers = array_filter(array_map('trim', explode("\n", $manualNumbers)));
+            foreach ($numbers as $number) {
+                if (!empty($number) && is_numeric($number)) {
+                    // Adicionar @s.whatsapp.net para formar o JID
+                    $manualParticipants[] = $number . '@s.whatsapp.net';
+                }
+            }
+        }
+        
+        // Combinar participantes de grupos, grupos personalizados e números manuais
+        $allParticipants = array_merge($wuzapiParticipants, $groupParticipants, $manualParticipants);
+        $totalContacts = count($allParticipants);
+        
+        // Validar se há pelo menos um destinatário
+        if ($totalContacts === 0) {
+            return back()->withErrors([
+                'wuzapi_participants' => 'Selecione pelo menos um grupo ou adicione números manualmente.'
+            ]);
+        }
+
+        // Validar se há conteúdo (texto ou mídia)
+        if (empty($request->message) && !$request->has('media_data')) {
+            \Log::warning('❌ No content provided', [
+                'has_message' => !empty($request->message),
+                'has_media_data' => $request->has('media_data'),
+                'message' => $request->message,
+                'media_type' => $request->input('media_type')
+            ]);
+            return back()->withErrors([
+                'message' => 'Digite uma mensagem ou adicione uma mídia.'
+            ]);
+        }
+
+        // Determinar o tipo de mensagem e conteúdo
+        $messageType = 'text';
+        $messageContent = $request->message;
+        $mediaData = null;
+        
+        // Se há mídia selecionada (vem do JavaScript)
+        if ($request->has('media_type') && $request->has('media_data')) {
+            $messageType = $request->media_type;
+            $messageContent = $request->media_caption ?? '';
+            
+            // Decodificar dados de mídia se vier como JSON string
+            $mediaData = is_string($request->media_data) 
+                ? json_decode($request->media_data, true) 
+                : $request->media_data;
+                
+            \Log::info('📱 Media mass sending created', [
+                'message_type' => $messageType,
+                'message_content' => $messageContent,
+                'media_data_keys' => $mediaData ? array_keys($mediaData) : null,
+                'has_base64' => isset($mediaData['base64']) ? !empty($mediaData['base64']) : false
+            ]);
+        }
+
+        $massSending = auth()->user()->massSendings()->create([
+            'name' => $request->name,
+            'message' => $messageContent,
+            'message_type' => $messageType,
+            'media_data' => $mediaData,
+            'status' => 'draft',
+            'contact_ids' => [],
+            'wuzapi_participants' => $allParticipants,
+            'total_contacts' => $totalContacts,
+            'scheduled_at' => $request->scheduled_at,
+        ]);
+
+        // Mass sending is created as draft - user needs to start it manually
+
+        $message = "Envio em massa criado com sucesso! {$totalContacts} destinatários adicionados.";
+        if (count($wuzapiParticipants) > 0 && count($manualParticipants) > 0) {
+            $groupCount = $totalContacts - count($manualParticipants);
+            $manualCount = count($manualParticipants);
+            $message .= " ({$groupCount} de grupos + {$manualCount} manuais)";
+        } elseif (count($manualParticipants) > 0) {
+            $message .= " (" . count($manualParticipants) . " números manuais)";
+        }
+
+        return redirect()->route('mass-sendings.show', $massSending)
+            ->with('success', $message);
+    }
+
+    public function show(MassSending $massSending)
+    {
+        $this->authorize('view', $massSending);
+        
+        // Get Wuzapi participants (JIDs)
+        $wuzapiParticipants = [];
+        if (!empty($massSending->wuzapi_participants)) {
+            try {
+                $jids = $massSending->wuzapi_participants;
+                
+                // Get all contacts from Wuzapi API (same as ContactController)
+                $contactsData = [];
+                try {
+                    $contactsResponse = $this->service()->getContacts();
+                    if ($contactsResponse['success'] ?? false) {
+                        $contactsData = $contactsResponse['data'] ?? [];
+                    }
+                } catch (\Exception $e) {
+                    \Log::warning('Erro ao obter contatos da Wuzapi: ' . $e->getMessage());
+                }
+                
+                // Map JIDs for display with contact info
+                $wuzapiParticipants = collect($jids)->map(function($jid) use ($contactsData) {
+                    // Extract phone number from JID
+                    $phone = str_replace('@s.whatsapp.net', '', $jid);
+                    
+                    // Find contact info for this JID
+                    $contactInfo = $contactsData[$jid] ?? null;
+                    
+                    // Get name from contact info (same logic as ContactController)
+                    $name = null;
+                    if ($contactInfo) {
+                        $name = $contactInfo['PushName'] ?? null;
+                    }
+                    
+                    return [
+                        'jid' => $jid,
+                        'phone' => $phone,
+                        'name' => $name,
+                        'type' => 'Telefone WhatsApp'
+                    ];
+                })->values()->all();
+                
+            } catch (\Exception $e) {
+                \Log::error('Erro ao processar participantes Wuzapi: ' . $e->getMessage());
+            }
+        }
+            
+        return view('mass-sendings.show', compact('massSending', 'wuzapiParticipants'));
+    }
+
+    public function start(MassSending $massSending)
+    {
+        $this->authorize('update', $massSending);
+        
+        if ($massSending->status !== 'draft') {
+            return back()->with('error', 'Apenas envio em massas em rascunho podem ser iniciadas.');
+        }
+
+        $massSending->update([
+            'status' => 'active',
+            'started_at' => now(),
+        ]);
+
+        // Dispatch job to process mass sending
+        ProcessMassSendingJob::dispatch($massSending);
+
+        return back()->with('success', 'Envio em massa iniciada! O envio está sendo processado em segundo plano.');
+    }
+
+    public function pause(MassSending $massSending)
+    {
+        $this->authorize('update', $massSending);
+        
+        // Set pause flag in cache for immediate effect
+        $pauseKey = "mass_sending_pause_{$massSending->id}";
+        \Cache::put($pauseKey, true, 3600); // 1 hour
+        
+        // Update database status
+        $massSending->update(['status' => 'paused']);
+        
+        \Log::info("⏸️ Mass sending paused", [
+            'mass_sending_id' => $massSending->id,
+            'pause_key' => $pauseKey
+        ]);
+        
+        return back()->with('success', 'Envio em massa pausado com sucesso!');
+    }
+
+    public function resume(MassSending $massSending)
+    {
+        $this->authorize('update', $massSending);
+        
+        // Clear pause flag
+        $pauseKey = "mass_sending_pause_{$massSending->id}";
+        \Cache::forget($pauseKey);
+        
+        // Check if there are remaining contacts to send
+        $remainingContacts = $massSending->total_contacts - $massSending->sent_count;
+        
+        if ($remainingContacts <= 0) {
+            return back()->with('error', 'Não há contatos restantes para enviar!');
+        }
+        
+        // Update status to active
+        $massSending->update(['status' => 'active']);
+        
+        // Dispatch job to process remaining contacts
+        ProcessMassSendingJob::dispatch($massSending);
+        
+        \Log::info("▶️ Mass sending resumed", [
+            'mass_sending_id' => $massSending->id,
+            'remaining_contacts' => $remainingContacts
+        ]);
+        
+        return back()->with('success', "Envio em massa retomada! Processando {$remainingContacts} contatos restantes...");
+    }
+    
+    public function progress(MassSending $massSending)
+    {
+        $this->authorize('view', $massSending);
+        
+        $progressKey = "mass_sending_progress_{$massSending->id}";
+        $progress = \Cache::get($progressKey, [
+            'status' => 'not_started',
+            'total' => 0,
+            'sent' => 0,
+            'failed' => 0,
+            'current_message' => 'Envio em massa não iniciada',
+            'started_at' => null,
+            'completed_at' => null,
+        ]);
+        
+        // If campaign is completed or failed, clean up cache after some time
+        if (in_array($progress['status'], ['completed', 'failed']) && isset($progress['completed_at'])) {
+            $completedAt = \Carbon\Carbon::parse($progress['completed_at']);
+            if ($completedAt->diffInMinutes(now()) > 5) {
+                \Cache::forget($progressKey);
+                $progress['status'] = 'not_started';
+            }
+        }
+        
+        return response()->json($progress);
+    }
+
+    public function destroy(MassSending $massSending)
+    {
+        $this->authorize('delete', $massSending);
+        
+        if ($massSending->status === 'active') {
+            return back()->with('error', 'Não é possível excluir uma envio em massa ativa.');
+        }
+        
+        $massSending->delete();
+        
+        return redirect()->route('mass-sendings.index')
+            ->with('success', 'Envio em massa excluída com sucesso!');
+    }
+
+    /**
+     * Update mass sending inline (AJAX)
+     */
+    public function updateInline(Request $request, MassSending $massSending)
+    {
+        $this->authorize('update', $massSending);
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'message' => 'required|string|max:1000',
+        ]);
+
+        // Não permitir editar envio em massas ativas
+        if ($massSending->status === 'active') {
+            return response()->json([
+                'success' => false,
+                'message' => 'Não é possível editar uma envio em massa ativa.'
+            ], 422);
+        }
+
+        $massSending->update([
+            'name' => $request->name,
+            'message' => $request->message,
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Envio em massa atualizada com sucesso!',
+            'campaign' => [
+                'id' => $massSending->id,
+                'name' => $massSending->name,
+                'message' => $massSending->message,
+                'status' => $massSending->status,
+            ]
+        ]);
+    }
+
+    /**
+     * Resend mass sending with new message
+     */
+    public function resend(Request $request, MassSending $massSending)
+    {
+        $this->authorize('update', $massSending);
+
+        $request->validate([
+            'message' => 'required|string|max:1000',
+        ]);
+
+        // Criar nova envio em massa baseada na atual
+        $newCampaign = MassSending::create([
+            'user_id' => $massSending->user_id,
+            'name' => $massSending->name . ' (Reenvio)',
+            'message' => $request->message,
+            'status' => 'draft',
+            'contact_ids' => $massSending->contact_ids,
+            'wuzapi_participants' => $massSending->wuzapi_participants,
+            'total_contacts' => $massSending->total_contacts,
+            'sent_count' => 0,
+            'delivered_count' => 0,
+            'read_count' => 0,
+            'replied_count' => 0,
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Nova envio em massa criada com sucesso!',
+            'campaign' => [
+                'id' => $newCampaign->id,
+                'name' => $newCampaign->name,
+                'message' => $newCampaign->message,
+                'status' => $newCampaign->status,
+            ],
+            'redirect_url' => route('mass-sendings.show', $newCampaign)
+        ]);
+    }
+
+    /**
+     * Get mass sending data for inline editing
+     */
+    public function getEditData(MassSending $massSending)
+    {
+        $this->authorize('view', $massSending);
+
+        return response()->json([
+            'success' => true,
+            'campaign' => [
+                'id' => $massSending->id,
+                'name' => $massSending->name,
+                'message' => $massSending->message,
+                'status' => $massSending->status,
+                'can_edit' => $massSending->status !== 'active',
+            ]
+        ]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(MassSending $massSending)
+    {
+        $this->authorize('view', $massSending);
+
+        // Não permitir editar envio em massas ativas
+        if ($massSending->status === 'active') {
+            return redirect()->route('mass-sendings.index')
+                ->with('error', 'Não é possível editar uma envio em massa ativa.');
+        }
+
+        // Get WhatsApp groups in real-time from Wuzapi API
+        $wuzapiGroups = [];
+        $apiError = false;
+        
+        try {
+            $response = $this->service()->getGroups();
+            if ($response['success'] ?? false) {
+                $wuzapiGroups = collect($response['data'] ?? [])->map(function($group) {
+                    // Get all participant JIDs (including @lid)
+                    $participantJIDs = collect($group['Participants'] ?? [])
+                        ->pluck('JID')
+                        ->filter()
+                        ->values()
+                        ->all();
+                    
+                    // Generate group avatar
+                    $groupPhoto = $this->generateGroupAvatar($group['Name'] ?? 'Grupo');
+                    
+                    return [
+                        'jid' => $group['JID'] ?? '',
+                        'name' => $group['Name'] ?? 'Grupo sem nome',
+                        'participants_count' => count($participantJIDs),
+                        'participant_jids' => $participantJIDs,
+                        'participants' => collect($group['Participants'] ?? [])->map(function($participant) {
+                            return [
+                                'JID' => $participant['JID'] ?? '',
+                                'PhoneNumber' => $participant['PhoneNumber'] ?? $participant['JID'] ?? '',
+                            ];
+                        })->toArray(),
+                        'is_announce' => $group['IsAnnounce'] ?? false,
+                        'created_at' => $group['CreatedAt'] ?? now(),
+                        'photo' => $groupPhoto,
+                        'from_database' => false,
+                    ];
+                });
+            } else {
+                $apiError = true;
+            }
+        } catch (\Exception $e) {
+            \Log::error('Error fetching groups for mass sending edit: ' . $e->getMessage());
+            $apiError = true;
+        }
+        
+        // Filter only groups with valid participants (real phone numbers)
+        $validGroups = [];
+        foreach ($wuzapiGroups as $wuzapiGroup) {
+            $validParticipants = [];
+            foreach ($wuzapiGroup['participants'] as $participant) {
+                // Check if it's an array and has PhoneNumber
+                if (is_array($participant) && isset($participant['PhoneNumber'])) {
+                    $phoneNumber = $participant['PhoneNumber'];
+                    // Accept only phones that end with @s.whatsapp.net
+                    if (str_ends_with($phoneNumber, '@s.whatsapp.net')) {
+                        $validParticipants[] = $phoneNumber;
+                    }
+                }
+            }
+            
+            if (!empty($validParticipants)) {
+                $wuzapiGroup['valid_participants'] = $validParticipants;
+                $wuzapiGroup['valid_count'] = count($validParticipants);
+                $validGroups[] = $wuzapiGroup;
+            }
+        }
+        
+        return view('mass-sendings.edit', compact('massSending', 'validGroups', 'apiError'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, MassSending $massSending)
+    {
+        $this->authorize('update', $massSending);
+
+        // Não permitir editar envio em massas ativas
+        if ($massSending->status === 'active') {
+            return redirect()->route('mass-sendings.index')
+                ->with('error', 'Não é possível editar uma envio em massa ativa.');
+        }
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'message' => 'nullable|string|max:4096',
+            'media_caption' => 'nullable|string|max:1000',
+            'media_type' => 'nullable|string|in:text,image,video,audio,document',
+            'media_data' => 'nullable|string',
+            'wuzapi_participants' => 'nullable|array',
+            'wuzapi_participants.*' => 'string',
+            'scheduled_at' => 'nullable|date|after:now',
+        ]);
+
+        try {
+            // Get participants from form
+            $wuzapiParticipants = $request->wuzapi_participants ?? [];
+            $totalContacts = count($wuzapiParticipants);
+            
+            // Validate if there's at least one recipient
+            if ($totalContacts === 0) {
+                return back()->withErrors([
+                    'wuzapi_participants' => 'Selecione pelo menos um grupo ou adicione números manualmente.'
+                ]);
+            }
+
+            // Determine message type and content
+            $messageType = 'text';
+            $messageContent = $request->message;
+            $mediaData = null;
+            
+            // If there's media selected (comes from JavaScript)
+            if ($request->has('media_type') && $request->has('media_data')) {
+                $messageType = $request->media_type;
+                $messageContent = $request->media_caption ?? '';
+                
+                // Decode media data if it comes as JSON string
+                $mediaData = is_string($request->media_data) 
+                    ? json_decode($request->media_data, true) 
+                    : $request->media_data;
+            }
+
+            // Update mass sending
+            $massSending->update([
+                'name' => $request->name,
+                'message' => $messageContent,
+                'message_type' => $messageType,
+                'media_data' => $mediaData,
+                'wuzapi_participants' => $wuzapiParticipants,
+                'total_contacts' => $totalContacts,
+                'scheduled_at' => $request->scheduled_at,
+            ]);
+
+            return redirect()->route('mass-sendings.index')
+                ->with('success', 'Envio em massa atualizado com sucesso!');
+
+        } catch (\Exception $e) {
+            \Log::error('Error updating mass sending: ' . $e->getMessage());
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Erro ao atualizar envio em massa. Tente novamente.');
+        }
+    }
+}

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Media Upload</title>
+</head>
+<body>
+    <h1>Test Media Upload</h1>
+    
+    <form id="testForm" method="POST" action="/mass-sendings">
+        <input type="text" name="name" value="Test Campaign" required>
+        <input type="text" name="message" value="Test message">
+        
+        <div>
+            <button type="button" onclick="switchToMedia()">Switch to Media</button>
+            <button type="button" onclick="addTestFile()">Add Test File</button>
+        </div>
+        
+        <div id="mediaSection" style="display: none;">
+            <input type="file" id="fileInput" accept="image/*">
+            <textarea name="media_caption" placeholder="Caption">Test caption</textarea>
+        </div>
+        
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        let currentMessageType = 'text';
+        let selectedFiles = [];
+
+        function switchToMedia() {
+            currentMessageType = 'media';
+            document.getElementById('mediaSection').style.display = 'block';
+            console.log('Switched to media mode');
+        }
+
+        function addTestFile() {
+            const fileInput = document.getElementById('fileInput');
+            fileInput.click();
+        }
+
+        document.getElementById('fileInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const fileData = {
+                        name: file.name,
+                        type: file.type,
+                        base64: e.target.result,
+                        fileType: 'image'
+                    };
+                    selectedFiles = [fileData];
+                    console.log('File added:', fileData);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        document.getElementById('testForm').addEventListener('submit', function(e) {
+            console.log('Form submission - currentMessageType:', currentMessageType);
+            console.log('Form submission - selectedFiles:', selectedFiles.length);
+            
+            if (currentMessageType === 'media' && selectedFiles.length > 0) {
+                const file = selectedFiles[0];
+                console.log('Adding media data:', file);
+                
+                const mediaTypeInput = document.createElement('input');
+                mediaTypeInput.type = 'hidden';
+                mediaTypeInput.name = 'media_type';
+                mediaTypeInput.value = file.fileType;
+                this.appendChild(mediaTypeInput);
+                
+                const mediaDataInput = document.createElement('input');
+                mediaDataInput.type = 'hidden';
+                mediaDataInput.name = 'media_data';
+                mediaDataInput.value = JSON.stringify({
+                    name: file.name,
+                    type: file.type,
+                    base64: file.base64,
+                    size: file.size
+                });
+                this.appendChild(mediaDataInput);
+                
+                console.log('Media inputs added');
+            }
+        });
+    </script>
+</body>
+</html>

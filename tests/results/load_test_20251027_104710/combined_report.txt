@@ -1,0 +1,1923 @@
+WhatsApp Mass Sending System - Load Test Report
+Generated: Mon Oct 27 10:48:20 -03 2025
+Test Duration: 60s
+Max Users: 50
+
+=== LOAD TEST RESULTS ===
+🚀 Starting Load Test...
+📊 Testing up to 50 concurrent users for 60 seconds
+🌐 Base URL: http://127.0.0.1:8000
+
+👥 Testing with 1 concurrent users...
+   ✅ Completed: 0/1 users
+   ⚡ Duration: 0.00s
+   📈 RPS: 0.00
+   ❌ Errors: 0 (0.0%)
+
+👥 Testing with 5 concurrent users...
+   ✅ Completed: 0/5 users
+   ⚡ Duration: 0.00s
+   📈 RPS: 0.00
+   ❌ Errors: 0 (0.0%)
+
+👥 Testing with 10 concurrent users...
+   ✅ Completed: 0/10 users
+   ⚡ Duration: 0.00s
+   📈 RPS: 0.00
+   ❌ Errors: 0 (0.0%)
+
+👥 Testing with 20 concurrent users...
+   ✅ Completed: 0/20 users
+   ⚡ Duration: 0.00s
+   📈 RPS: 0.00
+   ❌ Errors: 0 (0.0%)
+
+👥 Testing with 30 concurrent users...
+   ✅ Completed: 0/30 users
+   ⚡ Duration: 0.00s
+   📈 RPS: 0.00
+   ❌ Errors: 0 (0.0%)
+
+👥 Testing with 50 concurrent users...
+   ✅ Completed: 0/50 users
+   ⚡ Duration: 0.00s
+   📈 RPS: 0.00
+   ❌ Errors: 0 (0.0%)
+
+
+================================================================================
+📊 LOAD TEST REPORT
+================================================================================
+
+🎯 Test Summary:
+   • Total test duration: 12.11s
+   • Maximum users tested: 50
+   • Total errors: 0
+   • Overall error rate: 0.00%
+
+📈 Performance by User Load:
+--------------------------------------------------------------------------------
+Users    Duration(s)  Completed    Errors       Error%       RPS         
+--------------------------------------------------------------------------------
+1        0.00         0            0            0.0          0.00        
+5        0.00         0            0            0.0          0.00        
+10       0.00         0            0            0.0          0.00        
+20       0.00         0            0            0.0          0.00        
+30       0.00         0            0            0.0          0.00        
+50       0.00         0            0            0.0          0.00        
+
+🔍 Recommendations:
+   • Maximum supported RPS: 0.00
+   • Maximum concurrent users: 50
+   ⚠️  Low RPS - consider adding caching or optimizing code
+   • Recommended max concurrent users: 40
+   • Recommended max RPS: 0.00
+
+⚠️  Errors encountered:
+   • No errors detected! 🎉
+
+================================================================================
+
+=== WHATSAPP API TEST RESULTS ===
+📱 WhatsApp API Load Test
+==================================================
+
+🔌 Testing connection status...
+   ❌ Response time: 12.16ms
+
+📤 Testing message sending...
+   Message to 5511999999999: ❌ (6.70ms)
+   Message to 5511888888888: ❌ (8.04ms)
+   Message to 5511777777777: ❌ (8.00ms)
+   Success rate: 0.00%
+
+📢 Testing bulk messaging...
+   Testing bulk size: 10 messages
+     ❌ Time: 0.01s | Rate: 1,362.80 msg/s
+   Testing bulk size: 50 messages
+     ❌ Time: 0.01s | Rate: 5,105.67 msg/s
+   Testing bulk size: 100 messages
+     ❌ Time: 0.01s | Rate: 11,877.84 msg/s
+   Testing bulk size: 200 messages
+     ❌ Time: 0.01s | Rate: 23,877.40 msg/s
+
+⏱️  Testing rate limits...
+   Testing 1 requests per second
+
+Deprecated: Implicit conversion from float 992790.937423706 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 992086.8873596191 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 991291.0461425781 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 992472.8870391846 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 992719.8886871338 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 990597.0096588135 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 992635.96534729 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 992106.9145202637 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 990417.9573059082 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 991906.1660766602 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+     Success rate: 0.00% | Actual RPS: 1.00
+   Testing 5 requests per second
+
+Deprecated: Implicit conversion from float 192449.99885559082 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 192666.00608825684 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 193272.066116333 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 192770.91026306152 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 192516.04080200195 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 186399.88899230957 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 192712.97454833984 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 192585.1821899414 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 192815.0177001953 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 193116.1403656006 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 192934.9422454834 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 193031.97860717773 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 193045.80688476562 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 187076.997756958 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 191597.89085388184 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 192429.9716949463 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 193055.8204650879 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 192282.86743164062 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 192295.9804534912 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 193077.99339294434 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 190673.06518554688 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 192692.9473876953 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 192777.10914611816 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 192721.0807800293 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 192692.9473876953 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 192368.9365386963 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 191985.08262634277 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 192173.9101409912 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 192516.99447631836 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 192527.96173095703 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 192007.97080993652 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 191591.215133667 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 191706.84814453125 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 192290.97366333008 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 192446.1841583252 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 191210.9375 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 192794.99053955078 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 192740.86952209473 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 189049.91149902344 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 192893.93424987793 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 192351.05514526367 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 192091.17889404297 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 192236.13739013672 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 189734.88807678223 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 191432.90519714355 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 192470.02601623535 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 192613.0771636963 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 192498.15940856934 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 192162.94288635254 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 192478.1322479248 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+     Success rate: 0.00% | Actual RPS: 3.88
+   Testing 10 requests per second
+
+Deprecated: Implicit conversion from float 92851.97257995605 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 92652.89306640625 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 89547.9679107666 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 91645.09773254395 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 92809.05723571777 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 92392.06314086914 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 92537.02163696289 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 92562.05558776855 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 92308.13980102539 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 91924.04747009277 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 92168.90335083008 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 92321.96807861328 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 91996.04988098145 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 91489.17198181152 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 91946.93565368652 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 91846.08459472656 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 91969.10858154297 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 92144.82307434082 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 91398.81134033203 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 92093.08624267578 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 92025.13694763184 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 92324.8291015625 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 91930.00793457031 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 92121.93489074707 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 92272.13859558105 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 92738.00849914551 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 92659.09194946289 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 92783.0696105957 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 92841.00532531738 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 92807.14988708496 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 92635.01167297363 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 92668.86711120605 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 90581.98928833008 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 91832.97157287598 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 92630.0048828125 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 93005.03730773926 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 92547.03521728516 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 92416.8586730957 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 92000.10299682617 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 92604.01725769043 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 90711.92741394043 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 91924.04747009277 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 91475.82054138184 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 91734.02786254883 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 92754.93621826172 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 92604.01725769043 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 91648.91242980957 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 92162.94288635254 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 91717.10014343262 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 91333.0078125 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 92696.04682922363 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 87987.04147338867 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 91221.90475463867 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 91417.16957092285 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 92538.2137298584 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 89305.97305297852 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 91926.90849304199 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 91884.94682312012 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 92148.87619018555 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 92108.82186889648 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 91684.9136352539 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 91107.94067382812 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 91190.91033935547 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 93116.14036560059 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 93034.12437438965 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 92316.96128845215 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 87777.9483795166 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 89392.04216003418 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 92700.81520080566 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 92900.84838867188 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 92833.13751220703 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 92878.19862365723 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 93132.11441040039 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 92875.0991821289 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 92118.12019348145 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 92839.81323242188 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 92266.89338684082 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 92961.16828918457 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 93240.8332824707 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 93170.02296447754 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 92813.8256072998 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 91789.10255432129 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 87363.10005187988 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 92853.16467285156 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 93331.1939239502 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 90327.11982727051 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 91676.09214782715 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 92599.9641418457 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 93144.98901367188 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 92604.97093200684 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 93170.02296447754 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 90781.78405761719 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 92374.89700317383 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 92981.9107055664 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 91192.10243225098 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 87211.94267272949 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 92383.00323486328 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 93032.93228149414 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 93123.05450439453 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 93053.91311645508 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+     Success rate: 0.00% | Actual RPS: 9.99
+   Testing 20 requests per second
+
+Deprecated: Implicit conversion from float 42660.0456237793 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42930.88912963867 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42607.11669921875 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42425.91857910156 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43015.05088806152 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42947.81684875488 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 41574.04899597168 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 40324.974060058594 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42189.884185791016 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42635.01167297363 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42846.012115478516 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 39916.086196899414 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42782.1159362793 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42433.07113647461 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42869.13871765137 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42432.1174621582 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42825.03128051758 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42780.92384338379 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42823.123931884766 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42562.055587768555 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42580.17539978027 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42705.10673522949 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43006.94465637207 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43170.976638793945 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42683.17222595215 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42709.15985107422 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42793.08319091797 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42953.06205749512 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43031.02493286133 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43138.790130615234 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42943.04847717285 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42696.04682922363 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42894.887924194336 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43119.95506286621 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43180.036544799805 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43060.82725524902 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42944.00215148926 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42961.16828918457 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42738.962173461914 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42342.94891357422 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 41720.91484069824 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42879.86755371094 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 40963.93585205078 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42033.00476074219 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 39666.93878173828 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42547.035217285156 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 41914.987564086914 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 40279.9129486084 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42372.989654541016 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42806.91146850586 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42879.86755371094 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42508.888244628906 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 41557.12127685547 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42578.983306884766 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42839.09797668457 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42805.00411987305 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43206.97784423828 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43012.90512084961 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43001.93786621094 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42971.89712524414 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42806.91146850586 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43181.94389343262 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43181.94389343262 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43215.084075927734 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42926.12075805664 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42659.09194946289 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43280.887603759766 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43112.802505493164 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43292.09327697754 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43027.92549133301 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42896.080017089844 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43041.038513183594 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42753.028869628906 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43113.040924072266 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43011.9514465332 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43082.04650878906 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42365.121841430664 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43273.019790649414 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42822.17025756836 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43175.02975463867 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43069.88716125488 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43087.053298950195 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42980.95703125 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43283.03337097168 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43308.067321777344 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42560.14823913574 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43036.98539733887 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43079.90074157715 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43138.07487487793 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43241.071701049805 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43189.096450805664 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42753.98254394531 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43066.07246398926 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43111.84883117676 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43191.00379943848 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43185.04333496094 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42582.082748413086 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43105.173110961914 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43073.94027709961 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43342.87643432617 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42941.14112854004 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43165.96984863281 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 41405.01022338867 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42928.98178100586 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43062.01934814453 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43045.09162902832 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43246.07849121094 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42999.07684326172 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42997.88475036621 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43288.99383544922 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43174.79133605957 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43297.10006713867 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43379.831314086914 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43153.09524536133 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43180.036544799805 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43275.88081359863 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43067.97981262207 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43267.059326171875 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43278.98025512695 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43162.87040710449 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43138.07487487793 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43109.941482543945 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43267.059326171875 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43322.134017944336 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43257.04574584961 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43266.10565185547 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43276.83448791504 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42918.01452636719 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43242.97904968262 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43178.8444519043 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43041.038513183594 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43101.11999511719 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43145.94268798828 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43149.0421295166 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43016.958236694336 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42238.99841308594 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42260.93292236328 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42632.150650024414 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42954.01573181152 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42844.1047668457 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 40468.97888183594 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 41405.96389770508 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42270.94650268555 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42775.917053222656 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42112.159729003906 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42245.91255187988 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42513.89503479004 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 41377.830505371094 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42453.813552856445 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42356.061935424805 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 40180.96923828125 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 36743.927001953125 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 37643.00346374512 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 40611.07635498047 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42192.02995300293 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42440.93894958496 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42358.92295837402 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43165.016174316406 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42956.16149902344 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42794.99053955078 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42990.01693725586 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43164.0625 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 41648.91242980957 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42711.06719970703 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42517.948150634766 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42892.98057556152 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43310.92834472656 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43281.12602233887 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42933.98857116699 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42861.98616027832 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43191.00379943848 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42978.09600830078 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42748.97575378418 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42393.97048950195 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42698.90785217285 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42688.17901611328 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42681.026458740234 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42731.09436035156 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 41938.114166259766 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42264.0323638916 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42259.02557373047 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 43092.06008911133 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42372.03598022461 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 41771.93641662598 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42207.05032348633 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42995.02372741699 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42917.06085205078 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42858.171463012695 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42137.908935546875 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 41955.04188537598 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42819.07081604004 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42203.95088195801 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42570.16181945801 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 40317.10624694824 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 39610.19515991211 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 36909.86633300781 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 42169.857025146484 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 40633.96453857422 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 41414.07012939453 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 38955.97457885742 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+     Success rate: 0.00% | Actual RPS: 19.96
+   Testing 50 requests per second
+
+Deprecated: Implicit conversion from float 11780.04264831543 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 11121.053695678711 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 8806.009292602539 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 10683.07876586914 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12353.91616821289 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 11750.001907348633 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12418.050765991211 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12379.903793334961 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12186.06948852539 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12430.925369262695 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12635.965347290039 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 11605.997085571289 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12720.842361450195 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12636.919021606445 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12891.073226928711 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13111.133575439453 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12998.123168945312 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12744.922637939453 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13038.177490234375 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13030.071258544922 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12854.833602905273 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12888.212203979492 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12880.821228027344 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13063.926696777344 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12532.014846801758 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12769.002914428711 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13018.150329589844 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12573.022842407227 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12969.036102294922 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12969.989776611328 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12797.136306762695 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13083.953857421875 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12995.977401733398 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12630.0048828125 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13000.984191894531 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12980.95703125 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13296.86164855957 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13247.98583984375 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13093.96743774414 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13075.847625732422 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12934.942245483398 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12954.015731811523 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13132.11441040039 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13112.08724975586 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13176.22184753418 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13059.158325195312 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13095.159530639648 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12904.901504516602 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13284.940719604492 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13024.110794067383 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 9532.947540283203 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12374.181747436523 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 11928.1005859375 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12771.86393737793 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 11152.048110961914 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12765.90347290039 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12894.887924194336 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12263.078689575195 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12980.003356933594 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12858.88671875 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12772.102355957031 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12752.0751953125 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12630.958557128906 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12793.083190917969 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12899.894714355469 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12367.029190063477 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12847.919464111328 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12667.913436889648 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12750.883102416992 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12791.175842285156 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12884.87434387207 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12877.006530761719 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13037.939071655273 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12983.818054199219 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12823.123931884766 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12924.928665161133 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12841.005325317383 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12625.951766967773 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12778.06282043457 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12527.008056640625 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13037.939071655273 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12711.067199707031 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13000.984191894531 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13047.952651977539 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13123.054504394531 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13102.073669433594 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13230.104446411133 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12974.996566772461 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13271.112442016602 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12880.105972290039 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12687.225341796875 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13257.04574584961 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12960.929870605469 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 11062.87956237793 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13165.016174316406 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12926.836013793945 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13169.069290161133 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12784.02328491211 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13086.099624633789 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13153.095245361328 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13024.826049804688 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13098.974227905273 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12765.90347290039 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12980.003356933594 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13082.046508789062 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13044.853210449219 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12253.06510925293 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12739.91584777832 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13031.978607177734 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12915.868759155273 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13119.955062866211 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12638.111114501953 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12766.141891479492 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13135.929107666016 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13176.937103271484 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12969.036102294922 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13244.88639831543 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13000.030517578125 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13206.024169921875 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13139.982223510742 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13010.997772216797 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13161.916732788086 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12883.920669555664 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12995.023727416992 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13045.09162902832 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12563.009262084961 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12554.187774658203 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12425.918579101562 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12645.978927612305 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12864.847183227539 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13049.860000610352 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12598.05679321289 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 11482.973098754883 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12278.099060058594 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 11621.971130371094 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12544.889450073242 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12271.900177001953 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12421.150207519531 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12305.04035949707 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 11628.885269165039 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13077.03971862793 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 11505.861282348633 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 10755.081176757812 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 11679.191589355469 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 3901.9775390625005 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 885.9825134277348 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 4349.01237487793 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 8462.92495727539 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 10697.860717773438 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 6456.155776977539 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 10968.942642211914 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12287.874221801758 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12359.87663269043 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 10750.07438659668 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12049.932479858398 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 11281.986236572266 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12462.873458862305 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12566.108703613281 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12166.04232788086 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12383.003234863281 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12835.044860839844 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12391.824722290039 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12769.002914428711 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12330.074310302734 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12391.109466552734 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12523.908615112305 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12964.029312133789 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13081.092834472656 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13159.055709838867 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12959.976196289062 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13143.081665039062 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13168.115615844727 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12988.109588623047 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13238.92593383789 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13132.829666137695 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13169.069290161133 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13171.930313110352 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13076.086044311523 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12573.022842407227 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12982.149124145508 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12892.980575561523 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12773.056030273438 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13230.104446411133 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12990.01693725586 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13065.118789672852 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12819.070816040039 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13142.843246459961 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12997.884750366211 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12696.046829223633 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13031.024932861328 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13093.96743774414 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12830.038070678711 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13037.939071655273 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13088.006973266602 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12958.06884765625 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13232.011795043945 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13119.955062866211 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13263.006210327148 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13321.895599365234 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13144.035339355469 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13226.051330566406 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13210.077285766602 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13180.990219116211 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 11176.128387451172 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12934.942245483398 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13237.972259521484 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13119.955062866211 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12837.905883789062 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13237.972259521484 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13258.953094482422 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13105.173110961914 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13257.999420166016 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13244.88639831543 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13173.837661743164 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12858.88671875 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12344.141006469727 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12676.019668579102 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13173.12240600586 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13033.170700073242 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13148.088455200195 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13231.058120727539 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13180.036544799805 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13365.049362182617 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13295.19271850586 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13229.150772094727 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13290.901184082031 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13224.859237670898 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13223.905563354492 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12820.978164672852 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12808.103561401367 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13180.990219116211 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13119.001388549805 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13123.054504394531 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13227.958679199219 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13226.051330566406 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13227.005004882812 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13250.131607055664 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13103.981018066406 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13184.804916381836 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13171.930313110352 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13090.86799621582 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12553.949356079102 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12803.812026977539 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12484.807968139648 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12837.905883789062 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13060.111999511719 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13032.217025756836 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13156.194686889648 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12968.082427978516 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13156.909942626953 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13046.998977661133 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13097.066879272461 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13171.930313110352 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12823.83918762207 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12827.892303466797 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13097.066879272461 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12938.995361328125 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13021.011352539062 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13193.864822387695 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13021.011352539062 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13027.925491333008 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13164.0625 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13103.02734375 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13084.907531738281 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13201.971054077148 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13140.935897827148 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13007.898330688477 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12429.971694946289 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12594.003677368164 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12734.909057617188 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12601.871490478516 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12352.962493896484 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12805.957794189453 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12449.045181274414 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12759.943008422852 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13022.20344543457 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12349.14779663086 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 9506.006240844727 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 8190.889358520508 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 9962.100982666016 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12014.884948730469 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12762.088775634766 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12702.007293701172 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12974.996566772461 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12639.06478881836 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12652.89306640625 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13041.038513183594 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12743.01528930664 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12931.127548217773 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13067.97981262207 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13087.053298950195 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13004.083633422852 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12753.982543945312 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12489.814758300781 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 10095.138549804688 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12409.944534301758 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12623.090744018555 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12552.042007446289 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12511.987686157227 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12974.042892456055 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12821.931838989258 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13067.026138305664 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13026.971817016602 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12375.850677490234 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12557.048797607422 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12839.09797668457 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12964.029312133789 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13212.93830871582 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13103.02734375 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13096.113204956055 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12929.935455322266 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12604.970932006836 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12718.935012817383 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13176.937103271484 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12941.856384277344 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13300.914764404297 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13338.10806274414 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12919.921875 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13185.997009277344 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13085.145950317383 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13201.971054077148 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13065.118789672852 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12674.112319946289 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12448.091506958008 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13061.065673828125 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12724.895477294922 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13144.989013671875 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13266.820907592773 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12469.072341918945 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13036.031723022461 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13128.061294555664 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13177.175521850586 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13256.092071533203 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12229.938507080078 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 11904.973983764648 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 9603.042602539062 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 8183.021545410156 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 4845.876693725586 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 10823.030471801758 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 8735.198974609375 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 11792.917251586914 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12443.79997253418 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12959.976196289062 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13097.066879272461 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12684.84115600586 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13158.817291259766 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13298.053741455078 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13046.998977661133 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13113.040924072266 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12687.94059753418 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12702.007293701172 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12838.859558105469 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12531.061172485352 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 10657.09114074707 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13097.066879272461 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12827.892303466797 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13030.071258544922 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13247.032165527344 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13081.808090209961 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13149.995803833008 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12939.949035644531 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13066.787719726562 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13109.941482543945 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12973.089218139648 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13227.005004882812 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13119.001388549805 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13158.817291259766 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12727.994918823242 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 9434.957504272461 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13126.153945922852 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12900.848388671875 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12852.926254272461 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12761.13510131836 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13049.860000610352 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13210.792541503906 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13136.882781982422 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13074.893951416016 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12641.925811767578 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12017.030715942383 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12555.856704711914 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12608.070373535156 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13014.097213745117 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12907.047271728516 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12865.08560180664 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12616.17660522461 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13092.060089111328 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13052.005767822266 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 11032.838821411133 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13057.966232299805 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12569.923400878906 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12835.044860839844 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12999.076843261719 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13014.812469482422 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12702.007293701172 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12862.939834594727 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12927.074432373047 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12913.961410522461 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12864.131927490234 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13057.012557983398 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13179.082870483398 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12602.109909057617 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13135.929107666016 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12933.034896850586 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12943.048477172852 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13023.872375488281 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12594.95735168457 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12613.077163696289 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12902.040481567383 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13026.971817016602 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13028.16390991211 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13034.839630126953 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12699.861526489258 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13041.038513183594 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12918.014526367188 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12601.156234741211 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13005.990982055664 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13124.008178710938 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13004.083633422852 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12832.89909362793 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12809.772491455078 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12933.034896850586 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12398.02360534668 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12429.971694946289 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12997.169494628906 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13117.094039916992 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13013.858795166016 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13057.966232299805 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13118.047714233398 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13299.96109008789 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13260.14518737793 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13235.111236572266 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13171.930313110352 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12690.086364746094 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12794.036865234375 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13042.945861816406 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12626.90544128418 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13068.933486938477 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 10674.018859863281 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13005.037307739258 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13214.845657348633 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12346.048355102539 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 11171.121597290039 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12456.197738647461 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 8808.155059814453 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12514.13345336914 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12251.873016357422 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12584.943771362305 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13008.852005004883 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12727.994918823242 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13132.11441040039 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13274.927139282227 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13098.974227905273 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13042.945861816406 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13083.000183105469 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13005.037307739258 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13222.951889038086 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12885.112762451172 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13102.788925170898 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13296.146392822266 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12604.01725769043 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12815.971374511719 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 11325.139999389648 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12766.857147216797 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12949.00894165039 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12847.919464111328 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12871.999740600586 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12974.996566772461 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 11953.134536743164 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12845.05844116211 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12974.042892456055 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12938.995361328125 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13108.987808227539 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13146.896362304688 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12781.877517700195 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13063.926696777344 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13118.047714233398 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13152.141571044922 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13099.92790222168 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13067.026138305664 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13201.971054077148 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13283.03337097168 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12866.992950439453 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13245.840072631836 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13232.965469360352 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13144.989013671875 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13154.048919677734 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12932.08122253418 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12856.025695800781 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12714.881896972656 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12894.172668457031 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13053.913116455078 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12967.12875366211 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12887.97378540039 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13191.957473754883 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12762.088775634766 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12968.082427978516 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 13142.843246459961 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12877.960205078125 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+
+Deprecated: Implicit conversion from float 12643.117904663086 to int loses precision in /home/vgabrielk/wpp/tests/whatsapp_api_test.php on line 232
+     Success rate: 0.00% | Actual RPS: 39.33
+
+👥 Testing concurrent sessions...
+   Testing 1 concurrent sessions
+     Completed: 0/1 | Success rate: 0.00%
+   Testing 5 concurrent sessions
+     Completed: 0/5 | Success rate: 0.00%
+   Testing 10 concurrent sessions
+     Completed: 0/10 | Success rate: 0.00%
+   Testing 20 concurrent sessions
+     Completed: 0/20 | Success rate: 0.00%
+
+
+📊 WHATSAPP API PERFORMANCE REPORT
+============================================================
+
+🔌 CONNECTION STATUS:
+   • Success: ❌
+   • Response time: 12.16ms
+   • HTTP code: 404
+
+📤 MESSAGE SENDING:
+   • Success rate: 0.00%
+   • Average response time: 7.58ms
+   • Successful messages: 0/3
+
+📢 BULK MESSAGING CAPACITY:
+   • 10 messages: ❌ | 1,362.80 msg/s
+   • 50 messages: ❌ | 5,105.67 msg/s
+   • 100 messages: ❌ | 11,877.84 msg/s
+   • 200 messages: ❌ | 23,877.40 msg/s
+
+⏱️  RATE LIMIT ANALYSIS:
+   • 1 RPS: 0.00% success | 1.00 actual RPS
+   • 5 RPS: 0.00% success | 3.88 actual RPS
+   • 10 RPS: 0.00% success | 9.99 actual RPS
+   • 20 RPS: 0.00% success | 19.96 actual RPS
+   • 50 RPS: 0.00% success | 39.33 actual RPS
+
+👥 CONCURRENT SESSION CAPACITY:
+   • 1 sessions: 0.00% success | 0.00 sessions/s
+   • 5 sessions: 0.00% success | 0.00 sessions/s
+   • 10 sessions: 0.00% success | 0.00 sessions/s
+   • 20 sessions: 0.00% success | 0.00 sessions/s
+
+💡 RECOMMENDATIONS:
+   ⚠️  Low message success rate - check WhatsApp API configuration
+   • Maximum bulk size: 200 messages
+   • Maximum sending rate: 23,877.40 messages/second
+   • Maximum concurrent sessions: 20
+
+🔧 OPTIMIZATION SUGGESTIONS:
+   • Implement message queuing for bulk operations
+   • Add retry logic for failed messages
+   • Use webhooks for delivery status updates
+   • Implement rate limiting on your end
+   • Monitor WhatsApp API quotas
+
+=== SYSTEM PERFORMANCE REPORT ===
+
+📊 SYSTEM PERFORMANCE REPORT
+============================================================
+
+💾 MEMORY USAGE:
+   • Average: 2 MB
+   • Peak: 2 MB
+   • Min: 2 MB
+
+🖥️  CPU USAGE:
+   • Average: 71.88%
+   • Peak: 73.88%
+   • Min: 60.35%
+
+🗄️  DATABASE CONNECTIONS:
+   • Average: 0.00
+   • Peak: 0
+   • Min: 0
+
+👥 ACTIVE USERS:
+   • Average: 0.00
+   • Peak: 0
+   • Min: 0
+
+🔍 RECOMMENDATIONS:
+   ✅ Memory usage is within acceptable limits
+
+💡 OPTIMIZATION SUGGESTIONS:
+   • Enable OPcache for PHP
+   • Use Redis for session storage
+   • Implement database query caching
+   • Consider using a CDN for static assets
+   • Monitor database slow query log

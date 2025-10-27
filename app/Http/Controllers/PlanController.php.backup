@@ -1,0 +1,262 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Plan;
+use App\Models\User;
+use App\Services\BestfyService;
+use Illuminate\Support\Facades\Log;
+
+class PlanController extends Controller
+{
+    protected BestfyService $bestfyService;
+
+    public function __construct(BestfyService $bestfyService)
+    {
+        $this->bestfyService = $bestfyService;
+    }
+
+    /**
+     * Display a listing of the plans.
+     */
+    public function index()
+    {
+        $plans = Plan::active()
+            ->orderBy('sort_order')
+            ->orderBy('price')
+            ->get();
+
+        return view('plans.index', compact('plans'));
+    }
+
+    /**
+     * Display the specified plan.
+     */
+    public function show(Plan $plan)
+    {
+        return view('plans.show', compact('plan'));
+    }
+
+    /**
+     * Check if user has active subscription for specific plan.
+     */
+    private function checkUserSubscriptionForPlan($user, $plan)
+    {
+        if ($user->hasActiveSubscriptionForPlan($plan->id)) {
+            $existingSubscription = $user->getLatestSubscriptionForPlan($plan->id);
+            return redirect()->route('subscriptions.show', $existingSubscription)
+                ->with('error', 'Você já possui uma assinatura ativa para este plano.');
+        }
+        return null;
+    }
+
+    /**
+     * Show checkout page with iframe.
+     */
+    public function checkoutPage(Plan $plan)
+    {
+        $user = auth()->user();
+        
+        // Se o usuário é admin, não precisa de assinatura
+        if ($user->isAdmin()) {
+            return redirect()->route('dashboard')
+                ->with('info', 'Usuários administradores não precisam de assinatura.');
+        }
+        
+        // Check if user already has an active subscription
+        $activeSubscription = $user->subscriptions()
+            ->where('status', 'active')
+            ->where('expires_at', '>', now())
+            ->first();
+
+        if ($activeSubscription) {
+            return redirect()->route('subscriptions.show', $activeSubscription)
+                ->with('error', 'Você já possui uma assinatura ativa.');
+        }
+
+        try {
+            // Gerar URL de postback dinâmica e segura
+            $postbackUrl = $this->generateSecurePostbackUrl($user, $plan);
+            
+            Log::info('Creating checkout for user', [
+                'user_id' => $user->id,
+                'plan_id' => $plan->id,
+                'plan_name' => $plan->name,
+                'postback_url' => $postbackUrl,
+                'user_is_admin' => $user->isAdmin(),
+                'plan_price' => $plan->price,
+                'plan_price_cents' => $plan->price_cents
+            ]);
+            
+            $checkoutData = $this->bestfyService->createCheckout($plan, $user, $postbackUrl);
+            
+            Log::info('Checkout created successfully', [
+                'checkout_id' => $checkoutData['id'] ?? null,
+                'secure_url' => $checkoutData['secureUrl'] ?? null
+            ]);
+
+            // Create subscription record
+            $subscription = $user->subscriptions()->create([
+                'plan_id' => $plan->id,
+                'status' => 'pending',
+                'bestfy_checkout_id' => $checkoutData['id'] ?? null,
+                'starts_at' => now(),
+                'expires_at' => $this->calculateExpirationDate($plan),
+                'metadata' => [
+                    'checkout_data' => $checkoutData,
+                    'created_at' => now()->toISOString()
+                ]
+            ]);
+
+            // Verificar se a URL do checkout foi retornada corretamente
+            if (empty($checkoutData['secureUrl'])) {
+                throw new \Exception('URL do checkout não foi retornada pela API da Bestfy');
+            }
+
+            // Se for uma requisição AJAX, retornar JSON
+            if (request()->ajax() || request()->wantsJson()) {
+                return response()->json([
+                    'success' => true,
+                    'redirect_url' => $checkoutData['secureUrl'],
+                    'message' => 'Redirecionando para o pagamento...'
+                ]);
+            }
+
+            // Redirecionar diretamente para a URL da Bestfy
+            return redirect($checkoutData['secureUrl'])
+                ->with('success', 'Redirecionando para o pagamento...');
+
+        } catch (\Exception $e) {
+            return redirect()->back()
+                ->with('error', 'Erro ao criar checkout: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Create checkout for a plan.
+     */
+    public function checkout(Request $request, Plan $plan)
+    {
+        $user = auth()->user();
+        
+        // Se o usuário é admin, não precisa de assinatura
+        if ($user->isAdmin()) {
+            return redirect()->route('dashboard')
+                ->with('info', 'Usuários administradores não precisam de assinatura.');
+        }
+        
+        // Check if user already has an active subscription
+        $activeSubscription = $user->subscriptions()
+            ->where('status', 'active')
+            ->where('expires_at', '>', now())
+            ->first();
+
+        if ($activeSubscription) {
+            return redirect()->route('subscriptions.show', $activeSubscription)
+                ->with('error', 'Você já possui uma assinatura ativa.');
+        }
+
+        try {
+            // Gerar URL de postback dinâmica e segura
+            $postbackUrl = $this->generateSecurePostbackUrl($user, $plan);
+            
+            Log::info('Creating checkout for user', [
+                'user_id' => $user->id,
+                'plan_id' => $plan->id,
+                'plan_name' => $plan->name,
+                'postback_url' => $postbackUrl,
+                'user_is_admin' => $user->isAdmin(),
+                'plan_price' => $plan->price,
+                'plan_price_cents' => $plan->price_cents
+            ]);
+            
+            $checkoutData = $this->bestfyService->createCheckout($plan, $user, $postbackUrl);
+            
+            Log::info('Checkout created successfully', [
+                'checkout_id' => $checkoutData['id'] ?? null,
+                'secure_url' => $checkoutData['secureUrl'] ?? null
+            ]);
+
+            // Create subscription record
+            $subscription = $user->subscriptions()->create([
+                'plan_id' => $plan->id,
+                'status' => 'pending',
+                'bestfy_checkout_id' => $checkoutData['id'] ?? null,
+                'starts_at' => now(),
+                'expires_at' => $this->calculateExpirationDate($plan),
+                'metadata' => [
+                    'checkout_data' => $checkoutData,
+                    'created_at' => now()->toISOString()
+                ]
+            ]);
+
+            // Verificar se a URL do checkout foi retornada corretamente
+            if (empty($checkoutData['secureUrl'])) {
+                throw new \Exception('URL do checkout não foi retornada pela API da Bestfy');
+            }
+
+            // Se for uma requisição AJAX, retornar JSON
+            if (request()->ajax() || request()->wantsJson()) {
+                return response()->json([
+                    'success' => true,
+                    'redirect_url' => $checkoutData['secureUrl'],
+                    'message' => 'Redirecionando para o pagamento...'
+                ]);
+            }
+
+            // Redirecionar diretamente para a URL da Bestfy
+            return redirect($checkoutData['secureUrl'])
+                ->with('success', 'Redirecionando para o pagamento...');
+
+        } catch (\Exception $e) {
+            return redirect()->back()
+                ->with('error', 'Erro ao criar checkout: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Generate secure postback URL for Bestfy webhook.
+     */
+    private function generateSecurePostbackUrl(User $user, Plan $plan): string
+    {
+        $baseUrl = config('app.url');
+        $webhookPath = route('bestfy.webhook');
+        
+        // Gerar token único para esta transação
+        $token = hash('sha256', $user->id . $plan->id . now()->timestamp . config('app.key'));
+        
+        // Armazenar token temporariamente para validação (expira em 1 hora)
+        \Cache::put("postback_token_{$token}", [
+            'user_id' => $user->id,
+            'plan_id' => $plan->id,
+            'created_at' => now()
+        ], 3600);
+        
+        Log::info('Generated secure postback URL', [
+            'user_id' => $user->id,
+            'plan_id' => $plan->id,
+            'token' => substr($token, 0, 10) . '...',
+            'webhook_url' => $webhookPath
+        ]);
+        
+        return $webhookPath;
+    }
+
+    /**
+     * Calculate expiration date based on plan interval.
+     */
+    private function calculateExpirationDate(Plan $plan): \DateTime
+    {
+        $now = now();
+        
+        if ($plan->interval === 'monthly') {
+            return $now->addMonths($plan->interval_count);
+        } elseif ($plan->interval === 'yearly') {
+            return $now->addYears($plan->interval_count);
+        }
+        
+        // Default to monthly if interval is not recognized
+        return $now->addMonth();
+    }
+}
