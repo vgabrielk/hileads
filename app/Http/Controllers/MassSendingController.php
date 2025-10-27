@@ -75,18 +75,6 @@ class MassSendingController extends Controller
         $needsLogin = false;
         
         try {
-            // TEMPORARIAMENTE DESABILITADO PARA DEBUG - Pular verificação da API
-            \Log::info('🔍 PULANDO verificação da API Wuzapi para debug');
-            $connectionIssue = true;
-            $apiError = true;
-            $apiErrorMessage = 'API temporariamente desabilitada para debug';
-            $needsConnection = false;
-            $needsLogin = false;
-            
-            // Pular toda a lógica da API e ir direto para grupos de exemplo
-            $wuzapiGroups = collect();
-            
-            /* COMENTADO TEMPORARIAMENTE
             // Primeiro, verificar se a conexão WhatsApp está ativa
             \Log::info('🔍 Verificando status da conexão WhatsApp');
             $connectionCheck = $this->service()->checkConnectionBeforeGroups();
@@ -118,6 +106,9 @@ class MassSendingController extends Controller
                                 return null;
                             }
                             
+                            // Sanitizar nome do grupo para evitar problemas
+                            $groupName = $this->sanitizeGroupName($group['Name'] ?? 'Grupo');
+                            
                             // Get all participant JIDs (including @lid)
                             $participantJIDs = collect($group['Participants'] ?? [])
                                 ->pluck('JID')
@@ -126,11 +117,11 @@ class MassSendingController extends Controller
                                 ->all();
                             
                             // Generate group avatar com tratamento de erro
-                            $groupPhoto = $this->generateGroupAvatar($group['Name'] ?? 'Grupo');
+                            $groupPhoto = $this->generateGroupAvatar($groupName);
                             
                             return [
                                 'jid' => $group['JID'] ?? '',
-                                'name' => $group['Name'] ?? 'Grupo sem nome',
+                                'name' => $groupName,
                                 'participants_count' => count($group['Participants'] ?? []),
                                 'participant_jids' => $participantJIDs,
                                 'participants' => $group['Participants'] ?? [],
@@ -168,7 +159,6 @@ class MassSendingController extends Controller
                     \Log::warning('❌ Falha ao obter grupos da API Wuzapi: ' . $apiErrorMessage);
                 }
             }
-            */
         } catch (\Exception $e) {
             $errorContext = [
                 'error_message' => $e->getMessage(),
@@ -387,6 +377,36 @@ class MassSendingController extends Controller
                 'success' => false,
                 'message' => 'Erro ao reconectar WhatsApp: ' . $e->getMessage()
             ], 500);
+        }
+    }
+
+    /**
+     * Sanitiza o nome do grupo para evitar problemas com caracteres especiais
+     */
+    private function sanitizeGroupName(string $groupName): string
+    {
+        try {
+            // Remover caracteres de controle e caracteres especiais problemáticos
+            $cleanName = preg_replace('/[\x00-\x1F\x7F-\x9F]/', '', $groupName);
+            
+            // Remover caracteres Unicode problemáticos que podem quebrar SVG/XML
+            $cleanName = preg_replace('/[^\x20-\x7E\u00C0-\u017F\u0100-\u017F\u0180-\u024F]/u', '', $cleanName);
+            
+            // Limitar tamanho
+            $cleanName = mb_substr(trim($cleanName), 0, 50);
+            
+            // Se ficou vazio, usar nome padrão
+            if (empty($cleanName)) {
+                $cleanName = 'Grupo';
+            }
+            
+            return $cleanName;
+        } catch (\Exception $e) {
+            \Log::warning('Erro ao sanitizar nome do grupo: ' . $e->getMessage(), [
+                'original_name' => $groupName,
+                'error' => $e->getMessage()
+            ]);
+            return 'Grupo';
         }
     }
 
