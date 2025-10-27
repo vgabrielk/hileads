@@ -92,8 +92,8 @@ class AdminDashboardController extends Controller
 
         // Gráfico de receita por mês (últimos 12 meses)
         $revenueByMonth = Subscription::select(
-                DB::raw('YEAR(created_at) as year'),
-                DB::raw('MONTH(created_at) as month'),
+                DB::raw('YEAR(subscriptions.created_at) as year'),
+                DB::raw('MONTH(subscriptions.created_at) as month'),
                 DB::raw('SUM(plans.price) as revenue')
             )
             ->join('plans', 'subscriptions.plan_id', '=', 'plans.id')
