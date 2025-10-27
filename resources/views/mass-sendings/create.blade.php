@@ -124,20 +124,6 @@
                                     </svg>
                                     Vídeo
                                 </button>
-                                
-                                <button type="button" id="uploadAudio" class="flex items-center px-4 py-3 bg-orange-100 hover:bg-orange-200 text-orange-700 rounded-xl transition-all hover:scale-105">
-                                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM15.657 6.343a1 1 0 011.414 0A9.972 9.972 0 0119 12a9.972 9.972 0 01-1.929 5.657 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 12a7.971 7.971 0 00-1.343-4.243 1 1 0 010-1.414z" clip-rule="evenodd"/>
-                                    </svg>
-                                    Áudio
-                                </button>
-                                
-                                <button type="button" id="uploadDocument" class="flex items-center px-4 py-3 bg-blue-100 hover:bg-blue-200 text-blue-700 rounded-xl transition-all hover:scale-105">
-                                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd"/>
-                                    </svg>
-                                    Documento
-                                </button>
                             </div>
 
                             <!-- Drag & Drop Area -->
@@ -151,13 +137,13 @@
                                         <p class="text-sm text-gray-500">ou clique para selecionar</p>
                                     </div>
                                     <p class="text-xs text-gray-400">
-                                        Suporte: JPG, PNG, GIF, MP4, MP3, PDF, DOC, etc.
+                                        Suporte: JPG, PNG, GIF, MP4, etc.
                                     </p>
                                 </div>
                             </div>
 
                             <!-- Hidden File Input -->
-                            <input type="file" id="fileInput" class="hidden" accept="image/*,video/*,audio/*,.pdf,.doc,.docx,.txt">
+                            <input type="file" id="fileInput" class="hidden" accept="image/*,video/*">
 
                             <!-- Media Caption -->
                             <div class="mt-4">
@@ -834,13 +820,9 @@ function initializeMediaFunctionality() {
     // File upload buttons
     const uploadImage = document.getElementById('uploadImage');
     const uploadVideo = document.getElementById('uploadVideo');
-    const uploadAudio = document.getElementById('uploadAudio');
-    const uploadDocument = document.getElementById('uploadDocument');
     
     if (uploadImage) uploadImage.addEventListener('click', () => openFileDialog('image'));
     if (uploadVideo) uploadVideo.addEventListener('click', () => openFileDialog('video'));
-    if (uploadAudio) uploadAudio.addEventListener('click', () => openFileDialog('audio'));
-    if (uploadDocument) uploadDocument.addEventListener('click', () => openFileDialog('document'));
     
     // Drag and drop
     const dropZone = document.getElementById('dropZone');
@@ -905,12 +887,6 @@ function openFileDialog(type) {
         case 'video':
             input.accept = 'video/*';
             break;
-        case 'audio':
-            input.accept = 'audio/*';
-            break;
-        case 'document':
-            input.accept = '.pdf,.doc,.docx,.txt,.xls,.xlsx,.ppt,.pptx';
-            break;
     }
     input.click();
 }
@@ -973,8 +949,7 @@ function convertToBase64(file) {
 function getFileType(mimeType) {
     if (mimeType.startsWith('image/')) return 'image';
     if (mimeType.startsWith('video/')) return 'video';
-    if (mimeType.startsWith('audio/')) return 'audio';
-    return 'document';
+    return 'image'; // Default to image for unsupported types
 }
 
 function updatePreview() {
@@ -1068,11 +1043,9 @@ function createFilePreview(file, index) {
 function getFileIcon(type) {
     const icons = {
         'image': '🖼️',
-        'video': '🎥',
-        'audio': '🎵',
-        'document': '📄'
+        'video': '🎥'
     };
-    return icons[type] || '📄';
+    return icons[type] || '🖼️';
 }
 
 function formatFileSize(bytes) {
