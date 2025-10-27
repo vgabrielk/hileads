@@ -406,7 +406,7 @@ class MassSendingController extends Controller
             $cleanName = preg_replace('/[\x00-\x1F\x7F-\x9F]/', '', $groupName);
             
             // Manter caracteres Unicode comuns (incluindo acentos e emojis básicos)
-            $cleanName = preg_replace('/[^\x20-\x7E\u00C0-\u017F\u0100-\u017F\u0180-\u024F\u1F600-\u1F64F\u1F300-\u1F5FF\u1F680-\u1F6FF\u1F1E0-\u1F1FF]/u', '', $cleanName);
+            $cleanName = preg_replace('/[^\x20-\x7E\xC0-\xFF\x{0100}-\x{017F}\x{0180}-\x{024F}\x{1F600}-\x{1F64F}\x{1F300}-\x{1F5FF}\x{1F680}-\x{1F6FF}\x{1F1E0}-\x{1F1FF}\x{2600}-\x{26FF}\x{2700}-\x{27BF}]/u', '', $cleanName);
             
             // Limitar tamanho
             $cleanName = mb_substr(trim($cleanName), 0, 50);
