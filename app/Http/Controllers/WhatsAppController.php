@@ -30,12 +30,23 @@ class WhatsAppController extends Controller
     {
         $connections = auth()->user()->whatsappConnections()->latest()->get();
 
-        // Não verificar status automaticamente - apenas mostrar conexões do banco
-        // O status será verificado apenas quando o usuário clicar em "Conectar WhatsApp"
-        $status = [
-            'success' => false,
-            'message' => 'Nenhuma conexão ativa. Clique em "Conectar WhatsApp" para iniciar.'
-        ];
+        // Se há conexões no banco, mostrar elas
+        if ($connections->count() > 0) {
+            $status = [
+                'success' => true,
+                'message' => 'Conexões WhatsApp encontradas.',
+                'data' => [
+                    'Connected' => true,
+                    'LoggedIn' => true
+                ]
+            ];
+        } else {
+            // Se não há conexões, mostrar mensagem para conectar
+            $status = [
+                'success' => false,
+                'message' => 'Nenhuma conexão ativa. Clique em "Conectar WhatsApp" para iniciar.'
+            ];
+        }
 
         return view('whatsapp.index', compact('connections', 'status'));
     }
@@ -256,6 +267,11 @@ class WhatsAppController extends Controller
             $wuzapiService = $this->getWuzapiService();
             $result = $wuzapiService->checkLoginStatus();
 
+            // Se o usuário está logado, salvar a conexão no banco de dados
+            if ($result['success'] && $result['logged_in']) {
+                $this->saveWhatsAppConnection($wuzapiService);
+            }
+
             return response()->json($result);
         } catch (\Exception $e) {
             return response()->json([
@@ -264,6 +280,53 @@ class WhatsAppController extends Controller
                 'connected' => false,
                 'logged_in' => false
             ]);
+        }
+    }
+
+    /**
+     * Salva a conexão WhatsApp no banco de dados
+     */
+    private function saveWhatsAppConnection($wuzapiService)
+    {
+        try {
+            $user = auth()->user();
+            
+            // Verificar se já existe uma conexão ativa para este usuário
+            $existingConnection = $user->whatsappConnections()
+                ->where('status', 'active')
+                ->first();
+
+            if ($existingConnection) {
+                // Atualizar conexão existente
+                $existingConnection->update([
+                    'last_sync' => now(),
+                    'status' => 'active',
+                    'connection_data' => [
+                        'last_verified_at' => now()->toISOString(),
+                        'user_agent' => request()->userAgent(),
+                        'ip_address' => request()->ip(),
+                        'api_token' => substr($user->api_token, 0, 10) . '...'
+                    ]
+                ]);
+                Log::info('Conexão WhatsApp atualizada', ['connection_id' => $existingConnection->id]);
+            } else {
+                // Criar nova conexão
+                $connection = $user->whatsappConnections()->create([
+                    'phone_number' => 'WhatsApp Connected',
+                    'instance_id' => 'wuzapi_' . $user->id,
+                    'status' => 'active',
+                    'last_sync' => now(),
+                    'connection_data' => [
+                        'connected_at' => now()->toISOString(),
+                        'user_agent' => request()->userAgent(),
+                        'ip_address' => request()->ip(),
+                        'api_token' => substr($user->api_token, 0, 10) . '...'
+                    ]
+                ]);
+                Log::info('Nova conexão WhatsApp criada', ['connection_id' => $connection->id]);
+            }
+        } catch (\Exception $e) {
+            Log::error('Erro ao salvar conexão WhatsApp: ' . $e->getMessage());
         }
     }
 
