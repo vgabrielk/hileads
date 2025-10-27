@@ -122,6 +122,7 @@ Route::middleware('auth')->group(function () {
     
     // Plans admin routes (only for admins)
     Route::middleware(['auth', 'admin'])->group(function () {
+        Route::get('/admin/dashboard', [App\Http\Controllers\AdminDashboardController::class, 'index'])->name('admin.dashboard');
         Route::get('/admin/plans', [PlanController::class, 'admin'])->name('plans.admin');
         Route::get('/admin/plans/create', [PlanController::class, 'create'])->name('plans.create');
         Route::post('/admin/plans', [PlanController::class, 'store'])->name('plans.store');
