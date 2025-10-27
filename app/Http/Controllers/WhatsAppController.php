@@ -7,6 +7,7 @@ use App\Models\WhatsAppConnection;
 use App\Models\WhatsAppGroup;
 use App\Services\WuzapiService;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Log;
 
 class WhatsAppController extends Controller
 {
@@ -29,14 +30,12 @@ class WhatsAppController extends Controller
     {
         $connections = auth()->user()->whatsappConnections()->latest()->get();
 
-        // Obter status atual da sessão para exibir na página principal
-        $status = null;
-        try {
-            $wuzapiService = $this->getWuzapiService();
-            $status = $wuzapiService->getStatus();
-        } catch (\Exception $e) {
-            $status = ['success' => false, 'message' => $e->getMessage()];
-        }
+        // Não verificar status automaticamente - apenas mostrar conexões do banco
+        // O status será verificado apenas quando o usuário clicar em "Conectar WhatsApp"
+        $status = [
+            'success' => false,
+            'message' => 'Nenhuma conexão ativa. Clique em "Conectar WhatsApp" para iniciar.'
+        ];
 
         return view('whatsapp.index', compact('connections', 'status'));
     }
@@ -214,23 +213,28 @@ class WhatsAppController extends Controller
     {
         try {
             $wuzapiService = $this->getWuzapiService();
+            
+            // Sempre desconectar primeiro para garantir uma nova conexão
+            $disconnectResult = $wuzapiService->disconnectFromWhatsApp();
+            Log::info('Desconectando sessão existente antes de conectar', [
+                'disconnect_result' => $disconnectResult
+            ]);
+            
+            // Aguardar um momento para garantir que a desconexão foi processada
+            sleep(2);
+            
+            // Agora conectar e gerar novo QR code
             $result = $wuzapiService->connectToWhatsApp();
 
             if (!$result['success']) {
                 return back()->with('error', 'Erro ao gerar QR code: ' . ($result['message'] ?? 'Erro desconhecido'));
             }
 
-            // Se já estiver logado, redireciona para a index com status atualizado
-            if (!empty($result['already_logged_in'])) {
-                return redirect()->route('whatsapp.index')->with('success', 'Sessão já está logada.');
-            }
-
             // Check if qr_code exists in the result
             $qrCode = $result['qr_code'] ?? null;
 
             if (!$qrCode) {
-                // Pode estar conectado, mas QR vazio quando logado; nesse caso, volta para index
-                return redirect()->route('whatsapp.index')->with('success', 'Sessão conectada.');
+                return back()->with('error', 'Não foi possível gerar o QR code. Tente novamente.');
             }
 
             return view('whatsapp.connect', [
@@ -238,6 +242,7 @@ class WhatsAppController extends Controller
             ]);
 
         } catch (\Exception $e) {
+            Log::error('Erro ao conectar WhatsApp: ' . $e->getMessage());
             return back()->with('error', 'Erro ao conectar: ' . $e->getMessage());
         }
     }
