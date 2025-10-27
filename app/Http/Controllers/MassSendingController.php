@@ -185,7 +185,7 @@ class MassSendingController extends Controller
             $wuzapiGroups = collect([
                 [
                     'JID' => 'example_group_1@g.us',
-                    'Name' => 'Grupo de Exemplo 1',
+                    'Name' => 'Família Silva',
                     'Participants' => [
                         ['JID' => '5511999999999@s.whatsapp.net', 'PhoneNumber' => '5511999999999@s.whatsapp.net'],
                         ['JID' => '5511888888888@s.whatsapp.net', 'PhoneNumber' => '5511888888888@s.whatsapp.net'],
@@ -196,10 +196,21 @@ class MassSendingController extends Controller
                 ],
                 [
                     'JID' => 'example_group_2@g.us',
-                    'Name' => 'Grupo de Exemplo 2',
+                    'Name' => 'Trabalho - Equipe Vendas',
                     'Participants' => [
                         ['JID' => '5511666666666@s.whatsapp.net', 'PhoneNumber' => '5511666666666@s.whatsapp.net'],
                         ['JID' => '5511555555555@s.whatsapp.net', 'PhoneNumber' => '5511555555555@s.whatsapp.net'],
+                    ],
+                    'IsAnnounce' => false,
+                    'GroupCreated' => now(),
+                ],
+                [
+                    'JID' => 'example_group_3@g.us',
+                    'Name' => 'Amigos da Faculdade',
+                    'Participants' => [
+                        ['JID' => '5511444444444@s.whatsapp.net', 'PhoneNumber' => '5511444444444@s.whatsapp.net'],
+                        ['JID' => '5511333333333@s.whatsapp.net', 'PhoneNumber' => '5511333333333@s.whatsapp.net'],
+                        ['JID' => '5511222222222@s.whatsapp.net', 'PhoneNumber' => '5511222222222@s.whatsapp.net'],
                     ],
                     'IsAnnounce' => false,
                     'GroupCreated' => now(),
@@ -386,18 +397,23 @@ class MassSendingController extends Controller
     private function sanitizeGroupName(string $groupName): string
     {
         try {
+            // Se o nome já está vazio ou é apenas "Grupo", retornar como está
+            if (empty(trim($groupName)) || trim($groupName) === 'Grupo') {
+                return 'Grupo sem nome';
+            }
+            
             // Remover caracteres de controle e caracteres especiais problemáticos
             $cleanName = preg_replace('/[\x00-\x1F\x7F-\x9F]/', '', $groupName);
             
-            // Remover caracteres Unicode problemáticos que podem quebrar SVG/XML
-            $cleanName = preg_replace('/[^\x20-\x7E\u00C0-\u017F\u0100-\u017F\u0180-\u024F]/u', '', $cleanName);
+            // Manter caracteres Unicode comuns (incluindo acentos e emojis básicos)
+            $cleanName = preg_replace('/[^\x20-\x7E\u00C0-\u017F\u0100-\u017F\u0180-\u024F\u1F600-\u1F64F\u1F300-\u1F5FF\u1F680-\u1F6FF\u1F1E0-\u1F1FF]/u', '', $cleanName);
             
             // Limitar tamanho
             $cleanName = mb_substr(trim($cleanName), 0, 50);
             
-            // Se ficou vazio, usar nome padrão
+            // Se ficou vazio após limpeza, usar nome padrão
             if (empty($cleanName)) {
-                $cleanName = 'Grupo';
+                $cleanName = 'Grupo sem nome';
             }
             
             return $cleanName;
@@ -406,7 +422,7 @@ class MassSendingController extends Controller
                 'original_name' => $groupName,
                 'error' => $e->getMessage()
             ]);
-            return 'Grupo';
+            return 'Grupo sem nome';
         }
     }
 
