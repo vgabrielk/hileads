@@ -304,20 +304,22 @@ function removeFeature(button) {
 
 // Initialize with existing features
 @if($plan->features && count($plan->features) > 0)
-    @foreach($plan->features as $feature)
+    const existingFeatures = @json($plan->features);
+    existingFeatures.forEach(function(feature) {
         document.getElementById('add-feature').click();
-        const existingInputs = document.querySelectorAll('input[name="features[]"]');
-        existingInputs[existingInputs.length - 1].value = '{{ $feature }}';
-    @endforeach
+        const inputs = document.querySelectorAll('input[name="features[]"]');
+        inputs[inputs.length - 1].value = feature;
+    });
 @endif
 
 // Initialize with old features if any (for validation errors)
 @if(old('features'))
-    @foreach(old('features') as $feature)
+    const oldFeatures = @json(old('features'));
+    oldFeatures.forEach(function(feature) {
         document.getElementById('add-feature').click();
-        const oldInputs = document.querySelectorAll('input[name="features[]"]');
-        oldInputs[oldInputs.length - 1].value = '{{ $feature }}';
-    @endforeach
+        const inputs = document.querySelectorAll('input[name="features[]"]');
+        inputs[inputs.length - 1].value = feature;
+    });
 @endif
 </script>
 @endsection
