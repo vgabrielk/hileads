@@ -28,12 +28,16 @@ class AdminUserSeeder extends Seeder
             // Generate API token
             $admin->generateApiToken();
 
-            $this->command->info('Admin user created successfully!');
-            $this->command->info('Email: admin@hileads.com');
-            $this->command->info('Password: admin123');
-            $this->command->info('API Token: ' . $admin->api_token);
+            if ($this->command) {
+                $this->command->info('Admin user created successfully!');
+                $this->command->info('Email: admin@hileads.com');
+                $this->command->info('Password: admin123');
+                $this->command->info('API Token: ' . $admin->api_token);
+            }
         } else {
-            $this->command->info('Admin user already exists.');
+            if ($this->command) {
+                $this->command->info('Admin user already exists.');
+            }
         }
     }
 }

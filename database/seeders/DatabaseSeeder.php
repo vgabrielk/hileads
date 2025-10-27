@@ -22,37 +22,29 @@ class DatabaseSeeder extends Seeder
             AdminUserSeeder::class,
         ]);
 
-        // Criar usuário administrador
-        $admin = User::create([
-            'name' => 'Administrador',
-            'email' => 'admin@hileads.com',
-            'password' => Hash::make('admin123'),
-            'role' => 'admin',
-        ]);
+        // Criar um usuário normal para teste (se não existir)
+        $user = User::firstOrCreate(
+            ['email' => 'user@hileads.com'],
+            [
+                'name' => 'Usuário Teste',
+                'password' => Hash::make('user123'),
+                'role' => 'user',
+            ]
+        );
 
-        // Gerar token para o admin
-        $adminToken = $admin->generateApiToken();
-
-        $this->command->info('✓ Usuário Admin criado com sucesso!');
-        $this->command->info('  Email: admin@hileads.com');
-        $this->command->info('  Senha: admin123');
-        $this->command->info('  Token: ' . $adminToken);
-        $this->command->newLine();
-
-        // Criar um usuário normal para teste
-        $user = User::create([
-            'name' => 'Usuário Teste',
-            'email' => 'user@hileads.com',
-            'password' => Hash::make('user123'),
-            'role' => 'user',
-        ]);
-
-        // Gerar token para o usuário
-        $userToken = $user->generateApiToken();
-
-        $this->command->info('✓ Usuário de Teste criado com sucesso!');
-        $this->command->info('  Email: user@hileads.com');
-        $this->command->info('  Senha: user123');
-        $this->command->info('  Token: ' . $userToken);
+        if ($user->wasRecentlyCreated) {
+            // Gerar token para o usuário apenas se foi criado agora
+            $userToken = $user->generateApiToken();
+            if ($this->command) {
+                $this->command->info('✓ Usuário de Teste criado com sucesso!');
+                $this->command->info('  Email: user@hileads.com');
+                $this->command->info('  Senha: user123');
+                $this->command->info('  Token: ' . $userToken);
+            }
+        } else {
+            if ($this->command) {
+                $this->command->info('✓ Usuário de Teste já existe (pulando criação)');
+            }
+        }
     }
 }
