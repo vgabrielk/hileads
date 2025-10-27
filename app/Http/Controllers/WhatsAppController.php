@@ -369,4 +369,118 @@ class WhatsAppController extends Controller
             return back()->with('error', 'Erro ao fazer logout: ' . $e->getMessage());
         }
     }
+
+    /**
+     * Conecta à sessão do WhatsApp (POST /session/connect)
+     */
+    public function connectSession()
+    {
+        try {
+            $wuzapiService = $this->getWuzapiService();
+            
+            // Sempre desconectar primeiro para garantir uma nova conexão
+            $disconnectResult = $wuzapiService->disconnectFromWhatsApp();
+            Log::info('Desconectando sessão existente antes de conectar', [
+                'disconnect_result' => $disconnectResult
+            ]);
+            
+            // Aguardar um momento para garantir que a desconexão foi processada
+            sleep(2);
+            
+            // Conectar ao WhatsApp
+            $result = $wuzapiService->connectToWhatsApp();
+
+            if ($result['success']) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Conectado ao WhatsApp com sucesso!',
+                    'data' => $result
+                ]);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => $result['message'] ?? 'Erro ao conectar ao WhatsApp'
+                ], 400);
+            }
+        } catch (\Exception $e) {
+            Log::error('Erro ao conectar sessão WhatsApp: ' . $e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => 'Erro ao conectar: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Obtém o QR Code (GET /session/qr)
+     */
+    public function getQR()
+    {
+        try {
+            $wuzapiService = $this->getWuzapiService();
+            $result = $wuzapiService->getQrCode();
+
+            if ($result['success'] ?? false) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'QR Code obtido com sucesso!',
+                    'data' => $result['data'] ?? []
+                ]);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => $result['message'] ?? 'Erro ao obter QR Code'
+                ], 400);
+            }
+        } catch (\Exception $e) {
+            Log::error('Erro ao obter QR Code: ' . $e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => 'Erro ao obter QR Code: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Verifica o status da conexão (GET /session/status)
+     */
+    public function getStatus()
+    {
+        try {
+            $wuzapiService = $this->getWuzapiService();
+            $result = $wuzapiService->getStatus();
+
+            if ($result['success']) {
+                // Se o usuário está logado, salvar a conexão no banco de dados
+                if ($result['data']['LoggedIn'] ?? false) {
+                    $this->saveWhatsAppConnection($wuzapiService);
+                }
+
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Status obtido com sucesso!',
+                    'data' => $result['data']
+                ]);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => $result['message'] ?? 'Erro ao obter status'
+                ], 400);
+            }
+        } catch (\Exception $e) {
+            Log::error('Erro ao verificar status: ' . $e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => 'Erro ao verificar status: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Exibe o fluxo de conexão
+     */
+    public function showConnectFlow()
+    {
+        return view('whatsapp.connect-flow');
+    }
 }

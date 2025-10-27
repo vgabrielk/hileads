@@ -57,11 +57,17 @@ Route::middleware('auth')->group(function () {
     // WhatsApp Connections
     Route::get('/whatsapp', [WhatsAppController::class, 'index'])->name('whatsapp.index')->middleware('subscription.security');
     Route::get('/whatsapp/connect', [WhatsAppController::class, 'connect'])->name('whatsapp.connect')->middleware('subscription.security');
+    Route::get('/whatsapp/connect-flow', [WhatsAppController::class, 'showConnectFlow'])->name('whatsapp.connect-flow')->middleware('subscription.security');
     Route::get('/whatsapp/status', [WhatsAppController::class, 'checkStatus'])->name('whatsapp.status')->middleware('subscription.security');
     Route::post('/whatsapp/disconnect', [WhatsAppController::class, 'disconnect'])->name('whatsapp.disconnect')->middleware('subscription.security');
     Route::post('/whatsapp/logout', [WhatsAppController::class, 'logout'])->name('whatsapp.logout')->middleware('subscription.security');
     Route::get('/whatsapp/{whatsapp}', [WhatsAppController::class, 'show'])->name('whatsapp.show')->middleware('subscription.security');
     Route::delete('/whatsapp/{whatsapp}', [WhatsAppController::class, 'destroy'])->name('whatsapp.destroy')->middleware('subscription.security');
+    
+    // WhatsApp API Endpoints for Connect Flow
+    Route::post('/whatsapp/connect-session', [WhatsAppController::class, 'connectSession'])->name('whatsapp.connect-session')->middleware('subscription.security');
+    Route::get('/whatsapp/get-qr', [WhatsAppController::class, 'getQR'])->name('whatsapp.get-qr')->middleware('subscription.security');
+    Route::get('/whatsapp/check-status', [WhatsAppController::class, 'getStatus'])->name('whatsapp.check-status')->middleware('subscription.security');
     
     // Contacts (apenas visualização via API)
     Route::get('contacts', [ContactController::class, 'index'])->name('contacts.index');
