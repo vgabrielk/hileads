@@ -30,8 +30,10 @@ class WhatsAppController extends Controller
     {
         $connections = auth()->user()->whatsappConnections()->latest()->get();
 
-        // Se há conexões no banco, mostrar elas
-        if ($connections->count() > 0) {
+        // Verificar se há conexões ativas no banco
+        $activeConnections = $connections->where('status', 'active');
+        
+        if ($activeConnections->count() > 0) {
             $status = [
                 'success' => true,
                 'message' => 'Conexões WhatsApp encontradas.',
@@ -41,7 +43,7 @@ class WhatsAppController extends Controller
                 ]
             ];
         } else {
-            // Se não há conexões, mostrar mensagem para conectar
+            // Se não há conexões ativas, mostrar mensagem para conectar
             $status = [
                 'success' => false,
                 'message' => 'Nenhuma conexão ativa. Clique em "Conectar WhatsApp" para iniciar.'
