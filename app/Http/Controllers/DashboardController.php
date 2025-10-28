@@ -36,6 +36,9 @@ class DashboardController extends Controller
                 $groupsResponse = $service->getGroups();
                 if ($groupsResponse['success'] ?? false) {
                     $groupsCount = count($groupsResponse['data'] ?? []);
+                    \Log::info('Dashboard: Grupos encontrados na API', ['count' => $groupsCount, 'user_id' => $user->id]);
+                } else {
+                    \Log::warning('Dashboard: Falha ao buscar grupos da API', ['user_id' => $user->id, 'response' => $groupsResponse]);
                 }
                 
                 // Buscar contactos da API
