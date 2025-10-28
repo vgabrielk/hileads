@@ -97,6 +97,7 @@
                                 <th class="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Nível</th>
                                 <th class="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Mensagem</th>
                                 <th class="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Contexto</th>
+                                <th class="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Ações</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-border">
@@ -128,10 +129,29 @@
                                             <span class="text-muted-foreground text-sm">-</span>
                                         @endif
                                     </td>
+                                    <td class="px-4 py-3">
+                                        <div class="flex gap-2">
+                                            <a href="{{ route('admin.logs.show', ['date' => $date, 'index' => $loop->index, 'type' => 'laravel']) }}" 
+                                               class="inline-flex items-center gap-1 px-2 py-1 text-xs font-medium text-primary hover:bg-primary/10 rounded transition-colors">
+                                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                                </svg>
+                                                Ver Detalhes
+                                            </a>
+                                            <button onclick="showRawLog('{{ $log['timestamp'] }}')" 
+                                                    class="inline-flex items-center gap-1 px-2 py-1 text-xs font-medium text-muted-foreground hover:bg-muted/50 rounded transition-colors">
+                                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                                </svg>
+                                                Raw
+                                            </button>
+                                        </div>
+                                    </td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="4" class="px-4 py-8 text-center text-muted-foreground">
+                                    <td colspan="5" class="px-4 py-8 text-center text-muted-foreground">
                                         Nenhum log do sistema encontrado para os filtros selecionados.
                                     </td>
                                 </tr>

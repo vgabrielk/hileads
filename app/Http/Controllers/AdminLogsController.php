@@ -119,6 +119,24 @@ class AdminLogsController extends Controller
     }
 
     /**
+     * Show full log details.
+     */
+    public function show(Request $request)
+    {
+        $date = $request->get('date', Carbon::today()->format('Y-m-d'));
+        $index = $request->get('index', 0);
+        $type = $request->get('type', 'laravel');
+        
+        $log = $this->getLogByIndex($date, $index, $type);
+        
+        if (!$log) {
+            return redirect()->back()->with('error', 'Log não encontrado.');
+        }
+        
+        return view('admin.logs.show', compact('log', 'date', 'index', 'type'));
+    }
+
+    /**
      * Clear log files.
      */
     public function clear(Request $request)
@@ -322,5 +340,49 @@ class AdminLogsController extends Controller
     {
         // This would clear system logs
         // Implementation depends on the system
+    }
+
+    /**
+     * Get a specific log entry by index.
+     */
+    private function getLogByIndex($date, $index, $type)
+    {
+        $logFile = $this->getLogFilePath($date, $type);
+        
+        if (!File::exists($logFile)) {
+            return null;
+        }
+
+        $content = File::get($logFile);
+        $lines = explode("\n", $content);
+        $logs = collect();
+
+        foreach ($lines as $line) {
+            if (empty(trim($line))) continue;
+
+            $logEntry = $this->parseLogLine($line);
+            
+            if ($logEntry) {
+                $logs->push($logEntry);
+            }
+        }
+
+        $reversedLogs = $logs->reverse();
+        
+        return $reversedLogs->get($index);
+    }
+
+    /**
+     * Get log file path based on type and date.
+     */
+    private function getLogFilePath($date, $type)
+    {
+        switch ($type) {
+            case 'create':
+                return storage_path('logs/create-' . $date . '.log');
+            case 'laravel':
+            default:
+                return storage_path('logs/laravel-' . $date . '.log');
+        }
     }
 }

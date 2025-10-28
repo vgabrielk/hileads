@@ -169,6 +169,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/admin/logs/system', [App\Http\Controllers\AdminLogsController::class, 'system'])->name('admin.logs.system');
         Route::get('/admin/logs/activity', [App\Http\Controllers\AdminLogsController::class, 'activity'])->name('admin.logs.activity');
         Route::get('/admin/logs/errors', [App\Http\Controllers\AdminLogsController::class, 'errors'])->name('admin.logs.errors');
+        Route::get('/admin/logs/show', [App\Http\Controllers\AdminLogsController::class, 'show'])->name('admin.logs.show');
         Route::get('/admin/logs/download', [App\Http\Controllers\AdminLogsController::class, 'download'])->name('admin.logs.download');
         Route::post('/admin/logs/clear', [App\Http\Controllers\AdminLogsController::class, 'clear'])->name('admin.logs.clear');
         
