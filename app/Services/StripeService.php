@@ -44,7 +44,7 @@ class StripeService
     /**
      * Create a checkout session for a plan
      */
-    public function createCheckoutSession(Plan $plan, User $user, string $successUrl = null, string $cancelUrl = null): array
+    public function createCheckoutSession(Plan $plan, User $user, ?string $successUrl = null, ?string $cancelUrl = null): array
     {
         try {
             // Validar dados de entrada

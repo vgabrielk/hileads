@@ -13,7 +13,7 @@ class CheckSubscriptionAccess
     /**
      * Handle an incoming request.
      */
-    public function handle(Request $request, Closure $next, string $feature = null): mixed
+    public function handle(Request $request, Closure $next, ?string $feature = null): mixed
     {
         // Skip if user is not authenticated
         if (!Auth::check()) {
