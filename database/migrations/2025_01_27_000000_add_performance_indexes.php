@@ -54,9 +54,9 @@ return new class extends Migration
 
         // Add indexes for sent_messages table
         Schema::table('sent_messages', function (Blueprint $table) {
-            $table->index(['mass_sending_id', 'status'], 'idx_sent_messages_campaign_status');
-            $table->index(['user_id', 'created_at'], 'idx_sent_messages_user_created');
-            $table->index('phone_number', 'idx_sent_messages_phone');
+            $table->index(['campaign_id', 'status'], 'idx_sent_messages_campaign_status');
+            $table->index(['campaign_type', 'campaign_id'], 'idx_sent_messages_campaign_type_id');
+            $table->index(['status', 'sent_at'], 'idx_sent_messages_status_sent_at');
         });
 
         // Add indexes for groups table
@@ -119,8 +119,8 @@ return new class extends Migration
         // Drop indexes for sent_messages table
         Schema::table('sent_messages', function (Blueprint $table) {
             $table->dropIndex('idx_sent_messages_campaign_status');
-            $table->dropIndex('idx_sent_messages_user_created');
-            $table->dropIndex('idx_sent_messages_phone');
+            $table->dropIndex('idx_sent_messages_campaign_type_id');
+            $table->dropIndex('idx_sent_messages_status_sent_at');
         });
 
         // Drop indexes for groups table
