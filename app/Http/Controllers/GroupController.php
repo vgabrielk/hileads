@@ -167,7 +167,7 @@ class GroupController extends Controller
         
         $group->delete();
         
-        return redirect()->route('groups.index')->with('success', 'Grupo excluído com sucesso!');
+        return redirect()->route('groups.index')->with('success', 'Grupo eliminado com sucesso!');
     }
 
     public function startMassSending(Group $group)

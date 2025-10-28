@@ -76,7 +76,7 @@
             <div class="bg-card rounded-lg border border-border p-4 sm:p-6">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm font-medium text-muted-foreground mb-2">Receita Média por Usuário</p>
+                        <p class="text-sm font-medium text-muted-foreground mb-2">Receita Média por Utilizador</p>
                         <p class="text-2xl font-bold text-foreground">R$ {{ number_format($revenueData['avg_revenue_per_user'], 2, ',', '.') }}</p>
                     </div>
                     <div class="w-12 h-12 bg-warning/10 rounded-lg flex items-center justify-center">
@@ -122,14 +122,14 @@
 
     <!-- User Analytics -->
     <div class="space-y-4 sm:space-y-6">
-        <h2 class="text-xl font-semibold text-foreground">Análise de Usuários</h2>
+        <h2 class="text-xl font-semibold text-foreground">Análise de Utilizadores</h2>
         
         <!-- User Cards -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             <div class="bg-card rounded-lg border border-border p-4 sm:p-6">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm font-medium text-muted-foreground mb-2">Total de Usuários</p>
+                        <p class="text-sm font-medium text-muted-foreground mb-2">Total de Utilizadores</p>
                         <p class="text-2xl font-bold text-foreground">{{ number_format($userData['user_status']->sum('count')) }}</p>
                     </div>
                     <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
@@ -143,7 +143,7 @@
             <div class="bg-card rounded-lg border border-border p-4 sm:p-6">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm font-medium text-muted-foreground mb-2">Usuários Ativos</p>
+                        <p class="text-sm font-medium text-muted-foreground mb-2">Utilizadores Ativos</p>
                         <p class="text-2xl font-bold text-success">{{ number_format($userData['user_status']->where('is_active', true)->first()->count ?? 0) }}</p>
                     </div>
                     <div class="w-12 h-12 bg-success/10 rounded-lg flex items-center justify-center">
@@ -171,7 +171,7 @@
             <div class="bg-card rounded-lg border border-border p-4 sm:p-6">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm font-medium text-muted-foreground mb-2">Tempo Médio para Assinatura</p>
+                        <p class="text-sm font-medium text-muted-foreground mb-2">Tempo Médio para Subscrição</p>
                         <p class="text-2xl font-bold text-foreground">{{ $conversionData['avg_time_to_subscription'] ? number_format($conversionData['avg_time_to_subscription'] / 24, 1) . ' dias' : 'N/A' }}</p>
                     </div>
                     <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
@@ -186,14 +186,14 @@
         <!-- User Charts -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
             <div class="bg-card rounded-lg border border-border p-4 sm:p-6">
-                <h3 class="text-lg font-semibold text-foreground mb-4">Crescimento de Usuários</h3>
+                <h3 class="text-lg font-semibold text-foreground mb-4">Crescimento de Utilizadores</h3>
                 <div class="h-64 flex items-center justify-center">
                     <canvas id="userGrowthChart"></canvas>
                 </div>
             </div>
 
             <div class="bg-card rounded-lg border border-border p-4 sm:p-6">
-                <h3 class="text-lg font-semibold text-foreground mb-4">Distribuição de Usuários</h3>
+                <h3 class="text-lg font-semibold text-foreground mb-4">Distribuição de Utilizadores</h3>
                 <div class="h-64 flex items-center justify-center">
                     <canvas id="userDistributionChart"></canvas>
                 </div>
@@ -291,7 +291,7 @@
             <div class="bg-card rounded-lg border border-border p-4 sm:p-6">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm font-medium text-muted-foreground mb-2">Conexões Ativas</p>
+                        <p class="text-sm font-medium text-muted-foreground mb-2">Ligações Ativas</p>
                         <p class="text-2xl font-bold text-success">{{ number_format($whatsappData['active_connections']) }}</p>
                     </div>
                     <div class="w-12 h-12 bg-success/10 rounded-lg flex items-center justify-center">
@@ -319,7 +319,7 @@
             <div class="bg-card rounded-lg border border-border p-4 sm:p-6">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm font-medium text-muted-foreground mb-2">Total de Contatos</p>
+                        <p class="text-sm font-medium text-muted-foreground mb-2">Total de Contactos</p>
                         <p class="text-2xl font-bold text-foreground">{{ number_format($whatsappData['total_contacts']) }}</p>
                     </div>
                     <div class="w-12 h-12 bg-warning/10 rounded-lg flex items-center justify-center">
@@ -333,7 +333,7 @@
             <div class="bg-card rounded-lg border border-border p-4 sm:p-6">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm font-medium text-muted-foreground mb-2">Taxa de Conexão</p>
+                        <p class="text-sm font-medium text-muted-foreground mb-2">Taxa de Ligação</p>
                         <p class="text-2xl font-bold text-foreground">{{ number_format($conversionData['connection_rate'], 1) }}%</p>
                     </div>
                     <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
@@ -425,7 +425,7 @@ const userGrowthChart = new Chart(userGrowthCtx, {
             return \Carbon\Carbon::parse($item->date)->format('d/m');
         })) !!},
         datasets: [{
-            label: 'Novos Usuários',
+            label: 'Novos Utilizadores',
             data: {!! json_encode($userData['user_growth']->pluck('count')) !!},
             backgroundColor: 'rgba(59, 130, 246, 0.8)'
         }]

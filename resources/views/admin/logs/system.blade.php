@@ -70,7 +70,7 @@
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-foreground mb-2">Buscar</label>
+                        <label class="block text-sm font-medium text-foreground mb-2">Procurar</label>
                         <input type="text" name="search" value="{{ $search }}" 
                                placeholder="Pesquisar nos logs..." 
                                class="w-full px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">

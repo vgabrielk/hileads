@@ -54,7 +54,7 @@ class UserController extends Controller
         ]);
 
         return redirect()->route('admin.users.index')
-            ->with('success', 'Usuário criado com sucesso!');
+            ->with('success', 'Utilizador criado com sucesso!');
     }
 
     /**
@@ -105,7 +105,7 @@ class UserController extends Controller
         $user->update($data);
 
         return redirect()->route('admin.users.index')
-            ->with('success', 'Usuário atualizado com sucesso!');
+            ->with('success', 'Utilizador atualizado com sucesso!');
     }
 
     /**
@@ -116,13 +116,13 @@ class UserController extends Controller
         // Prevent admin from deleting themselves
         if ($user->id === auth()->id()) {
             return redirect()->back()
-                ->with('error', 'Você não pode deletar sua própria conta!');
+                ->with('error', 'Não pode eliminar a sua própria conta!');
         }
 
         $user->delete();
 
         return redirect()->route('admin.users.index')
-            ->with('success', 'Usuário removido com sucesso!');
+            ->with('success', 'Utilizador removido com sucesso!');
     }
 
     /**
@@ -133,7 +133,7 @@ class UserController extends Controller
         // Prevent admin from deactivating themselves
         if ($user->id === auth()->id()) {
             return redirect()->back()
-                ->with('error', 'Você não pode desativar sua própria conta!');
+                ->with('error', 'Não pode desativar a sua própria conta!');
         }
 
         $user->update(['is_active' => !$user->is_active]);

@@ -14,7 +14,7 @@
         <div class="bg-card rounded-lg border border-border p-4 sm:p-6 hover:shadow-md transition-shadow">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-sm font-medium text-muted-foreground mb-2">Total de Usuários</p>
+                    <p class="text-sm font-medium text-muted-foreground mb-2">Total de Utilizadores</p>
                     <p class="text-2xl font-bold text-foreground">{{ number_format($stats['total_users']) }}</p>
                     <p class="text-xs text-success mt-1">+{{ $newUsersLast30Days }} nos últimos 30 dias</p>
                 </div>
@@ -30,7 +30,7 @@
         <div class="bg-card rounded-lg border border-border p-4 sm:p-6 hover:shadow-md transition-shadow">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-sm font-medium text-muted-foreground mb-2">Assinaturas Ativas</p>
+                    <p class="text-sm font-medium text-muted-foreground mb-2">Subscrições Ativas</p>
                     <p class="text-2xl font-bold text-foreground">{{ number_format($stats['active_subscriptions']) }}</p>
                     <p class="text-xs text-muted-foreground mt-1">de {{ number_format($stats['total_subscriptions']) }} total</p>
                 </div>
@@ -62,7 +62,7 @@
         <div class="bg-card rounded-lg border border-border p-4 sm:p-6 hover:shadow-md transition-shadow">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-sm font-medium text-muted-foreground mb-2">Conexões WhatsApp</p>
+                    <p class="text-sm font-medium text-muted-foreground mb-2">Ligações WhatsApp</p>
                     <p class="text-2xl font-bold text-foreground">{{ number_format($stats['active_whatsapp_connections']) }}</p>
                     <p class="text-xs text-muted-foreground mt-1">de {{ number_format($stats['total_whatsapp_connections']) }} total</p>
                 </div>
@@ -79,7 +79,7 @@
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
         <!-- Users Growth Chart -->
         <div class="bg-card rounded-lg border border-border p-4 sm:p-6">
-            <h3 class="text-lg font-semibold text-foreground mb-4">Crescimento de Usuários</h3>
+            <h3 class="text-lg font-semibold text-foreground mb-4">Crescimento de Utilizadores</h3>
             <div class="h-64 flex items-center justify-center">
                 <canvas id="usersChart"></canvas>
             </div>
@@ -106,7 +106,7 @@
                         <div class="w-3 h-3 rounded-full bg-primary"></div>
                         <span class="text-sm font-medium text-foreground">{{ $plan->name }}</span>
                     </div>
-                    <span class="text-sm text-muted-foreground">{{ $plan->subscriptions_count }} usuários</span>
+                    <span class="text-sm text-muted-foreground">{{ $plan->subscriptions_count }} utilizadores</span>
                 </div>
                 @endforeach
             </div>
@@ -114,7 +114,7 @@
 
         <!-- Subscriptions Status -->
         <div class="bg-card rounded-lg border border-border p-4 sm:p-6">
-            <h3 class="text-lg font-semibold text-foreground mb-4">Status das Assinaturas</h3>
+            <h3 class="text-lg font-semibold text-foreground mb-4">Status das Subscrições</h3>
             <div class="space-y-3">
                 @foreach($subscriptionsByStatus as $status)
                 <div class="flex items-center justify-between">
@@ -141,7 +141,7 @@
                     <span class="text-sm font-medium text-foreground">{{ number_format($stats['total_groups']) }}</span>
                 </div>
                 <div class="flex items-center justify-between">
-                    <span class="text-sm text-muted-foreground">Total de Contatos</span>
+                    <span class="text-sm text-muted-foreground">Total de Contactos</span>
                     <span class="text-sm font-medium text-foreground">{{ number_format($stats['total_contacts']) }}</span>
                 </div>
                 <div class="flex items-center justify-between">
@@ -160,7 +160,7 @@
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
         <!-- Recent Users -->
         <div class="bg-card rounded-lg border border-border p-4 sm:p-6">
-            <h3 class="text-lg font-semibold text-foreground mb-4">Usuários Recentes</h3>
+            <h3 class="text-lg font-semibold text-foreground mb-4">Utilizadores Recentes</h3>
             <div class="space-y-3">
                 @foreach($recentUsers as $user)
                 <div class="flex items-center space-x-3">
@@ -178,7 +178,7 @@
 
         <!-- Recent Subscriptions -->
         <div class="bg-card rounded-lg border border-border p-4 sm:p-6">
-            <h3 class="text-lg font-semibold text-foreground mb-4">Assinaturas Recentes</h3>
+            <h3 class="text-lg font-semibold text-foreground mb-4">Subscrições Recentes</h3>
             <div class="space-y-3">
                 @foreach($recentSubscriptions as $subscription)
                 <div class="flex items-center justify-between">
@@ -199,7 +199,7 @@
 
         <!-- Recent Connections -->
         <div class="bg-card rounded-lg border border-border p-4 sm:p-6">
-            <h3 class="text-lg font-semibold text-foreground mb-4">Conexões Recentes</h3>
+            <h3 class="text-lg font-semibold text-foreground mb-4">Ligações Recentes</h3>
             <div class="space-y-3">
                 @foreach($recentConnections as $connection)
                 <div class="flex items-center space-x-3">
@@ -232,7 +232,7 @@ const usersChart = new Chart(usersCtx, {
             return Carbon\Carbon::create($item->year, $item->month)->format('M/Y');
         })) !!},
         datasets: [{
-            label: 'Novos Usuários',
+            label: 'Novos Utilizadores',
             data: {!! json_encode($usersByMonth->pluck('count')) !!},
             borderColor: 'rgb(59, 130, 246)',
             backgroundColor: 'rgba(59, 130, 246, 0.1)',

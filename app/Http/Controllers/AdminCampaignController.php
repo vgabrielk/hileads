@@ -223,7 +223,7 @@ class AdminCampaignController extends Controller
             ]);
 
             return redirect()->route('admin.campaigns.index')
-                ->with('success', 'Campanha excluída com sucesso!');
+                ->with('success', 'Campanha eliminada com sucesso!');
 
         } catch (\Exception $e) {
             Log::error('Failed to delete campaign', [
@@ -232,7 +232,7 @@ class AdminCampaignController extends Controller
             ]);
 
             return redirect()->back()
-                ->with('error', 'Erro ao excluir campanha: ' . $e->getMessage());
+                ->with('error', 'Erro ao eliminar campanha: ' . $e->getMessage());
         }
     }
 

@@ -128,7 +128,7 @@
                     <!-- Max Contacts -->
                     <div>
                         <label for="max_contacts" class="block text-sm font-semibold text-foreground mb-2">
-                            Máximo de Contatos
+                            Máximo de Contactos
                         </label>
                         <input type="number" 
                                id="max_contacts" 
@@ -284,7 +284,7 @@ document.getElementById('add-feature').addEventListener('click', function() {
         <input type="text" 
                name="features[]" 
                class="flex-1 px-4 py-3 border border-input rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-colors bg-background text-foreground"
-               placeholder="Ex: Até 1.000 contatos">
+               placeholder="Ex: Até 1.000 contactos">
         <button type="button" 
                 onclick="removeFeature(this)" 
                 class="p-2 text-destructive hover:text-destructive/80 transition-colors">

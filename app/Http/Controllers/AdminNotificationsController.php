@@ -272,7 +272,7 @@ class AdminNotificationsController extends Controller
             ]);
 
             return redirect()->route('admin.notifications.index')
-                ->with('success', 'Notificação excluída com sucesso!');
+                ->with('success', 'Notificação eliminada com sucesso!');
 
         } catch (\Exception $e) {
             Log::error('Failed to delete notification', [
@@ -282,7 +282,7 @@ class AdminNotificationsController extends Controller
             ]);
 
             return redirect()->back()
-                ->with('error', 'Erro ao excluir notificação: ' . $e->getMessage());
+                ->with('error', 'Erro ao eliminar notificação: ' . $e->getMessage());
         }
     }
 

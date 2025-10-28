@@ -98,7 +98,7 @@
                 <h3 class="text-lg font-semibold text-foreground mb-4">Informações Atuais</h3>
                 <div class="space-y-3 text-sm">
                     <div>
-                        <span class="font-medium text-muted-foreground">Usuário:</span>
+                        <span class="font-medium text-muted-foreground">Utilizador:</span>
                         <p class="text-foreground">{{ $campaign->user->name }}</p>
                         <p class="text-muted-foreground">{{ $campaign->user->email }}</p>
                     </div>

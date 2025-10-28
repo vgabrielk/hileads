@@ -9,8 +9,8 @@
             <!-- Header da página -->
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <div>
-                    <h2 class="mb-1">Finalizar Assinatura</h2>
-                    <p class="text-muted mb-0">Complete seu pagamento para ativar o plano <strong>{{ $plan->name }}</strong></p>
+                    <h2 class="mb-1">Finalizar Subscrição</h2>
+                    <p class="text-muted mb-0">Complete o seu pagamento para ativar o plano <strong>{{ $plan->name }}</strong></p>
                 </div>
                 <div class="text-end">
                     <div class="badge bg-primary fs-6">R$ {{ number_format($plan->price, 2, ',', '.') }}</div>
@@ -132,7 +132,7 @@
                                 <div class="col-md-4 text-center">
                                     <i class="fas fa-shield-alt text-success fs-1 mb-3"></i>
                                     <h6>Pagamento Seguro</h6>
-                                    <p class="small text-muted">Seus dados são protegidos com criptografia SSL</p>
+                                    <p class="small text-muted">Seus dados são protegidos com encriptação SSL</p>
                                 </div>
                                 <div class="col-md-4 text-center">
                                     <i class="fas fa-lock text-success fs-1 mb-3"></i>
@@ -203,7 +203,7 @@ function showPaymentSuccess() {
     statusDiv.innerHTML = `
         <div class="alert alert-success">
             <h5><i class="fas fa-check-circle me-2"></i>Pagamento Confirmado!</h5>
-            <p class="mb-0">Sua assinatura foi ativada com sucesso. Redirecionando...</p>
+            <p class="mb-0">A sua subscrição foi ativada com sucesso. Redirecionando...</p>
         </div>
     `;
     statusDiv.style.display = 'block';
@@ -236,7 +236,7 @@ let statusCheckInterval = setInterval(function() {
     })
     .then(response => response.json())
     .then(data => {
-        // Verificar se a assinatura foi ativada
+        // Verificar se a subscrição foi ativada
         if (data.has_subscription && data.subscription && data.subscription.status === 'active') {
             clearInterval(statusCheckInterval);
             showPaymentSuccess();

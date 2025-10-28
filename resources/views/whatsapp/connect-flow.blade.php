@@ -4,8 +4,8 @@
 <div class="p-4 sm:p-6 lg:p-8 space-y-6">
     <!-- Header -->
     <div class="text-center">
-        <h1 class="text-3xl font-bold text-foreground mb-2">Conectar WhatsApp</h1>
-        <p class="text-muted-foreground">Siga os passos abaixo para conectar sua conta WhatsApp</p>
+        <h1 class="text-3xl font-bold text-foreground mb-2">Ligar WhatsApp</h1>
+        <p class="text-muted-foreground">Siga os passos abaixo para ligar a sua conta WhatsApp</p>
     </div>
 
     <!-- Connection Flow Steps -->
@@ -17,20 +17,20 @@
                     <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-primary-foreground font-bold text-sm">
                         1
                     </div>
-                    <h3 class="text-lg font-semibold text-foreground">Conectar ao WhatsApp</h3>
+                    <h3 class="text-lg font-semibold text-foreground">Ligar ao WhatsApp</h3>
                 </div>
                 <div id="connect-status" class="hidden">
                     <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-success/10 text-success">
                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                         </svg>
-                        Conectado
+                        Ligado
                     </span>
                 </div>
             </div>
             
             <p class="text-muted-foreground mb-4">
-                Clique no botão abaixo para iniciar a conexão com os servidores do WhatsApp.
+                Clique no botão abaixo para iniciar a ligação com os servidores do WhatsApp.
             </p>
             
             <button id="connect-btn" 
@@ -38,7 +38,7 @@
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"></path>
                 </svg>
-                <span id="connect-text">Conectar ao WhatsApp</span>
+                <span id="connect-text">Ligar ao WhatsApp</span>
                 <svg id="connect-spinner" class="hidden w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                     <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
@@ -66,7 +66,7 @@
             </div>
             
             <p class="text-muted-foreground mb-4">
-                Após conectar, clique no botão abaixo para obter o QR Code que será escaneado no seu celular.
+                Após ligar, clique no botão abaixo para obter o QR Code que será escaneado no seu telemóvel.
             </p>
             
             <button id="qr-btn" 
@@ -89,8 +89,8 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path>
                 </svg>
             </div>
-            <h3 class="text-xl font-bold text-foreground mb-2">Escaneie o QR Code</h3>
-            <p class="text-muted-foreground mb-8">Abra o WhatsApp no seu celular e escaneie o código abaixo</p>
+            <h3 class="text-xl font-bold text-foreground mb-2">Digitalize o QR Code</h3>
+            <p class="text-muted-foreground mb-8">Abra o WhatsApp no seu telemóvel e digitalize o código abaixo</p>
             <div class="inline-block p-6 bg-background rounded-lg border-2 border-border shadow-lg">
                 <img id="qr-image" src="" alt="QR Code WhatsApp" class="w-64 h-64 mx-auto">
             </div>
@@ -111,7 +111,7 @@
                     <svg class="w-5 h-5 mr-2 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path>
                     </svg>
-                    <span>3. Escaneie o QR Code</span>
+                    <span>3. Digitalize o QR Code</span>
                 </div>
             </div>
         </div>
@@ -130,7 +130,7 @@
                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                         </svg>
-                        Conectado e Logado
+                        Ligado e Logado
                     </span>
                 </div>
             </div>
@@ -142,7 +142,7 @@
                         <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
                 </div>
-                <p class="text-muted-foreground mb-4">Aguardando você escanear o QR Code...</p>
+                <p class="text-muted-foreground mb-4">A aguardar a digitalização o QR Code...</p>
                 <p class="text-sm text-muted-foreground">Verificando status automaticamente...</p>
             </div>
         </div>
@@ -154,13 +154,13 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                 </svg>
             </div>
-            <h3 class="text-xl font-bold text-success mb-2">Conectado com Sucesso!</h3>
-            <p class="text-muted-foreground mb-6">Sua conta WhatsApp foi conectada e está pronta para uso.</p>
+            <h3 class="text-xl font-bold text-success mb-2">Ligado com Sucesso!</h3>
+            <p class="text-muted-foreground mb-6">A sua conta WhatsApp foi conectada e está pronta para uso.</p>
             <a href="{{ route('whatsapp.index') }}" class="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium text-primary-foreground bg-primary hover:bg-primary/90 rounded-lg transition-colors">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
                 </svg>
-                Voltar para Conexões
+                Voltar para Ligações
             </a>
         </div>
 
@@ -171,8 +171,8 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                 </svg>
             </div>
-            <h3 class="text-xl font-bold text-destructive mb-2">Erro na Conexão</h3>
-            <p id="error-text" class="text-muted-foreground mb-6">Ocorreu um erro durante o processo de conexão.</p>
+            <h3 class="text-xl font-bold text-destructive mb-2">Erro na Ligação</h3>
+            <p id="error-text" class="text-muted-foreground mb-6">Ocorreu um erro durante o processo de ligação.</p>
             <button onclick="location.reload()" class="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium text-primary-foreground bg-primary hover:bg-primary/90 rounded-lg transition-colors">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
@@ -215,12 +215,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 isConnected = true;
                 showStepStatus('connect-status');
                 enableButton(qrBtn);
-                showMessage('success', 'Conectado ao WhatsApp com sucesso!');
+                showMessage('success', 'Ligado ao WhatsApp com sucesso!');
             } else {
-                throw new Error(result.message || 'Erro ao conectar');
+                throw new Error(result.message || 'Erro ao ligar');
             }
         } catch (error) {
-            showError('Erro ao conectar: ' + error.message);
+            showError('Erro ao ligar: ' + error.message);
         } finally {
             setButtonLoading(connectBtn, false);
         }

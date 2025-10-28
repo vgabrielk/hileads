@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="py-8 px-4 sm:px-6 lg:px-8 animate-fadeIn">
-    <div class="max-w-7xl mx-auto">
+    <div class="mx-auto">
         <!-- Header -->
         <div class="mb-8">
             <a href="{{ route('mass-sendings.index') }}" class="inline-flex items-center text-sm font-medium text-gray-600 hover:text-gray-900 mb-4 transition-colors">
@@ -37,7 +37,7 @@
                             @endif
                         </span>
                     </div>
-                    <p class="mt-2 text-sm text-gray-600">Acompanhe o desempenho e gerencie sua envio em massa</p>
+                    <p class="mt-2 text-sm text-gray-600">Acompanhe o desempenho e faça a gestão a sua envio em massa</p>
                 </div>
                 <div class="flex flex-wrap items-center gap-2">
                     @if($massSending->status === 'draft')
@@ -185,7 +185,7 @@
             <!-- Total Contacts -->
             <div class="card-hover bg-white rounded-2xl shadow-sm border border-gray-100 p-6 hover:shadow-xl">
                 <div class="flex items-center justify-between mb-4">
-                    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wider">Total de Contatos</h3>
+                    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wider">Total de Contactos</h3>
                     <div class="w-12 h-12 bg-gradient-to-br from-blue-100 to-blue-200 rounded-xl flex items-center justify-center">
                         <svg class="w-6 h-6 text-blue-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
@@ -193,7 +193,7 @@
                     </div>
                 </div>
                 <p class="text-3xl font-bold text-gray-900">{{ number_format($massSending->total_contacts) }}</p>
-                <p class="text-xs text-gray-500 mt-2">Contatos selecionados</p>
+                <p class="text-xs text-gray-500 mt-2">Contactos selecionados</p>
             </div>
 
             <!-- Sent Count -->
@@ -258,7 +258,7 @@
         <div class="card-hover bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl mb-8">
             <div class="p-6 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
                 <h2 class="text-lg font-bold text-gray-900">Mensagem da Envio em massa</h2>
-                <p class="text-sm text-gray-600 mt-1">Conteúdo enviado aos contatos</p>
+                <p class="text-sm text-gray-600 mt-1">Conteúdo enviado aos contactos</p>
             </div>
             <div class="p-6">
                 <div class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-6 border border-gray-200">
@@ -447,7 +447,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Show toast notification
                 const toast = document.getElementById('toast-notification');
                 if (toast) {
-                    toast.querySelector('#toast-message').textContent = 'Retomando campanha! Processando contatos restantes...';
+                    toast.querySelector('#toast-message').textContent = 'Retomando campanha! Processando contactos restantes...';
                     toast.classList.remove('hidden');
                     setTimeout(() => {
                         toast.classList.add('hidden');

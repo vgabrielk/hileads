@@ -58,7 +58,7 @@
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-foreground mb-2">Buscar</label>
+                        <label class="block text-sm font-medium text-foreground mb-2">Procurar</label>
                         <input type="text" name="search" value="{{ $search }}" 
                                placeholder="Pesquisar nos erros..." 
                                class="w-full px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
@@ -94,7 +94,7 @@
                                 <th class="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Timestamp</th>
                                 <th class="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Nível</th>
                                 <th class="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Erro</th>
-                                <th class="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Arquivo</th>
+                                <th class="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Ficheiro</th>
                                 <th class="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Linha</th>
                                 <th class="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Ações</th>
                             </tr>

@@ -82,7 +82,7 @@ class AdminSubscriptionController extends Controller
     {
         $subscription->load(['user', 'plan']);
         
-        // Buscar dados do Stripe se disponível
+        // Procurar dados do Stripe se disponível
         $stripeData = null;
         if ($subscription->stripe_subscription_id) {
             try {
@@ -316,7 +316,7 @@ class AdminSubscriptionController extends Controller
             ]);
 
             return redirect()->route('admin.subscriptions.index')
-                ->with('success', 'Assinatura excluída com sucesso!');
+                ->with('success', 'Assinatura eliminada com sucesso!');
 
         } catch (\Exception $e) {
             Log::error('Failed to delete subscription', [
@@ -325,7 +325,7 @@ class AdminSubscriptionController extends Controller
             ]);
 
             return redirect()->back()
-                ->with('error', 'Erro ao excluir assinatura: ' . $e->getMessage());
+                ->with('error', 'Erro ao eliminar assinatura: ' . $e->getMessage());
         }
     }
 
@@ -336,7 +336,7 @@ class AdminSubscriptionController extends Controller
     {
         if (!$subscription->stripe_subscription_id) {
             return redirect()->back()
-                ->with('error', 'Esta assinatura não possui ID do Stripe para sincronizar.');
+                ->with('error', 'Esta subscrição não possui ID do Stripe para sincronizar.');
         }
 
         try {

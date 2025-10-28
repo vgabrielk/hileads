@@ -27,7 +27,7 @@ class SubscriptionSecurityMiddleware
             return $next($request);
         }
 
-        // Verificar se o usuário tem assinatura ativa
+        // Verificar se o utilizador tem subscrição ativa
         $activeSubscription = $user->activeSubscription()->first();
         
         if (!$activeSubscription) {
@@ -38,10 +38,10 @@ class SubscriptionSecurityMiddleware
             ]);
             
             return redirect()->route('plans.index')
-                ->with('error', 'Você precisa de uma assinatura ativa para acessar esta funcionalidade.');
+                ->with('error', 'Precisa de uma subscrição ativa para aceder esta funcionalidade.');
         }
 
-        // Verificar se a assinatura não expirou
+        // Verificar se a subscrição não expirou
         if ($activeSubscription->isExpired()) {
             Log::warning('Subscription security check failed: Subscription expired', [
                 'user_id' => $user->id,
@@ -51,10 +51,10 @@ class SubscriptionSecurityMiddleware
             ]);
             
             return redirect()->route('plans.index')
-                ->with('error', 'Sua assinatura expirou. Renove para continuar usando o sistema.');
+                ->with('error', 'A sua subscrição expirou. Renove para continuar usando o sistema.');
         }
 
-        // Verificar se a assinatura não foi cancelada
+        // Verificar se a subscrição não foi cancelada
         if ($activeSubscription->status !== 'active') {
             Log::warning('Subscription security check failed: Subscription not active', [
                 'user_id' => $user->id,
@@ -64,7 +64,7 @@ class SubscriptionSecurityMiddleware
             ]);
             
             return redirect()->route('plans.index')
-                ->with('error', 'Sua assinatura não está ativa. Entre em contato com o suporte.');
+                ->with('error', 'A sua subscrição não está ativa. Entre em contacto com o suporte.');
         }
 
         // Log de acesso autorizado para auditoria

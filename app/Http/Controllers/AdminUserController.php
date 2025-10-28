@@ -63,14 +63,14 @@ class AdminUserController extends Controller
             $token = $user->generateApiToken();
         }
 
-        // Criar usuário na Wuzapi com o mesmo token
+        // Criar utilizador na Wuzapi com o mesmo token
         try {
             $wuzapiService = new WuzapiService($token);
             $wuzapiResult = $wuzapiService->createWuzapiUser($user->name, $token);
             
             $response = [
                 'success' => true,
-                'message' => 'Usuário criado com sucesso.',
+                'message' => 'Utilizador criado com sucesso.',
                 'data' => [
                     'id' => $user->id,
                     'name' => $user->name,
@@ -83,7 +83,7 @@ class AdminUserController extends Controller
             ];
 
             if (!$wuzapiResult['success']) {
-                $response['warning'] = 'Usuário criado no Laravel, mas houve erro ao criar na Wuzapi: ' . $wuzapiResult['message'];
+                $response['warning'] = 'Utilizador criado no Laravel, mas houve erro ao criar na Wuzapi: ' . $wuzapiResult['message'];
             }
 
             return response()->json($response, 201);
@@ -91,7 +91,7 @@ class AdminUserController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'success' => true,
-                'message' => 'Usuário criado no Laravel, mas erro ao criar na Wuzapi.',
+                'message' => 'Utilizador criado no Laravel, mas erro ao criar na Wuzapi.',
                 'data' => [
                     'id' => $user->id,
                     'name' => $user->name,
@@ -116,7 +116,7 @@ class AdminUserController extends Controller
         if (!$user) {
             return response()->json([
                 'success' => false,
-                'message' => 'Usuário não encontrado.'
+                'message' => 'Utilizador não encontrado.'
             ], 404);
         }
 
@@ -136,7 +136,7 @@ class AdminUserController extends Controller
         if (!$user) {
             return response()->json([
                 'success' => false,
-                'message' => 'Usuário não encontrado.'
+                'message' => 'Utilizador não encontrado.'
             ], 404);
         }
 
@@ -175,7 +175,7 @@ class AdminUserController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Usuário atualizado com sucesso.',
+            'message' => 'Utilizador atualizado com sucesso.',
             'data' => [
                 'id' => $user->id,
                 'name' => $user->name,
@@ -196,7 +196,7 @@ class AdminUserController extends Controller
         if (!$user) {
             return response()->json([
                 'success' => false,
-                'message' => 'Usuário não encontrado.'
+                'message' => 'Utilizador não encontrado.'
             ], 404);
         }
 
@@ -204,7 +204,7 @@ class AdminUserController extends Controller
         if ($user->id === auth()->id()) {
             return response()->json([
                 'success' => false,
-                'message' => 'Você não pode deletar sua própria conta.'
+                'message' => 'Não pode eliminar a sua própria conta.'
             ], 403);
         }
 
@@ -212,7 +212,7 @@ class AdminUserController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Usuário deletado com sucesso.'
+            'message' => 'Utilizador eliminado com sucesso.'
         ], 200);
     }
 
@@ -226,7 +226,7 @@ class AdminUserController extends Controller
         if (!$user) {
             return response()->json([
                 'success' => false,
-                'message' => 'Usuário não encontrado.'
+                'message' => 'Utilizador não encontrado.'
             ], 404);
         }
 
@@ -252,13 +252,13 @@ class AdminUserController extends Controller
         }
 
         try {
-            // Buscar todos os usuários do Laravel com token
+            // Procurar todos os usuários do Laravel com token
             $laravelUsers = User::whereNotNull('api_token')->get();
 
-            // Verificar status de cada usuário na Wuzapi
+            // Verificar status de cada utilizador na Wuzapi
             $enrichedUsers = $laravelUsers->map(function ($user) {
                 try {
-                    // Tentar pegar status da sessão com o token do usuário
+                    // Tentar pegar status da sessão com o token do utilizador
                     $response = Http::withHeaders([
                         'token' => $user->api_token,
                     ])->get(config('services.wuzapi.base_url') . '/session/status');
@@ -302,7 +302,7 @@ class AdminUserController extends Controller
 
         } catch (\Exception $e) {
             return view('admin.wuzapi-users', [
-                'error' => 'Erro ao buscar usuários: ' . $e->getMessage(),
+                'error' => 'Erro ao procurar usuários: ' . $e->getMessage(),
                 'users' => []
             ]);
         }
@@ -330,7 +330,7 @@ class AdminUserController extends Controller
             if (!$response->successful()) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Erro ao buscar usuários da Wuzapi: ' . $response->body()
+                    'message' => 'Erro ao procurar usuários da Wuzapi: ' . $response->body()
                 ], $response->status());
             }
 
@@ -363,7 +363,7 @@ class AdminUserController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Erro ao conectar com Wuzapi: ' . $e->getMessage()
+                'message' => 'Erro ao ligar com Wuzapi: ' . $e->getMessage()
             ], 500);
         }
     }

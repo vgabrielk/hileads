@@ -135,11 +135,11 @@ class MassSendingRequest extends FormRequest
                 ]);
 
                 if ($base64Length > $maxSize) {
-                    CampaignLogger::error('Arquivo muito grande', [
+                    CampaignLogger::error('Ficheiro muito grande', [
                         'size_mb' => round($base64Length / 1024 / 1024, 2),
                         'max_size_mb' => round($maxSize / 1024 / 1024, 2)
                     ]);
-                    $validator->errors()->add('media_data', 'Arquivo muito grande. Tamanho máximo permitido: 5MB.');
+                    $validator->errors()->add('media_data', 'Ficheiro muito grande. Tamanho máximo permitido: 5MB.');
                     return;
                 }
 
@@ -204,12 +204,12 @@ class MassSendingRequest extends FormRequest
                     return;
                 }
 
-                // Para documentos, validar nome do arquivo
+                // Para documentos, validar nome do ficheiro
                 if ($mediaType === 'document' && empty($decodedMediaData['name'])) {
-                    CampaignLogger::error('Nome do arquivo ausente para documento', [
+                    CampaignLogger::error('Nome do ficheiro ausente para documento', [
                         'available_keys' => array_keys($decodedMediaData)
                     ]);
-                    $validator->errors()->add('media_data', 'Nome do arquivo é obrigatório para documentos.');
+                    $validator->errors()->add('media_data', 'Nome do ficheiro é obrigatório para documentos.');
                     return;
                 }
 

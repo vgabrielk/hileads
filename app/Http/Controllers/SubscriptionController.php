@@ -23,13 +23,13 @@ class SubscriptionController extends Controller
     {
         $user = auth()->user();
         
-        // Se o usuário é admin, mostra mensagem especial
+        // Se o utilizador é admin, mostra mensagem especial
         if ($user->isAdmin()) {
             $subscriptions = collect(); // Lista vazia para admins
             return view('subscriptions.index', compact('subscriptions'))->with('admin_message', true);
         }
         
-        // Buscar apenas uma subscription por plano (a mais recente)
+        // Procurar apenas uma subscription por plano (a mais recente)
         $subscriptions = $user->subscriptions()
             ->with('plan')
             ->whereIn('id', function($query) use ($user) {
@@ -71,7 +71,7 @@ class SubscriptionController extends Controller
 
         if ($subscription->status !== 'active') {
             return redirect()->back()
-                ->with('error', 'Esta assinatura não está ativa.');
+                ->with('error', 'Esta subscrição não está ativa.');
         }
 
         $subscription->update([
@@ -245,12 +245,12 @@ class SubscriptionController extends Controller
             $session = $this->stripeService->getCheckoutSession($sessionId);
 
             if ($session->payment_status === 'paid') {
-                // Buscar assinatura pendente relacionada a esta sessão
+                // Procurar subscrição pendente relacionada a esta sessão
                 $subscription = \App\Models\Subscription::where('stripe_session_id', $sessionId)
                     ->where('status', 'pending')
                     ->first();
 
-                // Se encontrou assinatura pendente, ativar automaticamente
+                // Se encontrou subscrição pendente, ativar automaticamente
                 if ($subscription) {
                     $subscription->update([
                         'status' => 'active',

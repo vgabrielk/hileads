@@ -116,19 +116,19 @@ class AuthController extends Controller
             // Generate API token automatically
             $token = $user->generateApiToken();
 
-            // Criar usuário na Wuzapi com o mesmo token
+            // Criar utilizador na Wuzapi com o mesmo token
             try {
                 $wuzapiService = new WuzapiService($token);
                 $wuzapiResult = $wuzapiService->createWuzapiUser($user->name, $token);
                 
                 if (!$wuzapiResult['success']) {
-                    Log::warning('Falha ao criar usuário na Wuzapi durante registro', [
+                    Log::warning('Falha ao criar utilizador na Wuzapi durante registro', [
                         'user' => $user->email,
                         'error' => $wuzapiResult['message']
                     ]);
                 }
             } catch (\Exception $e) {
-                Log::error('Erro ao criar usuário na Wuzapi', [
+                Log::error('Erro ao criar utilizador na Wuzapi', [
                     'user' => $user->email,
                     'error' => $e->getMessage()
                 ]);

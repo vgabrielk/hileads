@@ -8,7 +8,7 @@
     <div class="flex items-center justify-between flex-wrap gap-4">
         <div>
             <h1 class="text-3xl font-bold text-foreground">Grupos</h1>
-            <p class="text-muted-foreground mt-1">Organize seus contatos em grupos</p>
+            <p class="text-muted-foreground mt-1">Organize seus contactos em grupos</p>
         </div>
         <a href="{{ route('groups.create') }}" class="inline-flex items-center justify-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -69,14 +69,14 @@
                                         </svg>
                                         Editar
                                     </a>
-                                    <form action="{{ route('groups.destroy', $group) }}" method="POST" class="inline" onsubmit="return confirm('Tem certeza que deseja excluir este grupo?')">
+                                    <form action="{{ route('groups.destroy', $group) }}" method="POST" class="inline" onsubmit="return confirm('Tem certeza que deseja eliminar este grupo?')">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="inline-flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-destructive hover:bg-destructive/10 rounded-lg transition-colors">
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                                             </svg>
-                                            Excluir
+                                            Eliminar
                                         </button>
                                     </form>
                                 </div>
@@ -94,7 +94,7 @@
                 </svg>
             </div>
             <h3 class="text-lg font-medium text-foreground mb-2">Nenhum grupo encontrado</h3>
-            <p class="text-muted-foreground mb-6">Crie seu primeiro grupo para organizar contatos e facilitar campanhas.</p>
+            <p class="text-muted-foreground mb-6">Crie o seu primeiro grupo para organizar contactos e facilitar campanhas.</p>
             <a href="{{ route('groups.create') }}" class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-primary-foreground bg-primary hover:bg-primary/90 rounded-lg transition-colors">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>

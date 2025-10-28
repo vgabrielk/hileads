@@ -12,7 +12,7 @@ class WuzapiAuth
         // Pega o token do header
         $token = $request->header('Authorization') ?? $request->header('token');
 
-        // Token que você definiu no .env
+        // Token que definiu no .env
         $validToken = env('WUZAPI_ADMIN_TOKEN', 'seu_token_aqui');
 
         if ($token !== $validToken) {

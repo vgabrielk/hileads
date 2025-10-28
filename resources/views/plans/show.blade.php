@@ -44,7 +44,7 @@
                         @if($plan->max_contacts)
                             <div class="text-center">
                                 <div class="text-2xl font-bold text-blue-600">{{ number_format($plan->max_contacts) }}</div>
-                                <div class="text-gray-600">Contatos</div>
+                                <div class="text-gray-600">Contactos</div>
                             </div>
                         @endif
                         @if($plan->max_campaigns)
@@ -68,7 +68,7 @@
                             Acesso Administrativo
                         </div>
                         <div class="mt-4 text-gray-600">
-                            Como administrador, você tem acesso completo a todas as funcionalidades.
+                            Como administrador, tem acesso completo a todas as funcionalidades.
                         </div>
                     @else
                         <button onclick="startCheckout({{ $plan->id }}, '{{ $plan->name }}', {{ $plan->price }})" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-lg text-xl transition duration-200 inline-block">
@@ -118,7 +118,7 @@
             
             <!-- Subtitle -->
             <p style="color: #6b7280; font-size: 16px; margin-bottom: 32px; line-height: 1.5;">
-                Preparando sua assinatura do <strong id="plan-name" style="color: #3b82f6;">Plano</strong>
+                Preparando a sua subscrição do <strong id="plan-name" style="color: #3b82f6;">Plano</strong>
             </p>
 
             <!-- Progress Steps -->

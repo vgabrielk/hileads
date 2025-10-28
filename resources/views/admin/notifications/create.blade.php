@@ -6,7 +6,7 @@
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
             <h1 class="text-2xl sm:text-3xl font-bold text-foreground">Nova Notificação</h1>
-            <p class="text-muted-foreground mt-1">Crie e envie notificações para usuários</p>
+            <p class="text-muted-foreground mt-1">Crie e envie notificações para utilizadores</p>
         </div>
         <div class="flex gap-2">
             <a href="{{ route('admin.notifications.index') }}" 
@@ -89,7 +89,7 @@
                     <h3 class="text-lg font-semibold text-foreground mb-4">Destinatários</h3>
                     <div class="space-y-4">
                         <div>
-                            <label class="block text-sm font-medium text-foreground mb-2">Selecionar Usuários</label>
+                            <label class="block text-sm font-medium text-foreground mb-2">Selecionar Utilizadores</label>
                             <div class="max-h-60 overflow-y-auto border border-border rounded-lg p-3">
                                 <div class="space-y-2">
                                     @foreach($users as $user)
@@ -213,7 +213,7 @@
                     <p>• Use títulos claros e objetivos</p>
                     <p>• Mantenha mensagens concisas</p>
                     <p>• Escolha o tipo apropriado</p>
-                    <p>• Teste com poucos usuários primeiro</p>
+                    <p>• Teste com poucos utilizadores primeiro</p>
                     <p>• Agende para horários apropriados</p>
                 </div>
             </div>

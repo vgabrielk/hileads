@@ -310,7 +310,7 @@ class AdminLogsController extends Controller
             'login' => 'Login',
             'logout' => 'Logout',
             'register' => 'Registro',
-            'subscription' => 'Assinatura',
+            'subscription' => 'Subscrição',
             'campaign' => 'Campanha',
             'whatsapp' => 'WhatsApp',
             'settings' => 'Configurações',

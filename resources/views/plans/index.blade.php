@@ -5,7 +5,7 @@
 @section('content')
 <div class="p-8 space-y-6">
     <div class="text-center mb-8">
-        <h1 class="text-3xl font-bold text-foreground mb-4">Escolha seu Plano</h1>
+        <h1 class="text-3xl font-bold text-foreground mb-4">Escolha o seu Plano</h1>
         <p class="text-lg text-muted-foreground">Selecione o plano ideal para suas necessidades</p>
     </div>
 
@@ -34,7 +34,7 @@
                     </div>
                     <div>
                         <h3 class="text-lg font-semibold text-primary">Acesso Administrativo</h3>
-                        <p class="text-primary/80">Como administrador, você tem acesso completo a todas as funcionalidades sem necessidade de assinatura.</p>
+                        <p class="text-primary/80">Como administrador, tem acesso completo a todas as funcionalidades sem necessidade de subscrição.</p>
                     </div>
                 </div>
                 <a href="{{ route('plans.admin') }}" class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-primary-foreground bg-primary hover:bg-primary/90 rounded-lg transition-colors">
@@ -42,7 +42,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                     </svg>
-                    Gerenciar Planos
+                    Gerir Planos
                 </a>
             </div>
         </div>
@@ -85,7 +85,7 @@
 
                     <div class="space-y-2 mb-6 text-sm text-muted-foreground">
                         @if($plan->max_contacts)
-                            <div>Máximo {{ number_format($plan->max_contacts) }} contatos</div>
+                            <div>Máximo {{ number_format($plan->max_contacts) }} contactos</div>
                         @endif
                         @if($plan->max_campaigns)
                             <div>Máximo {{ $plan->max_campaigns }} campanhas</div>
@@ -112,7 +112,7 @@
 
     <div class="text-center mt-8">
         <p class="text-muted-foreground mb-4">Tem dúvidas sobre os planos?</p>
-        <a href="#" class="text-primary hover:text-primary/80 font-semibold">Entre em contato conosco</a>
+        <a href="#" class="text-primary hover:text-primary/80 font-semibold">Inicie sessão em contacto conosco</a>
     </div>
 </div>
 

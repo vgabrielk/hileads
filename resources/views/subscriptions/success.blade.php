@@ -12,8 +12,8 @@
                     </svg>
                 </div>
             </div>
-            <h1 class="text-4xl font-bold text-gray-900 mb-2">🎉 Assinatura Realizada!</h1>
-            <p class="text-lg text-gray-600">Seu pagamento foi processado com sucesso</p>
+            <h1 class="text-4xl font-bold text-gray-900 mb-2">🎉 Subscrição Realizada!</h1>
+            <p class="text-lg text-gray-600">O seu pagamento foi processado com sucesso</p>
         </div>
 
         <!-- Success Card -->
@@ -26,11 +26,11 @@
                         </svg>
                     </div>
                     <div>
-                        <h3 class="text-lg font-semibold text-green-900">Assinatura Ativa</h3>
+                        <h3 class="text-lg font-semibold text-green-900">Subscrição Ativa</h3>
                         @if(isset($subscription) && $subscription)
                             <p class="text-green-700">Plano: {{ $subscription->plan->name }} - {{ $subscription->plan->formatted_price }}</p>
                         @else
-                            <p class="text-green-700">Sua assinatura está ativa e pronta para uso!</p>
+                            <p class="text-green-700">A sua subscrição está ativa e pronta para uso!</p>
                         @endif
                     </div>
                 </div>
@@ -64,7 +64,7 @@
                     </div>
                     <div>
                         <h4 class="font-semibold text-gray-900 mb-1">Suporte Prioritário</h4>
-                        <p class="text-sm text-gray-600">Atendimento rápido e dedicado para você</p>
+                        <p class="text-sm text-gray-600">Atendimento rápido e dedicado para o utilizador</p>
                     </div>
                 </div>
             </div>
@@ -79,7 +79,7 @@
                     </div>
                     <div>
                         <h4 class="font-semibold text-gray-900 mb-1">Recursos Premium</h4>
-                        <p class="text-sm text-gray-600">Acesse todas as funcionalidades avançadas</p>
+                        <p class="text-sm text-gray-600">Aceda todas as funcionalidades avançadas</p>
                     </div>
                 </div>
             </div>
@@ -113,19 +113,19 @@
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                 </svg>
-                Ver Minhas Assinaturas
+                Ver Minhas Subscrições
             </a>
         </div>
 
         <!-- Additional Info -->
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 text-center">
             <p class="text-sm text-gray-600 mb-2">
-                Você receberá um e-mail de confirmação em breve.
+                O utilizador receberá um e-mail de confirmação em breve.
             </p>
             <p class="text-sm text-gray-500">
                 Precisa de ajuda? 
                 <a href="mailto:suporte@exemplo.com" class="text-green-600 hover:text-green-700 font-medium transition-colors">
-                    Entre em contato conosco
+                    Inicie sessão em contacto conosco
                 </a>
             </p>
         </div>

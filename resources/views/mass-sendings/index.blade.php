@@ -5,7 +5,7 @@
     <!-- Header -->
             <div>
         <h1 class="text-2xl sm:text-3xl font-bold text-foreground">Campanhas</h1>
-        <p class="text-muted-foreground mt-1">Gerencie e monitore suas campanhas de marketing</p>
+        <p class="text-muted-foreground mt-1">Faça a gestão e monitorize as suas campanhas de marketing</p>
     </div>
 
     <!-- Filters and Search -->
@@ -31,7 +31,7 @@
                 
                 <!-- Search Input -->
                 <div class="relative flex-1 sm:flex-none sm:w-80">
-                    <input type="text" placeholder="Buscar campanhas..." class="w-full pl-12 pr-4 py-3 bg-background border border-input rounded-xl text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all hover:border-primary/50">
+                    <input type="text" placeholder="Procurar campanhas..." class="w-full pl-12 pr-4 py-3 bg-background border border-input rounded-xl text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all hover:border-primary/50">
                     <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
                         <svg class="w-4 h-4 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
@@ -133,7 +133,7 @@
                     <input type="checkbox" class="w-4 h-4 rounded border-input text-primary focus:ring-primary focus:ring-offset-0">
                 </div>
                 <div class="relative">
-                    <input type="text" placeholder="Buscar..." class="w-full pl-8 pr-3 py-2.5 bg-background border border-input rounded-xl text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all hover:border-primary/50">
+                    <input type="text" placeholder="Procurar..." class="w-full pl-8 pr-3 py-2.5 bg-background border border-input rounded-xl text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all hover:border-primary/50">
                     <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                         <svg class="w-4 h-4 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
@@ -312,7 +312,7 @@
                                             <div class="border-t border-border my-1"></div>
                                             
                                             <form method="POST" action="{{ route('mass-sendings.destroy', $massSending) }}" 
-                                                  onsubmit="return handleDeleteConfirmation(event, 'Tem certeza que deseja excluir esta campanha?', 'Esta ação não pode ser desfeita.')" 
+                                                  onsubmit="return handleDeleteConfirmation(event, 'Tem certeza que deseja eliminar esta campanha?', 'Esta ação não pode ser desfeita.')" 
                                                   class="block">
                                                 @csrf
                                                 @method('DELETE')
@@ -320,7 +320,7 @@
                                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                                                     </svg>
-                                                    Excluir Campanha
+                                                    Eliminar Campanha
                                                 </button>
                                             </form>
                                         </div>
@@ -339,7 +339,7 @@
                 </div>
                 <h3 class="text-lg font-medium text-foreground mb-2">Nenhuma campanha encontrada</h3>
                 <p class="text-muted-foreground mb-6 max-w-md mx-auto">
-                    Crie sua primeira campanha de marketing para começar a enviar mensagens aos seus leads
+                    Crie a sua primeira campanha de marketing para começar a enviar mensagens aos seus leads
                 </p>
                 <a href="{{ route('mass-sendings.create') }}" class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-primary-foreground bg-primary hover:bg-primary/90 rounded-lg transition-colors">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -402,10 +402,10 @@ async function handleDeleteConfirmation(event, message, subtitle) {
     
     const confirmed = await confirmAction({
         type: 'danger',
-        title: 'Excluir Campanha',
+        title: 'Eliminar Campanha',
         subtitle: subtitle,
         message: message,
-        confirmText: 'Excluir',
+        confirmText: 'Eliminar',
         cancelText: 'Cancelar'
     });
     

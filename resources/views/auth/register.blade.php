@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-PT">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -77,8 +77,8 @@
         <!-- Register Form Card -->
         <div class="bg-white rounded-3xl shadow-xl p-8 border border-gray-100">
             <div class="mb-6">
-                <h2 class="text-2xl font-bold text-gray-900 mb-1">Criar sua conta</h2>
-                <p class="text-gray-600 text-sm">Comece a gerenciar seus leads de forma inteligente</p>
+                <h2 class="text-2xl font-bold text-gray-900 mb-1">Criar a sua conta</h2>
+                <p class="text-gray-600 text-sm">Comece a gerir os seus leads de forma inteligente</p>
             </div>
 
             <form method="POST" action="{{ route('register') }}" class="space-y-5">
@@ -96,7 +96,7 @@
                            required 
                            value="{{ old('name') }}"
                            class="w-full px-4 py-3 border border-gray-200 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors" 
-                           placeholder="Seu nome completo">
+                           placeholder="O seu nome completo">
                 </div>
 
                 <!-- Email Field -->
@@ -111,13 +111,13 @@
                            required 
                            value="{{ old('email') }}"
                            class="w-full px-4 py-3 border border-gray-200 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors" 
-                           placeholder="seu@email.com">
+                           placeholder="o-o seu@email.com">
                 </div>
 
                 <!-- Password Field -->
                 <div>
                     <label for="password" class="block text-sm font-semibold text-gray-700 mb-2">
-                        Senha
+                        Palavra-passe
                     </label>
                     <input id="password" 
                            name="password" 
@@ -126,13 +126,13 @@
                            required 
                            class="w-full px-4 py-3 border border-gray-200 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors" 
                            placeholder="Mínimo 8 caracteres">
-                    <p class="mt-1 text-xs text-gray-500">Use pelo menos 8 caracteres com letras e números</p>
+                    <p class="mt-1 text-xs text-gray-500">Utilize pelo menos 8 caracteres com letras e números</p>
                 </div>
 
                 <!-- Password Confirmation Field -->
                 <div>
                     <label for="password_confirmation" class="block text-sm font-semibold text-gray-700 mb-2">
-                        Confirmar Senha
+                        Confirmar Palavra-passe
                     </label>
                     <input id="password_confirmation" 
                            name="password_confirmation" 
@@ -140,7 +140,7 @@
                            autocomplete="new-password" 
                            required 
                            class="w-full px-4 py-3 border border-gray-200 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors" 
-                           placeholder="Confirme sua senha">
+                           placeholder="Confirme a sua palavra-passe">
                 </div>
 
                 <!-- Error Messages -->
@@ -170,7 +170,7 @@
                     </div>
                     <label for="terms" class="ml-2 text-xs text-gray-600">
                         Concordo com os 
-                        <a href="#" class="text-primary-600 hover:text-primary-700 font-medium">Termos de Uso</a> 
+                        <a href="#" class="text-primary-600 hover:text-primary-700 font-medium">Termos de Utilização</a> 
                         e 
                         <a href="#" class="text-primary-600 hover:text-primary-700 font-medium">Política de Privacidade</a>
                     </label>
@@ -191,9 +191,9 @@
             <!-- Login Link -->
             <div class="mt-6 text-center">
                 <p class="text-sm text-gray-600">
-                    Já tem uma conta?
+                    Já tem conta?
                     <a href="{{ route('login') }}" class="font-semibold text-primary-600 hover:text-primary-700">
-                        Fazer login
+                        Iniciar sessão
                     </a>
                 </p>
             </div>

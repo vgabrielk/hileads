@@ -41,7 +41,7 @@ class TokenAuthMiddleware
         if (!$user->isAdmin()) {
             return response()->json([
                 'success' => false,
-                'message' => 'Acesso negado. Apenas administradores podem acessar este recurso.'
+                'message' => 'Acesso negado. Apenas administradores podem aceder este recurso.'
             ], 403);
         }
 

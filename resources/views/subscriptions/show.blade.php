@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Detalhes da Assinatura')
+@section('title', 'Detalhes da Subscrição')
 
 @section('content')
 <div class="p-8 space-y-6">
@@ -10,10 +10,10 @@
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
             </svg>
-            Voltar para assinaturas
+            Voltar para subscrições
         </a>
-        <h1 class="text-3xl font-bold text-foreground">Detalhes da Assinatura</h1>
-        <p class="text-muted-foreground mt-1">Visualize os detalhes da sua assinatura</p>
+        <h1 class="text-3xl font-bold text-foreground">Detalhes da Subscrição</h1>
+        <p class="text-muted-foreground mt-1">Visualize os detalhes da sua subscrição</p>
     </div>
 
         @if(session('success'))
@@ -68,7 +68,7 @@
                             </div>
                             @if($subscription->plan->max_contacts)
                                 <div class="flex justify-between">
-                                    <span class="text-gray-600">Limite de contatos:</span>
+                                    <span class="text-gray-600">Limite de contactos:</span>
                                     <span class="font-semibold">{{ number_format($subscription->plan->max_contacts) }}</span>
                                 </div>
                             @endif
@@ -87,9 +87,9 @@
                         </div>
                     </div>
 
-                    <!-- Informações da Assinatura -->
+                    <!-- Informações da Subscrição -->
                     <div>
-                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Informações da Assinatura</h3>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Informações da Subscrição</h3>
                         <div class="space-y-3">
                             <div class="flex justify-between">
                                 <span class="text-gray-600">Data de início:</span>
@@ -139,8 +139,8 @@
                                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586l-1.293-1.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
                                 </svg>
                                 <div>
-                                    <div class="font-semibold text-blue-900">Assinatura Ativa</div>
-                                    <div class="text-blue-700 text-sm">Sua assinatura está ativa e você tem acesso a todos os recursos do plano.</div>
+                                    <div class="font-semibold text-blue-900">Subscrição Ativa</div>
+                                    <div class="text-blue-700 text-sm">A sua subscrição está ativa e tem acesso a todos os recursos do plano.</div>
                                 </div>
                             </div>
                         </div>
@@ -154,8 +154,8 @@
                                 @csrf
                                 <button type="submit" 
                                         class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-200"
-                                        onclick="return handleCancelSubscription(event, 'Tem certeza que deseja cancelar esta assinatura?', 'Esta ação não pode ser desfeita.')">
-                                    Cancelar Assinatura
+                                        onclick="return handleCancelSubscription(event, 'Tem certeza que deseja cancelar esta subscrição?', 'Esta ação não pode ser desfeita.')">
+                                    Cancelar Subscrição
                                 </button>
                             </form>
                         @elseif($subscription->status === 'cancelled' || $subscription->status === 'expired')
@@ -182,11 +182,11 @@ async function handleCancelSubscription(event, message, subtitle) {
     
     const confirmed = await confirmAction({
         type: 'danger',
-        title: 'Cancelar Assinatura',
+        title: 'Cancelar Subscrição',
         subtitle: subtitle,
         message: message,
-        confirmText: 'Cancelar Assinatura',
-        cancelText: 'Manter Assinatura'
+        confirmText: 'Cancelar Subscrição',
+        cancelText: 'Manter Subscrição'
     });
     
     if (confirmed) {

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Visualizar Usuário')
+@section('title', 'Visualizar Utilizador')
 
 @section('content')
 <div class="py-8 px-4 sm:px-6 lg:px-8">
@@ -11,12 +11,12 @@
                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
                 </svg>
-                Voltar para usuários
+                Voltar para utilizadores
             </a>
             <div class="flex items-center justify-between">
                 <div>
-                    <h1 class="text-3xl font-bold text-gray-900">Detalhes do Usuário</h1>
-                    <p class="mt-2 text-sm text-gray-600">Informações completas do usuário</p>
+                    <h1 class="text-3xl font-bold text-gray-900">Detalhes do Utilizador</h1>
+                    <p class="mt-2 text-sm text-gray-600">Informações completas do utilizador</p>
                 </div>
                 <div class="flex items-center space-x-3">
                     <a href="{{ route('admin.users.edit', $user) }}" class="btn-ripple inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-xl shadow-sm transition-all">
@@ -143,12 +143,12 @@
                                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728L5.636 5.636m12.728 12.728L18.364 5.636M5.636 18.364l12.728-12.728"/>
                                         </svg>
-                                        Desativar Usuário
+                                        Desativar Utilizador
                                     @else
                                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                                         </svg>
-                                        Ativar Usuário
+                                        Ativar Utilizador
                                     @endif
                                 </button>
                             </form>
@@ -167,14 +167,14 @@
 
                         <!-- Delete User -->
                         @if($user->id !== auth()->id())
-                            <form method="POST" action="{{ route('admin.users.destroy', $user) }}" onsubmit="return confirm('Tem certeza que deseja deletar este usuário? Esta ação não pode ser desfeita.')">
+                            <form method="POST" action="{{ route('admin.users.destroy', $user) }}" onsubmit="return confirm('Tem certeza que deseja eliminar este utilizador? Esta ação não pode ser desfeita.')">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="w-full flex items-center justify-center px-4 py-2 border border-red-300 text-red-700 bg-red-50 hover:bg-red-100 rounded-xl transition-colors">
                                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                                     </svg>
-                                    Deletar Usuário
+                                    Eliminar Utilizador
                                 </button>
                             </form>
                         @endif

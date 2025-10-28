@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Editar Usuário')
+@section('title', 'Editar Utilizador')
 
 @section('content')
 <div class="py-8 px-4 sm:px-6 lg:px-8">
@@ -11,10 +11,10 @@
                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
                 </svg>
-                Voltar para usuários
+                Voltar para utilizadores
             </a>
-            <h1 class="text-3xl font-bold text-gray-900">Editar Usuário</h1>
-            <p class="mt-2 text-sm text-gray-600">Modifique os dados do usuário</p>
+            <h1 class="text-3xl font-bold text-gray-900">Editar Utilizador</h1>
+            <p class="mt-2 text-sm text-gray-600">Modifique os dados do utilizador</p>
         </div>
 
         <form method="POST" action="{{ route('admin.users.update', $user) }}" class="space-y-6">
@@ -24,8 +24,8 @@
             <!-- User Info -->
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                 <div class="p-6 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
-                    <h2 class="text-lg font-bold text-gray-900">Informações do Usuário</h2>
-                    <p class="text-sm text-gray-600 mt-1">Dados básicos do usuário</p>
+                    <h2 class="text-lg font-bold text-gray-900">Informações do Utilizador</h2>
+                    <p class="text-sm text-gray-600 mt-1">Dados básicos do utilizador</p>
                 </div>
                 
                 <div class="p-6 space-y-6">
@@ -78,14 +78,14 @@
                     <!-- Password -->
                     <div>
                         <label for="password" class="block text-sm font-semibold text-gray-700 mb-2">
-                            Nova Senha
+                            Nova Palavra-passe
                             <span class="text-gray-500 font-normal">(opcional)</span>
                         </label>
                         <input type="password" 
                                id="password" 
                                name="password" 
                                class="w-full px-4 py-3 border border-gray-200 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                               placeholder="Deixe em branco para manter a senha atual">
+                               placeholder="Deixe em branco para manter a palavra-passe atual">
                         @error('password')
                             <p class="mt-2 text-sm text-red-600 flex items-center">
                                 <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
@@ -99,14 +99,14 @@
                     <!-- Password Confirmation -->
                     <div>
                         <label for="password_confirmation" class="block text-sm font-semibold text-gray-700 mb-2">
-                            Confirmar Nova Senha
+                            Confirmar Nova Palavra-passe
                             <span class="text-gray-500 font-normal">(opcional)</span>
                         </label>
                         <input type="password" 
                                id="password_confirmation" 
                                name="password_confirmation" 
                                class="w-full px-4 py-3 border border-gray-200 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                               placeholder="Digite a nova senha novamente">
+                               placeholder="Digite a nova palavra-passe novamente">
                     </div>
                 </div>
             </div>
@@ -115,7 +115,7 @@
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                 <div class="p-6 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
                     <h2 class="text-lg font-bold text-gray-900">Permissões e Status</h2>
-                    <p class="text-sm text-gray-600 mt-1">Configure as permissões e status do usuário</p>
+                    <p class="text-sm text-gray-600 mt-1">Configure as permissões e status do utilizador</p>
                 </div>
                 
                 <div class="p-6 space-y-6">
@@ -130,7 +130,7 @@
                                 class="w-full px-4 py-3 border border-gray-200 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                                 required>
                             <option value="">Selecione uma função</option>
-                            <option value="user" {{ old('role', $user->role) === 'user' ? 'selected' : '' }}>Usuário</option>
+                            <option value="user" {{ old('role', $user->role) === 'user' ? 'selected' : '' }}>Utilizador</option>
                             <option value="admin" {{ old('role', $user->role) === 'admin' ? 'selected' : '' }}>Administrador</option>
                         </select>
                         @error('role')
@@ -153,10 +153,10 @@
                                    {{ old('is_active', $user->is_active) ? 'checked' : '' }}
                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2">
                             <label for="is_active" class="ml-3 text-sm font-medium text-gray-700">
-                                Usuário ativo
+                                Utilizador ativo
                             </label>
                         </div>
-                        <p class="mt-1 text-xs text-gray-500">Usuários inativos não podem fazer login no sistema</p>
+                        <p class="mt-1 text-xs text-gray-500">Utilizadores inativos não podem fazer login no sistema</p>
                     </div>
                 </div>
             </div>

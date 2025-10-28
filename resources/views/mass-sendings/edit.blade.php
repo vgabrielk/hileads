@@ -33,7 +33,7 @@
                         </div>
                         <div class="ml-4">
                             <h3 class="text-lg font-semibold text-primary">Enviando para o grupo: {{ $group->name }}</h3>
-                            <p class="text-primary/80">{{ $group->contacts_count ?? 0 }} contatos serão incluídos neste envio</p>
+                            <p class="text-primary/80">{{ $group->contacts_count ?? 0 }} contactos serão incluídos neste envio</p>
                             @if(isset($group->description) && $group->description)
                                 <p class="text-sm text-primary/70 mt-1">{{ $group->description }}</p>
                             @endif
@@ -104,7 +104,7 @@
                                       name="message" 
                                       rows="6"
                                       class="w-full px-4 py-3 border border-gray-200 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors resize-none"
-                                      placeholder="Digite a mensagem que será enviada para os contatos selecionados...">{{ old('message', $massSending->message) }}</textarea>
+                                      placeholder="Digite a mensagem que será enviada para os contactos selecionados...">{{ old('message', $massSending->message) }}</textarea>
                             <p class="mt-2 text-xs text-gray-500">A mensagem será enviada exatamente como digitada acima</p>
             </div>
 
@@ -148,7 +148,7 @@
                                         <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
                                     <div>
-                                        <p class="text-lg font-medium text-gray-900">Arraste arquivos aqui</p>
+                                        <p class="text-lg font-medium text-gray-900">Arraste ficheiros aqui</p>
                                         <p class="text-sm text-gray-500">ou clique para selecionar</p>
                                     </div>
                                     <p class="text-xs text-gray-400">
@@ -212,7 +212,7 @@
                                                 </div>
                                             </div>
                                             <div class="text-sm text-gray-600">
-                                                <p class="font-medium">{{ $massSending->media_data['name'] ?? 'Arquivo de mídia' }}</p>
+                                                <p class="font-medium">{{ $massSending->media_data['name'] ?? 'Ficheiro de mídia' }}</p>
                                                 <p class="text-xs text-gray-500 mt-1">
                                                     <svg class="w-3 h-3 inline mr-1" fill="currentColor" viewBox="0 0 20 20">
                                                         <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
@@ -286,7 +286,7 @@
                                     </div>
                                     <div class="flex-1 min-w-0">
                                         <h3 class="font-semibold text-foreground truncate">{{ $group->name }}</h3>
-                                        <p class="text-sm text-muted-foreground">{{ $group->contacts_count ?? 0 }} contatos</p>
+                                        <p class="text-sm text-muted-foreground">{{ $group->contacts_count ?? 0 }} contactos</p>
                                     </div>
                                     <div class="flex-shrink-0">
                                         <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-success/10 text-success">
@@ -301,7 +301,7 @@
                                 <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                                 </svg>
-                                Para alterar os grupos, você precisa criar uma nova campanha.
+                                Para alterar os grupos, precisa criar uma nova campanha.
                             </p>
                         </div>
                     </div>
@@ -322,16 +322,16 @@
 
             <!-- Manual Contacts -->
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-8">
-                <h2 class="text-xl font-semibold text-gray-900 mb-4">Adicionar Contatos Manualmente</h2>
+                <h2 class="text-xl font-semibold text-gray-900 mb-4">Adicionar Contactos Manualmente</h2>
                 <div id="manualContactsContainer">
-                    <!-- Contatos serão adicionados aqui dinamicamente -->
+                    <!-- Contactos serão adicionados aqui dinamicamente -->
                 </div>
                 
                 <button type="button" onclick="addManualContact()" class="btn-ripple inline-flex items-center px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-xl transition-all">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
                     </svg>
-                    Adicionar Contato
+                    Adicionar Contacto
                 </button>
             </div>
 
@@ -370,7 +370,7 @@ function addManualContact() {
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Nome</label>
-                    <input type="text" name="manual_contacts[${manualContactIndex}][name]" placeholder="Nome do contato"
+                    <input type="text" name="manual_contacts[${manualContactIndex}][name]" placeholder="Nome do contacto"
                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                 </div>
                 <div>
@@ -460,7 +460,7 @@ function switchToMediaMode() {
         mediaModeBtn.classList.remove('text-muted-foreground', 'hover:text-foreground', 'hover:bg-accent');
     }
     
-    // Mostra preview se há mídia existente ou arquivo selecionado
+    // Mostra preview se há mídia existente ou ficheiro selecionado
     @if($massSending->media_data && isset($massSending->media_data['base64']))
         document.getElementById('previewArea').classList.remove('hidden');
     @endif
@@ -514,7 +514,7 @@ function processFiles(files) {
 function validateFile(file) {
     const maxSize = 50 * 1024 * 1024; // 50MB
     if (file.size > maxSize) {
-        showNotification('Arquivo muito grande. Máximo 50MB.', 'error');
+        showNotification('Ficheiro muito grande. Máximo 50MB.', 'error');
         return false;
     }
     
@@ -570,7 +570,7 @@ function updatePreview() {
     }
     
     if (selectedFiles.length === 0) {
-        // Se não há arquivos selecionados, mostra a imagem atual se existir
+        // Se não há ficheiros selecionados, mostra a imagem atual se existir
         @if($massSending->media_data && isset($massSending->media_data['base64']))
             previewArea.classList.remove('hidden');
             @php
@@ -598,7 +598,7 @@ function updatePreview() {
                                      class="w-full h-48 object-cover rounded-lg border border-gray-200">
                             </div>
                             <div class="text-sm text-gray-600">
-                                <p class="font-medium">{{ $massSending->media_data['name'] ?? 'Arquivo de mídia' }}</p>
+                                <p class="font-medium">{{ $massSending->media_data['name'] ?? 'Ficheiro de mídia' }}</p>
                                 <p class="text-xs text-gray-500 mt-1">
                                     <svg class="w-3 h-3 inline mr-1" fill="currentColor" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
@@ -618,7 +618,7 @@ function updatePreview() {
     previewArea.classList.remove('hidden');
     
     // Substitui a imagem no mesmo card ao invés de criar um novo
-    const file = selectedFiles[0]; // Apenas um arquivo para mass-sendings
+    const file = selectedFiles[0]; // Apenas um ficheiro para mass-sendings
     const fileIcon = getFileIcon(file.fileType);
     const fileSize = formatFileSize(file.size);
     

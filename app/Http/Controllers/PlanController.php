@@ -160,13 +160,13 @@ class PlanController extends Controller
         // Check if plan has active subscriptions
         if ($plan->subscriptions()->where('status', 'active')->exists()) {
             return redirect()->route('plans.admin')
-                ->with('error', 'Não é possível excluir um plano que possui assinaturas ativas.');
+                ->with('error', 'Não é possível eliminar um plano que possui subscrições ativas.');
         }
 
         $plan->delete();
 
         return redirect()->route('plans.admin')
-            ->with('success', 'Plano excluído com sucesso!');
+            ->with('success', 'Plano eliminado com sucesso!');
     }
 
     /**
@@ -185,7 +185,7 @@ class PlanController extends Controller
         if ($user->hasActiveSubscriptionForPlan($plan->id)) {
             $existingSubscription = $user->getLatestSubscriptionForPlan($plan->id);
             return redirect()->route('subscriptions.show', $existingSubscription)
-                ->with('error', 'Você já possui uma assinatura ativa para este plano.');
+                ->with('error', 'Você já possui uma subscrição ativa para este plano.');
         }
         return null;
     }
@@ -197,7 +197,7 @@ class PlanController extends Controller
     {
         $user = auth()->user();
         
-        // Se o usuário é admin, não precisa de assinatura
+        // Se o utilizador é admin, não precisa de assinatura
         if ($user->isAdmin()) {
             return redirect()->route('dashboard')
                 ->with('info', 'Usuários administradores não precisam de assinatura.');
@@ -211,7 +211,7 @@ class PlanController extends Controller
 
         if ($activeSubscription) {
             return redirect()->route('subscriptions.show', $activeSubscription)
-                ->with('error', 'Você já possui uma assinatura ativa.');
+                ->with('error', 'Você já possui uma subscrição ativa.');
         }
 
         try {
@@ -276,7 +276,7 @@ class PlanController extends Controller
     {
         $user = auth()->user();
         
-        // Se o usuário é admin, não precisa de assinatura
+        // Se o utilizador é admin, não precisa de assinatura
         if ($user->isAdmin()) {
             return redirect()->route('dashboard')
                 ->with('info', 'Usuários administradores não precisam de assinatura.');
@@ -290,7 +290,7 @@ class PlanController extends Controller
 
         if ($activeSubscription) {
             return redirect()->route('subscriptions.show', $activeSubscription)
-                ->with('error', 'Você já possui uma assinatura ativa.');
+                ->with('error', 'Você já possui uma subscrição ativa.');
         }
 
         try {

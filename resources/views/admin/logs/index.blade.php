@@ -6,7 +6,7 @@
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
             <h1 class="text-2xl sm:text-3xl font-bold text-foreground">Logs e Auditoria</h1>
-            <p class="text-muted-foreground mt-1">Visualize e gerencie logs do sistema</p>
+            <p class="text-muted-foreground mt-1">Visualize e faça a gestão logs do sistema</p>
         </div>
         <div class="flex gap-2">
             <form method="POST" action="{{ route('admin.logs.clear') }}" class="inline">
@@ -70,7 +70,7 @@
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-foreground mb-2">Buscar</label>
+                        <label class="block text-sm font-medium text-foreground mb-2">Procurar</label>
                         <input type="text" name="search" value="{{ $search }}" 
                                placeholder="Pesquisar nos logs..." 
                                class="w-full px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
@@ -174,7 +174,7 @@
             <!-- Log Files Info -->
             @if($logFiles->count() > 0)
             <div class="mt-6 bg-card rounded-lg border border-border p-4">
-                <h3 class="text-lg font-semibold text-foreground mb-4">Arquivos de Log Disponíveis</h3>
+                <h3 class="text-lg font-semibold text-foreground mb-4">Ficheiros de Log Disponíveis</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     @foreach($logFiles as $file)
                         <div class="border border-border rounded-lg p-3">

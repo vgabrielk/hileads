@@ -9,10 +9,10 @@
                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
                 </svg>
-                Voltar para conexões
+                Voltar para ligações
             </a>
-            <h1 class="text-3xl font-bold text-gray-900">Conectar WhatsApp</h1>
-            <p class="mt-2 text-sm text-gray-600">Escaneie o QR Code com seu WhatsApp para estabelecer conexão</p>
+            <h1 class="text-3xl font-bold text-gray-900">Ligar WhatsApp</h1>
+            <p class="mt-2 text-sm text-gray-600">Digitalize o Código QR com o seu WhatsApp para estabelecer ligação</p>
         </div>
 
         <!-- QR Code Card -->
@@ -27,9 +27,9 @@
                     </div>
 
                     <!-- Title -->
-                    <h2 class="text-2xl font-bold text-gray-900 mb-3">Escaneie o QR Code</h2>
+                    <h2 class="text-2xl font-bold text-gray-900 mb-3">Digitalize o Código QR</h2>
                     <p class="text-gray-600 mb-8 max-w-md mx-auto">
-                        Use seu smartphone para escanear o código e conectar seu WhatsApp à plataforma
+                        Utilize o seu smartphone para digitalizar o código e ligar o seu WhatsApp à plataforma
                     </p>
 
                     <!-- QR Code -->
@@ -48,7 +48,7 @@
                                     </svg>
                                 </div>
                                 <h3 class="font-semibold text-gray-900 mb-2">1. Abra o WhatsApp</h3>
-                                <p class="text-sm text-gray-600">No seu smartphone, abra o aplicativo WhatsApp</p>
+                                <p class="text-sm text-gray-600">No o seu smartphone, abra a aplicação WhatsApp</p>
                             </div>
 
                             <!-- Step 2 -->
@@ -59,7 +59,7 @@
                                     </svg>
                                 </div>
                                 <h3 class="font-semibold text-gray-900 mb-2">2. Configurações</h3>
-                                <p class="text-sm text-gray-600">Acesse Menu > Aparelhos conectados</p>
+                                <p class="text-sm text-gray-600">Aceda a Menu > Dispositivos ligados</p>
                             </div>
 
                             <!-- Step 3 -->
@@ -69,8 +69,8 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/>
                                     </svg>
                                 </div>
-                                <h3 class="font-semibold text-gray-900 mb-2">3. Escaneie o Código</h3>
-                                <p class="text-sm text-gray-600">Aponte a câmera para o QR Code acima</p>
+                                <h3 class="font-semibold text-gray-900 mb-2">3. Digitalize o Código</h3>
+                                <p class="text-sm text-gray-600">Aponte a câmara para o Código QR acima</p>
                             </div>
                         </div>
                     </div>
@@ -78,7 +78,7 @@
                     <!-- Loading indicator -->
                     <div id="loading-indicator" class="mt-8 flex items-center justify-center space-x-2 text-sm text-gray-600">
                         <div class="spinner"></div>
-                        <span>Aguardando conexão...</span>
+                        <span>A aguardar ligação...</span>
                     </div>
 
                     <!-- Success indicator -->
@@ -88,8 +88,8 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                             </svg>
                         </div>
-                        <h3 class="text-lg font-semibold text-green-800 mb-2">Conectado com sucesso!</h3>
-                        <p class="text-green-600 mb-4">Seu WhatsApp foi conectado à plataforma.</p>
+                        <h3 class="text-lg font-semibold text-green-800 mb-2">Ligado com sucesso!</h3>
+                        <p class="text-green-600 mb-4">O seu WhatsApp foi ligado à plataforma.</p>
                         <a href="{{ route('whatsapp.index') }}" class="btn-ripple inline-flex items-center px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-medium rounded-xl shadow-sm transition-all">
                             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
@@ -107,7 +107,7 @@
                         </svg>
                     </div>
                     <h3 class="text-xl font-bold text-gray-900 mb-2">Não foi possível gerar o QR Code</h3>
-                    <p class="text-gray-600 mb-6">Houve um problema ao tentar estabelecer a conexão. Tente novamente.</p>
+                    <p class="text-gray-600 mb-6">Houve um problema ao tentar estabelecer a ligação. Tente novamente.</p>
                     <a href="{{ route('whatsapp.index') }}" class="btn-ripple inline-flex items-center px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-xl shadow-sm transition-all">
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
@@ -129,7 +129,7 @@
                 <div class="ml-4">
                     <h3 class="text-sm font-semibold text-blue-900 mb-1">Dica de segurança</h3>
                     <p class="text-sm text-blue-800">
-                        Este QR Code é único e seguro. Nunca compartilhe com terceiros. A conexão será estabelecida diretamente entre seu WhatsApp e nossa plataforma.
+                        Este QR Code é único e seguro. Nunca compartilhe com terceiros. A ligação será estabelecida diretamente entre o seu WhatsApp e nossa plataforma.
                     </p>
                 </div>
             </div>
@@ -158,13 +158,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 const data = await response.json();
                 
                 if (data.success && data.logged_in) {
-                    // Usuário logado com sucesso
+                    // Utilizador logado com sucesso
                     loadingIndicator.style.display = 'none';
                     successIndicator.classList.remove('hidden');
                     clearInterval(checkStatus);
                 } else if (data.success && data.connected && !data.logged_in) {
-                    // Conectado mas ainda não logado - continuar aguardando
-                    console.log('Conectado, aguardando login...');
+                    // Ligado mas ainda não logado - continuar aguardando
+                    console.log('Ligado, aguardando login...');
                 } else if (!data.success) {
                     // Erro na verificação
                     console.error('Erro ao verificar status:', data.message);

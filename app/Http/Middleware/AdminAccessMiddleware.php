@@ -15,10 +15,10 @@ class AdminAccessMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // Verifica se o usuário tem acesso às funcionalidades (admin ou assinatura ativa)
+        // Verifica se o utilizador tem acesso às funcionalidades (admin ou subscrição ativa)
         if (auth()->check() && !auth()->user()->hasFeatureAccess()) {
             return redirect()->route('plans.index')
-                ->with('error', 'Você precisa de uma assinatura ativa para acessar esta funcionalidade.');
+                ->with('error', 'Precisa de uma subscrição ativa para aceder esta funcionalidade.');
         }
 
         return $next($request);

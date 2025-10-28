@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
-@section('title', 'Minhas Assinaturas')
+@section('title', 'Minhas Subscrições')
 
 @section('content')
 <div class="p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6">
     <!-- Header -->
     <div>
-        <h1 class="text-2xl sm:text-3xl font-bold text-foreground">Minhas Assinaturas</h1>
-        <p class="text-muted-foreground mt-1">Gerencie suas assinaturas e histórico de pagamentos</p>
+        <h1 class="text-2xl sm:text-3xl font-bold text-foreground">Minhas Subscrições</h1>
+        <p class="text-muted-foreground mt-1">Faça a gestão suas subscrições e histórico de pagamentos</p>
     </div>
 
     @if(session('success'))
@@ -31,15 +31,15 @@
                     </svg>
                 </div>
                 <h3 class="text-2xl font-bold text-blue-900 mb-4">Acesso Administrativo</h3>
-                <p class="text-blue-700 mb-6">Como administrador, você tem acesso completo a todas as funcionalidades do sistema sem necessidade de assinatura.</p>
+                <p class="text-blue-700 mb-6">Como administrador, tem acesso completo a todas as funcionalidades do sistema sem necessidade de subscrição.</p>
                 <div class="bg-white rounded-lg p-4 mb-6">
                     <h4 class="font-semibold text-gray-900 mb-2">Recursos Disponíveis:</h4>
                     <ul class="text-left text-gray-700 space-y-1">
-                        <li>✓ Contatos ilimitados</li>
+                        <li>✓ Contactos ilimitados</li>
                         <li>✓ Campanhas ilimitadas</li>
                         <li>✓ Campanhas ilimitadas</li>
                         <li>✓ Acesso a todas as funcionalidades</li>
-                        <li>✓ Gerenciamento de usuários</li>
+                        <li>✓ Gestão de utilizadores</li>
                     </ul>
                 </div>
                 <a href="{{ route('dashboard') }}" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-200">
@@ -110,7 +110,7 @@
                                         @csrf
                                         <button type="submit" 
                                                 class="w-full bg-red-600 hover:bg-red-700 text-white px-4 py-2.5 rounded-lg text-sm font-semibold transition duration-200"
-                                                onclick="return handleCancelSubscription(event, 'Tem certeza que deseja cancelar esta assinatura?', 'Esta ação não pode ser desfeita.')">
+                                                onclick="return handleCancelSubscription(event, 'Tem certeza que deseja cancelar esta subscrição?', 'Esta ação não pode ser desfeita.')">
                                             Cancelar
                                         </button>
                                     </form>
@@ -128,8 +128,8 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                 </svg>
             </div>
-            <h3 class="text-xl font-semibold text-gray-900 mb-2">Nenhuma assinatura encontrada</h3>
-            <p class="text-gray-600 mb-6">Você ainda não possui nenhuma assinatura ativa.</p>
+            <h3 class="text-xl font-semibold text-gray-900 mb-2">Nenhuma subscrição encontrada</h3>
+            <p class="text-gray-600 mb-6">O utilizador ainda não possui nenhuma subscrição ativa.</p>
             <a href="{{ route('plans.index') }}" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-200">
                 Ver Planos Disponíveis
             </a>
@@ -145,11 +145,11 @@ async function handleCancelSubscription(event, message, subtitle) {
     
     const confirmed = await confirmAction({
         type: 'danger',
-        title: 'Cancelar Assinatura',
+        title: 'Cancelar Subscrição',
         subtitle: subtitle,
         message: message,
-        confirmText: 'Cancelar Assinatura',
-        cancelText: 'Manter Assinatura'
+        confirmText: 'Cancelar Subscrição',
+        cancelText: 'Manter Subscrição'
     });
     
     if (confirmed) {

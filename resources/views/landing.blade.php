@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-PT">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ config('app.name') }} - Automação WhatsApp para Negócios</title>
+    <title>{{ config('app.name') }} - Automatização WhatsApp para Negócios</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
@@ -16,12 +16,12 @@
                     <h1 class="text-2xl font-bold text-indigo-600">{{ config('app.name') }}</h1>
                 </div>
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="#features" class="text-gray-700 hover:text-indigo-600 transition">Recursos</a>
+                    <a href="#features" class="text-gray-700 hover:text-indigo-600 transition">Funcionalidades</a>
                     <a href="#pricing" class="text-gray-700 hover:text-indigo-600 transition">Preços</a>
                     <a href="#faq" class="text-gray-700 hover:text-indigo-600 transition">FAQ</a>
-                    <a href="{{ route('login') }}" class="text-gray-700 hover:text-indigo-600 transition">Entrar</a>
+                    <a href="{{ route('login') }}" class="text-gray-700 hover:text-indigo-600 transition">Iniciar sessão</a>
                     <a href="{{ route('register') }}" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition">
-                        Começar Grátis
+                        Começar Gratuitamente
                     </a>
                 </div>
             </div>
@@ -34,17 +34,17 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <div>
                     <h1 class="text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-                        Automação WhatsApp para <span class="text-indigo-600">Resultados Reais</span>
+                        Automatização WhatsApp para <span class="text-indigo-600">Resultados Reais</span>
                     </h1>
                     <p class="text-xl text-gray-600 mb-8 leading-relaxed">
-                        Automatize seus envios em massa, gerencie múltiplas conexões WhatsApp e alcance milhares de clientes com uma plataforma profissional e segura.
+                        Automatize os seus envios em massa, faça a gestão de múltiplas ligações WhatsApp e alcance milhares de clientes com uma plataforma profissional e segura.
                     </p>
                     <div class="flex flex-col sm:flex-row gap-4">
                         <a href="{{ route('register') }}" class="bg-indigo-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-indigo-700 transition text-center">
                             Começar Agora
                         </a>
                         <a href="#features" class="border-2 border-indigo-600 text-indigo-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-indigo-50 transition text-center">
-                            Ver Recursos
+                            Ver Funcionalidades
                         </a>
                     </div>
                     <div class="mt-8 flex items-center space-x-6 text-sm text-gray-600">
@@ -58,7 +58,7 @@
                             <svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                             </svg>
-                            Setup em 5 Minutos
+                            Configuração em 5 Minutos
                         </div>
                     </div>
                 </div>
@@ -73,22 +73,22 @@
                                 </div>
                                 <div>
                                     <div class="font-semibold text-gray-900">Dashboard WhatsApp</div>
-                                    <div class="text-sm text-gray-500">Gerenciamento Completo</div>
+                                    <div class="text-sm text-gray-500">Gestão Completo</div>
                                 </div>
                             </div>
                             <div class="border-t pt-4">
                                 <div class="grid grid-cols-3 gap-4">
                                     <div class="text-center">
                                         <div class="text-2xl font-bold text-indigo-600">∞</div>
-                                        <div class="text-xs text-gray-500">Envíos</div>
-                                    </div>
-                                    <div class="text-center">
-                                        <div class="text-2xl font-bold text-indigo-600">+</div>
-                                        <div class="text-xs text-gray-500">Conexões</div>
-                                    </div>
-                                    <div class="text-center">
-                                        <div class="text-2xl font-bold text-indigo-600">✓</div>
-                                        <div class="text-xs text-gray-500">Automações</div>
+                                    <div class="text-xs text-gray-500">Envios</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-2xl font-bold text-indigo-600">+</div>
+                                    <div class="text-xs text-gray-500">Ligações</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-2xl font-bold text-indigo-600">✓</div>
+                                    <div class="text-xs text-gray-500">Automatizações</div>
                                     </div>
                                 </div>
                             </div>
@@ -103,8 +103,8 @@
     <section id="features" class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
         <div class="mx-auto">
             <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold text-gray-900 mb-4">Recursos Poderosos</h2>
-                <p class="text-xl text-gray-600">Tudo que você precisa para automatizar seu WhatsApp</p>
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Funcionalidades Poderosas</h2>
+                <p class="text-xl text-gray-600">Tudo o que precisa para automatizar o seu WhatsApp</p>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -117,7 +117,7 @@
                     </div>
                     <h3 class="text-xl font-bold text-gray-900 mb-3">Envio em Massa</h3>
                     <p class="text-gray-600">
-                        Envie mensagens para centenas de contatos simultaneamente com texto, imagens, vídeos e documentos.
+                        Envie mensagens para centenas de contactos simultaneamente com texto, imagens, vídeos e documentos.
                     </p>
                 </div>
 
@@ -128,9 +128,9 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/>
                         </svg>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Múltiplas Conexões</h3>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Múltiplas Ligações</h3>
                     <p class="text-gray-600">
-                        Gerencie várias contas WhatsApp em um único painel. Ideal para equipes e agências.
+                        Faça a gestão de várias contas WhatsApp num único painel. Ideal para equipas e agências.
                     </p>
                 </div>
 
@@ -143,7 +143,7 @@
                     </div>
                     <h3 class="text-xl font-bold text-gray-900 mb-3">100% Seguro</h3>
                     <p class="text-gray-600">
-                        Seus dados protegidos com criptografia de ponta. API oficial do WhatsApp.
+                        Os seus dados protegidos com encriptação de ponta. API oficial do WhatsApp.
                     </p>
                 </div>
 
@@ -156,7 +156,7 @@
                     </div>
                     <h3 class="text-xl font-bold text-gray-900 mb-3">Rápido e Confiável</h3>
                     <p class="text-gray-600">
-                        Infraestrutura de alta performance para entregar suas mensagens instantaneamente.
+                        Infraestrutura de alta performance para entregar as suas mensagens instantaneamente.
                     </p>
                 </div>
 
@@ -169,7 +169,7 @@
                     </div>
                     <h3 class="text-xl font-bold text-gray-900 mb-3">Relatórios Detalhados</h3>
                     <p class="text-gray-600">
-                        Acompanhe métricas de entrega, leitura e resposta em tempo real.
+                        Acompanhe as métricas de entrega, leitura e resposta em tempo real.
                     </p>
                 </div>
 
@@ -182,7 +182,7 @@
                     </div>
                     <h3 class="text-xl font-bold text-gray-900 mb-3">Agendamento Inteligente</h3>
                     <p class="text-gray-600">
-                        Programe campanhas para o melhor horário e aumente suas taxas de resposta.
+                        Agende campanhas para o melhor horário e aumente as suas taxas de resposta.
                     </p>
                 </div>
             </div>
@@ -194,7 +194,7 @@
         <div class="mx-auto">
             <div class="text-center mb-16">
                 <h2 class="text-4xl font-bold text-gray-900 mb-4">Planos Simples</h2>
-                <p class="text-xl text-gray-600">Escolha o plano ideal para seu negócio</p>
+                <p class="text-xl text-gray-600">Escolha o plano ideal para o seu negócio</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -218,13 +218,13 @@
                             <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                             </svg>
-                            <span>1 conexão WhatsApp</span>
+                            <span>1 ligação WhatsApp</span>
                         </li>
                         <li class="flex items-start">
                             <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                             </svg>
-                            <span>Suporte por email</span>
+                            <span>Suporte por e-mail</span>
                         </li>
                     </ul>
                     <a href="{{ route('register') }}" class="block w-full bg-gray-900 text-white text-center py-3 rounded-lg font-semibold hover:bg-gray-800 transition">
@@ -255,7 +255,7 @@
                             <svg class="w-5 h-5 text-green-400 mr-3 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                             </svg>
-                            <span>3 conexões WhatsApp</span>
+                            <span>3 ligações WhatsApp</span>
                         </li>
                         <li class="flex items-start">
                             <svg class="w-5 h-5 text-green-400 mr-3 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
@@ -289,7 +289,7 @@
                             <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                             </svg>
-                            <span>Conexões ilimitadas</span>
+                            <span>Ligações ilimitadas</span>
                         </li>
                         <li class="flex items-start">
                             <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
@@ -317,42 +317,42 @@
         <div class="max-w-3xl mx-auto">
             <div class="text-center mb-16">
                 <h2 class="text-4xl font-bold text-gray-900 mb-4">Perguntas Frequentes</h2>
-                <p class="text-xl text-gray-600">Tire suas dúvidas sobre nossa plataforma</p>
+                <p class="text-xl text-gray-600">Esclareça as suas dúvidas sobre a nossa plataforma</p>
             </div>
 
             <div class="space-y-6">
                 <div class="bg-gray-50 rounded-lg p-6">
                     <h3 class="text-lg font-bold text-gray-900 mb-2">Como funciona o envio em massa?</h3>
                     <p class="text-gray-600">
-                        Nossa plataforma permite que você envie mensagens para múltiplos contatos simultaneamente através do WhatsApp. Você pode enviar texto, imagens, vídeos e documentos para centenas de pessoas de uma só vez.
+                        A nossa plataforma permite que envie mensagens para múltiplos contactos simultaneamente através do WhatsApp. Pode enviar texto, imagens, vídeos e documentos para centenas de pessoas de uma só vez.
                     </p>
                 </div>
 
                 <div class="bg-gray-50 rounded-lg p-6">
-                    <h3 class="text-lg font-bold text-gray-900 mb-2">É seguro usar?</h3>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">É seguro utilizar?</h3>
                     <p class="text-gray-600">
-                        Sim! Utilizamos a API oficial do WhatsApp e toda nossa infraestrutura é protegida com criptografia de ponta. Seus dados estão sempre seguros.
+                        Sim! Utilizamos a API oficial do WhatsApp e toda a nossa infraestrutura está protegida com encriptação de ponta. Os seus dados estão sempre seguros.
                     </p>
                 </div>
 
                 <div class="bg-gray-50 rounded-lg p-6">
                     <h3 class="text-lg font-bold text-gray-900 mb-2">Posso cancelar a qualquer momento?</h3>
                     <p class="text-gray-600">
-                        Sim, você pode cancelar sua assinatura a qualquer momento sem taxas ou multas. Seu acesso permanece ativo até o final do período pago.
+                        Sim, pode cancelar a sua subscrição a qualquer momento sem taxas ou multas. O seu acesso permanece ativo até ao final do período pago.
                     </p>
                 </div>
 
                 <div class="bg-gray-50 rounded-lg p-6">
-                    <h3 class="text-lg font-bold text-gray-900 mb-2">Como faço para conectar meu WhatsApp?</h3>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">Como faço para ligar o meu WhatsApp?</h3>
                     <p class="text-gray-600">
-                        Basta escanear o QR code que aparece no dashboard. O processo é simples, rápido e seguro. Você mantém seu número e todas as suas conversas.
+                        Basta digitalizar o código QR que aparece no painel de controlo. O processo é simples, rápido e seguro. Mantém o seu número e todas as suas conversas.
                     </p>
                 </div>
 
                 <div class="bg-gray-50 rounded-lg p-6">
                     <h3 class="text-lg font-bold text-gray-900 mb-2">Tenho suporte técnico?</h3>
                     <p class="text-gray-600">
-                        Sim! Oferecemos suporte por email para todos os planos. Planos Profissional e Empresarial têm suporte prioritário e resposta mais rápida.
+                        Sim! Oferecemos suporte por e-mail para todos os planos. Os planos Profissional e Empresarial têm suporte prioritário e resposta mais rápida.
                     </p>
                 </div>
             </div>
@@ -364,13 +364,13 @@
         <div class="max-w-4xl mx-auto text-center">
             <h2 class="text-4xl font-bold text-white mb-6">Pronto para começar?</h2>
             <p class="text-xl text-indigo-100 mb-8">
-                Junte-se a milhares de empresas que já estão automatizando suas campanhas WhatsApp
+                Junte-se a milhares de empresas que já estão a automatizar as suas campanhas WhatsApp
             </p>
             <a href="{{ route('register') }}" class="inline-block bg-white text-indigo-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 transition">
                 Começar Gratuitamente
             </a>
             <p class="mt-6 text-indigo-200">
-                Sem cartão de crédito • Setup em 5 minutos • Cancele quando quiser
+                Sem cartão de crédito • Configuração em 5 minutos • Cancele quando quiser
             </p>
         </div>
     </section>
@@ -382,28 +382,28 @@
                 <div>
                     <h3 class="text-xl font-bold mb-4">{{ config('app.name') }}</h3>
                     <p class="text-gray-400">
-                        Automação WhatsApp profissional para empresas que querem resultados.
+                        Automatização WhatsApp profissional para empresas que querem resultados.
                     </p>
                 </div>
                 <div>
                     <h4 class="font-semibold mb-4">Produto</h4>
                     <ul class="space-y-2 text-gray-400">
-                        <li><a href="#features" class="hover:text-white transition">Recursos</a></li>
+                        <li><a href="#features" class="hover:text-white transition">Funcionalidades</a></li>
                         <li><a href="#pricing" class="hover:text-white transition">Preços</a></li>
-                        <li><a href="{{ route('register') }}" class="hover:text-white transition">Registrar</a></li>
+                        <li><a href="{{ route('register') }}" class="hover:text-white transition">Registar</a></li>
                     </ul>
                 </div>
                 <div>
                     <h4 class="font-semibold mb-4">Suporte</h4>
                     <ul class="space-y-2 text-gray-400">
                         <li><a href="#faq" class="hover:text-white transition">FAQ</a></li>
-                        <li><a href="{{ route('login') }}" class="hover:text-white transition">Entrar</a></li>
+                        <li><a href="{{ route('login') }}" class="hover:text-white transition">Iniciar sessão</a></li>
                     </ul>
                 </div>
                 <div>
                     <h4 class="font-semibold mb-4">Legal</h4>
                     <ul class="space-y-2 text-gray-400">
-                        <li><a href="#" class="hover:text-white transition">Termos de Uso</a></li>
+                        <li><a href="#" class="hover:text-white transition">Termos de Utilização</a></li>
                         <li><a href="#" class="hover:text-white transition">Privacidade</a></li>
                     </ul>
                 </div>

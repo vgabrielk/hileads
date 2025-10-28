@@ -5,8 +5,8 @@
     <!-- Header -->
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-            <h1 class="text-2xl sm:text-3xl font-bold text-foreground">Editar Assinatura</h1>
-            <p class="text-muted-foreground mt-1">Edite as informações desta assinatura</p>
+            <h1 class="text-2xl sm:text-3xl font-bold text-foreground">Editar Subscrição</h1>
+            <p class="text-muted-foreground mt-1">Edite as informações desta subscrição</p>
         </div>
         <div class="flex gap-2">
             <a href="{{ route('admin.subscriptions.show', $subscription) }}" 
@@ -84,7 +84,7 @@
                     <div>
                         <label for="notes" class="block text-sm font-medium text-foreground mb-2">Notas Administrativas</label>
                         <textarea name="notes" id="notes" rows="4" 
-                                  placeholder="Adicione observações sobre esta assinatura..."
+                                  placeholder="Adicione observações sobre esta subscrição..."
                                   class="w-full px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">{{ old('notes', $subscription->notes) }}</textarea>
                         @error('notes')
                             <p class="text-destructive text-sm mt-1">{{ $message }}</p>
@@ -115,7 +115,7 @@
                 <h3 class="text-lg font-semibold text-foreground mb-4">Informações Atuais</h3>
                 <div class="space-y-3 text-sm">
                     <div>
-                        <span class="font-medium text-muted-foreground">Usuário:</span>
+                        <span class="font-medium text-muted-foreground">Utilizador:</span>
                         <p class="text-foreground">{{ $subscription->user->name }}</p>
                         <p class="text-muted-foreground">{{ $subscription->user->email }}</p>
                     </div>
@@ -147,7 +147,7 @@
                 <h3 class="text-lg font-semibold text-foreground mb-4">Stripe</h3>
                 <div class="space-y-2 text-sm">
                     <div>
-                        <span class="font-medium text-muted-foreground">ID da Assinatura:</span>
+                        <span class="font-medium text-muted-foreground">ID da Subscrição:</span>
                         <p class="text-foreground font-mono text-xs">{{ $subscription->stripe_subscription_id }}</p>
                     </div>
                     @if($subscription->stripe_customer_id)
@@ -169,10 +169,10 @@
             <div class="bg-card rounded-lg border border-border p-4 sm:p-6">
                 <h3 class="text-lg font-semibold text-foreground mb-4">Ajuda</h3>
                 <div class="space-y-2 text-sm text-muted-foreground">
-                    <p><strong>Status:</strong> Define o estado atual da assinatura.</p>
-                    <p><strong>Plano:</strong> Altera o plano da assinatura e recalcula o valor.</p>
+                    <p><strong>Status:</strong> Define o estado atual da subscrição.</p>
+                    <p><strong>Plano:</strong> Altera o plano da subscrição e recalcula o valor.</p>
                     <p><strong>Datas:</strong> Ajuste as datas de início e expiração.</p>
-                    <p><strong>Observações:</strong> Adicione notas administrativas sobre a assinatura.</p>
+                    <p><strong>Observações:</strong> Adicione notas administrativas sobre a subscrição.</p>
                 </div>
             </div>
         </div>

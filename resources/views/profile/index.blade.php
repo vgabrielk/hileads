@@ -5,7 +5,7 @@
     <!-- Header -->
     <div>
         <h1 class="text-3xl font-bold text-foreground">Meu Perfil</h1>
-        <p class="text-muted-foreground mt-1">Gerencie suas informações pessoais e configurações da conta</p>
+        <p class="text-muted-foreground mt-1">Faça a gestão suas informações pessoais e configurações da conta</p>
     </div>
 
                 <!-- User Information -->
@@ -37,7 +37,7 @@
                             <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                             </svg>
-                            Usuário
+                            Utilizador
                         @endif
                                 </span>
                         </div>
@@ -52,7 +52,7 @@
     <!-- Subscription Information -->
     <div class="bg-card rounded-lg border border-border overflow-hidden">
         <div class="px-6 py-4 border-b border-border">
-            <h2 class="text-lg font-semibold text-foreground">Informações da Assinatura</h2>
+            <h2 class="text-lg font-semibold text-foreground">Informações da Subscrição</h2>
         </div>
         <div class="p-6">
             @if($user->activeSubscription)
@@ -85,7 +85,7 @@
                                     <svg class="w-4 h-4 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                                     </svg>
-                                    <span class="text-sm text-foreground">{{ number_format($user->activeSubscription->plan->max_contacts) }} contatos</span>
+                                    <span class="text-sm text-foreground">{{ number_format($user->activeSubscription->plan->max_contacts) }} contactos</span>
                                 </div>
                             @endif
                             @if($user->activeSubscription->plan->max_campaigns)
@@ -124,7 +124,7 @@
                                 <svg class="w-4 h-4 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                                 </svg>
-                                <span class="text-sm text-foreground">Suporte por email</span>
+                                <span class="text-sm text-foreground">Suporte por e-mail</span>
                             </div>
                         </div>
                     </div>
@@ -157,7 +157,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
                             </svg>
-                            Ver Assinaturas
+                            Ver Subscrições
                         </a>
                         <a href="{{ route('plans.index') }}" class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-primary hover:bg-primary/10 rounded-lg transition-colors">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -174,7 +174,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
                         </svg>
                     </div>
-                    <h3 class="text-lg font-medium text-foreground mb-2">Nenhuma assinatura ativa</h3>
+                    <h3 class="text-lg font-medium text-foreground mb-2">Nenhuma subscrição ativa</h3>
                     <p class="text-muted-foreground mb-6">Escolha um plano para começar a usar todas as funcionalidades do HiLeads.</p>
                     <a href="{{ route('plans.index') }}" class="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium text-primary-foreground bg-primary hover:bg-primary/90 rounded-lg transition-colors">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -191,7 +191,7 @@
     <div class="bg-card rounded-lg border border-border overflow-hidden">
         <div class="px-6 py-4 border-b border-border">
             <h2 class="text-lg font-semibold text-foreground">Configurações da API</h2>
-            <p class="text-sm text-muted-foreground mt-1">Gerencie seu token de API do WhatsApp</p>
+            <p class="text-sm text-muted-foreground mt-1">Faça a gestão o seu token de API do WhatsApp</p>
         </div>
         <div class="p-6">
             <div class="space-y-6">
@@ -212,7 +212,7 @@
                         </button>
                     </div>
                     <p class="text-xs text-muted-foreground mt-2">
-                        Este token é usado para conectar sua conta ao WhatsApp via Wuzapi
+                        Este token é usado para ligar a sua conta ao WhatsApp via Wuzapi
                     </p>
                 </div>
 
@@ -247,7 +247,7 @@
                             <h4 class="text-sm font-semibold text-warning mb-1">Atenção</h4>
                             <p class="text-sm text-warning/80">
                                 Regenerar o token irá desconectar todas as sessões WhatsApp ativas. 
-                                Você precisará reconectar o WhatsApp após regenerar o token.
+                                Precisará reconectar o WhatsApp após regenerar o token.
                             </p>
                         </div>
                     </div>
@@ -289,7 +289,7 @@
         <div class="bg-card rounded-lg border border-border p-6">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-sm font-medium text-muted-foreground">Total de Contatos</p>
+                    <p class="text-sm font-medium text-muted-foreground">Total de Contactos</p>
                     <p class="text-2xl font-bold text-foreground">{{ $user->groups()->sum('contacts_count') }}</p>
                     </div>
                 <div class="w-12 h-12 bg-accent rounded-lg flex items-center justify-center">
@@ -318,7 +318,7 @@ function copyToken() {
 
 // Função para regenerar token
 async function regenerateToken() {
-    if (!confirm('Tem certeza que deseja regenerar o token? Isso irá desconectar todas as sessões WhatsApp ativas e você precisará reconectar.')) {
+    if (!confirm('Tem certeza que deseja regenerar o token? Isso irá desconectar todas as sessões WhatsApp ativas e precisará reconectar.')) {
         return;
     }
     
@@ -353,11 +353,11 @@ async function regenerateToken() {
                 showNotification('Erro ao regenerar token: ' + (data.message || 'Erro desconhecido'), 'error');
             }
         } else {
-            showNotification('Erro de conexão. Tente novamente.', 'error');
+            showNotification('Erro de ligação. Tente novamente.', 'error');
         }
     } catch (error) {
         console.error('Erro:', error);
-        showNotification('Erro de conexão. Tente novamente.', 'error');
+        showNotification('Erro de ligação. Tente novamente.', 'error');
     } finally {
         // Restaurar botão
         button.innerHTML = originalText;
@@ -385,26 +385,26 @@ function showTokenInfo() {
                 <div>
                     <h4 class="font-semibold text-foreground mb-2">O que é o Token de API?</h4>
                     <p class="text-sm text-muted-foreground">
-                        O token de API é uma chave única que permite que sua conta se conecte ao WhatsApp através da plataforma Wuzapi. 
-                        É como uma senha especial que autentica suas requisições.
+                        O token de API é uma chave única que permite que a sua conta se conecte ao WhatsApp através da plataforma Wuzapi. 
+                        É como uma palavra-passe especial que autentica suas requisições.
                     </p>
                 </div>
                 
                 <div>
                     <h4 class="font-semibold text-foreground mb-2">Como funciona?</h4>
                     <ol class="text-sm text-muted-foreground space-y-1 list-decimal list-inside">
-                        <li>Você conecta seu WhatsApp usando o QR Code</li>
-                        <li>O sistema gera um token único para sua conta</li>
-                        <li>Este token é usado para enviar mensagens e gerenciar grupos</li>
-                        <li>Se o token for regenerado, você precisa reconectar o WhatsApp</li>
+                        <li>O utilizador conecta o seu WhatsApp usando o QR Code</li>
+                        <li>O sistema gera um token único para a sua conta</li>
+                        <li>Este token é usado para enviar mensagens e gerir grupos</li>
+                        <li>Se o token for regenerado, precisa reconectar o WhatsApp</li>
                     </ol>
                 </div>
                 
                 <div>
                     <h4 class="font-semibold text-foreground mb-2">Quando regenerar?</h4>
                     <ul class="text-sm text-muted-foreground space-y-1 list-disc list-inside">
-                        <li>Se você suspeitar que o token foi comprometido</li>
-                        <li>Se estiver tendo problemas de conexão</li>
+                        <li>Se o utilizador suspeitar que o token foi comprometido</li>
+                        <li>Se estiver tendo problemas de ligação</li>
                         <li>Se quiser desconectar todas as sessões ativas</li>
                         <li>Como medida de segurança periódica</li>
                     </ul>
@@ -418,7 +418,7 @@ function showTokenInfo() {
                         <div>
                             <h4 class="text-sm font-semibold text-warning mb-1">Importante</h4>
                             <p class="text-sm text-warning/80">
-                                Mantenha seu token seguro e não compartilhe com terceiros. 
+                                Mantenha o seu token seguro e não compartilhe com terceiros. 
                                 Regenerar o token desconectará todas as sessões WhatsApp ativas.
                             </p>
                         </div>

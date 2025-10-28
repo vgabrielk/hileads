@@ -28,7 +28,7 @@ class CheckSubscriptionAccess
             ->first();
 
         if (!$activeSubscription) {
-            return $this->handleNoAccess($request, 'Você precisa de uma assinatura ativa para acessar este recurso.');
+            return $this->handleNoAccess($request, 'Precisa de uma subscrição ativa para aceder este recurso.');
         }
 
         // If no specific feature is required, just check for active subscription
@@ -38,7 +38,7 @@ class CheckSubscriptionAccess
 
         // Check specific feature access
         if (!$this->hasFeatureAccess($activeSubscription, $feature)) {
-            return $this->handleNoAccess($request, "Você não tem acesso ao recurso: {$feature}");
+            return $this->handleNoAccess($request, "Não tem acesso ao recurso: {$feature}");
         }
 
         return $next($request);

@@ -5,8 +5,8 @@
     <!-- Header -->
     <div class="flex items-center justify-between flex-wrap gap-4">
         <div>
-            <h1 class="text-3xl font-bold text-foreground">Contatos</h1>
-            <p class="text-muted-foreground mt-1">Gerencie sua lista de contatos</p>
+            <h1 class="text-3xl font-bold text-foreground">Contactos</h1>
+            <p class="text-muted-foreground mt-1">Faça a gestão a sua lista de contactos</p>
         </div>
         <button onclick="location.reload()" class="inline-flex items-center justify-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -77,12 +77,12 @@
                     type="text" 
                     name="search" 
                     value="{{ $search ?? '' }}" 
-                    placeholder="Pesquisar contato..." 
+                    placeholder="Pesquisar contacto..." 
                     class="w-full pl-10 pr-4 py-3 bg-card border border-input rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                 />
             </div>
             <button type="submit" class="px-6 py-3 text-sm font-medium text-primary-foreground bg-primary hover:bg-primary/90 rounded-lg transition-colors">
-                Buscar
+                Procurar
             </button>
             @if($search ?? false)
                 <a href="{{ route('contacts.index') }}" class="px-6 py-3 text-sm font-medium text-foreground bg-secondary hover:bg-secondary/80 rounded-lg transition-colors">
@@ -137,8 +137,8 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
                                     </svg>
                                 </div>
-                                <p class="text-sm font-medium text-foreground mb-1">Nenhum contato encontrado</p>
-                                <p class="text-xs text-muted-foreground">Nenhum contato encontrado na API</p>
+                                <p class="text-sm font-medium text-foreground mb-1">Nenhum contacto encontrado</p>
+                                <p class="text-xs text-muted-foreground">Nenhum contacto encontrado na API</p>
                             </td>
                         </tr>
                     @endforelse
@@ -149,7 +149,7 @@
         <!-- Pagination -->
         @if(isset($totalPages) && $totalPages > 1)
             <div class="px-6 py-4 border-t border-border flex items-center justify-between">
-                <p class="text-sm text-muted-foreground">Mostrando {{ count($contacts) }} de {{ $totalContacts }} contatos</p>
+                <p class="text-sm text-muted-foreground">Mostrando {{ count($contacts) }} de {{ $totalContacts }} contactos</p>
                 <div class="flex items-center gap-2">
                     @if($currentPage > 1)
                         <a href="{{ request()->fullUrlWithQuery(['page' => $currentPage - 1]) }}" 

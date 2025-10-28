@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Gerenciar Usuários')
+@section('title', 'Gerir Utilizadores')
 
 @section('content')
 <div class="py-8 px-4 sm:px-6 lg:px-8">
@@ -9,14 +9,14 @@
         <div class="mb-8">
             <div class="flex items-center justify-between">
                 <div>
-                    <h1 class="text-3xl font-bold text-gray-900">Gerenciar Usuários</h1>
-                    <p class="mt-2 text-sm text-gray-600">Gerencie todos os usuários do sistema</p>
+                    <h1 class="text-3xl font-bold text-gray-900">Gerir Utilizadores</h1>
+                    <p class="mt-2 text-sm text-gray-600">Faça a gestão todos os utilizadores do sistema</p>
                 </div>
                 <a href="{{ route('admin.users.create') }}" class="btn-ripple inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-xl shadow-sm transition-all">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
                     </svg>
-                    Novo Usuário
+                    Novo Utilizador
                 </a>
             </div>
         </div>
@@ -47,15 +47,15 @@
         <!-- Users Table -->
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
             <div class="px-6 py-4 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
-                <h2 class="text-lg font-bold text-gray-900">Lista de Usuários</h2>
-                <p class="text-sm text-gray-600 mt-1">Total: {{ $users->total() }} usuários</p>
+                <h2 class="text-lg font-bold text-gray-900">Lista de Utilizadores</h2>
+                <p class="text-sm text-gray-600 mt-1">Total: {{ $users->total() }} utilizadores</p>
             </div>
 
             <div class="overflow-x-auto">
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                         <tr>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Usuário</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Utilizador</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Função</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
@@ -132,10 +132,10 @@
 
                                         <!-- Delete -->
                                         @if($user->id !== auth()->id())
-                                            <form method="POST" action="{{ route('admin.users.destroy', $user) }}" class="inline" onsubmit="return confirm('Tem certeza que deseja deletar este usuário? Esta ação não pode ser desfeita.')">
+                                            <form method="POST" action="{{ route('admin.users.destroy', $user) }}" class="inline" onsubmit="return confirm('Tem certeza que deseja eliminar este utilizador? Esta ação não pode ser desfeita.')">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="text-red-600 hover:text-red-900 transition-colors" title="Deletar">
+                                                <button type="submit" class="text-red-600 hover:text-red-900 transition-colors" title="Eliminar">
                                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                                                     </svg>
@@ -152,8 +152,8 @@
                                         <svg class="mx-auto h-12 w-12 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"/>
                                         </svg>
-                                        <p class="text-lg font-medium text-gray-900 mb-1">Nenhum usuário encontrado</p>
-                                        <p class="text-sm text-gray-500">Comece criando um novo usuário.</p>
+                                        <p class="text-lg font-medium text-gray-900 mb-1">Nenhum utilizador encontrado</p>
+                                        <p class="text-sm text-gray-500">Comece criando um novo utilizador.</p>
                                     </div>
                                 </td>
                             </tr>

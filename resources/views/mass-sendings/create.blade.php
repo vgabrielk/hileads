@@ -31,8 +31,8 @@
                             </svg>
                         </div>
                         <div class="ml-4">
-                            <h3 class="text-lg font-semibold text-primary">Enviando para o grupo: {{ $group->name }}</h3>
-                            <p class="text-primary/80">{{ $group->contacts_count ?? 0 }} contatos serão incluídos neste envio</p>
+                            <h3 class="text-lg font-semibold text-primary">A enviar para o grupo: {{ $group->name }}</h3>
+                            <p class="text-primary/80">{{ $group->contacts_count ?? 0 }} contactos serão incluídos neste envio</p>
                             @if(isset($group->description) && $group->description)
                                 <p class="text-sm text-primary/70 mt-1">{{ $group->description }}</p>
                             @endif
@@ -103,8 +103,8 @@
                                       name="message" 
                                       rows="6"
                                       class="w-full px-4 py-3 border border-input rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-colors resize-none bg-background text-foreground"
-                                      placeholder="Digite a mensagem que será enviada para os contatos selecionados...">{{ old('message') }}</textarea>
-                            <p class="mt-2 text-xs text-muted-foreground">A mensagem será enviada exatamente como digitada acima</p>
+                                      placeholder="Digite a mensagem que será enviada para os contactos selecionados...">{{ old('message') }}</textarea>
+                            <p class="mt-2 text-xs text-muted-foreground">A mensagem será enviada exatamente como foi digitada acima</p>
                         </div>
 
                         <!-- Media Section -->
@@ -133,7 +133,7 @@
                                         <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                     </svg>
                                     <div>
-                                        <p class="text-lg font-medium text-gray-900">Arraste arquivos aqui</p>
+                                        <p class="text-lg font-medium text-gray-900">Arraste ficheiros aqui</p>
                                         <p class="text-sm text-gray-500">ou clique para selecionar</p>
                                     </div>
                                     <p class="text-xs text-gray-400">
@@ -213,7 +213,7 @@
                             <div class="flex-1">
                                 <h2 class="text-lg font-bold text-foreground mb-1">📱 Selecionar Grupos do WhatsApp</h2>
                                 <p class="text-sm text-muted-foreground">
-                                    Escolha de quais grupos do seu WhatsApp você quer extrair os leads/contatos para a campanha. 
+                                    Escolha de quais grupos do seu WhatsApp deseja extrair os leads/contactos para a campanha. 
                                     <span class="font-semibold text-primary">Todos os participantes dos grupos selecionados serão incluídos!</span>
                                 </p>
                             </div>
@@ -230,31 +230,31 @@
                                     <div class="flex-1">
                                         <p class="text-sm text-destructive font-semibold">
                                             @if($connectionIssue)
-                                                Problema de Conexão WhatsApp
+                                                Problema de Ligação WhatsApp
                                             @else
                                                 Erro ao carregar grupos do WhatsApp
                                             @endif
                                         </p>
                                         <p class="text-sm text-destructive/80 mt-1">
-                                            {{ $apiErrorMessage ?? 'Não foi possível conectar com a API do Wuzapi. Verifique sua conexão com o WhatsApp.' }}
+                                            {{ $apiErrorMessage ?? 'Não foi possível ligar com a API do Wuzapi. Verifique a sua ligação com o WhatsApp.' }}
                                         </p>
                                         
                                         @if($needsConnection)
                                             <p class="text-xs text-destructive/70 mt-2">
-                                                <strong>Problema:</strong> WhatsApp não está conectado. Você precisa conectar-se primeiro.
+                                                <strong>Problema:</strong> WhatsApp não está ligado. Precisa ligar-se primeiro.
                                             </p>
                                         @elseif($needsLogin)
                                             <p class="text-xs text-destructive/70 mt-2">
-                                                <strong>Problema:</strong> WhatsApp não está logado. Faça login para acessar os grupos.
+                                                <strong>Problema:</strong> WhatsApp não está logado. Faça login para aceder os grupos.
                                             </p>
                                         @else
                                             <p class="text-xs text-destructive/70 mt-2">
-                                                <strong>Dica:</strong> Certifique-se de que você está conectado ao WhatsApp e que sua sessão está ativa.
+                                                <strong>Dica:</strong> Certifique-se de que está ligado ao WhatsApp e que a sua sessão está ativa.
                                             </p>
                                         @endif
                                         
                                         <p class="text-xs text-warning-foreground mt-2 bg-warning/10 p-2 rounded">
-                                            <strong>Modo Demonstração:</strong> Mostrando grupos de exemplo para você testar a funcionalidade.
+                                            <strong>Modo Demonstração:</strong> Mostrando grupos de exemplo para testar a funcionalidade.
                                         </p>
                                         
                                         <div class="mt-4 flex flex-wrap gap-2">
@@ -307,7 +307,7 @@
                                             <strong>Possíveis causas:</strong>
                                         </p>
                                         <ul class="text-xs text-primary/70 mt-1 ml-4 list-disc">
-                                            <li>Você não está em nenhum grupo do WhatsApp</li>
+                                            <li>Não está em nenhum grupo do WhatsApp</li>
                                             <li>Os grupos não têm participantes com números válidos</li>
                                             <li>Problema temporário com a API</li>
                                         </ul>
@@ -348,7 +348,7 @@
                                 <div class="relative">
                                     <input type="text" 
                                            id="groups-search" 
-                                           placeholder="Buscar grupos..." 
+                                           placeholder="Procurar grupos..." 
                                            class="w-full px-4 py-3 border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-background text-foreground">
                                     <svg class="absolute right-3 top-3.5 w-5 h-5 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
@@ -460,7 +460,7 @@
                                     </div>
                                     <div>
                                         <h3 class="text-lg font-bold text-foreground">Leads Extraídos dos Grupos</h3>
-                                        <p class="text-sm text-muted-foreground">Lista dos contatos que serão incluídos na campanha</p>
+                                        <p class="text-sm text-muted-foreground">Lista dos contactos que serão incluídos na campanha</p>
                                     </div>
                                 </div>
                                 <button type="button" 
@@ -500,16 +500,16 @@
 
             <!-- Manual Contacts -->
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-8">
-                <h2 class="text-xl font-semibold text-gray-900 mb-4">Adicionar Contatos Manualmente</h2>
+                <h2 class="text-xl font-semibold text-gray-900 mb-4">Adicionar Contactos Manualmente</h2>
                 <div id="manualContactsContainer">
-                    <!-- Contatos serão adicionados aqui dinamicamente -->
+                    <!-- Contactos serão adicionados aqui dinamicamente -->
                 </div>
                 
                 <button type="button" onclick="addManualContact()" class="btn-ripple inline-flex items-center px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-xl transition-all">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
                     </svg>
-                    Adicionar Contato
+                    Adicionar Contacto
                 </button>
             </div>
 
@@ -761,7 +761,7 @@ function addManualContact() {
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Nome</label>
-                    <input type="text" name="manual_contacts[${manualContactIndex}][name]" placeholder="Nome do contato"
+                    <input type="text" name="manual_contacts[${manualContactIndex}][name]" placeholder="Nome do contacto"
                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                 </div>
                 <div>
@@ -920,7 +920,7 @@ function processFiles(files) {
 function validateFile(file) {
     const maxSize = 50 * 1024 * 1024; // 50MB
     if (file.size > maxSize) {
-        showNotification('Arquivo muito grande. Máximo 50MB.', 'error');
+        showNotification('Ficheiro muito grande. Máximo 50MB.', 'error');
         return false;
     }
     
@@ -1030,7 +1030,7 @@ function createFilePreview(file, index) {
             </div>
         `;
     } else {
-        // Para outros tipos de arquivo, mostrar ícone e informações
+        // Para outros tipos de ficheiro, mostrar ícone e informações
         div.innerHTML = `
             <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-3">
@@ -1233,7 +1233,7 @@ async function reconnectWhatsApp() {
         }
     } catch (error) {
         console.error('Erro:', error);
-        showNotification('Erro de conexão. Tente novamente.', 'error');
+        showNotification('Erro de ligação. Tente novamente.', 'error');
     } finally {
         // Restaurar botão
         button.innerHTML = originalText;
@@ -1243,7 +1243,7 @@ async function reconnectWhatsApp() {
 
 // Função para regenerar token
 async function regenerateToken() {
-    if (!confirm('Tem certeza que deseja regenerar o token? Isso irá desconectar o WhatsApp atual e você precisará reconectar.')) {
+    if (!confirm('Tem certeza que deseja regenerar o token? Isso irá desconectar o WhatsApp atual e precisará reconectar.')) {
         return;
     }
     
@@ -1282,7 +1282,7 @@ async function regenerateToken() {
         }
     } catch (error) {
         console.error('Erro:', error);
-        showNotification('Erro de conexão. Tente novamente.', 'error');
+        showNotification('Erro de ligação. Tente novamente.', 'error');
     } finally {
         // Restaurar botão
         button.innerHTML = originalText;

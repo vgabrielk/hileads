@@ -9,12 +9,12 @@
                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
                 </svg>
-                Voltar para conexões
+                Voltar para ligações
             </a>
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
-                    <h1 class="text-3xl font-bold text-gray-900">Detalhes da Conexão</h1>
-                    <p class="mt-2 text-sm text-gray-600">Informações e status da sua conexão WhatsApp</p>
+                    <h1 class="text-3xl font-bold text-gray-900">Detalhes da Ligação</h1>
+                    <p class="mt-2 text-sm text-gray-600">Informações e estado da sua ligação WhatsApp</p>
                 </div>
             </div>
         </div>
@@ -22,7 +22,7 @@
         <!-- Connection Info -->
         <div class="card-hover bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-8">
             <div class="flex items-center justify-between mb-6">
-                <h2 class="text-lg font-bold text-gray-900">Informações da Conexão</h2>
+                <h2 class="text-lg font-bold text-gray-900">Informações da Ligação</h2>
                 <div class="w-12 h-12 bg-gradient-to-br from-green-100 to-green-200 rounded-xl flex items-center justify-center">
                     <svg class="w-6 h-6 text-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
@@ -54,7 +54,7 @@
                             @elseif($whatsapp->status === 'disconnected') bg-red-500
                             @else bg-amber-500 @endif">
                         </span>
-                        {{ $whatsapp->status === 'connected' ? 'Conectado' : ($whatsapp->status === 'disconnected' ? 'Desconectado' : ucfirst($whatsapp->status)) }}
+                        {{ $whatsapp->status === 'connected' ? 'Ligado' : ($whatsapp->status === 'disconnected' ? 'Desconectado' : ucfirst($whatsapp->status)) }}
                     </span>
                 </div>
 
@@ -81,8 +81,8 @@
                             </svg>
                         </div>
                         <div>
-                            <h3 class="font-bold text-gray-900 text-lg">Ver Grupos e Contatos</h3>
-                            <p class="text-sm text-gray-600 mt-1">Acesse grupos e contatos via API</p>
+                            <h3 class="font-bold text-gray-900 text-lg">Ver Grupos e Contactos</h3>
+                            <p class="text-sm text-gray-600 mt-1">Aceda grupos e contactos via API</p>
                         </div>
                     </div>
                 </a>

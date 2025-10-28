@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-PT">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Assinatura Realizada com Sucesso</title>
+    <title>Subscrição Realizada com Sucesso</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
@@ -19,11 +19,11 @@
             
             <!-- Success Message -->
             <h1 class="text-3xl font-bold text-gray-900 mb-4">
-                🎉 Assinatura Realizada!
+                🎉 Subscrição Realizada!
             </h1>
             
             <p class="text-lg text-gray-600 mb-8">
-                Seu pagamento foi processado com sucesso e sua assinatura está ativa.
+                O seu pagamento foi processado com sucesso e a sua subscrição está ativa.
             </p>
             
             <!-- Session Info (if available) -->
@@ -38,7 +38,7 @@
             
             <!-- Benefits List -->
             <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">
-                <h3 class="text-lg font-semibold text-gray-900 mb-4">O que você ganha agora:</h3>
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">O que o utilizador ganha agora:</h3>
                 <ul class="space-y-3">
                     <li class="flex items-center">
                         <svg class="h-5 w-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
@@ -70,14 +70,14 @@
                 
                 <a href="/subscriptions" 
                    class="w-full flex justify-center py-3 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition duration-150 ease-in-out">
-                    Ver Minhas Assinaturas
+                    Ver Minhas Subscrições
                 </a>
             </div>
             
             <!-- Additional Info -->
             <div class="mt-8 text-center">
                 <p class="text-sm text-gray-500">
-                    Você receberá um e-mail de confirmação em breve.
+                    O utilizador receberá um e-mail de confirmação em breve.
                 </p>
             </div>
         </div>

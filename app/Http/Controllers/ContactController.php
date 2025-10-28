@@ -24,7 +24,7 @@ class ContactController extends Controller
         ];
         
         // Pagination parameters
-        $perPage = 50; // Limite de contatos por página
+        $perPage = 50; // Limite de contactos por página
         $page = $request->get('page', 1);
         $search = $request->get('search', '');
         
@@ -54,10 +54,10 @@ class ContactController extends Controller
                 $apiError = true;
                 
                 /* BACKUP LOCAL - COMENTADO
-                // Se não conseguir buscar grupos da API, tenta usar o banco de dados local
+                // Se não conseguir procurar grupos da API, tenta usar o banco de dados local
                 \Log::warning('Failed to get groups from API, trying local database: ' . ($groupsResponse['message'] ?? 'Unknown error'));
                 
-                // Buscar grupos do banco de dados local
+                // Procurar grupos do banco de dados local
                 $localGroups = \App\Models\WhatsAppGroup::with('contacts')->get();
                 $groups = $localGroups->map(function($group) {
                     // Gerar avatar do grupo
@@ -120,7 +120,7 @@ class ContactController extends Controller
             }
             
         } catch (\Exception $e) {
-            \Log::error('Erro ao buscar dados da Wuzapi: ' . $e->getMessage());
+            \Log::error('Erro ao procurar dados da Wuzapi: ' . $e->getMessage());
             
             // API não disponível - retornar dados vazios
             $groups = collect([]);
@@ -132,7 +132,7 @@ class ContactController extends Controller
             $apiError = true;
             
             /* BACKUP LOCAL - COMENTADO
-            // Tentar buscar grupos do banco de dados local como fallback
+            // Tentar procurar grupos do banco de dados local como fallback
             try {
                 $localGroups = \App\Models\WhatsAppGroup::with('contacts')->get();
                 $groups = $localGroups->map(function($group) {
@@ -154,12 +154,12 @@ class ContactController extends Controller
                 $stats['groups'] = $groups->count();
                 $apiError = true;
             } catch (\Exception $e2) {
-                \Log::error('Erro ao buscar grupos do banco de dados: ' . $e2->getMessage());
+                \Log::error('Erro ao procurar grupos do banco de dados: ' . $e2->getMessage());
                 $groups = [];
                 $apiError = true;
             }
             
-            // Se não conseguiu buscar grupos, tenta buscar contatos mesmo assim
+            // Se não conseguiu procurar grupos, tenta procurar contactos mesmo assim
             $contacts = [];
             try {
                 $contactsResponse = $this->service()->getContacts();
@@ -200,7 +200,7 @@ class ContactController extends Controller
                     $contacts = $allContacts->forPage($page, $perPage)->values()->toArray();
                 }
             } catch (\Exception $e3) {
-                \Log::error('Erro ao buscar contatos: ' . $e3->getMessage());
+                \Log::error('Erro ao procurar contactos: ' . $e3->getMessage());
             }
             */
             
@@ -214,7 +214,7 @@ class ContactController extends Controller
                 'currentPage' => $page,
                 'search' => $search,
                 'totalContacts' => $stats['total'],
-                'error' => 'Erro ao conectar com a API. Verifique sua conexão com o WhatsApp.'
+                'error' => 'Erro ao ligar com a API. Verifique a sua ligação com o WhatsApp.'
             ]);
         }
         
@@ -266,7 +266,7 @@ class ContactController extends Controller
     }
 
     /**
-     * Gera um avatar baseado no nome do usuário
+     * Gera um avatar baseado no nome do utilizador
      */
     private function generateUserAvatar(string $userName): string
     {
@@ -277,7 +277,7 @@ class ContactController extends Controller
             'bg-yellow-500', 'bg-cyan-500', 'bg-lime-500', 'bg-amber-500'
         ];
         
-        // Pega as primeiras letras do nome do usuário
+        // Pega as primeiras letras do nome do utilizador
         $initials = '';
         $words = explode(' ', trim($userName));
         foreach ($words as $word) {
@@ -305,7 +305,7 @@ class ContactController extends Controller
     }
 
     /**
-     * Tenta buscar o avatar real do usuário, se falhar gera um avatar
+     * Tenta procurar o avatar real do utilizador, se falhar gera um avatar
      */
     private function getUserAvatarOrGenerate(string $userName, string $phone): string
     {
@@ -321,7 +321,7 @@ class ContactController extends Controller
             \Log::warning('Could not get user avatar for ' . $phone . ': ' . $e->getMessage());
         }
         
-        // Se não conseguir buscar o avatar real, gera um
+        // Se não conseguir procurar o avatar real, gera um
         return $this->generateUserAvatar($userName);
     }
 }
