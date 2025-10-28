@@ -162,7 +162,7 @@ return new class extends Migration
         // Add indexes for group_contacts table
         if (!$this->indexExists('group_contacts', 'idx_group_contacts_group_contact')) {
             Schema::table('group_contacts', function (Blueprint $table) {
-                $table->index(['group_id', 'contact_id'], 'idx_group_contacts_group_contact');
+                $table->index(['group_id', 'contact_jid'], 'idx_group_contacts_group_contact');
             });
         }
     }
