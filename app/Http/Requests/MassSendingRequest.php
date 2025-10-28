@@ -36,6 +36,68 @@ class MassSendingRequest extends FormRequest
     }
 
     /**
+     * Configure the validator instance.
+     */
+    public function withValidator($validator): void
+    {
+        $validator->after(function ($validator) {
+            $mediaType = $this->input('media_type');
+            $mediaData = $this->input('media_data');
+            $message = $this->input('message');
+
+            // Se é uma campanha de mídia, validar media_data
+            if (in_array($mediaType, ['image', 'video', 'audio', 'document'])) {
+                if (empty($mediaData)) {
+                    $validator->errors()->add('media_data', 'Dados da mídia são obrigatórios para campanhas de mídia.');
+                    return;
+                }
+
+                // Decodificar e validar estrutura do media_data
+                $decodedMediaData = is_string($mediaData) ? json_decode($mediaData, true) : $mediaData;
+                
+                if (!$decodedMediaData || !is_array($decodedMediaData)) {
+                    $validator->errors()->add('media_data', 'Dados da mídia devem ser um JSON válido.');
+                    return;
+                }
+
+                // Validar campos obrigatórios do media_data
+                if (empty($decodedMediaData['base64'])) {
+                    $validator->errors()->add('media_data', 'Dados base64 da mídia são obrigatórios.');
+                    return;
+                }
+
+                // Validar tamanho do base64 (máximo 10MB)
+                $base64Length = strlen($decodedMediaData['base64']);
+                $maxSize = 10 * 1024 * 1024; // 10MB
+                if ($base64Length > $maxSize) {
+                    $validator->errors()->add('media_data', 'Arquivo muito grande. Tamanho máximo permitido: 10MB.');
+                    return;
+                }
+
+                // Validar se base64 é válido
+                if (!preg_match('/^data:[^;]+;base64,/', $decodedMediaData['base64'])) {
+                    $validator->errors()->add('media_data', 'Formato base64 inválido. Deve incluir o prefixo data:type;base64,');
+                    return;
+                }
+
+                // Para documentos, validar nome do arquivo
+                if ($mediaType === 'document' && empty($decodedMediaData['name'])) {
+                    $validator->errors()->add('media_data', 'Nome do arquivo é obrigatório para documentos.');
+                    return;
+                }
+            }
+
+            // Se não é mídia, validar se há mensagem de texto
+            if (empty($mediaType) || $mediaType === 'text') {
+                if (empty($message)) {
+                    $validator->errors()->add('message', 'Mensagem de texto é obrigatória para campanhas de texto.');
+                    return;
+                }
+            }
+        });
+    }
+
+    /**
      * Get custom messages for validator errors.
      */
     public function messages(): array

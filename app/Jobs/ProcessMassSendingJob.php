@@ -10,6 +10,7 @@ use Illuminate\Queue\SerializesModels;
 use App\Models\MassSending;
 use App\Models\SentMessage;
 use App\Services\WuzapiService;
+use App\Exceptions\MissingMediaException;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Cache;
 
@@ -216,8 +217,35 @@ class ProcessMassSendingJob implements ShouldQueue
                         // Send text message
                         $result = $service->sendTextMessage($phone, $massSending->message);
                     } else {
-                        // Send media message
-                        $mediaData = $massSending->media_data;
+                        // Send media message - validate media data first
+                        if (!$massSending->hasValidMediaData()) {
+                            Log::error("❌ Invalid media data for campaign", [
+                                'mass_sending_id' => $massSending->id,
+                                'message_type' => $massSending->message_type,
+                                'media_data' => $massSending->media_data,
+                                'raw_media_data' => $massSending->getRawOriginal('media_data')
+                            ]);
+                            
+                            // Try fallback to raw_media_data
+                            $mediaData = $massSending->getMediaDataWithFallback();
+                            
+                            if (empty($mediaData) || empty($mediaData['base64'])) {
+                                // Mark campaign as failed and throw exception
+                                $massSending->update([
+                                    'status' => 'failed',
+                                    'failed_at' => now(),
+                                    'notes' => 'Falha: Dados de mídia inválidos ou ausentes'
+                                ]);
+                                
+                                throw MissingMediaException::forMassSending(
+                                    $massSending->id,
+                                    $massSending->message_type,
+                                    $massSending->media_data
+                                );
+                            }
+                        } else {
+                            $mediaData = $massSending->media_data;
+                        }
                         
                         // Debug media data
                         Log::info("🔍 Debug media data", [
@@ -228,17 +256,6 @@ class ProcessMassSendingJob implements ShouldQueue
                             'has_base64' => isset($mediaData['base64']) ? !empty($mediaData['base64']) : false,
                             'base64_length' => isset($mediaData['base64']) ? strlen($mediaData['base64']) : 0
                         ]);
-                        
-                        if (!$mediaData || empty($mediaData['base64'])) {
-                            Log::error("❌ No media data found for campaign", [
-                                'mass_sending_id' => $massSending->id,
-                                'message_type' => $massSending->message_type,
-                                'media_data' => $mediaData,
-                                'raw_media_data' => $massSending->getRawOriginal('media_data')
-                            ]);
-                            $failedCount++;
-                            continue;
-                        }
                         
                         // Use base64 as-is (API expects full data URL format)
                         $base64Data = $mediaData['base64'];

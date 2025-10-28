@@ -1,0 +1,28 @@
+{
+  "invalid_empty_base64": {
+    "name": "test-image.jpg",
+    "type": "image/jpeg",
+    "base64": "",
+    "size": 0
+  },
+  "invalid_missing_base64": {
+    "name": "test-image.jpg",
+    "type": "image/jpeg",
+    "size": 1024
+  },
+  "invalid_wrong_base64_format": {
+    "name": "test-image.jpg",
+    "type": "image/jpeg",
+    "base64": "invalid-base64-string",
+    "size": 1024
+  },
+  "invalid_document_missing_name": {
+    "name": "",
+    "type": "application/pdf",
+    "base64": "data:application/pdf;base64,JVBERi0xLjQKJcfsj6IK",
+    "size": 512
+  },
+  "invalid_empty_object": {},
+  "invalid_null": null,
+  "invalid_string": "not-a-json-object"
+}

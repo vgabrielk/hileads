@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class MassSending extends Model
 {
+    use HasFactory;
     protected $fillable = [
         'user_id',
         'whatsapp_connection_id',
@@ -70,6 +72,64 @@ class MassSending extends Model
         } else {
             $this->attributes['media_data'] = $value;
         }
+    }
+
+    /**
+     * Check if the campaign has valid media data
+     */
+    public function hasValidMediaData(): bool
+    {
+        if ($this->message_type === 'text' || empty($this->message_type)) {
+            return true; // Text campaigns don't need media data
+        }
+
+        $mediaData = $this->media_data;
+        
+        if (empty($mediaData) || !is_array($mediaData)) {
+            return false;
+        }
+
+        // Check if base64 data exists and is valid
+        if (empty($mediaData['base64'])) {
+            return false;
+        }
+
+        // Validate base64 format
+        if (!preg_match('/^data:[^;]+;base64,/', $mediaData['base64'])) {
+            return false;
+        }
+
+        // For documents, check if name is provided
+        if ($this->message_type === 'document' && empty($mediaData['name'])) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Get media data with fallback to raw_media_data if available
+     */
+    public function getMediaDataWithFallback(): array
+    {
+        $mediaData = $this->media_data;
+        
+        // If media_data is empty but we have raw_media_data, try to use it
+        if (empty($mediaData) && !empty($this->raw_media_data)) {
+            $rawData = is_string($this->raw_media_data) 
+                ? json_decode($this->raw_media_data, true) 
+                : $this->raw_media_data;
+                
+            if (is_array($rawData) && !empty($rawData['base64'])) {
+                \Log::warning('Using raw_media_data as fallback', [
+                    'mass_sending_id' => $this->id,
+                    'message_type' => $this->message_type
+                ]);
+                return $rawData;
+            }
+        }
+        
+        return $mediaData ?: [];
     }
 
     /**
