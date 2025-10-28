@@ -161,11 +161,13 @@ class MassSendingRequest extends FormRequest
                     return;
                 }
 
-                // Validar se não é formato WebP (não permitido)
+                // Validar se não é formato WebP ou GIF (não permitidos)
                 $isWebP = preg_match('/^data:image\/webp;base64,/', $decodedMediaData['base64']);
+                $isGif = preg_match('/^data:image\/gif;base64,/', $decodedMediaData['base64']);
                 
                 CampaignLogger::validation('Validando formato de imagem', [
                     'is_webp' => $isWebP,
+                    'is_gif' => $isGif,
                     'base64_prefix' => substr($decodedMediaData['base64'], 0, 50),
                     'file_type' => $decodedMediaData['type'] ?? 'unknown'
                 ]);
@@ -175,7 +177,16 @@ class MassSendingRequest extends FormRequest
                         'base64_prefix' => substr($decodedMediaData['base64'], 0, 100),
                         'file_type' => $decodedMediaData['type'] ?? 'unknown'
                     ]);
-                    $validator->errors()->add('media_data', 'Formato WebP não é permitido. Use JPG, PNG ou GIF.');
+                    $validator->errors()->add('media_data', 'Formato WebP não é permitido. Use apenas JPG ou PNG.');
+                    return;
+                }
+
+                if ($isGif) {
+                    CampaignLogger::error('Formato GIF não permitido', [
+                        'base64_prefix' => substr($decodedMediaData['base64'], 0, 100),
+                        'file_type' => $decodedMediaData['type'] ?? 'unknown'
+                    ]);
+                    $validator->errors()->add('media_data', 'Formato GIF não é permitido. Use apenas JPG ou PNG.');
                     return;
                 }
 

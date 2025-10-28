@@ -152,13 +152,13 @@
                                         <p class="text-sm text-gray-500">ou clique para selecionar</p>
                                     </div>
                                     <p class="text-xs text-gray-400">
-                                        Suporte: JPG, PNG, GIF, MP4, MP3, PDF, DOC, etc. (WebP não permitido)
+                                        Suporte: JPG, PNG, MP4, MP3, PDF, DOC, etc. (WebP e GIF não permitidos)
                                     </p>
                                 </div>
                             </div>
 
                             <!-- Hidden File Input -->
-                            <input type="file" id="fileInput" class="hidden" accept="image/jpeg,image/jpg,image/png,image/gif,video/*,audio/*,.pdf,.doc,.docx,.txt">
+                            <input type="file" id="fileInput" class="hidden" accept="image/jpeg,image/jpg,image/png,video/*,audio/*,.pdf,.doc,.docx,.txt">
 
                             <!-- Media Caption -->
                             <div class="mt-4">
@@ -518,9 +518,14 @@ function validateFile(file) {
         return false;
     }
     
-    // Verificar se é formato WebP (não permitido)
+    // Verificar se é formato WebP ou GIF (não permitidos)
     if (file.type === 'image/webp') {
-        showNotification('Formato WebP não é permitido. Use JPG, PNG ou GIF.', 'error');
+        showNotification('Formato WebP não é permitido. Use apenas JPG ou PNG.', 'error');
+        return false;
+    }
+    
+    if (file.type === 'image/gif') {
+        showNotification('Formato GIF não é permitido. Use apenas JPG ou PNG.', 'error');
         return false;
     }
     
