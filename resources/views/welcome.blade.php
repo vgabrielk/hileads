@@ -426,6 +426,221 @@
             </div>
         </section>
 
+        <!-- How It Works Section -->
+        <section class="py-20 lg:py-32 bg-gray-50">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16 fade-in">
+                    <h2
+                        class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4"
+                    >
+                        Como funciona?
+                    </h2>
+                    <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                        Comece a automatizar em apenas 3 passos simples
+                    </p>
+                </div>
+
+                <div class="max-w-5xl mx-auto">
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <!-- Step 1 -->
+                        <div class="text-center fade-in">
+                            <div class="relative mb-8">
+                                <div class="w-20 h-20 bg-gradient-to-br from-hileads-blue to-blue-600 rounded-full flex items-center justify-center mx-auto shadow-xl">
+                                    <span class="text-3xl font-bold text-white">1</span>
+                                </div>
+                                <div class="hidden md:block absolute top-10 left-1/2 w-full h-0.5 bg-gradient-to-r from-hileads-blue to-transparent"></div>
+                            </div>
+                            <h3 class="font-display text-xl font-bold text-gray-900 mb-3">
+                                Conecte seu WhatsApp
+                            </h3>
+                            <p class="text-gray-600">
+                                Escaneie o QR code e conecte sua conta WhatsApp em segundos. Rápido e seguro.
+                            </p>
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div class="text-center fade-in" style="transition-delay: 0.1s">
+                            <div class="relative mb-8">
+                                <div class="w-20 h-20 bg-gradient-to-br from-hileads-blue to-blue-600 rounded-full flex items-center justify-center mx-auto shadow-xl">
+                                    <span class="text-3xl font-bold text-white">2</span>
+                                </div>
+                                <div class="hidden md:block absolute top-10 left-1/2 w-full h-0.5 bg-gradient-to-r from-hileads-blue to-transparent"></div>
+                            </div>
+                            <h3 class="font-display text-xl font-bold text-gray-900 mb-3">
+                                Importe seus contactos
+                            </h3>
+                            <p class="text-gray-600">
+                                Carregue sua lista de contactos via CSV ou extraia diretamente de grupos WhatsApp.
+                            </p>
+                        </div>
+
+                        <!-- Step 3 -->
+                        <div class="text-center fade-in" style="transition-delay: 0.2s">
+                            <div class="relative mb-8">
+                                <div class="w-20 h-20 bg-gradient-to-br from-whatsapp-green to-green-600 rounded-full flex items-center justify-center mx-auto shadow-xl">
+                                    <span class="text-3xl font-bold text-white">3</span>
+                                </div>
+                            </div>
+                            <h3 class="font-display text-xl font-bold text-gray-900 mb-3">
+                                Lance sua campanha
+                            </h3>
+                            <p class="text-gray-600">
+                                Crie mensagens personalizadas e comece a enviar. Acompanhe resultados em tempo real.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- CTA -->
+                    <div class="text-center mt-16 fade-in">
+                        <a
+                            href="{{ route('register') }}"
+                            class="btn-primary inline-block px-10 py-4 rounded-lg text-white font-semibold text-lg shadow-xl"
+                        >
+                            Começar Agora - É Grátis
+                        </a>
+                        <p class="text-sm text-gray-500 mt-4">
+                            Sem cartão de crédito necessário
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Grid Section -->
+        <section class="py-20 lg:py-32 bg-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16 fade-in">
+                    <h2
+                        class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4"
+                    >
+                        Recursos Completos
+                    </h2>
+                    <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                        Todas as ferramentas que você precisa para dominar o WhatsApp marketing
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                    <!-- Feature 1 -->
+                    <div class="flex items-start gap-4 p-6 bg-gray-50 rounded-xl fade-in">
+                        <div class="flex-shrink-0 w-12 h-12 bg-hileads-blue/10 rounded-lg flex items-center justify-center">
+                            <svg class="w-6 h-6 text-hileads-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-2">Envios Programados</h4>
+                            <p class="text-sm text-gray-600">Agende campanhas para horários específicos</p>
+                        </div>
+                    </div>
+
+                    <!-- Feature 2 -->
+                    <div class="flex items-start gap-4 p-6 bg-gray-50 rounded-xl fade-in" style="transition-delay: 0.05s">
+                        <div class="flex-shrink-0 w-12 h-12 bg-whatsapp-green/10 rounded-lg flex items-center justify-center">
+                            <svg class="w-6 h-6 text-whatsapp-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-2">Mensagens Personalizadas</h4>
+                            <p class="text-sm text-gray-600">Use variáveis para personalizar cada mensagem</p>
+                        </div>
+                    </div>
+
+                    <!-- Feature 3 -->
+                    <div class="flex items-start gap-4 p-6 bg-gray-50 rounded-xl fade-in" style="transition-delay: 0.1s">
+                        <div class="flex-shrink-0 w-12 h-12 bg-hileads-blue/10 rounded-lg flex items-center justify-center">
+                            <svg class="w-6 h-6 text-hileads-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-2">Envio de Mídias</h4>
+                            <p class="text-sm text-gray-600">Imagens, vídeos, áudios e documentos</p>
+                        </div>
+                    </div>
+
+                    <!-- Feature 4 -->
+                    <div class="flex items-start gap-4 p-6 bg-gray-50 rounded-xl fade-in" style="transition-delay: 0.15s">
+                        <div class="flex-shrink-0 w-12 h-12 bg-whatsapp-green/10 rounded-lg flex items-center justify-center">
+                            <svg class="w-6 h-6 text-whatsapp-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-2">Gestão de Grupos</h4>
+                            <p class="text-sm text-gray-600">Organize contactos em grupos personalizados</p>
+                        </div>
+                    </div>
+
+                    <!-- Feature 5 -->
+                    <div class="flex items-start gap-4 p-6 bg-gray-50 rounded-xl fade-in" style="transition-delay: 0.2s">
+                        <div class="flex-shrink-0 w-12 h-12 bg-hileads-blue/10 rounded-lg flex items-center justify-center">
+                            <svg class="w-6 h-6 text-hileads-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-2">Status de Entrega</h4>
+                            <p class="text-sm text-gray-600">Acompanhe entregas, leituras e erros</p>
+                        </div>
+                    </div>
+
+                    <!-- Feature 6 -->
+                    <div class="flex items-start gap-4 p-6 bg-gray-50 rounded-xl fade-in" style="transition-delay: 0.25s">
+                        <div class="flex-shrink-0 w-12 h-12 bg-whatsapp-green/10 rounded-lg flex items-center justify-center">
+                            <svg class="w-6 h-6 text-whatsapp-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-2">Analytics Detalhados</h4>
+                            <p class="text-sm text-gray-600">Métricas e relatórios em tempo real</p>
+                        </div>
+                    </div>
+
+                    <!-- Feature 7 -->
+                    <div class="flex items-start gap-4 p-6 bg-gray-50 rounded-xl fade-in" style="transition-delay: 0.3s">
+                        <div class="flex-shrink-0 w-12 h-12 bg-hileads-blue/10 rounded-lg flex items-center justify-center">
+                            <svg class="w-6 h-6 text-hileads-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-2">Intervalos Inteligentes</h4>
+                            <p class="text-sm text-gray-600">Evite bloqueios com envios espaçados</p>
+                        </div>
+                    </div>
+
+                    <!-- Feature 8 -->
+                    <div class="flex items-start gap-4 p-6 bg-gray-50 rounded-xl fade-in" style="transition-delay: 0.35s">
+                        <div class="flex-shrink-0 w-12 h-12 bg-whatsapp-green/10 rounded-lg flex items-center justify-center">
+                            <svg class="w-6 h-6 text-whatsapp-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-2">Histórico Completo</h4>
+                            <p class="text-sm text-gray-600">Acesse todas as suas campanhas anteriores</p>
+                        </div>
+                    </div>
+
+                    <!-- Feature 9 -->
+                    <div class="flex items-start gap-4 p-6 bg-gray-50 rounded-xl fade-in" style="transition-delay: 0.4s">
+                        <div class="flex-shrink-0 w-12 h-12 bg-hileads-blue/10 rounded-lg flex items-center justify-center">
+                            <svg class="w-6 h-6 text-hileads-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-2">100% Seguro</h4>
+                            <p class="text-sm text-gray-600">Seus dados protegidos com criptografia</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Pricing Section -->
         <section class="py-20 lg:py-32 bg-gray-50" id="pricing">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -801,6 +1016,281 @@
             </div>
         </section>
 
+        <!-- Testimonials Section -->
+        <section class="py-20 lg:py-32 bg-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16 fade-in">
+                    <h2
+                        class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4"
+                    >
+                        O que dizem nossos clientes
+                    </h2>
+                    <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                        Empresas reais com resultados reais usando o HiLeads
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                    <!-- Testimonial 1 -->
+                    <div class="bg-gray-50 p-8 rounded-2xl fade-in">
+                        <div class="flex items-center gap-1 mb-4">
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                        </div>
+                        <p class="text-gray-700 mb-6 leading-relaxed">
+                            "O HiLeads transformou completamente a nossa estratégia de vendas. Aumentámos as conversões em 250% nos primeiros 3 meses!"
+                        </p>
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 bg-gradient-to-br from-hileads-blue to-blue-600 rounded-full flex items-center justify-center text-white font-bold">
+                                AS
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900">Ana Silva</h4>
+                                <p class="text-sm text-gray-600">CEO, TechVendas Lda</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 2 -->
+                    <div class="bg-gray-50 p-8 rounded-2xl fade-in" style="transition-delay: 0.1s">
+                        <div class="flex items-center gap-1 mb-4">
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                        </div>
+                        <p class="text-gray-700 mb-6 leading-relaxed">
+                            "Incrível! A automação poupa-nos horas todos os dias. Interface intuitiva e suporte sempre disponível."
+                        </p>
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 bg-gradient-to-br from-whatsapp-green to-green-600 rounded-full flex items-center justify-center text-white font-bold">
+                                PM
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900">Pedro Martins</h4>
+                                <p class="text-sm text-gray-600">Fundador, Digital Growth</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 3 -->
+                    <div class="bg-gray-50 p-8 rounded-2xl fade-in" style="transition-delay: 0.2s">
+                        <div class="flex items-center gap-1 mb-4">
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                        </div>
+                        <p class="text-gray-700 mb-6 leading-relaxed">
+                            "Conseguimos gerir milhares de leads sem esforço. Os relatórios são excelentes e ajudam muito na tomada de decisões."
+                        </p>
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 bg-gradient-to-br from-hileads-blue to-blue-600 rounded-full flex items-center justify-center text-white font-bold">
+                                CR
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900">Carla Rodrigues</h4>
+                                <p class="text-sm text-gray-600">Dir. Marketing, EcomPro</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="py-20 lg:py-32 bg-gray-50" id="faq">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
+                <div class="text-center mb-16 fade-in">
+                    <h2
+                        class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4"
+                    >
+                        Perguntas Frequentes
+                    </h2>
+                    <p class="text-xl text-gray-600">
+                        Respostas às dúvidas mais comuns sobre o HiLeads
+                    </p>
+                </div>
+
+                <div class="space-y-4 fade-in">
+                    <!-- FAQ 1 -->
+                    <div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
+                        <button
+                            class="faq-question w-full px-6 py-5 text-left hover:bg-gray-50 transition-colors flex justify-between items-center"
+                            onclick="toggleFAQ(this)"
+                        >
+                            <span class="font-semibold text-gray-900 pr-8">Como funciona o período de teste gratuito?</span>
+                            <svg
+                                class="w-5 h-5 text-gray-500 transform transition-transform flex-shrink-0"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M19 9l-7 7-7-7"
+                                ></path>
+                            </svg>
+                        </button>
+                        <div class="faq-answer hidden px-6 pb-5">
+                            <p class="text-gray-700">
+                                Oferecemos 7 dias de teste completamente gratuito em qualquer plano. Você tem acesso total a todos os recursos sem precisar inserir cartão de crédito. Após o período de teste, você decide se quer continuar.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 2 -->
+                    <div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
+                        <button
+                            class="faq-question w-full px-6 py-5 text-left hover:bg-gray-50 transition-colors flex justify-between items-center"
+                            onclick="toggleFAQ(this)"
+                        >
+                            <span class="font-semibold text-gray-900 pr-8">O WhatsApp pode bloquear minha conta?</span>
+                            <svg
+                                class="w-5 h-5 text-gray-500 transform transition-transform flex-shrink-0"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M19 9l-7 7-7-7"
+                                ></path>
+                            </svg>
+                        </button>
+                        <div class="faq-answer hidden px-6 pb-5">
+                            <p class="text-gray-700">
+                                Existe esse risco se você enviar mensagens de forma inadequada. O HiLeads oferece recursos de personalização, intervalos inteligentes e gestão de limites para minimizar riscos. É fundamental seguir as boas práticas de marketing e não enviar spam.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 3 -->
+                    <div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
+                        <button
+                            class="faq-question w-full px-6 py-5 text-left hover:bg-gray-50 transition-colors flex justify-between items-center"
+                            onclick="toggleFAQ(this)"
+                        >
+                            <span class="font-semibold text-gray-900 pr-8">Posso usar com vários números de WhatsApp?</span>
+                            <svg
+                                class="w-5 h-5 text-gray-500 transform transition-transform flex-shrink-0"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M19 9l-7 7-7-7"
+                                ></path>
+                            </svg>
+                        </button>
+                        <div class="faq-answer hidden px-6 pb-5">
+                            <p class="text-gray-700">
+                                Sim! Dependendo do plano escolhido, você pode gerenciar 1, 3 ou até 10 contas WhatsApp simultaneamente. Isso permite segmentar campanhas por marca, departamento ou região.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 4 -->
+                    <div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
+                        <button
+                            class="faq-question w-full px-6 py-5 text-left hover:bg-gray-50 transition-colors flex justify-between items-center"
+                            onclick="toggleFAQ(this)"
+                        >
+                            <span class="font-semibold text-gray-900 pr-8">Posso cancelar a qualquer momento?</span>
+                            <svg
+                                class="w-5 h-5 text-gray-500 transform transition-transform flex-shrink-0"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M19 9l-7 7-7-7"
+                                ></path>
+                            </svg>
+                        </button>
+                        <div class="faq-answer hidden px-6 pb-5">
+                            <p class="text-gray-700">
+                                Absolutamente. Você pode cancelar sua assinatura a qualquer momento sem penalizações ou custos adicionais. O acesso continuará até o final do período pago.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 5 -->
+                    <div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
+                        <button
+                            class="faq-question w-full px-6 py-5 text-left hover:bg-gray-50 transition-colors flex justify-between items-center"
+                            onclick="toggleFAQ(this)"
+                        >
+                            <span class="font-semibold text-gray-900 pr-8">Que tipo de suporte está disponível?</span>
+                            <svg
+                                class="w-5 h-5 text-gray-500 transform transition-transform flex-shrink-0"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M19 9l-7 7-7-7"
+                                ></path>
+                            </svg>
+                        </button>
+                        <div class="faq-answer hidden px-6 pb-5">
+                            <p class="text-gray-700">
+                                Oferecemos suporte por email e chat em todos os planos. Os planos Pro e Business incluem suporte prioritário, e o plano Business conta ainda com um gestor de conta dedicado disponível 24/7.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Final CTA Section -->
         <section class="gradient-cta py-20 lg:py-32 relative overflow-hidden">
             <div class="absolute inset-0 opacity-10">
@@ -897,6 +1387,34 @@
                     }
                 });
             });
+
+            // FAQ Toggle Function
+            function toggleFAQ(button) {
+                const answer = button.nextElementSibling;
+                const icon = button.querySelector('svg');
+                const isOpen = !answer.classList.contains('hidden');
+
+                // Close all other FAQs
+                document.querySelectorAll('.faq-answer').forEach((a) => {
+                    if (a !== answer) {
+                        a.classList.add('hidden');
+                    }
+                });
+                document.querySelectorAll('.faq-question svg').forEach((i) => {
+                    if (i !== icon) {
+                        i.classList.remove('rotate-180');
+                    }
+                });
+
+                // Toggle current FAQ
+                if (isOpen) {
+                    answer.classList.add('hidden');
+                    icon.classList.remove('rotate-180');
+                } else {
+                    answer.classList.remove('hidden');
+                    icon.classList.add('rotate-180');
+                }
+            }
 
             // Header scroll effect
             const header = document.querySelector('header');
