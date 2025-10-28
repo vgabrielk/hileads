@@ -7,6 +7,9 @@
 
     <title>Login - HiLeads</title>
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ asset('logotipo.png') }}">
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700,800&display=swap" rel="stylesheet" />
@@ -69,12 +72,9 @@
     <div class="w-full max-w-md fade-in">
         <!-- Logo/Header -->
         <div class="text-center mb-8">
-            <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-700 rounded-2xl shadow-lg mb-4 float-animation">
-                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
-                </svg>
+            <div class="inline-flex items-center justify-center mb-4 float-animation">
+                <img src="{{ asset('logo-horizontal.png') }}" alt="HiLeads" class="h-16">
             </div>
-            <h1 class="text-3xl font-bold text-gray-900 mb-2">HiLeads</h1>
             <p class="text-gray-600 text-sm">Gestão Inteligente de Leads</p>
         </div>
 

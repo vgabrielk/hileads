@@ -7,6 +7,9 @@
 
     <title>{{ config('app.name', 'HiLeads') }} - Gestão Inteligente de Leads</title>
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ asset('logotipo.png') }}">
+
     <!-- Google Fonts - Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -199,11 +202,7 @@
             <!-- Logo -->
             <div class="p-6 border-b border-border">
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-                        <svg class="w-6 h-6 text-primary-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
-                        </svg>
-                    </div>
+                    <img src="{{ asset('logotipo.png') }}" alt="HiLeads" class="w-10 h-10">
                     <span class="text-xl font-bold text-foreground">HiLeads</span>
                 </div>
             </div>

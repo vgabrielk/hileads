@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+<!-- Favicon já está no layout app.blade.php -->
 <div class="min-h-screen bg-gray-100">
     <!-- Chat Container - Estilo WhatsApp Web -->
     <div class="h-screen flex overflow-hidden bg-gray-50">
