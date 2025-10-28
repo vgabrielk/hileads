@@ -7,6 +7,8 @@ use App\Models\WhatsAppConnection;
 use App\Models\WhatsAppGroup;
 use App\Models\ExtractedContact;
 use App\Models\MassSending;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -14,36 +16,45 @@ class DashboardController extends Controller
     {
         $user = auth()->user();
         
-        $stats = [
-            'connections' => $user->whatsappConnections()->count(),
-            'groups' => $user->whatsappGroups()->count(),
-            'contacts' => $user->extractedContacts()->count(),
-            'mass-sendings' => $user->massSendings()->count(),
-        ];
+        // Cache das estatísticas por 5 minutos
+        $stats = Cache::remember("dashboard_stats_user_{$user->id}", 300, function () use ($user) {
+            return [
+                'connections' => $user->whatsappConnections()->count(),
+                'groups' => $user->whatsappGroups()->count(),
+                'contacts' => $user->extractedContacts()->count(),
+                'mass-sendings' => $user->massSendings()->count(),
+            ];
+        });
 
-        // Status de acesso do usuário
-        $currentSubscription = $user->activeSubscription()->with('plan')->first();
-        $accessStatus = [
-            'is_admin' => $user->isAdmin(),
-            'has_subscription' => $user->hasActiveSubscription(),
-            'has_access' => $user->hasFeatureAccess(),
-            'current_plan' => $currentSubscription ? $currentSubscription->plan : null,
-        ];
+        // Cache do status de acesso por 2 minutos
+        $accessStatus = Cache::remember("access_status_user_{$user->id}", 120, function () use ($user) {
+            $currentSubscription = $user->activeSubscription()->with('plan')->first();
+            return [
+                'is_admin' => $user->isAdmin(),
+                'has_subscription' => $user->hasActiveSubscription(),
+                'has_access' => $user->hasFeatureAccess(),
+                'current_plan' => $currentSubscription ? $currentSubscription->plan : null,
+            ];
+        });
 
+        // Otimizar queries com eager loading e seleção específica de campos
         $recentConnections = $user->whatsappConnections()
-            ->with('whatsappGroups')
+            ->select(['id', 'phone_number', 'status', 'created_at', 'last_sync'])
+            ->with(['whatsappGroups:id,whatsapp_connection_id,group_name,participants_count'])
             ->latest()
             ->take(5)
             ->get();
 
         $recentGroups = $user->whatsappGroups()
-            ->with('whatsappConnection')
+            ->select(['id', 'group_name', 'participants_count', 'created_at', 'whatsapp_connection_id'])
+            ->with(['whatsappConnection:id,phone_number,status'])
             ->latest()
             ->take(5)
             ->get();
 
         $recentContacts = $user->extractedContacts()
-            ->with('whatsappGroup')
+            ->select(['id', 'contact_name', 'phone_number', 'created_at', 'whatsapp_group_id'])
+            ->with(['whatsappGroup:id,group_name'])
             ->latest()
             ->take(10)
             ->get();

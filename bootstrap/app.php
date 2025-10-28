@@ -11,6 +11,12 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        // Global middleware
+        $middleware->append(\App\Http\Middleware\SanitizeInputMiddleware::class);
+        $middleware->append(\App\Http\Middleware\PerformanceHeadersMiddleware::class);
+        $middleware->append(\App\Http\Middleware\OptimizeQueries::class);
+        
+        // Middleware aliases
         $middleware->alias([
             'admin' => \App\Http\Middleware\AdminMiddleware::class,
             'token.auth' => \App\Http\Middleware\TokenAuthMiddleware::class,
@@ -18,6 +24,8 @@ return Application::configure(basePath: dirname(__DIR__))
             'subscription.security' => \App\Http\Middleware\SubscriptionSecurityMiddleware::class,
             'bestfy.webhook' => \App\Http\Middleware\BestfyWebhookMiddleware::class,
             'subscription.access' => \App\Http\Middleware\CheckSubscriptionAccess::class,
+            'rate.limit' => \App\Http\Middleware\RateLimitMiddleware::class,
+            'response.cache' => \App\Http\Middleware\ResponseCache::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

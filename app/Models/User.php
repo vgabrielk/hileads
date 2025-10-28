@@ -113,7 +113,10 @@ class User extends Authenticatable
      */
     public function hasActiveSubscription(): bool
     {
-        return $this->activeSubscription()->exists();
+        return $this->subscriptions()
+            ->where('status', 'active')
+            ->where('expires_at', '>', now())
+            ->exists();
     }
 
     /**
@@ -170,6 +173,34 @@ class User extends Authenticatable
     {
         $this->api_token = bin2hex(random_bytes(32));
         $this->save();
+        
+        // Clear related caches
+        $this->clearUserCaches();
+        
         return $this->api_token;
+    }
+
+    /**
+     * Clear user-related caches
+     */
+    public function clearUserCaches(): void
+    {
+        \Cache::forget("dashboard_stats_user_{$this->id}");
+        \Cache::forget("access_status_user_{$this->id}");
+    }
+
+    /**
+     * Get cached user stats
+     */
+    public function getCachedStats(): array
+    {
+        return \Cache::remember("user_stats_{$this->id}", 300, function () {
+            return [
+                'connections_count' => $this->whatsappConnections()->count(),
+                'groups_count' => $this->whatsappGroups()->count(),
+                'contacts_count' => $this->extractedContacts()->count(),
+                'mass_sendings_count' => $this->massSendings()->count(),
+            ];
+        });
     }
 }

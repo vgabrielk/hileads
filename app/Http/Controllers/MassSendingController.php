@@ -8,6 +8,7 @@ use App\Models\ExtractedContact;
 use App\Services\WuzapiService;
 use App\Services\DiscordLoggerService;
 use App\Jobs\ProcessMassSendingJob;
+use App\Http\Requests\MassSendingRequest;
 
 class MassSendingController extends Controller
 {
@@ -25,7 +26,7 @@ class MassSendingController extends Controller
     {
         // Use a more efficient query with explicit ordering and limits
         $massSendings = auth()->user()->massSendings()
-            ->select('id', 'name', 'message', 'status', 'total_contacts', 'sent_count', 'created_at', 'started_at', 'completed_at')
+            ->select('id', 'name', 'message', 'message_type', 'status', 'total_contacts', 'sent_count', 'delivered_count', 'failed_count', 'created_at', 'started_at', 'completed_at')
             ->orderBy('created_at', 'desc')
             ->paginate(20);
         
@@ -511,22 +512,8 @@ class MassSendingController extends Controller
         }
     }
 
-    public function store(Request $request)
+    public function store(MassSendingRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'message' => 'nullable|string|max:1000',
-            'media_caption' => 'nullable|string|max:1000',
-            'media_type' => 'nullable|string|in:text,image,video,audio,document',
-            'media_data' => 'nullable|string',
-            'wuzapi_participants' => 'nullable|array',
-            'wuzapi_participants.*' => 'string',
-            'manual_numbers' => 'nullable|string',
-            'scheduled_at' => 'nullable|date|after:now',
-            'group_id' => 'nullable|exists:groups,id',
-        ], [
-            'wuzapi_participants.required' => 'Selecione pelo menos um grupo ou adicione números manualmente.',
-        ]);
 
         // Verificar limite de campanhas do plano
         $user = auth()->user();
@@ -653,49 +640,53 @@ class MassSendingController extends Controller
     {
         $this->authorize('view', $massSending);
         
-        // Get Wuzapi participants (JIDs)
-        $wuzapiParticipants = [];
-        if (!empty($massSending->wuzapi_participants)) {
-            try {
-                $jids = $massSending->wuzapi_participants;
-                
-                // Get all contacts from Wuzapi API (same as ContactController)
-                $contactsData = [];
+        // Cache dos participantes por 10 minutos para evitar múltiplas chamadas à API
+        $cacheKey = "mass_sending_participants_{$massSending->id}";
+        $wuzapiParticipants = \Cache::remember($cacheKey, 600, function () use ($massSending) {
+            $participants = [];
+            if (!empty($massSending->wuzapi_participants)) {
                 try {
-                    $contactsResponse = $this->service()->getContacts();
-                    if ($contactsResponse['success'] ?? false) {
-                        $contactsData = $contactsResponse['data'] ?? [];
+                    $jids = $massSending->wuzapi_participants;
+                    
+                    // Get all contacts from Wuzapi API (same as ContactController)
+                    $contactsData = [];
+                    try {
+                        $contactsResponse = $this->service()->getContacts();
+                        if ($contactsResponse['success'] ?? false) {
+                            $contactsData = $contactsResponse['data'] ?? [];
+                        }
+                    } catch (\Exception $e) {
+                        \Log::warning('Erro ao obter contatos da Wuzapi: ' . $e->getMessage());
                     }
+                    
+                    // Map JIDs for display with contact info
+                    $participants = collect($jids)->map(function($jid) use ($contactsData) {
+                        // Extract phone number from JID
+                        $phone = str_replace('@s.whatsapp.net', '', $jid);
+                        
+                        // Find contact info for this JID
+                        $contactInfo = $contactsData[$jid] ?? null;
+                        
+                        // Get name from contact info (same logic as ContactController)
+                        $name = null;
+                        if ($contactInfo) {
+                            $name = $contactInfo['PushName'] ?? null;
+                        }
+                        
+                        return [
+                            'jid' => $jid,
+                            'phone' => $phone,
+                            'name' => $name,
+                            'type' => 'Telefone WhatsApp'
+                        ];
+                    })->values()->all();
+                    
                 } catch (\Exception $e) {
-                    \Log::warning('Erro ao obter contatos da Wuzapi: ' . $e->getMessage());
+                    \Log::error('Erro ao processar participantes Wuzapi: ' . $e->getMessage());
                 }
-                
-                // Map JIDs for display with contact info
-                $wuzapiParticipants = collect($jids)->map(function($jid) use ($contactsData) {
-                    // Extract phone number from JID
-                    $phone = str_replace('@s.whatsapp.net', '', $jid);
-                    
-                    // Find contact info for this JID
-                    $contactInfo = $contactsData[$jid] ?? null;
-                    
-                    // Get name from contact info (same logic as ContactController)
-                    $name = null;
-                    if ($contactInfo) {
-                        $name = $contactInfo['PushName'] ?? null;
-                    }
-                    
-                    return [
-                        'jid' => $jid,
-                        'phone' => $phone,
-                        'name' => $name,
-                        'type' => 'Telefone WhatsApp'
-                    ];
-                })->values()->all();
-                
-            } catch (\Exception $e) {
-                \Log::error('Erro ao processar participantes Wuzapi: ' . $e->getMessage());
             }
-        }
+            return $participants;
+        });
             
         return view('mass-sendings.show', compact('massSending', 'wuzapiParticipants'));
     }

@@ -197,9 +197,9 @@ Route::middleware('auth')->group(function () {
 
 // Authentication routes
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
-Route::post('/login', [AuthController::class, 'login']);
+Route::post('/login', [AuthController::class, 'login'])->middleware('rate.limit:5,15');
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
-Route::post('/register', [AuthController::class, 'register']);
+Route::post('/register', [AuthController::class, 'register'])->middleware('rate.limit:3,60');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Bestfy webhook (no authentication required, but with security middleware)
@@ -208,7 +208,7 @@ Route::post('/bestfy/webhook', [SubscriptionController::class, 'webhook'])
     ->name('bestfy.webhook');
 
 // Admin API routes (token-based authentication)
-Route::prefix('admin')->middleware('token.auth')->group(function () {
+Route::prefix('admin')->middleware(['token.auth', 'rate.limit:100,60'])->group(function () {
     Route::get('/users', [AdminUserController::class, 'index'])->name('admin.users.index');
     Route::post('/users', [AdminUserController::class, 'store'])->name('admin.users.store');
     Route::get('/users/{id}', [AdminUserController::class, 'show'])->name('admin.users.show');

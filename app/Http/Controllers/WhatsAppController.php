@@ -28,7 +28,15 @@ class WhatsAppController extends Controller
 
     public function index()
     {
-        $connections = auth()->user()->whatsappConnections()->latest()->get();
+        $user = auth()->user();
+        
+        // Cache das conexões por 2 minutos
+        $connections = \Cache::remember("whatsapp_connections_user_{$user->id}", 120, function () use ($user) {
+            return $user->whatsappConnections()
+                ->select(['id', 'phone_number', 'status', 'created_at', 'last_sync'])
+                ->latest()
+                ->get();
+        });
 
         // Verificar se há conexões ativas no banco
         $activeConnections = $connections->where('status', 'active');
@@ -327,6 +335,11 @@ class WhatsAppController extends Controller
                 ]);
                 Log::info('Nova conexão WhatsApp criada', ['connection_id' => $connection->id]);
             }
+            
+            // Limpar cache relacionado às conexões
+            \Cache::forget("whatsapp_connections_user_{$user->id}");
+            $user->clearUserCaches();
+            
         } catch (\Exception $e) {
             Log::error('Erro ao salvar conexão WhatsApp: ' . $e->getMessage());
         }
