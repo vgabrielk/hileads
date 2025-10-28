@@ -48,7 +48,7 @@
                             <select name="plan_id" id="plan_id" class="w-full px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
                                 @foreach($plans as $plan)
                                     <option value="{{ $plan->id }}" {{ old('plan_id', $subscription->plan_id) == $plan->id ? 'selected' : '' }}>
-                                        {{ $plan->name }} - R$ {{ number_format($plan->price, 2, ',', '.') }}/{{ $plan->interval }}
+                                        {{ $plan->name }} - €{{ number_format($plan->price, 2, ',', '.') }}/{{ $plan->interval }}
                                     </option>
                                 @endforeach
                             </select>
@@ -136,7 +136,7 @@
                     </div>
                     <div>
                         <span class="font-medium text-muted-foreground">Valor Atual:</span>
-                        <p class="text-foreground">R$ {{ number_format($subscription->amount ?? $subscription->plan->price, 2, ',', '.') }}</p>
+                        <p class="text-foreground">€{{ number_format($subscription->amount ?? $subscription->plan->price, 2, ',', '.') }}</p>
                     </div>
                 </div>
             </div>

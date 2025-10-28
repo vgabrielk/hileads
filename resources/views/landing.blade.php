@@ -203,7 +203,7 @@
                     <div class="mb-6">
                         <h3 class="text-2xl font-bold text-gray-900 mb-2">Básico</h3>
                         <div class="flex items-baseline">
-                            <span class="text-4xl font-bold text-gray-900">R$ 29,90</span>
+                            <span class="text-4xl font-bold text-gray-900">€29,90</span>
                             <span class="text-gray-600 ml-2">/mês</span>
                         </div>
                     </div>
@@ -240,7 +240,7 @@
                         </div>
                         <h3 class="text-2xl font-bold text-white mb-2">Profissional</h3>
                         <div class="flex items-baseline">
-                            <span class="text-4xl font-bold text-white">R$ 79,90</span>
+                            <span class="text-4xl font-bold text-white">€79,90</span>
                             <span class="text-indigo-200 ml-2">/mês</span>
                         </div>
                     </div>
@@ -280,7 +280,7 @@
                     <div class="mb-6">
                         <h3 class="text-2xl font-bold text-gray-900 mb-2">Empresarial</h3>
                         <div class="flex items-baseline">
-                            <span class="text-4xl font-bold text-gray-900">R$ 199,90</span>
+                            <span class="text-4xl font-bold text-gray-900">€199,90</span>
                             <span class="text-gray-600 ml-2">/mês</span>
                         </div>
                     </div>

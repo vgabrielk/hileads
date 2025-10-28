@@ -166,7 +166,7 @@
                             <p style="color: #6b7280; font-size: 14px; margin: 0;">Acesso completo ao sistema</p>
                         </div>
                         <div style="text-align: right;">
-                            <div id="plan-price" style="color: #3b82f6; font-size: 24px; font-weight: 700; margin: 0;">R$ 0,00</div>
+                            <div id="plan-price" style="color: #3b82f6; font-size: 24px; font-weight: 700; margin: 0;">€0,00</div>
                             <span style="color: #9ca3af; font-size: 12px;">Mensal</span>
                         </div>
                     </div>
@@ -262,7 +262,7 @@ function startCheckout(planId, planName, planPrice) {
     // Update plan details in overlay
     document.getElementById('plan-name').textContent = planName;
     document.getElementById('plan-name-detail').textContent = planName;
-    document.getElementById('plan-price').textContent = 'R$ ' + planPrice.toFixed(2).replace('.', ',');
+    document.getElementById('plan-price').textContent = '€' + planPrice.toFixed(2).replace('.', ',');
     
     // Show loading overlay
     showLoadingOverlay();

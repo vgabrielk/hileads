@@ -58,7 +58,7 @@
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-sm font-medium text-muted-foreground mb-2">Receita Total</p>
-                    <p class="text-2xl font-bold text-foreground">R$ {{ number_format($stats['revenue'], 2, ',', '.') }}</p>
+                    <p class="text-2xl font-bold text-foreground">€{{ number_format($stats['revenue'], 2, ',', '.') }}</p>
                 </div>
                 <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
                     <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -173,7 +173,7 @@
                                 </span>
                             </td>
                             <td class="px-4 py-3">
-                                <p class="font-medium text-foreground">R$ {{ number_format($subscription->amount ?? $subscription->plan->price, 2, ',', '.') }}</p>
+                                <p class="font-medium text-foreground">€{{ number_format($subscription->amount ?? $subscription->plan->price, 2, ',', '.') }}</p>
                             </td>
                             <td class="px-4 py-3">
                                 <div class="text-sm text-muted-foreground">

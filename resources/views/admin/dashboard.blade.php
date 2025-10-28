@@ -47,7 +47,7 @@
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-sm font-medium text-muted-foreground mb-2">Receita Mensal</p>
-                    <p class="text-2xl font-bold text-foreground">R$ {{ number_format($monthlyRevenue, 2, ',', '.') }}</p>
+                    <p class="text-2xl font-bold text-foreground">€{{ number_format($monthlyRevenue, 2, ',', '.') }}</p>
                     <p class="text-xs text-muted-foreground mt-1">Este mês</p>
                 </div>
                 <div class="w-12 h-12 bg-warning/10 rounded-lg flex items-center justify-center">
@@ -264,7 +264,7 @@ const revenueChart = new Chart(revenueCtx, {
             return Carbon\Carbon::create($item->year, $item->month)->format('M/Y');
         })) !!},
         datasets: [{
-            label: 'Receita (R$)',
+            label: 'Receita (€)',
             data: {!! json_encode($revenueByMonth->pluck('revenue')) !!},
             backgroundColor: 'rgba(34, 197, 94, 0.8)',
             borderColor: 'rgb(34, 197, 94)',
@@ -284,7 +284,7 @@ const revenueChart = new Chart(revenueCtx, {
                 beginAtZero: true,
                 ticks: {
                     callback: function(value) {
-                        return 'R$ ' + value.toLocaleString('pt-BR');
+                        return '€' + value.toLocaleString('pt-PT');
                     }
                 }
             }

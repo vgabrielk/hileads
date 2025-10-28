@@ -49,7 +49,7 @@
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-sm font-medium text-muted-foreground mb-2">Receita Total</p>
-                        <p class="text-2xl font-bold text-foreground">R$ {{ number_format($revenueData['total_revenue'], 2, ',', '.') }}</p>
+                        <p class="text-2xl font-bold text-foreground">€{{ number_format($revenueData['total_revenue'], 2, ',', '.') }}</p>
                     </div>
                     <div class="w-12 h-12 bg-success/10 rounded-lg flex items-center justify-center">
                         <svg class="w-6 h-6 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -63,7 +63,7 @@
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-sm font-medium text-muted-foreground mb-2">Receita do Período</p>
-                        <p class="text-2xl font-bold text-foreground">R$ {{ number_format($revenueData['period_revenue'], 2, ',', '.') }}</p>
+                        <p class="text-2xl font-bold text-foreground">€{{ number_format($revenueData['period_revenue'], 2, ',', '.') }}</p>
                     </div>
                     <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
                         <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -77,7 +77,7 @@
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-sm font-medium text-muted-foreground mb-2">Receita Média por Utilizador</p>
-                        <p class="text-2xl font-bold text-foreground">R$ {{ number_format($revenueData['avg_revenue_per_user'], 2, ',', '.') }}</p>
+                        <p class="text-2xl font-bold text-foreground">€{{ number_format($revenueData['avg_revenue_per_user'], 2, ',', '.') }}</p>
                     </div>
                     <div class="w-12 h-12 bg-warning/10 rounded-lg flex items-center justify-center">
                         <svg class="w-6 h-6 text-warning" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -380,7 +380,7 @@ const revenueChart = new Chart(revenueCtx, {
                 beginAtZero: true,
                 ticks: {
                     callback: function(value) {
-                        return 'R$ ' + value.toLocaleString('pt-BR');
+                        return '€' + value.toLocaleString('pt-PT');
                     }
                 }
             }

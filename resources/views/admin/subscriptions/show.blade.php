@@ -50,7 +50,7 @@
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-muted-foreground mb-1">Valor</label>
-                        <p class="text-foreground font-semibold">R$ {{ number_format($subscription->amount ?? $subscription->plan->price, 2, ',', '.') }}</p>
+                        <p class="text-foreground font-semibold">€{{ number_format($subscription->amount ?? $subscription->plan->price, 2, ',', '.') }}</p>
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-muted-foreground mb-1">Plano</label>

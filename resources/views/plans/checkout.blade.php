@@ -13,7 +13,7 @@
                     <p class="text-muted mb-0">Complete o seu pagamento para ativar o plano <strong>{{ $plan->name }}</strong></p>
                 </div>
                 <div class="text-end">
-                    <div class="badge bg-primary fs-6">R$ {{ number_format($plan->price, 2, ',', '.') }}</div>
+                    <div class="badge bg-primary fs-6">€{{ number_format($plan->price, 2, ',', '.') }}</div>
                     <div class="text-muted small">{{ ucfirst($plan->interval) }}</div>
                 </div>
             </div>
@@ -45,7 +45,7 @@
                 <div class="col-md-4">
                     <div class="card border-0 shadow-sm">
                         <div class="card-body text-center">
-                            <div class="display-6 fw-bold text-primary">R$ {{ number_format($plan->price, 2, ',', '.') }}</div>
+                            <div class="display-6 fw-bold text-primary">€{{ number_format($plan->price, 2, ',', '.') }}</div>
                             <div class="text-muted">por {{ $plan->interval === 'monthly' ? 'mês' : 'ano' }}</div>
                             <hr>
                             <div class="small text-muted">

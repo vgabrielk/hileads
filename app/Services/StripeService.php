@@ -139,23 +139,39 @@ class StripeService
      */
     private function getOrCreateStripePrice(Plan $plan, \Stripe\Product $stripeProduct): \Stripe\Price
     {
-        // Verificar se já existe um preço com o metadata plan_id
+        // Verificar se já existe um preço com o metadata plan_id E moeda EUR
         $prices = Price::all([
             'product' => $stripeProduct->id,
             'limit' => 100
         ]);
         
+        $oldPriceInBRL = null;
         foreach ($prices->data as $price) {
             if (isset($price->metadata['plan_id']) && $price->metadata['plan_id'] == $plan->id) {
-                return $price;
+                // Se encontrou o preço mas está em EUR, retorna
+                if ($price->currency === 'eur') {
+                    return $price;
+                }
+                // Se está em outra moeda (BRL), guarda para log
+                $oldPriceInBRL = $price;
             }
         }
 
-        // Criar novo preço
+        // Se encontrou um preço antigo em BRL, loga isso
+        if ($oldPriceInBRL) {
+            Log::info('Creating new EUR price because old price is in wrong currency', [
+                'plan_id' => $plan->id,
+                'old_price_id' => $oldPriceInBRL->id,
+                'old_currency' => $oldPriceInBRL->currency,
+                'new_currency' => 'eur'
+            ]);
+        }
+
+        // Criar novo preço em EUR
         return Price::create([
             'product' => $stripeProduct->id,
             'unit_amount' => $plan->price_cents,
-            'currency' => 'brl',
+            'currency' => 'eur',
             'recurring' => [
                 'interval' => $plan->interval === 'monthly' ? 'month' : 'year',
                 'interval_count' => $plan->interval_count ?? 1,

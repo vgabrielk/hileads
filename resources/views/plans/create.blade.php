@@ -62,7 +62,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
                         <label for="price" class="block text-sm font-semibold text-foreground mb-2">
-                            Preço (R$)
+                            Preço (€)
                             <span class="text-destructive">*</span>
                         </label>
                         <input type="number" 
