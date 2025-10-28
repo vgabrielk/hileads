@@ -7,21 +7,43 @@ use App\Models\WhatsAppConnection;
 use App\Models\WhatsAppGroup;
 use App\Models\ExtractedContact;
 use App\Models\MassSending;
+use App\Services\WuzapiService;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
+    private function service(): WuzapiService
+    {
+        $token = auth()->user()->api_token;
+        return new WuzapiService($token);
+    }
+
     public function index()
     {
         $user = auth()->user();
         
         // Cache das estatísticas por 5 minutos
         $stats = Cache::remember("dashboard_stats_user_{$user->id}", 300, function () use ($user) {
+            $contactsCount = 0;
+            
+            // Buscar total de contactos da API Wuzapi (mesma fonte da página /contacts)
+            try {
+                $service = new WuzapiService($user->api_token);
+                $contactsResponse = $service->getContacts();
+                if ($contactsResponse['success'] ?? false) {
+                    $contactsCount = count($contactsResponse['data'] ?? []);
+                }
+            } catch (\Exception $e) {
+                \Log::warning('Erro ao buscar contactos da API na dashboard: ' . $e->getMessage());
+                // Fallback para banco de dados local se a API falhar
+                $contactsCount = $user->extractedContacts()->count();
+            }
+            
             return [
                 'connections' => $user->whatsappConnections()->count(),
                 'groups' => $user->whatsappGroups()->count(),
-                'contacts' => $user->extractedContacts()->count(),
+                'contacts' => $contactsCount,
                 'mass-sendings' => $user->massSendings()->count(),
             ];
         });
