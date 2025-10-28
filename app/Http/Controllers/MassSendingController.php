@@ -9,6 +9,8 @@ use App\Services\WuzapiService;
 use App\Services\DiscordLoggerService;
 use App\Jobs\ProcessMassSendingJob;
 use App\Http\Requests\MassSendingRequest;
+use App\Helpers\CampaignLogger;
+use App\Helpers\JsonSanitizer;
 
 class MassSendingController extends Controller
 {
@@ -514,8 +516,7 @@ class MassSendingController extends Controller
 
     public function store(MassSendingRequest $request)
     {
-        // Debug: Log method entry
-        \Log::info('🚀 MassSendingController@store method called', [
+        CampaignLogger::startProcess('MassSendingController@store', [
             'user_id' => auth()->id(),
             'request_method' => $request->method(),
             'request_url' => $request->url(),
@@ -525,25 +526,57 @@ class MassSendingController extends Controller
 
         // Verificar limite de campanhas do plano
         $user = auth()->user();
+        CampaignLogger::info('Verificando limites do plano', [
+            'user_id' => $user->id,
+            'plan_id' => $user->subscription?->plan_id
+        ]);
+
         $campaignCheck = \App\Helpers\PlanLimitsHelper::canCreateCampaign($user);
         
         if (!$campaignCheck['can_create']) {
+            CampaignLogger::error('Limite de campanhas excedido', [
+                'message' => $campaignCheck['message']
+            ]);
             return back()->withErrors([
                 'name' => $campaignCheck['message']
             ]);
         }
 
-        // Debug: Log all request data
-        \Log::info('📋 Mass sending creation request', [
+        CampaignLogger::info('Dados da requisição recebidos', [
             'has_media_type' => $request->has('media_type'),
             'has_media_data' => $request->has('media_data'),
             'media_type' => $request->input('media_type'),
-            'message' => $request->input('message'),
-            'media_caption' => $request->input('media_caption'),
-            'media_data_raw' => $request->input('media_data'),
-            'media_data_type' => gettype($request->input('media_data')),
-            'all_input' => $request->all()
+            'message_length' => strlen($request->input('message') ?? ''),
+            'media_caption_length' => strlen($request->input('media_caption') ?? ''),
+            'has_group_id' => $request->has('group_id'),
+            'group_id' => $request->input('group_id'),
+            'has_wuzapi_participants' => $request->has('wuzapi_participants'),
+            'wuzapi_participants_count' => count($request->input('wuzapi_participants', [])),
+            'has_manual_numbers' => $request->has('manual_numbers'),
+            'manual_numbers_length' => strlen($request->input('manual_numbers') ?? '')
         ]);
+
+        // Log dados de mídia se presente
+        if ($request->has('media_data')) {
+            $mediaData = $request->input('media_data');
+            
+            // Decodificar JSON com sanitização
+            $decodedMediaData = null;
+            if (is_string($mediaData)) {
+                $decodedMediaData = JsonSanitizer::decode($mediaData, true);
+                
+                if ($decodedMediaData === null) {
+                    CampaignLogger::error('JSON inválido no controller após sanitização', [
+                        'media_data_length' => strlen($mediaData),
+                        'error_info' => JsonSanitizer::getErrorInfo($mediaData)
+                    ]);
+                }
+            } else {
+                $decodedMediaData = $mediaData;
+            }
+            
+            CampaignLogger::mediaData('Dados de mídia recebidos no controller', $decodedMediaData ?? []);
+        }
 
         $wuzapiParticipants = $request->wuzapi_participants ?? [];
         $manualNumbers = $request->manual_numbers ?? '';
@@ -603,13 +636,31 @@ class MassSendingController extends Controller
         
         // Se há mídia selecionada (vem do JavaScript)
         if ($request->has('media_type') && $request->has('media_data')) {
+            CampaignLogger::info('Processando dados de mídia', [
+                'media_type' => $request->media_type,
+                'has_media_caption' => $request->has('media_caption'),
+                'media_caption_length' => strlen($request->media_caption ?? '')
+            ]);
+
             $messageType = $request->media_type;
             $messageContent = $request->media_caption ?? '';
             
-            // Decodificar dados de mídia se vier como JSON string
-            $mediaData = is_string($request->media_data) 
-                ? json_decode($request->media_data, true) 
-                : $request->media_data;
+            // Decodificar dados de mídia com sanitização
+            $mediaData = null;
+            if (is_string($request->media_data)) {
+                $mediaData = JsonSanitizer::decode($request->media_data, true);
+                
+                if ($mediaData === null) {
+                    CampaignLogger::error('JSON inválido no processamento de mídia após sanitização', [
+                        'media_data_length' => strlen($request->media_data),
+                        'error_info' => JsonSanitizer::getErrorInfo($request->media_data)
+                    ]);
+                }
+            } else {
+                $mediaData = $request->media_data;
+            }
+                
+            CampaignLogger::mediaData('Dados de mídia processados', $mediaData ?? []);
                 
             \Log::info('📱 Media mass sending created', [
                 'message_type' => $messageType,
@@ -621,6 +672,17 @@ class MassSendingController extends Controller
             ]);
         }
 
+        CampaignLogger::database('Criando MassSending no banco de dados', [
+            'name' => $request->name,
+            'message_type' => $messageType,
+            'message_content_length' => strlen($messageContent),
+            'has_media_data' => !empty($mediaData),
+            'media_data_type' => gettype($mediaData),
+            'total_contacts' => $totalContacts,
+            'participants_count' => count($allParticipants),
+            'scheduled_at' => $request->scheduled_at
+        ]);
+
         $massSending = auth()->user()->massSendings()->create([
             'name' => $request->name,
             'message' => $messageContent,
@@ -631,6 +693,16 @@ class MassSendingController extends Controller
             'wuzapi_participants' => $allParticipants,
             'total_contacts' => $totalContacts,
             'scheduled_at' => $request->scheduled_at,
+        ]);
+
+        CampaignLogger::database('MassSending criado com sucesso', [
+            'mass_sending_id' => $massSending->id,
+            'message_type' => $massSending->message_type,
+            'has_media_data' => !empty($massSending->media_data),
+            'media_data_type' => gettype($massSending->media_data),
+            'media_data_keys' => is_array($massSending->media_data) ? array_keys($massSending->media_data) : 'not_array',
+            'status' => $massSending->status,
+            'total_contacts' => $massSending->total_contacts
         ]);
 
         // Debug: Log after creation to verify data was saved
@@ -653,6 +725,14 @@ class MassSendingController extends Controller
         } elseif (count($manualParticipants) > 0) {
             $message .= " (" . count($manualParticipants) . " números manuais)";
         }
+
+        CampaignLogger::endProcess('MassSendingController@store', [
+            'mass_sending_id' => $massSending->id,
+            'message_type' => $massSending->message_type,
+            'total_contacts' => $totalContacts,
+            'status' => 'draft',
+            'success_message' => $message
+        ]);
 
         return redirect()->route('mass-sendings.show', $massSending)
             ->with('success', $message);

@@ -11,6 +11,7 @@ use App\Models\MassSending;
 use App\Models\SentMessage;
 use App\Services\WuzapiService;
 use App\Exceptions\MissingMediaException;
+use App\Helpers\CampaignLogger;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Cache;
 
@@ -29,6 +30,13 @@ class ProcessMassSendingJob implements ShouldQueue
 
     public function handle()
     {
+        CampaignLogger::startProcess('ProcessMassSendingJob::handle', [
+            'mass_sending_id' => $this->massSending->id,
+            'message_type' => $this->massSending->message_type,
+            'has_media_data' => !empty($this->massSending->media_data),
+            'user_id' => $this->user->id
+        ]);
+
         \Log::info('🚀 ProcessMassSendingJob started', [
             'mass_sending_id' => $this->massSending->id,
             'message_type' => $this->massSending->message_type,
@@ -248,6 +256,8 @@ class ProcessMassSendingJob implements ShouldQueue
                         }
                         
                         // Debug media data
+                        CampaignLogger::mediaData('Processando dados de mídia no job', $mediaData);
+                        
                         Log::info("🔍 Debug media data", [
                             'mass_sending_id' => $massSending->id,
                             'message_type' => $massSending->message_type,
@@ -260,10 +270,24 @@ class ProcessMassSendingJob implements ShouldQueue
                         // Use base64 as-is (API expects full data URL format)
                         $base64Data = $mediaData['base64'];
                         
+                        CampaignLogger::info('Dados de mídia extraídos', [
+                            'has_base64' => !empty($base64Data),
+                            'base64_length' => strlen($base64Data),
+                            'base64_prefix' => substr($base64Data, 0, 50),
+                            'message_type' => $massSending->message_type
+                        ]);
+                        
                         $caption = $massSending->message; // Use message as caption (this contains the media caption)
                         
                         // Generate unique ID for this message
                         $messageId = 'mass_sending_' . $massSending->id . '_' . $globalIndex . '_' . time();
+                        
+                        CampaignLogger::info('Enviando mensagem de mídia', [
+                            'phone' => $phone,
+                            'message_type' => $massSending->message_type,
+                            'caption_length' => strlen($caption),
+                            'message_id' => $messageId
+                        ]);
                         
                         switch ($massSending->message_type) {
                             case 'image':
@@ -287,6 +311,14 @@ class ProcessMassSendingJob implements ShouldQueue
                         }
                     }
                     
+                    CampaignLogger::api('Resposta da API recebida', [
+                        'jid' => $jid,
+                        'phone' => $phone,
+                        'success' => $result['success'] ?? false,
+                        'message' => $result['message'] ?? 'N/A',
+                        'code' => $result['code'] ?? 'N/A'
+                    ]);
+
                     Log::info("📡 API Response", [
                         'jid' => $jid,
                         'phone' => $phone,
@@ -294,6 +326,12 @@ class ProcessMassSendingJob implements ShouldQueue
                     ]);
                     
                     if ($result['success'] ?? false) {
+                        CampaignLogger::info('Mensagem enviada com sucesso', [
+                            'jid' => $jid,
+                            'phone' => $phone,
+                            'message_id' => $result['data']['Id'] ?? null,
+                            'message_type' => $massSending->message_type
+                        ]);
                         $sentCount++;
                         $massSending->increment('sent_count');
                         
@@ -326,6 +364,14 @@ class ProcessMassSendingJob implements ShouldQueue
                             'status' => $result['data']['Details'] ?? null
                         ]);
                     } else {
+                        CampaignLogger::error('Falha ao enviar mensagem', [
+                            'jid' => $jid,
+                            'phone' => $phone,
+                            'error' => $result['message'] ?? 'Unknown error',
+                            'code' => $result['code'] ?? 'N/A',
+                            'message_type' => $massSending->message_type
+                        ]);
+
                         $failedCount++;
                         
                         // Record failed message
@@ -467,6 +513,16 @@ class ProcessMassSendingJob implements ShouldQueue
             'completed_at' => $remainingContacts <= 0 ? now()->toISOString() : null,
         ], 3600);
         
+        CampaignLogger::endProcess('ProcessMassSendingJob::handle', [
+            'mass_sending_id' => $massSending->id,
+            'sent' => $sentCount,
+            'failed' => $failedCount,
+            'total' => $totalParticipants,
+            'remaining' => $remainingContacts,
+            'status' => $finalStatus,
+            'message_type' => $massSending->message_type
+        ]);
+
         Log::info("✨ Campaign job finished", [
             'mass_sending_id' => $massSending->id,
             'sent' => $sentCount,

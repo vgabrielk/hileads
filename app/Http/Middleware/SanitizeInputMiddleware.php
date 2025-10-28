@@ -36,7 +36,12 @@ class SanitizeInputMiddleware
             if (is_array($value)) {
                 $sanitized[$key] = $this->sanitizeArray($value);
             } elseif (is_string($value)) {
-                $sanitized[$key] = $this->sanitizeString($value);
+                // Don't truncate media_data as it contains Base64 images
+                if ($key === 'media_data') {
+                    $sanitized[$key] = $this->sanitizeString($value, false);
+                } else {
+                    $sanitized[$key] = $this->sanitizeString($value);
+                }
             } else {
                 $sanitized[$key] = $value;
             }
@@ -48,7 +53,7 @@ class SanitizeInputMiddleware
     /**
      * Sanitize string input
      */
-    private function sanitizeString(string $input): string
+    private function sanitizeString(string $input, bool $truncate = true): string
     {
         // Remove null bytes
         $input = str_replace("\0", '', $input);
@@ -62,8 +67,8 @@ class SanitizeInputMiddleware
         // Normalize line endings
         $input = preg_replace('/\r\n|\r|\n/', "\n", $input);
         
-        // Limit length to prevent DoS
-        if (strlen($input) > 10000) {
+        // Limit length to prevent DoS (except for media_data which can be large)
+        if ($truncate && strlen($input) > 10000) {
             $input = substr($input, 0, 10000);
         }
         

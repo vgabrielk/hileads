@@ -4,6 +4,7 @@ namespace App\Services;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use App\Helpers\CampaignLogger;
 
 class WuzapiService
 {
@@ -720,9 +721,36 @@ class WuzapiService
      */
     public function sendImageMessage(string $phone, string $imageBase64, string $caption = '', ?string $id = null, ?array $contextInfo = null): array
     {
+        CampaignLogger::startProcess('WuzapiService::sendImageMessage', [
+            'phone' => $phone,
+            'has_caption' => !empty($caption),
+            'caption_length' => strlen($caption),
+            'id' => $id,
+            'has_context_info' => !empty($contextInfo)
+        ]);
+
         $this->checkToken();
 
         try {
+            // Validar Base64 antes de enviar
+            $base64Validation = $this->validateBase64($imageBase64);
+            if (!$base64Validation['valid']) {
+                CampaignLogger::error('Base64 inválido para envio', $base64Validation);
+                return [
+                    'success' => false,
+                    'message' => 'Base64 inválido: ' . $base64Validation['error'],
+                    'data' => null,
+                ];
+            }
+
+            CampaignLogger::api('Preparando dados para envio de imagem', [
+                'phone' => $phone,
+                'base64_length' => strlen($imageBase64),
+                'base64_prefix' => substr($imageBase64, 0, 50),
+                'caption' => $caption,
+                'id' => $id
+            ]);
+
             $data = [
                 'Phone' => $phone,
                 'Image' => $imageBase64,
@@ -740,6 +768,12 @@ class WuzapiService
                 $data['ContextInfo'] = $contextInfo;
             }
 
+            CampaignLogger::api('Enviando requisição para API Wuzapi', [
+                'url' => $this->baseUrl . '/chat/send/image',
+                'data_keys' => array_keys($data),
+                'data_size' => strlen(json_encode($data))
+            ]);
+
             $response = Http::withHeaders([
                 'token' => $this->token,
                 'Content-Type'  => 'application/json',
@@ -747,18 +781,87 @@ class WuzapiService
 
             $responseData = $response->json();
             
-            return [
+            CampaignLogger::api('Resposta da API Wuzapi', [
+                'status_code' => $response->status(),
+                'successful' => $response->successful(),
+                'response_data' => $responseData,
+                'response_size' => strlen($response->body())
+            ]);
+            
+            $result = [
                 'success' => $response->successful() && ($responseData['success'] ?? true),
                 'data' => $responseData['data'] ?? $responseData,
                 'message' => $responseData['message'] ?? ($response->successful() ? 'Imagem enviada' : 'Erro ao enviar imagem'),
                 'code' => $responseData['code'] ?? $response->status(),
             ];
+
+            CampaignLogger::endProcess('WuzapiService::sendImageMessage', [
+                'success' => $result['success'],
+                'message' => $result['message'],
+                'code' => $result['code']
+            ]);
+
+            return $result;
         } catch (\Exception $e) {
+            CampaignLogger::error('Erro ao enviar imagem', [
+                'error' => $e->getMessage(),
+                'phone' => $phone,
+                'base64_length' => strlen($imageBase64)
+            ]);
+            
             Log::error('Wuzapi send image message error: ' . $e->getMessage());
             return [
                 'success' => false,
                 'message' => $e->getMessage(),
                 'data' => null,
+            ];
+        }
+    }
+
+    /**
+     * Valida Base64 antes do envio
+     */
+    private function validateBase64(string $base64): array
+    {
+        try {
+            // Verificar formato data URL
+            if (!preg_match('/^data:[^;]+;base64,/', $base64)) {
+                return [
+                    'valid' => false,
+                    'error' => 'Formato data URL inválido'
+                ];
+            }
+
+            // Extrair conteúdo Base64
+            $base64Content = substr($base64, strpos($base64, ',') + 1);
+            
+            // Verificar se é Base64 válido
+            $decoded = base64_decode($base64Content, true);
+            if ($decoded === false) {
+                return [
+                    'valid' => false,
+                    'error' => 'Conteúdo Base64 inválido'
+                ];
+            }
+
+            // Verificar tamanho (máximo 5MB)
+            $maxSize = 5 * 1024 * 1024;
+            if (strlen($base64) > $maxSize) {
+                return [
+                    'valid' => false,
+                    'error' => 'Arquivo muito grande'
+                ];
+            }
+
+            return [
+                'valid' => true,
+                'decoded_size' => strlen($decoded),
+                'base64_size' => strlen($base64)
+            ];
+        } catch (\Exception $e) {
+            return [
+                'valid' => false,
+                'error' => $e->getMessage()
             ];
         }
     }
