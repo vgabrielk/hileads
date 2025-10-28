@@ -514,6 +514,14 @@ class MassSendingController extends Controller
 
     public function store(MassSendingRequest $request)
     {
+        // Debug: Log method entry
+        \Log::info('🚀 MassSendingController@store method called', [
+            'user_id' => auth()->id(),
+            'request_method' => $request->method(),
+            'request_url' => $request->url(),
+            'has_media_type' => $request->has('media_type'),
+            'has_media_data' => $request->has('media_data')
+        ]);
 
         // Verificar limite de campanhas do plano
         $user = auth()->user();
