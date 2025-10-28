@@ -35,7 +35,6 @@ return new class extends Migration
         });
 
         Schema::table('sent_messages', function (Blueprint $table) {
-            $table->text('message')->change();
             $table->string('phone_number', 20)->change();
         });
 
@@ -78,7 +77,6 @@ return new class extends Migration
         });
 
         Schema::table('sent_messages', function (Blueprint $table) {
-            $table->longText('message')->change();
             $table->string('phone_number')->change();
         });
 
