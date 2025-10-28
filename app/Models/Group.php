@@ -39,22 +39,32 @@ class Group extends Model
     {
         $user = $this->user;
         $wuzapiService = new \App\Services\WuzapiService($user->api_token);
-        $allContacts = $wuzapiService->getContacts();
+        $allContactsResponse = $wuzapiService->getContacts();
         
-        if (!$allContacts['success']) {
-            return [];
-        }
-
-        $groupContactJids = $this->groupContacts()->pluck('contact_jid')->toArray();
+        $allContacts = $allContactsResponse['success'] ? $allContactsResponse['data'] : [];
+        
+        $groupContacts = $this->groupContacts()->get();
         
         $filteredContacts = [];
-        foreach ($allContacts['data'] as $jid => $contact) {
-            if (in_array($jid, $groupContactJids)) {
+        foreach ($groupContacts as $groupContact) {
+            $jid = $groupContact->contact_jid;
+            
+            // Tentar obter dados da API primeiro
+            if (isset($allContacts[$jid])) {
+                $contact = $allContacts[$jid];
                 $filteredContacts[] = [
                     'jid' => $jid,
-                    'pushName' => $contact['PushName'] ?? null,
-                    'name' => $contact['name'] ?? null,
-                    'phone' => explode('@', $jid)[0] ?? '',
+                    'pushName' => $contact['PushName'] ?? $groupContact->contact_name ?? null,
+                    'name' => $groupContact->contact_name ?? $contact['name'] ?? null,
+                    'phone' => $groupContact->contact_phone ?? explode('@', $jid)[0] ?? '',
+                ];
+            } else {
+                // Se não estiver na API, usar dados salvos no banco
+                $filteredContacts[] = [
+                    'jid' => $jid,
+                    'pushName' => $groupContact->contact_name,
+                    'name' => $groupContact->contact_name,
+                    'phone' => $groupContact->contact_phone ?? explode('@', $jid)[0] ?? '',
                 ];
             }
         }
