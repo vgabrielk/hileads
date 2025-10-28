@@ -74,7 +74,7 @@
         <div class="overflow-x-auto">
         <!-- Table Header with Sortable Columns -->
         <div class="px-4 sm:px-6 py-5 border-b border-border bg-muted/30">
-            <div class="grid grid-cols-8 gap-3 sm:gap-6 items-center min-w-[900px]">
+            <div class="grid grid-cols-9 gap-3 sm:gap-6 items-center min-w-[900px]">
                 <div class="flex items-center">
                     <input type="checkbox" class="w-4 h-4 rounded border-input text-primary focus:ring-primary focus:ring-offset-0">
                 </div>
@@ -120,12 +120,15 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"></path>
                     </svg>
                 </div>
+                <div class="flex items-center gap-2">
+                    <span class="text-sm font-semibold text-foreground uppercase tracking-wide">Ações</span>
+                </div>
             </div>
         </div>
 
         <!-- Filter Row -->
         <div class="px-4 sm:px-6 py-4 border-b border-border bg-muted/20">
-            <div class="grid grid-cols-8 gap-3 sm:gap-6 items-center min-w-[900px]">
+            <div class="grid grid-cols-9 gap-3 sm:gap-6 items-center min-w-[900px]">
                 <div class="flex items-center">
                     <input type="checkbox" class="w-4 h-4 rounded border-input text-primary focus:ring-primary focus:ring-offset-0">
                 </div>
@@ -185,6 +188,7 @@
                         </svg>
                     </div>
                 </div>
+                <div></div>
             </div>
         </div>
 
@@ -192,7 +196,7 @@
         @if($massSendings->count() > 0)
             @foreach($massSendings as $index => $massSending)
                 <div class="px-4 sm:px-6 py-5 border-b border-border hover:bg-accent/30 transition-all duration-200 {{ $index === 0 ? 'bg-accent/20' : '' }}" data-mass-sending-id="{{ $massSending->id }}">
-                    <div class="grid grid-cols-8 gap-3 sm:gap-6 items-center min-w-[900px]">
+                    <div class="grid grid-cols-9 gap-3 sm:gap-6 items-center min-w-[900px]">
                         <!-- Checkbox -->
                         <div class="flex items-center">
                             <input type="checkbox" class="w-4 h-4 rounded border-input text-primary focus:ring-primary focus:ring-offset-0" {{ $index === 0 ? 'checked' : '' }}>
@@ -223,7 +227,7 @@
                         <div class="text-sm text-foreground font-medium">{{ $massSending->created_at->format('d/m/Y') }}</div>
                         
                         <!-- Status -->
-                        <div class="flex items-center justify-between">
+                        <div>
                             <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold
                                 @if($massSending->status === 'draft') bg-yellow-100 text-yellow-800
                                 @elseif($massSending->status === 'active') bg-green-100 text-green-800
@@ -238,7 +242,10 @@
                                 @else {{ ucfirst($massSending->status) }}
                                 @endif
                             </span>
-                            <div class="flex items-center gap-2">
+                        </div>
+                        
+                        <!-- Ações -->
+                        <div class="flex items-center gap-2">
                                 <!-- View Details Button -->
                                 <a href="{{ route('mass-sendings.show', $massSending) }}" 
                                    class="p-2 text-muted-foreground hover:text-primary hover:bg-primary/10 rounded-lg transition-all"
@@ -321,8 +328,6 @@
                                 </div>
                             </div>
                         </div>
-                                    </div>
-
                     </div>
                 @endforeach
         @else
