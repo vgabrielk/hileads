@@ -201,9 +201,8 @@
         <aside id="sidebar" class="w-64 bg-card border-r border-border flex flex-col fixed h-screen z-50 transform -translate-x-full transition-transform duration-300 ease-in-out lg:translate-x-0">
             <!-- Logo -->
             <div class="p-6 border-b border-border">
-                <div class="flex items-center gap-3">
-                    <img src="{{ asset('logotipo.png') }}" alt="HiLeads" class="w-10 h-10">
-                    <span class="text-xl font-bold text-foreground">HiLeads</span>
+                <div class="flex items-center justify-center">
+                    <img src="{{ asset('logo-horizontal.png') }}" alt="HiLeads" class="h-10">
                 </div>
             </div>
 
