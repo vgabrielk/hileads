@@ -70,7 +70,7 @@
     <!-- Table Section -->
     <div class="bg-card rounded-xl border border-border overflow-hidden shadow-sm">
         <!-- Mobile Table Container with Horizontal Scroll -->
-        <div class="overflow-x-auto">
+        <div class="overflow-x-auto bg-card">
         <!-- Table Header with Sortable Columns -->
         <div class="px-4 sm:px-6 py-5 border-b border-border bg-muted/30">
             <div class="grid grid-cols-9 gap-3 sm:gap-6 items-center min-w-[900px]">
@@ -194,8 +194,8 @@
         <!-- Data Rows -->
         @if($massSendings->count() > 0)
             @foreach($massSendings as $index => $massSending)
-                <div class="border-b border-border hover:bg-accent/30 transition-all duration-200 {{ $index === 0 ? 'bg-accent/20' : '' }}" data-mass-sending-id="{{ $massSending->id }}">
-                    <div class="grid grid-cols-9 gap-3 sm:gap-6 items-center min-w-[900px] px-4 sm:px-6 py-5">
+                <div class="px-4 sm:px-6 py-5 border-b border-border hover:bg-accent/30 transition-all duration-200 {{ $index === 0 ? 'bg-accent/20' : '' }}" data-mass-sending-id="{{ $massSending->id }}">
+                    <div class="grid grid-cols-9 gap-3 sm:gap-6 items-center min-w-[900px]">
                         <!-- Checkbox -->
                         <div class="flex items-center">
                             <input type="checkbox" class="w-4 h-4 rounded border-input text-primary focus:ring-primary focus:ring-offset-0" {{ $index === 0 ? 'checked' : '' }}>
