@@ -102,11 +102,14 @@
                                     <div>
                                         <label class="block text-sm font-medium text-foreground mb-1">Telefone *</label>
                                         <div class="flex gap-2">
-                                            <div class="w-32 relative">
+                                            <div class="w-40 relative">
+                                                <div class="country-flag-display absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none z-10">
+                                                    <img src="" alt="" class="w-5 h-4 object-cover" style="display:none;">
+                                                </div>
                                                 <select name="manual_contacts[0][country_code]" 
-                                                        class="country-code-select w-full px-3 py-2 border border-input rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-background text-foreground appearance-none"
+                                                        class="country-code-select w-full pl-10 pr-3 py-2 border border-input rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-background text-foreground"
                                                         onchange="updateCountryFlag(this)">
-                                                    <option value="55" data-flag="br">🇧🇷 +55</option>
+                                                    <option value="55" data-img="">+55</option>
                                                 </select>
                                             </div>
                                             <input type="text" name="manual_contacts[0][phone]" placeholder="11999999999" required
@@ -164,39 +167,6 @@
 let manualContactIndex = 1;
 let countriesData = {};
 
-// Mapa de códigos de país para flags emoji
-const countryFlags = {
-    'af': '🇦🇫', 'za': '🇿🇦', 'al': '🇦🇱', 'de': '🇩🇪', 'ad': '🇦🇩', 'ao': '🇦🇴', 'ai': '🇦🇮',
-    'ag': '🇦🇬', 'sa': '🇸🇦', 'dz': '🇩🇿', 'ar': '🇦🇷', 'am': '🇦🇲', 'aw': '🇦🇼', 'au': '🇦🇺',
-    'at': '🇦🇹', 'az': '🇦🇿', 'bs': '🇧🇸', 'bd': '🇧🇩', 'bb': '🇧🇧', 'bh': '🇧🇭', 'be': '🇧🇪',
-    'bz': '🇧🇿', 'bj': '🇧🇯', 'by': '🇧🇾', 'bo': '🇧🇴', 'ba': '🇧🇦', 'bw': '🇧🇼', 'br': '🇧🇷',
-    'bn': '🇧🇳', 'bg': '🇧🇬', 'bf': '🇧🇫', 'bi': '🇧🇮', 'bt': '🇧🇹', 'cv': '🇨🇻', 'cm': '🇨🇲',
-    'kh': '🇰🇭', 'ca': '🇨🇦', 'td': '🇹🇩', 'cl': '🇨🇱', 'cn': '🇨🇳', 'cy': '🇨🇾', 'co': '🇨🇴',
-    'cg': '🇨🇬', 'cd': '🇨🇩', 'kp': '🇰🇵', 'kr': '🇰🇷', 'ci': '🇨🇮', 'cr': '🇨🇷', 'hr': '🇭🇷',
-    'cu': '🇨🇺', 'dk': '🇩🇰', 'dj': '🇩🇯', 'eg': '🇪🇬', 'sv': '🇸🇻', 'ae': '🇦🇪', 'ec': '🇪🇨',
-    'er': '🇪🇷', 'sk': '🇸🇰', 'si': '🇸🇮', 'es': '🇪🇸', 'ee': '🇪🇪', 'et': '🇪🇹', 'fj': '🇫🇯',
-    'ph': '🇵🇭', 'fi': '🇫🇮', 'fr': '🇫🇷', 'ga': '🇬🇦', 'gm': '🇬🇲', 'gh': '🇬🇭', 'ge': '🇬🇪',
-    'gi': '🇬🇮', 'gr': '🇬🇷', 'gl': '🇬🇱', 'gp': '🇬🇵', 'gu': '🇬🇺', 'gt': '🇬🇹', 'gy': '🇬🇾',
-    'gf': '🇬🇫', 'gn': '🇬🇳', 'gw': '🇬🇼', 'gq': '🇬🇶', 'ht': '🇭🇹', 'hn': '🇭🇳', 'hk': '🇭🇰',
-    'hu': '🇭🇺', 'ye': '🇾🇪', 'in': '🇮🇳', 'id': '🇮🇩', 'ir': '🇮🇷', 'iq': '🇮🇶', 'ie': '🇮🇪',
-    'is': '🇮🇸', 'il': '🇮🇱', 'it': '🇮🇹', 'jp': '🇯🇵', 'jo': '🇯🇴', 'ki': '🇰🇮', 'xk': '🇽🇰',
-    'kw': '🇰🇼', 'la': '🇱🇦', 'ls': '🇱🇸', 'lv': '🇱🇻', 'lb': '🇱🇧', 'lr': '🇱🇷', 'ly': '🇱🇾',
-    'li': '🇱🇮', 'lt': '🇱🇹', 'lu': '🇱🇺', 'mo': '🇲🇴', 'mk': '🇲🇰', 'mg': '🇲🇬', 'my': '🇲🇾',
-    'mw': '🇲🇼', 'mv': '🇲🇻', 'ml': '🇲🇱', 'mt': '🇲🇹', 'ma': '🇲🇦', 'mq': '🇲🇶', 'mu': '🇲🇺',
-    'mr': '🇲🇷', 'mx': '🇲🇽', 'fm': '🇫🇲', 'mz': '🇲🇿', 'md': '🇲🇩', 'mc': '🇲🇨', 'mn': '🇲🇳',
-    'me': '🇲🇪', 'mm': '🇲🇲', 'na': '🇳🇦', 'nr': '🇳🇷', 'np': '🇳🇵', 'ni': '🇳🇮', 'ne': '🇳🇪',
-    'ng': '🇳🇬', 'nu': '🇳🇺', 'no': '🇳🇴', 'nc': '🇳🇨', 'nz': '🇳🇿', 'om': '🇴🇲', 'nl': '🇳🇱',
-    'pw': '🇵🇼', 'ps': '🇵🇸', 'pa': '🇵🇦', 'pg': '🇵🇬', 'pk': '🇵🇰', 'py': '🇵🇾', 'pe': '🇵🇪',
-    'pf': '🇵🇫', 'pl': '🇵🇱', 'pt': '🇵🇹', 'qa': '🇶🇦', 'ke': '🇰🇪', 'kg': '🇰🇬', 'gb': '🇬🇧',
-    'cf': '🇨🇫', 'cz': '🇨🇿', 're': '🇷🇪', 'ro': '🇷🇴', 'rw': '🇷🇼', 'ru': '🇷🇺', 'ws': '🇼🇸',
-    'sm': '🇸🇲', 'pm': '🇵🇲', 'st': '🇸🇹', 'sc': '🇸🇨', 'sn': '🇸🇳', 'sl': '🇸🇱', 'rs': '🇷🇸',
-    'sg': '🇸🇬', 'sy': '🇸🇾', 'so': '🇸🇴', 'lk': '🇱🇰', 'sz': '🇸🇿', 'sd': '🇸🇩', 'ss': '🇸🇸',
-    'se': '🇸🇪', 'ch': '🇨🇭', 'sr': '🇸🇷', 'tj': '🇹🇯', 'th': '🇹🇭', 'tw': '🇹🇼', 'tz': '🇹🇿',
-    'tl': '🇹🇱', 'tg': '🇹🇬', 'tk': '🇹🇰', 'to': '🇹🇴', 'tn': '🇹🇳', 'tm': '🇹🇲', 'tr': '🇹🇷',
-    'tv': '🇹🇻', 'ua': '🇺🇦', 'ug': '🇺🇬', 'uy': '🇺🇾', 'uz': '🇺🇿', 'vu': '🇻🇺', 'va': '🇻🇦',
-    've': '🇻🇪', 'vn': '🇻🇳', 'wf': '🇼🇫', 'zm': '🇿🇲', 'zw': '🇿🇼', 'us': '🇺🇸'
-};
-
 // Carregar dados de DDI
 async function loadCountriesData() {
     try {
@@ -230,31 +200,33 @@ function populateCountrySelect(select) {
     sortedCountries.forEach(([key, country]) => {
         const option = document.createElement('option');
         option.value = country.ddi;
-        option.textContent = `${getFlagEmoji(country.pais)} +${country.ddi} ${country.pais}`;
+        option.dataset.img = country.img || '';
+        option.textContent = `+${country.ddi} - ${country.pais}`;
         if (country.ddi == currentValue) {
             option.selected = true;
         }
         select.appendChild(option);
     });
-}
-
-// Obter emoji de bandeira baseado no nome do país
-function getFlagEmoji(countryName) {
-    const countryMap = {
-        'Brasil': 'br', 'Portugal': 'pt', 'Angola': 'ao', 'Moçambique': 'mz',
-        'Cabo Verde': 'cv', 'Estados Unidos': 'us', 'Canadá': 'ca', 'México': 'mx',
-        'Argentina': 'ar', 'Chile': 'cl', 'Colômbia': 'co', 'Peru': 'pe',
-        'Reino Unido': 'gb', 'França': 'fr', 'Alemanha': 'de', 'Itália': 'it',
-        'Espanha': 'es', 'China': 'cn', 'Japão': 'jp', 'Índia': 'in',
-        'Austrália': 'au', 'África do Sul': 'za', 'Rússia': 'ru'
-    };
     
-    const code = countryMap[countryName] || 'br';
-    return countryFlags[code] || '🌍';
+    // Atualizar a bandeira do select após popular
+    updateCountryFlag(select);
 }
 
+// Atualizar a imagem da bandeira quando o país é selecionado
 function updateCountryFlag(select) {
-    // Função vazia por enquanto, pode ser usada para atualizar UI se necessário
+    const selectedOption = select.options[select.selectedIndex];
+    const imgUrl = selectedOption?.dataset.img || '';
+    
+    // Encontrar o container da imagem da bandeira
+    const flagContainer = select.closest('.relative').querySelector('.country-flag-display img');
+    
+    if (flagContainer && imgUrl) {
+        flagContainer.src = imgUrl;
+        flagContainer.alt = selectedOption.text;
+        flagContainer.style.display = 'block';
+    } else if (flagContainer) {
+        flagContainer.style.display = 'none';
+    }
 }
 
 // Carregar dados ao iniciar a página
@@ -275,11 +247,14 @@ function addManualContact() {
                 <div>
                     <label class="block text-sm font-medium text-foreground mb-1">Telefone *</label>
                     <div class="flex gap-2">
-                        <div class="w-32 relative">
+                        <div class="w-40 relative">
+                            <div class="country-flag-display absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none z-10">
+                                <img src="" alt="" class="w-5 h-4 object-cover" style="display:none;">
+                            </div>
                             <select name="manual_contacts[${manualContactIndex}][country_code]" 
-                                    class="country-code-select w-full px-3 py-2 border border-input rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-background text-foreground appearance-none"
+                                    class="country-code-select w-full pl-10 pr-3 py-2 border border-input rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-background text-foreground"
                                     onchange="updateCountryFlag(this)">
-                                <option value="55" data-flag="br">🇧🇷 +55</option>
+                                <option value="55" data-img="">+55</option>
                             </select>
                         </div>
                         <input type="text" name="manual_contacts[${manualContactIndex}][phone]" placeholder="11999999999" required
