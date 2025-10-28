@@ -431,7 +431,7 @@ class WuzapiService
     /**
      * Envia mensagem de texto usando Phone.
      */
-    public function sendTextMessage(string $phone, string $body, string $id = null): array
+    public function sendTextMessage(string $phone, string $body, ?string $id = null): array
     {
         $this->checkToken();
 
@@ -471,7 +471,7 @@ class WuzapiService
     /**
      * Envia mensagem de texto usando JID (para @lid e outros formatos).
      */
-    public function sendTextMessageByJID(string $jid, string $body, string $id = null): array
+    public function sendTextMessageByJID(string $jid, string $body, ?string $id = null): array
     {
         $this->checkToken();
 
@@ -718,7 +718,7 @@ class WuzapiService
     /**
      * Envia imagem usando Phone.
      */
-    public function sendImageMessage(string $phone, string $imageBase64, string $caption = '', string $id = null, array $contextInfo = null): array
+    public function sendImageMessage(string $phone, string $imageBase64, string $caption = '', ?string $id = null, ?array $contextInfo = null): array
     {
         $this->checkToken();
 
@@ -766,7 +766,7 @@ class WuzapiService
     /**
      * Envia áudio usando Phone.
      */
-    public function sendAudioMessage(string $phone, string $audioBase64, string $id = null): array
+    public function sendAudioMessage(string $phone, string $audioBase64, ?string $id = null): array
     {
         $this->checkToken();
 
@@ -806,7 +806,7 @@ class WuzapiService
     /**
      * Envia documento usando Phone.
      */
-    public function sendDocumentMessage(string $phone, string $documentBase64, string $fileName, string $id = null): array
+    public function sendDocumentMessage(string $phone, string $documentBase64, string $fileName, ?string $id = null): array
     {
         $this->checkToken();
 
@@ -847,7 +847,7 @@ class WuzapiService
     /**
      * Envia vídeo usando Phone.
      */
-    public function sendVideoMessage(string $phone, string $videoBase64, string $caption = '', string $id = null, array $contextInfo = null): array
+    public function sendVideoMessage(string $phone, string $videoBase64, string $caption = '', ?string $id = null, ?array $contextInfo = null): array
     {
         $this->checkToken();
 
@@ -895,7 +895,7 @@ class WuzapiService
     /**
      * Envia mensagem em lote (múltiplos contatos).
      */
-    public function sendBatchMessage(array $contacts, string $type, array $data, string $id = null): array
+    public function sendBatchMessage(array $contacts, string $type, array $data, ?string $id = null): array
     {
         $this->checkToken();
 
