@@ -59,11 +59,11 @@ class StripeService
             // Criar ou obter produto no Stripe
             $stripeProduct = $this->getOrCreateStripeProduct($plan);
             
-            // Criar ou obter preço no Stripe
+            // Criar ou obter preço no Stripe (em EUR)
             $stripePrice = $this->getOrCreateStripePrice($plan, $stripeProduct);
 
-            // Criar ou obter customer no Stripe
-            $stripeCustomer = $this->getOrCreateStripeCustomer($user);
+            // Criar ou obter customer no Stripe (com moeda EUR)
+            $stripeCustomer = $this->getOrCreateStripeCustomer($user, 'eur');
 
             // URLs padrão
             $successUrl = $successUrl ?? route('subscriptions.success');
@@ -185,23 +185,40 @@ class StripeService
     /**
      * Get or create Stripe customer
      */
-    private function getOrCreateStripeCustomer(User $user): \Stripe\Customer
+    private function getOrCreateStripeCustomer(User $user, string $currency = 'eur'): \Stripe\Customer
     {
-        // Verificar se já existe um customer com o metadata user_id
+        // Verificar se já existe um customer com o metadata user_id E currency
         $customers = Customer::all(['limit' => 100]);
         
         foreach ($customers->data as $customer) {
-            if (isset($customer->metadata['user_id']) && $customer->metadata['user_id'] == $user->id) {
+            if (isset($customer->metadata['user_id']) && 
+                $customer->metadata['user_id'] == $user->id &&
+                isset($customer->metadata['currency']) &&
+                $customer->metadata['currency'] === $currency) {
                 return $customer;
             }
         }
 
-        // Criar novo customer
+        // Log se já existe customer com moeda diferente
+        foreach ($customers->data as $customer) {
+            if (isset($customer->metadata['user_id']) && $customer->metadata['user_id'] == $user->id) {
+                Log::info('Creating new customer for different currency', [
+                    'user_id' => $user->id,
+                    'existing_customer_id' => $customer->id,
+                    'existing_currency' => $customer->metadata['currency'] ?? 'not_set',
+                    'new_currency' => $currency
+                ]);
+                break;
+            }
+        }
+
+        // Criar novo customer com a moeda especificada
         return Customer::create([
             'email' => $user->email,
             'name' => $user->name,
             'metadata' => [
                 'user_id' => $user->id,
+                'currency' => $currency,
             ],
         ]);
     }
