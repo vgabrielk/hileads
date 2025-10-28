@@ -605,7 +605,9 @@ class MassSendingController extends Controller
                 'message_type' => $messageType,
                 'message_content' => $messageContent,
                 'media_data_keys' => $mediaData ? array_keys($mediaData) : null,
-                'has_base64' => isset($mediaData['base64']) ? !empty($mediaData['base64']) : false
+                'has_base64' => isset($mediaData['base64']) ? !empty($mediaData['base64']) : false,
+                'media_data_full' => $mediaData,
+                'base64_length' => isset($mediaData['base64']) ? strlen($mediaData['base64']) : 0
             ]);
         }
 

@@ -218,10 +218,23 @@ class ProcessMassSendingJob implements ShouldQueue
                     } else {
                         // Send media message
                         $mediaData = $massSending->media_data;
+                        
+                        // Debug media data
+                        Log::info("🔍 Debug media data", [
+                            'mass_sending_id' => $massSending->id,
+                            'message_type' => $massSending->message_type,
+                            'media_data_raw' => $massSending->getRawOriginal('media_data'),
+                            'media_data_decoded' => $mediaData,
+                            'has_base64' => isset($mediaData['base64']) ? !empty($mediaData['base64']) : false,
+                            'base64_length' => isset($mediaData['base64']) ? strlen($mediaData['base64']) : 0
+                        ]);
+                        
                         if (!$mediaData || empty($mediaData['base64'])) {
                             Log::error("❌ No media data found for campaign", [
                                 'mass_sending_id' => $massSending->id,
-                                'message_type' => $massSending->message_type
+                                'message_type' => $massSending->message_type,
+                                'media_data' => $mediaData,
+                                'raw_media_data' => $massSending->getRawOriginal('media_data')
                             ]);
                             $failedCount++;
                             continue;

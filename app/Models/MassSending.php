@@ -53,7 +53,23 @@ class MassSending extends Model
             return $decoded ?: [];
         }
         
-        return $value ?: [];
+        if (is_array($value)) {
+            return $value;
+        }
+        
+        return [];
+    }
+    
+    /**
+     * Set the media data attribute with proper encoding
+     */
+    public function setMediaDataAttribute($value)
+    {
+        if (is_array($value)) {
+            $this->attributes['media_data'] = json_encode($value);
+        } else {
+            $this->attributes['media_data'] = $value;
+        }
     }
 
     /**
