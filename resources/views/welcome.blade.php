@@ -177,12 +177,21 @@
                     </div>
 
                     <!-- Navigation Links (Desktop) -->
-                    <nav class="hidden lg:flex items-center space-x-6">
+                    <nav class="hidden lg:flex items-center space-x-5">
+                        <a href="#how-it-works" class="nav-link text-white hover:text-white/80 font-medium transition-colors">
+                            Como Funciona
+                        </a>
                         <a href="#benefits" class="nav-link text-white hover:text-white/80 font-medium transition-colors">
-                            Funcionalidades
+                            Benefícios
+                        </a>
+                        <a href="#features" class="nav-link text-white hover:text-white/80 font-medium transition-colors">
+                            Recursos
                         </a>
                         <a href="#pricing" class="nav-link text-white hover:text-white/80 font-medium transition-colors">
                             Preços
+                        </a>
+                        <a href="#testimonials" class="nav-link text-white hover:text-white/80 font-medium transition-colors">
+                            Depoimentos
                         </a>
                         <a href="#faq" class="nav-link text-white hover:text-white/80 font-medium transition-colors">
                             FAQ
@@ -244,11 +253,20 @@
                     <!-- Navigation Links -->
                     <nav class="flex-1 overflow-y-auto p-6">
                         <div class="space-y-1">
+                            <a href="#how-it-works" onclick="closeMobileMenu()" class="block px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-100 font-medium transition-colors">
+                                Como Funciona
+                            </a>
                             <a href="#benefits" onclick="closeMobileMenu()" class="block px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-100 font-medium transition-colors">
-                                Funcionalidades
+                                Benefícios
+                            </a>
+                            <a href="#features" onclick="closeMobileMenu()" class="block px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-100 font-medium transition-colors">
+                                Recursos
                             </a>
                             <a href="#pricing" onclick="closeMobileMenu()" class="block px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-100 font-medium transition-colors">
                                 Preços
+                            </a>
+                            <a href="#testimonials" onclick="closeMobileMenu()" class="block px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-100 font-medium transition-colors">
+                                Depoimentos
                             </a>
                             <a href="#faq" onclick="closeMobileMenu()" class="block px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-100 font-medium transition-colors">
                                 FAQ
@@ -497,7 +515,7 @@
         </section>
 
         <!-- How It Works Section -->
-        <section class="py-20 lg:py-32 bg-gray-50">
+        <section class="py-20 lg:py-32 bg-gray-50" id="how-it-works">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-16 fade-in">
                     <h2
@@ -577,7 +595,7 @@
         </section>
 
         <!-- Features Grid Section -->
-        <section class="py-20 lg:py-32 bg-white">
+        <section class="py-20 lg:py-32 bg-white" id="features">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-16 fade-in">
                     <h2
@@ -1087,7 +1105,7 @@
         </section>
 
         <!-- Testimonials Section -->
-        <section class="py-20 lg:py-32 bg-white">
+        <section class="py-20 lg:py-32 bg-white" id="testimonials">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-16 fade-in">
                     <h2
