@@ -161,6 +161,24 @@ class MassSendingRequest extends FormRequest
                     return;
                 }
 
+                // Validar se não é formato WebP (não permitido)
+                $isWebP = preg_match('/^data:image\/webp;base64,/', $decodedMediaData['base64']);
+                
+                CampaignLogger::validation('Validando formato de imagem', [
+                    'is_webp' => $isWebP,
+                    'base64_prefix' => substr($decodedMediaData['base64'], 0, 50),
+                    'file_type' => $decodedMediaData['type'] ?? 'unknown'
+                ]);
+
+                if ($isWebP) {
+                    CampaignLogger::error('Formato WebP não permitido', [
+                        'base64_prefix' => substr($decodedMediaData['base64'], 0, 100),
+                        'file_type' => $decodedMediaData['type'] ?? 'unknown'
+                    ]);
+                    $validator->errors()->add('media_data', 'Formato WebP não é permitido. Use JPG, PNG ou GIF.');
+                    return;
+                }
+
                 // Validar integridade do Base64
                 $base64Data = $decodedMediaData['base64'];
                 
