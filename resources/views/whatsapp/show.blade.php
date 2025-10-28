@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="py-8 px-4 sm:px-6 lg:px-8 animate-fadeIn">
-    <div class="max-w-7xl mx-auto">
+    <div class="mx-auto">
         <!-- Header -->
         <div class="mb-8">
             <a href="{{ route('whatsapp.index') }}" class="inline-flex items-center text-sm font-medium text-gray-600 hover:text-gray-900 mb-4 transition-colors">

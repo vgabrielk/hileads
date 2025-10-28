@@ -10,7 +10,7 @@
 <body class="bg-white">
     <!-- Navigation -->
     <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <div class="flex items-center">
                     <h1 class="text-2xl font-bold text-indigo-600">{{ config('app.name') }}</h1>
@@ -30,7 +30,7 @@
 
     <!-- Hero Section -->
     <section class="pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-indigo-50 to-purple-50">
-        <div class="max-w-7xl mx-auto">
+        <div class="mx-auto">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <div>
                     <h1 class="text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
@@ -101,7 +101,7 @@
 
     <!-- Features Section -->
     <section id="features" class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
-        <div class="max-w-7xl mx-auto">
+        <div class="mx-auto">
             <div class="text-center mb-16">
                 <h2 class="text-4xl font-bold text-gray-900 mb-4">Recursos Poderosos</h2>
                 <p class="text-xl text-gray-600">Tudo que você precisa para automatizar seu WhatsApp</p>
@@ -191,7 +191,7 @@
 
     <!-- Pricing Section -->
     <section id="pricing" class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
-        <div class="max-w-7xl mx-auto">
+        <div class="mx-auto">
             <div class="text-center mb-16">
                 <h2 class="text-4xl font-bold text-gray-900 mb-4">Planos Simples</h2>
                 <p class="text-xl text-gray-600">Escolha o plano ideal para seu negócio</p>
@@ -377,7 +377,7 @@
 
     <!-- Footer -->
     <footer class="bg-gray-900 text-white py-12 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-7xl mx-auto">
+        <div class="mx-auto">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <div>
                     <h3 class="text-xl font-bold mb-4">{{ config('app.name') }}</h3>
