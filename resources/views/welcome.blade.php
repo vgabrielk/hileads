@@ -169,7 +169,7 @@
             <div
                 class="container mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10"
             >
-                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="grid lg:grid-cols-2 gap-12 items-start">
                     <!-- Left Column: Content -->
                     <div class="text-white slide-in-left">
                         <h1
@@ -251,46 +251,15 @@
                                 >
                             </div>
                         </div>
-
-                        <!-- Spam Warning -->
-                        <div
-                            class="mt-6 bg-yellow-500/20 border border-yellow-500/30 rounded-lg px-4 py-3"
-                        >
-                            <div class="flex items-start gap-3">
-                                <svg
-                                    class="w-5 h-5 text-yellow-300 flex-shrink-0 mt-0.5"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-                                    ></path>
-                                </svg>
-                                <p
-                                    class="text-sm text-yellow-100 leading-relaxed"
-                                >
-                                    <strong>Atenção:</strong> Enviar muitas
-                                    mensagens idênticas pode ser caracterizado
-                                    como spam, resultando em restrição
-                                    temporária ou permanente da sua conta
-                                    WhatsApp.
-                                </p>
-                            </div>
-                        </div>
                     </div>
 
                     <!-- Right Column: Hero Image -->
                     <div class="slide-in-right">
-                        <div class="w-full h-96 bg-white/10 backdrop-blur-sm rounded-2xl shadow-2xl flex items-center justify-center">
-                            <div class="text-center text-white p-8">
-                                <img src="{{ asset('logo-horizontal.png') }}" alt="HiLeads" class="h-16 mx-auto mb-4">
-                                <p class="text-lg">Dashboard Preview</p>
-                            </div>
-                        </div>
+                        <img
+                            src="{{ asset('dashboard.png') }}"
+                            alt="Dashboard HiLeads mostrando estatísticas de campanhas WhatsApp"
+                            class="w-full rounded-2xl shadow-2xl"
+                        />
                     </div>
                 </div>
             </div>
