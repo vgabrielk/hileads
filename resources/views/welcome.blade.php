@@ -141,33 +141,77 @@
             .btn-secondary:hover {
                 background-color: rgba(255, 255, 255, 0.2);
             }
+
+            /* Header styles */
+            .header-blur {
+                background: transparent;
+                transition: all 0.3s ease;
+            }
+
+            .header-scrolled {
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            }
+
+            .header-scrolled .text-gray-700 {
+                color: #374151;
+            }
+
+            .header-transparent .text-gray-700 {
+                color: white;
+            }
         </style>
     </head>
     <body class="font-sans antialiased">
+        <!-- Header -->
+        <header class="header-blur header-transparent fixed top-0 left-0 right-0 z-50 border-b border-white/10">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-20">
+                    <!-- Logo -->
+                    <div class="flex items-center">
+                        <a href="/" class="flex items-center">
+                            <img src="{{ asset('logo-horizontal.png') }}" alt="HiLeads" class="h-8 brightness-0 invert">
+                        </a>
+                    </div>
+
+                    <!-- Navigation Links (Desktop) -->
+                    <nav class="hidden md:flex items-center space-x-8">
+                        <a href="#benefits" class="nav-link text-white hover:text-white/80 font-medium transition-colors">
+                            Funcionalidades
+                        </a>
+                        <a href="#pricing" class="nav-link text-white hover:text-white/80 font-medium transition-colors">
+                            Preços
+                        </a>
+                    </nav>
+
+                    <!-- Auth Buttons -->
+                    <div class="flex items-center gap-3">
+                        <a
+                            href="{{ route('login') }}"
+                            class="auth-login px-6 py-2.5 rounded-lg text-white font-semibold hover:bg-white/10 transition-colors"
+                        >
+                            Entrar
+                        </a>
+                        <a
+                            href="{{ route('register') }}"
+                            class="px-6 py-2.5 rounded-lg bg-white text-hileads-blue font-semibold hover:shadow-lg transition-all"
+                        >
+                            Criar Conta
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
         <!-- Hero Section -->
         <section
-            class="gradient-hero relative overflow-hidden min-h-screen flex items-center"
+            class="gradient-hero relative overflow-hidden min-h-screen flex items-center pt-20"
         >
-            <div class="absolute inset-0 bg-black opacity-5"></div>
-            
-            <!-- Login/Register Links -->
-            <div class="absolute top-6 right-6 z-20 flex gap-4">
-                <a
-                    href="{{ route('login') }}"
-                    class="px-6 py-2 rounded-lg text-white font-semibold border-2 border-white/30 hover:bg-white/10 transition-colors"
-                >
-                    Entrar
-                </a>
-                <a
-                    href="{{ route('register') }}"
-                    class="px-6 py-2 rounded-lg bg-white text-hileads-blue font-semibold hover:bg-gray-100 transition-colors"
-                >
-                    Criar Conta
-                </a>
-            </div>
 
             <div
-                class="container mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10"
+                class="container mx-auto px-4 sm:px-6 lg:px-8  relative z-10"
             >
                 <div class="grid lg:grid-cols-2 gap-12 items-start">
                     <!-- Left Column: Content -->
@@ -195,62 +239,7 @@
                         </div>
 
                         <!-- Trust Badges -->
-                        <div class="flex flex-wrap gap-6 items-center">
-                            <div class="flex items-center gap-2">
-                                <svg
-                                    class="w-6 h-6 text-white"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-                                    ></path>
-                                </svg>
-                                <span class="text-sm sm:text-base font-medium"
-                                    >100% Seguro</span
-                                >
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <svg
-                                    class="w-6 h-6 text-white"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                                    ></path>
-                                </svg>
-                                <span class="text-sm sm:text-base font-medium"
-                                    >Em Euros (€)</span
-                                >
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <svg
-                                    class="w-6 h-6 text-white"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M5 13l4 4L19 7"
-                                    ></path>
-                                </svg>
-                                <span class="text-sm sm:text-base font-medium"
-                                    >7 Dias Grátis</span
-                                >
-                            </div>
-                        </div>
+                       
                     </div>
 
                     <!-- Right Column: Hero Image -->
@@ -907,6 +896,59 @@
                         }
                     }
                 });
+            });
+
+            // Header scroll effect
+            const header = document.querySelector('header');
+            const logo = header.querySelector('img');
+            const navLinks = header.querySelectorAll('.nav-link');
+            const authLogin = header.querySelector('.auth-login');
+            let lastScroll = 0;
+
+            window.addEventListener('scroll', () => {
+                const currentScroll = window.pageYOffset;
+                
+                if (currentScroll > 50) {
+                    // Scrolled state
+                    header.classList.add('header-scrolled');
+                    header.classList.remove('header-transparent');
+                    header.classList.remove('border-white/10');
+                    header.classList.add('border-gray-100');
+                    
+                    // Update logo
+                    logo.classList.remove('brightness-0', 'invert');
+                    
+                    // Update nav links
+                    navLinks.forEach(link => {
+                        link.classList.remove('text-white', 'hover:text-white/80');
+                        link.classList.add('text-gray-700', 'hover:text-hileads-blue');
+                    });
+                    
+                    // Update auth button
+                    authLogin.classList.remove('text-white', 'hover:bg-white/10');
+                    authLogin.classList.add('text-gray-700', 'hover:bg-gray-100');
+                } else {
+                    // Transparent state
+                    header.classList.remove('header-scrolled');
+                    header.classList.add('header-transparent');
+                    header.classList.add('border-white/10');
+                    header.classList.remove('border-gray-100');
+                    
+                    // Update logo
+                    logo.classList.add('brightness-0', 'invert');
+                    
+                    // Update nav links
+                    navLinks.forEach(link => {
+                        link.classList.add('text-white', 'hover:text-white/80');
+                        link.classList.remove('text-gray-700', 'hover:text-hileads-blue');
+                    });
+                    
+                    // Update auth button
+                    authLogin.classList.add('text-white', 'hover:bg-white/10');
+                    authLogin.classList.remove('text-gray-700', 'hover:bg-gray-100');
+                }
+                
+                lastScroll = currentScroll;
             });
         </script>
     </body>
