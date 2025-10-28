@@ -12,9 +12,9 @@
     <div class="bg-card rounded-xl border border-border p-6 shadow-sm">
         <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
             <!-- Left side - Filters and Search -->
-            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 flex-1 min-w-0">
                 <!-- Category Dropdown -->
-                <div class="relative flex-1 sm:flex-none sm:w-48">
+                <div class="relative flex-shrink-0 w-full sm:w-48">
                     <select class="w-full appearance-none bg-background border border-input rounded-xl px-4 py-3 pr-10 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all hover:border-primary/50">
                         <option value="">Todas as categorias</option>
                         <option value="draft">Rascunho</option>
@@ -30,7 +30,7 @@
                 </div>
                 
                 <!-- Search Input -->
-                <div class="relative flex-1 sm:flex-none sm:w-80">
+                <div class="relative flex-1 min-w-0 sm:w-64 lg:w-80">
                     <input type="text" placeholder="Procurar campanhas..." class="w-full pl-12 pr-4 py-3 bg-background border border-input rounded-xl text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all hover:border-primary/50">
                     <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
                         <svg class="w-4 h-4 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -41,17 +41,17 @@
             </div>
             
             <!-- Right side - Add Button and View Toggle -->
-            <div class="flex items-center gap-4">
+            <div class="flex items-center gap-4 flex-shrink-0">
                 <!-- Add Mass Sending Button -->
-                <a href="{{ route('mass-sendings.create') }}" class="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground rounded-lg text-sm font-medium hover:bg-primary/90 transition-all hover:shadow-md w-full sm:w-auto justify-center">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <a href="{{ route('mass-sendings.create') }}" class="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground rounded-lg text-sm font-medium hover:bg-primary/90 transition-all hover:shadow-md whitespace-nowrap justify-center">
+                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                     </svg>
                     <span>Nova Campanha</span>
                 </a>
                 
                 <!-- View Toggle Buttons -->
-                <div class="hidden sm:flex items-center bg-muted rounded-lg p-1 gap-1">
+                <div class="hidden sm:flex items-center bg-muted rounded-lg p-1 gap-1 flex-shrink-0">
                     <button class="p-2 text-primary bg-background rounded-md shadow-sm transition-all hover:shadow-md" title="Vista de lista">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
@@ -194,8 +194,8 @@
         <!-- Data Rows -->
         @if($massSendings->count() > 0)
             @foreach($massSendings as $index => $massSending)
-                <div class="px-4 sm:px-6 py-5 border-b border-border hover:bg-accent/30 transition-all duration-200 {{ $index === 0 ? 'bg-accent/20' : '' }}" data-mass-sending-id="{{ $massSending->id }}">
-                    <div class="grid grid-cols-9 gap-3 sm:gap-6 items-center min-w-[900px]">
+                <div class="border-b border-border hover:bg-accent/30 transition-all duration-200 {{ $index === 0 ? 'bg-accent/20' : '' }}" data-mass-sending-id="{{ $massSending->id }}">
+                    <div class="grid grid-cols-9 gap-3 sm:gap-6 items-center min-w-[900px] px-4 sm:px-6 py-5">
                         <!-- Checkbox -->
                         <div class="flex items-center">
                             <input type="checkbox" class="w-4 h-4 rounded border-input text-primary focus:ring-primary focus:ring-offset-0" {{ $index === 0 ? 'checked' : '' }}>
