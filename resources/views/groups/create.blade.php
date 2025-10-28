@@ -102,15 +102,25 @@
                                     <div>
                                         <label class="block text-sm font-medium text-foreground mb-1">Telefone *</label>
                                         <div class="flex gap-2">
-                                            <div class="w-40 relative">
-                                                <div class="country-flag-display absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none z-10">
-                                                    <img src="" alt="" class="w-5 h-4 object-cover" style="display:none;">
+                                            <div class="w-32 relative country-selector-wrapper">
+                                                <input type="hidden" name="manual_contacts[0][country_code]" value="55" class="country-code-input">
+                                                <button type="button" class="country-selector-button w-full px-3 py-2 border border-input rounded-lg bg-background text-foreground flex items-center justify-between hover:border-primary focus:ring-2 focus:ring-primary focus:border-primary transition-colors">
+                                                    <div class="flex items-center gap-2">
+                                                        <img src="" alt="" class="country-flag w-5 h-4 object-cover">
+                                                        <span class="country-code text-sm">+55</span>
+                                                    </div>
+                                                    <svg class="w-4 h-4 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                                    </svg>
+                                                </button>
+                                                <div class="country-dropdown hidden absolute top-full left-0 mt-1 w-80 max-h-64 overflow-y-auto bg-background border border-border rounded-lg shadow-lg z-50">
+                                                    <div class="p-2">
+                                                        <input type="text" placeholder="Procurar país..." class="country-search w-full px-3 py-2 border border-input rounded-lg text-sm focus:ring-2 focus:ring-primary focus:border-primary">
+                                                    </div>
+                                                    <div class="country-list">
+                                                        <!-- Países serão carregados aqui -->
+                                                    </div>
                                                 </div>
-                                                <select name="manual_contacts[0][country_code]" 
-                                                        class="country-code-select w-full pl-10 pr-3 py-2 border border-input rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-background text-foreground"
-                                                        onchange="updateCountryFlag(this)">
-                                                    <option value="55" data-img="">+55</option>
-                                                </select>
                                             </div>
                                             <input type="text" name="manual_contacts[0][phone]" placeholder="11999999999" required
                                                    class="flex-1 px-3 py-2 border border-input rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-background text-foreground">
@@ -172,25 +182,76 @@ async function loadCountriesData() {
     try {
         const response = await fetch('/data/ddi.json');
         countriesData = await response.json();
-        populateAllCountrySelects();
+        initializeAllCountrySelectors();
     } catch (error) {
         console.error('Erro ao carregar dados de países:', error);
         // Fallback para Brasil se houver erro
-        countriesData = { '55': { pais: 'Brasil', ddi: 55 } };
-        populateAllCountrySelects();
+        countriesData = { '55': { pais: 'Brasil', ddi: 55, img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Flag_of_Brazil.svg/23px-Flag_of_Brazil.svg.png' } };
+        initializeAllCountrySelectors();
     }
 }
 
-// Popular todos os selects de país
-function populateAllCountrySelects() {
-    const selects = document.querySelectorAll('.country-code-select');
-    selects.forEach(select => populateCountrySelect(select));
+// Inicializar todos os seletores de país
+function initializeAllCountrySelectors() {
+    const wrappers = document.querySelectorAll('.country-selector-wrapper');
+    wrappers.forEach(wrapper => initializeCountrySelector(wrapper));
 }
 
-// Popular um select específico com os países
-function populateCountrySelect(select) {
-    const currentValue = select.value || '55';
-    select.innerHTML = '';
+// Inicializar um seletor específico
+function initializeCountrySelector(wrapper) {
+    const button = wrapper.querySelector('.country-selector-button');
+    const dropdown = wrapper.querySelector('.country-dropdown');
+    const countryList = wrapper.querySelector('.country-list');
+    const searchInput = wrapper.querySelector('.country-search');
+    const hiddenInput = wrapper.querySelector('.country-code-input');
+    const flagImg = wrapper.querySelector('.country-flag');
+    const codeSpan = wrapper.querySelector('.country-code');
+    
+    // Popular lista de países
+    populateCountryList(countryList);
+    
+    // Definir país padrão (Brasil)
+    const brasilData = countriesData['55'];
+    if (brasilData) {
+        updateSelectedCountry(wrapper, brasilData);
+    }
+    
+    // Toggle dropdown
+    button.addEventListener('click', (e) => {
+        e.stopPropagation();
+        // Fechar outros dropdowns
+        document.querySelectorAll('.country-dropdown').forEach(d => {
+            if (d !== dropdown) d.classList.add('hidden');
+        });
+        dropdown.classList.toggle('hidden');
+        if (!dropdown.classList.contains('hidden')) {
+            searchInput.focus();
+        }
+    });
+    
+    // Busca de países
+    searchInput.addEventListener('input', (e) => {
+        const searchTerm = e.target.value.toLowerCase();
+        const items = countryList.querySelectorAll('.country-item');
+        items.forEach(item => {
+            const text = item.textContent.toLowerCase();
+            if (text.includes(searchTerm)) {
+                item.style.display = 'flex';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    });
+    
+    // Prevenir fechar ao clicar no dropdown
+    dropdown.addEventListener('click', (e) => {
+        e.stopPropagation();
+    });
+}
+
+// Popular lista de países no dropdown
+function populateCountryList(countryList) {
+    countryList.innerHTML = '';
     
     // Ordenar países por nome
     const sortedCountries = Object.entries(countriesData).sort((a, b) => {
@@ -198,36 +259,49 @@ function populateCountrySelect(select) {
     });
     
     sortedCountries.forEach(([key, country]) => {
-        const option = document.createElement('option');
-        option.value = country.ddi;
-        option.dataset.img = country.img || '';
-        option.textContent = `+${country.ddi} - ${country.pais}`;
-        if (country.ddi == currentValue) {
-            option.selected = true;
-        }
-        select.appendChild(option);
+        const item = document.createElement('div');
+        item.className = 'country-item flex items-center gap-3 px-4 py-2 hover:bg-accent cursor-pointer transition-colors';
+        item.dataset.ddi = country.ddi;
+        item.dataset.img = country.img || '';
+        item.dataset.name = country.pais;
+        
+        item.innerHTML = `
+            <img src="${country.img || ''}" alt="${country.pais}" class="w-6 h-4 object-cover flex-shrink-0">
+            <span class="text-sm text-foreground flex-1">${country.pais}</span>
+            <span class="text-sm text-muted-foreground font-medium">+${country.ddi}</span>
+        `;
+        
+        item.addEventListener('click', () => {
+            const wrapper = item.closest('.country-selector-wrapper');
+            updateSelectedCountry(wrapper, country);
+            wrapper.querySelector('.country-dropdown').classList.add('hidden');
+            wrapper.querySelector('.country-search').value = '';
+            // Resetar busca
+            wrapper.querySelectorAll('.country-item').forEach(i => i.style.display = 'flex');
+        });
+        
+        countryList.appendChild(item);
     });
-    
-    // Atualizar a bandeira do select após popular
-    updateCountryFlag(select);
 }
 
-// Atualizar a imagem da bandeira quando o país é selecionado
-function updateCountryFlag(select) {
-    const selectedOption = select.options[select.selectedIndex];
-    const imgUrl = selectedOption?.dataset.img || '';
+// Atualizar país selecionado
+function updateSelectedCountry(wrapper, country) {
+    const hiddenInput = wrapper.querySelector('.country-code-input');
+    const flagImg = wrapper.querySelector('.country-flag');
+    const codeSpan = wrapper.querySelector('.country-code');
     
-    // Encontrar o container da imagem da bandeira
-    const flagContainer = select.closest('.relative').querySelector('.country-flag-display img');
-    
-    if (flagContainer && imgUrl) {
-        flagContainer.src = imgUrl;
-        flagContainer.alt = selectedOption.text;
-        flagContainer.style.display = 'block';
-    } else if (flagContainer) {
-        flagContainer.style.display = 'none';
-    }
+    hiddenInput.value = country.ddi;
+    flagImg.src = country.img || '';
+    flagImg.alt = country.pais;
+    codeSpan.textContent = `+${country.ddi}`;
 }
+
+// Fechar dropdowns ao clicar fora
+document.addEventListener('click', () => {
+    document.querySelectorAll('.country-dropdown').forEach(dropdown => {
+        dropdown.classList.add('hidden');
+    });
+});
 
 // Carregar dados ao iniciar a página
 document.addEventListener('DOMContentLoaded', loadCountriesData);
@@ -247,15 +321,25 @@ function addManualContact() {
                 <div>
                     <label class="block text-sm font-medium text-foreground mb-1">Telefone *</label>
                     <div class="flex gap-2">
-                        <div class="w-40 relative">
-                            <div class="country-flag-display absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none z-10">
-                                <img src="" alt="" class="w-5 h-4 object-cover" style="display:none;">
+                        <div class="w-32 relative country-selector-wrapper">
+                            <input type="hidden" name="manual_contacts[${manualContactIndex}][country_code]" value="55" class="country-code-input">
+                            <button type="button" class="country-selector-button w-full px-3 py-2 border border-input rounded-lg bg-background text-foreground flex items-center justify-between hover:border-primary focus:ring-2 focus:ring-primary focus:border-primary transition-colors">
+                                <div class="flex items-center gap-2">
+                                    <img src="" alt="" class="country-flag w-5 h-4 object-cover">
+                                    <span class="country-code text-sm">+55</span>
+                                </div>
+                                <svg class="w-4 h-4 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
+                            <div class="country-dropdown hidden absolute top-full left-0 mt-1 w-80 max-h-64 overflow-y-auto bg-background border border-border rounded-lg shadow-lg z-50">
+                                <div class="p-2">
+                                    <input type="text" placeholder="Procurar país..." class="country-search w-full px-3 py-2 border border-input rounded-lg text-sm focus:ring-2 focus:ring-primary focus:border-primary">
+                                </div>
+                                <div class="country-list">
+                                    <!-- Países serão carregados aqui -->
+                                </div>
                             </div>
-                            <select name="manual_contacts[${manualContactIndex}][country_code]" 
-                                    class="country-code-select w-full pl-10 pr-3 py-2 border border-input rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-background text-foreground"
-                                    onchange="updateCountryFlag(this)">
-                                <option value="55" data-img="">+55</option>
-                            </select>
                         </div>
                         <input type="text" name="manual_contacts[${manualContactIndex}][phone]" placeholder="11999999999" required
                                class="flex-1 px-3 py-2 border border-input rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-background text-foreground">
@@ -271,10 +355,10 @@ function addManualContact() {
     `;
     container.appendChild(newContact);
     
-    // Popular o select de país do novo campo
-    const newSelect = newContact.querySelector('.country-code-select');
-    if (newSelect && Object.keys(countriesData).length > 0) {
-        populateCountrySelect(newSelect);
+    // Inicializar o seletor de país do novo campo
+    const newWrapper = newContact.querySelector('.country-selector-wrapper');
+    if (newWrapper && Object.keys(countriesData).length > 0) {
+        initializeCountrySelector(newWrapper);
     }
     
     manualContactIndex++;
