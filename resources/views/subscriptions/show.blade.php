@@ -147,7 +147,7 @@
                         <div class="w-1 h-12 rounded-full flex-shrink-0 bg-green-500"></div>
                         <div class="flex-1 min-w-0">
                             <p class="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1">Dias restantes</p>
-                            <p class="text-sm font-medium text-green-700">{{ $subscription->days_remaining }} dias até expirar</p>
+                            <p class="text-sm font-medium text-green-700">{{ $subscription->days_remaining }} de {{ $subscription->total_days }} dias ({{ number_format($subscription->progress_percentage, 1) }}%)</p>
                         </div>
                         <div class="px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700">
                             Ativa

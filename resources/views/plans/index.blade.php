@@ -3,41 +3,40 @@
 @section('title', 'Planos')
 
 @section('content')
-<div class="p-8 space-y-6">
-    <div class="text-center mb-8">
-        <h1 class="text-3xl font-bold text-foreground mb-4">Escolha o seu Plano</h1>
-        <p class="text-lg text-muted-foreground">Selecione o plano ideal para suas necessidades</p>
+<div class="p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6">
+    <!-- Header -->
+    <div>
+        <h1 class="text-2xl sm:text-3xl font-bold text-foreground">Planos e Subscrições</h1>
+        <p class="text-muted-foreground mt-1">Selecione o plano ideal para suas necessidades</p>
     </div>
 
     @if(session('success'))
-        <div class="bg-success/10 border border-success/20 text-success px-4 py-3 rounded-lg mb-6">
+        <div class="bg-success/10 border border-success/20 text-success px-4 py-3 rounded-lg">
             {{ session('success') }}
         </div>
     @endif
 
-    
-
     @if(session('info'))
-        <div class="bg-primary/10 border border-primary/20 text-primary px-4 py-3 rounded-lg mb-6">
+        <div class="bg-primary/10 border border-primary/20 text-primary px-4 py-3 rounded-lg">
             {{ session('info') }}
         </div>
     @endif
 
     @if(auth()->user()->isAdmin())
-        <div class="bg-primary/10 border border-primary/20 rounded-lg p-6 mb-8">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center">
-                    <div class="text-primary mr-4">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="bg-primary/10 border border-primary/20 rounded-xl p-6">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div class="flex items-start gap-4">
+                    <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
                         </svg>
                     </div>
                     <div>
                         <h3 class="text-lg font-semibold text-primary">Acesso Administrativo</h3>
-                        <p class="text-primary/80">Como administrador, tem acesso completo a todas as funcionalidades sem necessidade de subscrição.</p>
+                        <p class="text-sm text-primary/80 mt-1">Como administrador, tem acesso completo a todas as funcionalidades sem necessidade de subscrição.</p>
                     </div>
                 </div>
-                <a href="{{ route('plans.admin') }}" class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-primary-foreground bg-primary hover:bg-primary/90 rounded-lg transition-colors">
+                <a href="{{ route('plans.admin') }}" class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-primary-foreground bg-primary hover:bg-primary/90 rounded-lg transition-colors whitespace-nowrap">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
@@ -48,71 +47,94 @@
         </div>
     @endif
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        @foreach($plans as $plan)
-            <div class="relative bg-card rounded-lg border-2 {{ $plan->is_popular ? 'border-primary' : 'border-border' }} overflow-hidden hover:shadow-md transition-shadow">
-                @if($plan->is_popular)
-                    <div class="absolute top-0 left-0 right-0 bg-primary text-primary-foreground text-center py-2 text-sm font-semibold">
-                        Mais Popular
-                    </div>
-                @endif
-
-                <div class="p-6 {{ $plan->is_popular ? 'pt-12' : '' }}">
-                    <div class="text-center mb-6">
-                        <h3 class="text-xl font-bold text-foreground mb-2">{{ $plan->name }}</h3>
-                        <p class="text-muted-foreground">{{ $plan->description }}</p>
-                    </div>
-
-                    <div class="text-center mb-6">
-                        <div class="text-3xl font-bold text-foreground mb-2">
-                            {{ $plan->formatted_price }}
-                        </div>
-                        <div class="text-muted-foreground">{{ $plan->interval_description }}</div>
-                    </div>
-
-                    @if($plan->features)
-                        <ul class="space-y-3 mb-6">
-                            @foreach($plan->features as $feature)
-                                <li class="flex items-center">
-                                    <svg class="w-5 h-5 text-success mr-3" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                                    </svg>
-                                    <span class="text-foreground">{{ $feature }}</span>
-                                </li>
-                            @endforeach
-                        </ul>
-                    @endif
-
-                    <div class="space-y-2 mb-6 text-sm text-muted-foreground">
-                        @if($plan->max_contacts)
-                            <div>Máximo {{ number_format($plan->max_contacts) }} contactos</div>
-                        @endif
-                        @if($plan->max_campaigns)
-                            <div>Máximo {{ $plan->max_campaigns }} campanhas</div>
-                        @endif
-                        @if($plan->max_mass_sendings)
-                            <div>Máximo {{ $plan->max_mass_sendings }} campanhas</div>
-                        @endif
-                    </div>
-
-                    @if(auth()->user()->isAdmin())
-                        <div class="w-full bg-muted text-muted-foreground font-semibold py-3 px-6 rounded-lg text-center">
-                            Acesso Administrativo
-                        </div>
-                    @else
-                        <button onclick="startCheckout({{ $plan->id }}, '{{ $plan->name }}', {{ $plan->price }})" class="w-full {{ $plan->is_popular ? 'bg-primary hover:bg-primary/90 text-primary-foreground' : 'bg-secondary hover:bg-secondary/80 text-secondary-foreground' }} font-semibold py-3 px-6 rounded-lg transition-colors inline-block text-center">
-                            <i class="fas fa-credit-card me-2"></i>
-                            Assinar Agora
-                        </button>
-                    @endif
+    <!-- Plans List - Consistent View for All Resolutions -->
+    <div class="bg-card rounded-xl border border-border shadow-sm overflow-hidden">
+        <!-- Card Header -->
+        <div class="px-6 py-5 border-b border-border">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+                    </svg>
+                </div>
+                <div class="flex-1">
+                    <h2 class="text-base font-semibold text-foreground">Planos Disponíveis</h2>
+                    <p class="text-sm text-muted-foreground">Escolha o plano que melhor se adequa às suas necessidades e comece a usar todas as funcionalidades</p>
                 </div>
             </div>
-        @endforeach
+        </div>
+
+        <!-- Plans List Items -->
+        <div class="divide-y divide-border">
+            @php
+                $colors = ['green', 'orange', 'yellow', 'purple', 'blue', 'pink'];
+            @endphp
+            @foreach($plans as $index => $plan)
+                @php
+                    $color = $colors[$index % count($colors)];
+                @endphp
+                <div class="flex items-center gap-4 px-6 py-5 hover:bg-accent/30 transition-all duration-200 group relative cursor-pointer" 
+                     @if(!auth()->user()->isAdmin()) onclick="startCheckout({{ $plan->id }}, '{{ $plan->name }}', {{ $plan->price }})" @endif>
+                    <!-- Status Indicator Bar -->
+                    <div class="w-1 h-20 rounded-full flex-shrink-0 bg-{{ $color }}-500"></div>
+                    
+                    <!-- Plan Info -->
+                    <div class="flex-1 min-w-0">
+                        <div class="flex items-start justify-between gap-4 mb-2">
+                            <div class="flex-1 min-w-0">
+                                <div class="flex items-center gap-2 mb-1">
+                                    <h3 class="text-base font-semibold text-foreground group-hover:text-primary transition-colors">
+                                        {{ $plan->name }}
+                                    </h3>
+                                    @if($plan->is_popular)
+                                        <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-primary text-primary-foreground">
+                                            Popular
+                                        </span>
+                                    @endif
+                                </div>
+                                <p class="text-sm text-muted-foreground mb-2">{{ $plan->description }}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center gap-4 text-sm flex-wrap">
+                            <div class="flex items-center gap-2">
+                                <span class="text-lg font-bold text-foreground">{{ $plan->formatted_price }}</span>
+                                <span class="text-muted-foreground">{{ $plan->interval_description }}</span>
+                            </div>
+                            @if($plan->max_contacts)
+                                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs bg-muted text-muted-foreground">
+                                    {{ number_format($plan->max_contacts) }} contactos
+                                </span>
+                            @endif
+                            @if($plan->max_campaigns)
+                                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs bg-muted text-muted-foreground">
+                                    {{ $plan->max_campaigns }} campanhas
+                                </span>
+                            @endif
+                        </div>
+                    </div>
+                    
+                    <!-- Arrow Icon / Admin Badge -->
+                    <div class="flex-shrink-0">
+                        @if(auth()->user()->isAdmin())
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-primary/10 text-primary">
+                                Admin
+                            </span>
+                        @else
+                            <svg class="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        @endif
+                    </div>
+                </div>
+            @endforeach
+        </div>
     </div>
 
-    <div class="text-center mt-8">
-        <p class="text-muted-foreground mb-4">Tem dúvidas sobre os planos?</p>
-        <a href="#" class="text-primary hover:text-primary/80 font-semibold">Inicie sessão em contacto conosco</a>
+    <!-- Help Section -->
+    <div class="bg-muted rounded-xl p-6 text-center">
+        <p class="text-foreground mb-2">Tem dúvidas sobre os planos?</p>
+        <p class="text-sm text-muted-foreground">Entre em contacto connosco para mais informações</p>
     </div>
 </div>
 

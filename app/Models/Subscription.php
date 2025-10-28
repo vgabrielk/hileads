@@ -81,4 +81,24 @@ class Subscription extends Model
 
         return now()->diffInDays($this->expires_at, false);
     }
+
+    /**
+     * Get the total duration of the subscription in days.
+     */
+    public function getTotalDaysAttribute(): int
+    {
+        return $this->starts_at->diffInDays($this->expires_at);
+    }
+
+    /**
+     * Get the percentage of days remaining.
+     */
+    public function getProgressPercentageAttribute(): float
+    {
+        if ($this->total_days === 0) {
+            return 0;
+        }
+
+        return min(100, ($this->days_remaining / $this->total_days) * 100);
+    }
 }

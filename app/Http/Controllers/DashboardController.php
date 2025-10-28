@@ -72,13 +72,35 @@ class DashboardController extends Controller
             ];
         });
 
-        // Otimizar queries com eager loading e seleção específica de campos
-        $recentConnections = $user->whatsappConnections()
-            ->select(['id', 'phone_number', 'status', 'created_at', 'last_sync'])
-            ->with(['whatsappGroups:id,whatsapp_connection_id,group_name,participants_count'])
-            ->latest()
-            ->take(5)
-            ->get();
+        // Buscar conexões do banco (mesma fonte da página /whatsapp)
+        $recentConnections = Cache::remember("whatsapp_connections_user_{$user->id}", 120, function () use ($user) {
+            return $user->whatsappConnections()
+                ->select(['id', 'phone_number', 'status', 'created_at', 'last_sync', 'instance_id'])
+                ->latest()
+                ->take(5)
+                ->get();
+        });
+
+        // Verificar se há conexões ativas no banco
+        $activeConnections = $recentConnections->where('status', 'active');
+        
+        // Status da ligação (mesma lógica da página /whatsapp)
+        $whatsappStatus = null;
+        if ($activeConnections->count() > 0) {
+            $whatsappStatus = [
+                'success' => true,
+                'message' => 'Conexões WhatsApp encontradas.',
+                'data' => [
+                    'Connected' => true,
+                    'LoggedIn' => true
+                ]
+            ];
+        } else {
+            $whatsappStatus = [
+                'success' => false,
+                'message' => 'Nenhuma ligação ativa. Clique em "Ligar WhatsApp" para iniciar.'
+            ];
+        }
 
         // Buscar grupos recentes da API Wuzapi
         $recentGroups = collect([]);
@@ -112,6 +134,6 @@ class DashboardController extends Controller
             ->take(10)
             ->get();
 
-        return view('dashboard', compact('stats', 'recentConnections', 'recentGroups', 'recentContacts', 'accessStatus'));
+        return view('dashboard', compact('stats', 'recentConnections', 'recentGroups', 'recentContacts', 'accessStatus', 'whatsappStatus'));
     }
 }

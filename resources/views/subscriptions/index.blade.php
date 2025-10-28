@@ -115,10 +115,10 @@
                                 <div class="mt-4">
                                     <div class="flex items-center justify-between text-xs text-muted-foreground mb-2">
                                         <span>Dias restantes</span>
-                                        <span class="font-semibold text-foreground">{{ $subscription->days_remaining }} dias</span>
+                                        <span class="font-semibold text-foreground">{{ $subscription->days_remaining }} de {{ $subscription->total_days }} dias</span>
                                     </div>
                                     <div class="w-full bg-border rounded-full h-2">
-                                        <div class="bg-primary h-2 rounded-full transition-all duration-300" style="width: {{ min(100, ($subscription->days_remaining / 30) * 100) }}%"></div>
+                                        <div class="bg-primary h-2 rounded-full transition-all duration-300" style="width: {{ number_format($subscription->progress_percentage, 2) }}%"></div>
                                     </div>
                                 </div>
                             @endif
@@ -168,7 +168,6 @@
         </div>
     @endif
 </div>
-@endsection
 
 <script>
 // Handle subscription cancellation confirmation with modal
@@ -185,10 +184,14 @@ async function handleCancelSubscription(event, message, subtitle) {
     });
     
     if (confirmed) {
-        // Submit the form
-        event.target.submit();
+        // Submit the form - get the form from the button
+        const form = event.target.closest('form');
+        if (form) {
+            form.submit();
+        }
     }
     
     return false; // Prevent default form submission
 }
 </script>
+@endsection

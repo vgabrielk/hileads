@@ -19,7 +19,7 @@ class GroupController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $groups = $user->groups()->withCount('groupContacts')->latest()->get();
+        $groups = $user->groups()->latest()->get();
         
         return view('groups.index', compact('groups'));
     }

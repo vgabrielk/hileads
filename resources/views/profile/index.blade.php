@@ -188,74 +188,7 @@
                 </div>
 
     <!-- API Configuration -->
-    <div class="bg-card rounded-lg border border-border overflow-hidden">
-        <div class="px-6 py-4 border-b border-border">
-            <h2 class="text-lg font-semibold text-foreground">Configurações da API</h2>
-            <p class="text-sm text-muted-foreground mt-1">Faça a gestão o seu token de API do WhatsApp</p>
-        </div>
-        <div class="p-6">
-            <div class="space-y-6">
-                <!-- Current Token -->
-                <div>
-                    <label class="block text-sm font-medium text-muted-foreground mb-2">Token de API Atual</label>
-                    <div class="flex items-center gap-3">
-                        <div class="flex-1 bg-muted/50 border border-input rounded-lg px-3 py-2 font-mono text-sm">
-                            <span id="api-token" class="text-foreground">{{ $user->api_token }}</span>
-                        </div>
-                        <button 
-                            onclick="copyToken()" 
-                            class="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground border border-input rounded-lg hover:bg-accent transition-colors"
-                            title="Copiar token">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-                            </svg>
-                        </button>
-                    </div>
-                    <p class="text-xs text-muted-foreground mt-2">
-                        Este token é usado para ligar a sua conta ao WhatsApp via Wuzapi
-                    </p>
-                </div>
-
-                <!-- Token Actions -->
-                <div class="flex items-center gap-3">
-                    <button 
-                        onclick="regenerateToken()" 
-                        class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-destructive-foreground bg-destructive hover:bg-destructive/90 rounded-lg transition-colors">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
-                        </svg>
-                        Regenerar Token
-                    </button>
-                    
-                    <button 
-                        onclick="showTokenInfo()" 
-                        class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-secondary-foreground bg-secondary hover:bg-secondary/90 rounded-lg transition-colors">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                        Como Usar
-                    </button>
-                </div>
-
-                <!-- Warning -->
-                <div class="bg-warning/10 border border-warning/20 rounded-lg p-4">
-                    <div class="flex items-start gap-3">
-                        <svg class="w-5 h-5 text-warning mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
-                        </svg>
-                        <div>
-                            <h4 class="text-sm font-semibold text-warning mb-1">Atenção</h4>
-                            <p class="text-sm text-warning/80">
-                                Regenerar o token irá desconectar todas as sessões WhatsApp ativas. 
-                                Precisará reconectar o WhatsApp após regenerar o token.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-                            </div>
-                        </div>
-
+    
     <!-- Account Statistics -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div class="bg-card rounded-lg border border-border p-6">

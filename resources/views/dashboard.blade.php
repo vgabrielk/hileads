@@ -126,36 +126,75 @@
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <!-- Recent Connections -->
         <div class="bg-card rounded-lg border border-border p-6">
-            <h3 class="text-lg font-semibold text-foreground mb-4">Ligações Recentes</h3>
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-semibold text-foreground">Ligações Recentes</h3>
+                <a href="{{ route('whatsapp.index') }}" class="text-primary hover:text-primary/80 text-sm font-medium flex items-center gap-1">
+                    Ver todas
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </a>
+            </div>
+            
+            @if($whatsappStatus && $whatsappStatus['success'])
+                <!-- Status Card -->
+                <div class="mb-4 p-3 rounded-lg {{ $whatsappStatus['data']['Connected'] ? 'bg-success/10' : 'bg-destructive/10' }}">
+                    <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full {{ $whatsappStatus['data']['Connected'] ? 'bg-success' : 'bg-destructive' }}"></span>
+                        <span class="text-sm font-medium {{ $whatsappStatus['data']['Connected'] ? 'text-success' : 'text-destructive' }}">
+                            {{ $whatsappStatus['data']['Connected'] ? 'WhatsApp Ligado' : 'WhatsApp Desligado' }}
+                        </span>
+                        @if($whatsappStatus['data']['LoggedIn'] ?? false)
+                            <span class="text-xs text-muted-foreground">• Autenticado</span>
+                        @endif
+                    </div>
+                </div>
+            @endif
+            
             <div class="space-y-3">
                 @forelse($recentConnections as $connection)
                     <div class="flex items-center gap-3 p-3 rounded-lg hover:bg-accent/50 transition-colors">
                         <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
                             <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
                             </svg>
                         </div>
                         <div class="flex-1 min-w-0">
                             <p class="text-sm font-medium text-foreground truncate">{{ $connection->phone_number }}</p>
-                            <p class="text-xs text-muted-foreground">Instance: {{ $connection->instance_id }}</p>
+                            <p class="text-xs text-muted-foreground">
+                                Instance: <code class="bg-muted px-1 rounded text-xs">{{ $connection->instance_id }}</code>
+                            </p>
+                            @if($connection->last_sync)
+                                <p class="text-xs text-muted-foreground mt-0.5">
+                                    <svg class="w-3 h-3 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                    {{ $connection->last_sync->format('d/m/Y H:i') }}
+                                </p>
+                            @endif
                         </div>
                         <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
-                            @if($connection->status === 'connected') bg-success/10 text-success
+                            @if($connection->status === 'active' || $connection->status === 'connected') bg-success/10 text-success
                             @elseif($connection->status === 'disconnected') bg-destructive/10 text-destructive
                             @else bg-warning/10 text-warning @endif">
-                            {{ $connection->status === 'connected' ? 'Ligado' : ($connection->status === 'disconnected' ? 'Desconectado' : 'Pendente') }}
+                            <span class="w-1.5 h-1.5 rounded-full mr-1.5
+                                @if($connection->status === 'active' || $connection->status === 'connected') bg-success
+                                @elseif($connection->status === 'disconnected') bg-destructive
+                                @else bg-warning @endif">
+                            </span>
+                            {{ $connection->status === 'active' || $connection->status === 'connected' ? 'Ligado' : ($connection->status === 'disconnected' ? 'Desligado' : ucfirst($connection->status)) }}
                         </span>
                     </div>
                 @empty
                     <div class="text-center py-8">
                         <div class="w-16 h-16 bg-muted rounded-lg flex items-center justify-center mx-auto mb-4">
                             <svg class="w-8 h-8 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
                             </svg>
                         </div>
                         <p class="text-sm font-medium text-foreground mb-1">Nenhuma ligação encontrada</p>
                         <p class="text-xs text-muted-foreground mb-4">Ligue o seu WhatsApp para começar</p>
-                        <a href="{{ route('whatsapp.connect') }}" class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-primary-foreground bg-primary hover:bg-primary/90 rounded-lg transition-colors">
+                        <a href="{{ route('whatsapp.index') }}" class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-primary-foreground bg-primary hover:bg-primary/90 rounded-lg transition-colors">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                             </svg>
