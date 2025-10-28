@@ -611,29 +611,14 @@ class MassSendingController extends Controller
                 ? json_decode($request->media_data, true) 
                 : $request->media_data;
                 
-            \Log::info('📱 Media mass sending - processing media data', [
+            \Log::info('📱 Media mass sending created', [
                 'message_type' => $messageType,
                 'message_content' => $messageContent,
-                'media_data_type' => gettype($request->media_data),
-                'media_data_is_string' => is_string($request->media_data),
                 'media_data_keys' => $mediaData ? array_keys($mediaData) : null,
                 'has_base64' => isset($mediaData['base64']) ? !empty($mediaData['base64']) : false,
-                'base64_length' => isset($mediaData['base64']) ? strlen($mediaData['base64']) : 0,
-                'json_decode_error' => json_last_error_msg(),
-                'request_size' => strlen($request->getContent()),
-                'media_data_size' => strlen($request->media_data ?? '')
+                'media_data_full' => $mediaData,
+                'base64_length' => isset($mediaData['base64']) ? strlen($mediaData['base64']) : 0
             ]);
-            
-            // Validar se os dados foram decodificados corretamente
-            if (!$mediaData || !is_array($mediaData) || empty($mediaData['base64'])) {
-                \Log::error('❌ Media data validation failed', [
-                    'media_data' => $mediaData,
-                    'json_error' => json_last_error_msg()
-                ]);
-                return back()->withErrors([
-                    'media_data' => 'Erro ao processar dados da mídia. Tente novamente.'
-                ]);
-            }
         }
 
         $massSending = auth()->user()->massSendings()->create([
@@ -654,16 +639,6 @@ class MassSendingController extends Controller
             'message_type' => $massSending->message_type,
             'media_data_saved' => $massSending->media_data,
             'media_data_raw' => $massSending->getRawOriginal('media_data'),
-            'has_media_data' => !empty($massSending->media_data),
-            'media_data_keys' => is_array($massSending->media_data) ? array_keys($massSending->media_data) : 'not_array'
-        ]);
-        
-        // Recarregar do banco para verificar persistência
-        $massSending->refresh();
-        \Log::info('🔄 Mass sending reloaded from database', [
-            'mass_sending_id' => $massSending->id,
-            'message_type' => $massSending->message_type,
-            'media_data_after_reload' => $massSending->media_data,
             'has_media_data' => !empty($massSending->media_data),
             'media_data_keys' => is_array($massSending->media_data) ? array_keys($massSending->media_data) : 'not_array'
         ]);

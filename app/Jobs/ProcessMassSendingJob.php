@@ -12,7 +12,6 @@ use App\Models\SentMessage;
 use App\Services\WuzapiService;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\DB;
 
 class ProcessMassSendingJob implements ShouldQueue
 {
@@ -29,25 +28,14 @@ class ProcessMassSendingJob implements ShouldQueue
 
     public function handle()
     {
-        // Aumentar limites de memória para processar dados grandes de mídia
-        ini_set('memory_limit', '512M');
-        
-        // Recarregar o modelo do banco para garantir dados frescos
-        $massSending = MassSending::find($this->massSending->id);
-        if (!$massSending) {
-            \Log::error('Mass sending not found', ['id' => $this->massSending->id]);
-            return;
-        }
-        
-        $user = $massSending->user;
-        
         \Log::info('🚀 ProcessMassSendingJob started', [
-            'mass_sending_id' => $massSending->id,
-            'message_type' => $massSending->message_type,
-            'has_media_data' => !empty($massSending->media_data),
-            'media_data_type' => gettype($massSending->media_data),
-            'memory_limit' => ini_get('memory_limit')
+            'mass_sending_id' => $this->massSending->id,
+            'message_type' => $this->massSending->message_type,
+            'has_media_data' => !empty($this->massSending->media_data)
         ]);
+        
+        $massSending = $this->massSending;
+        $user = $this->user;
         
         // Set timeout to prevent infinite execution
         set_time_limit(600); // 10 minutes maximum
@@ -229,20 +217,7 @@ class ProcessMassSendingJob implements ShouldQueue
                         $result = $service->sendTextMessage($phone, $massSending->message);
                     } else {
                         // Send media message
-                        // Forçar recarregar do banco para garantir dados frescos
-                        $massSending->refresh();
                         $mediaData = $massSending->media_data;
-                        
-                        // Se ainda estiver vazio, tentar buscar direto do banco
-                        if (empty($mediaData) || !is_array($mediaData)) {
-                            $rawData = \DB::table('mass_sendings')
-                                ->where('id', $massSending->id)
-                                ->first();
-                            
-                            if ($rawData && $rawData->media_data) {
-                                $mediaData = json_decode($rawData->media_data, true);
-                            }
-                        }
                         
                         // Debug media data
                         Log::info("🔍 Debug media data", [
@@ -251,16 +226,14 @@ class ProcessMassSendingJob implements ShouldQueue
                             'media_data_raw' => $massSending->getRawOriginal('media_data'),
                             'media_data_decoded' => $mediaData,
                             'has_base64' => isset($mediaData['base64']) ? !empty($mediaData['base64']) : false,
-                            'base64_length' => isset($mediaData['base64']) ? strlen($mediaData['base64']) : 0,
-                            'media_data_type' => gettype($mediaData)
+                            'base64_length' => isset($mediaData['base64']) ? strlen($mediaData['base64']) : 0
                         ]);
                         
-                        if (!$mediaData || !is_array($mediaData) || empty($mediaData['base64'])) {
+                        if (!$mediaData || empty($mediaData['base64'])) {
                             Log::error("❌ No media data found for campaign", [
                                 'mass_sending_id' => $massSending->id,
                                 'message_type' => $massSending->message_type,
                                 'media_data' => $mediaData,
-                                'media_data_type' => gettype($mediaData),
                                 'raw_media_data' => $massSending->getRawOriginal('media_data')
                             ]);
                             $failedCount++;
