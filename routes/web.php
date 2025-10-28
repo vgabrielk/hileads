@@ -103,6 +103,17 @@ Route::middleware('auth')->group(function () {
         Route::post('convert-base64', [App\Http\Controllers\MediaMessageController::class, 'convertToBase64'])->name('convert.base64');
     });
 
+    // Chat Routes (WhatsApp Chat Module)
+    Route::prefix('chat')->name('chat.')->middleware('subscription.security')->group(function () {
+        Route::get('/', [App\Http\Controllers\ChatController::class, 'index'])->name('index');
+        Route::get('/conversations', [App\Http\Controllers\ChatController::class, 'getConversations'])->name('conversations');
+        Route::get('/conversations/{conversation}/messages', [App\Http\Controllers\ChatController::class, 'getMessages'])->name('messages');
+        Route::post('/conversations/{conversation}/send', [App\Http\Controllers\ChatController::class, 'sendMessage'])->name('send');
+        Route::post('/conversations/{conversation}/send-media', [App\Http\Controllers\ChatController::class, 'sendMedia'])->name('send-media');
+        Route::post('/conversations/{conversation}/mark-read', [App\Http\Controllers\ChatController::class, 'markAsRead'])->name('mark-read');
+        Route::get('/check-new-messages', [App\Http\Controllers\ChatController::class, 'checkNewMessages'])->name('check-new');
+    });
+
     // Message History Routes (temporarily disabled - MessageController not found)
     // Route::prefix('messages')->name('messages.')->group(function () {
     //     Route::get('/', [App\Http\Controllers\MessageController::class, 'index'])->name('index');

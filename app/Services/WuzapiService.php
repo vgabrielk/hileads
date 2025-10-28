@@ -1092,4 +1092,211 @@ class WuzapiService
         }
     }
 
+    /**
+     * Marca mensagens como lidas.
+     */
+    public function markMessagesAsRead(string $chatJid, array $messageIds): array
+    {
+        $this->checkToken();
+
+        try {
+            $response = Http::withHeaders([
+                'token' => $this->token,
+                'Content-Type' => 'application/json',
+            ])->post($this->baseUrl . '/chat/markread', [
+                'ChatJID' => $chatJid,
+                'MessageIDs' => $messageIds,
+            ]);
+
+            $responseData = $response->json();
+            
+            return [
+                'success' => $response->successful() && ($responseData['success'] ?? true),
+                'data' => $responseData['data'] ?? $responseData,
+                'message' => $responseData['message'] ?? ($response->successful() ? 'Mensagens marcadas como lidas' : 'Erro ao marcar como lidas'),
+                'code' => $responseData['code'] ?? $response->status(),
+            ];
+        } catch (\Exception $e) {
+            Log::error('Wuzapi mark messages as read error: ' . $e->getMessage());
+            return [
+                'success' => false,
+                'message' => $e->getMessage(),
+                'data' => null,
+            ];
+        }
+    }
+
+    /**
+     * Reage a uma mensagem.
+     */
+    public function reactToMessage(string $messageId, string $chatJid, string $reaction): array
+    {
+        $this->checkToken();
+
+        try {
+            $response = Http::withHeaders([
+                'token' => $this->token,
+                'Content-Type' => 'application/json',
+            ])->post($this->baseUrl . '/chat/react', [
+                'MessageID' => $messageId,
+                'ChatJID' => $chatJid,
+                'Reaction' => $reaction,
+            ]);
+
+            $responseData = $response->json();
+            
+            return [
+                'success' => $response->successful() && ($responseData['success'] ?? true),
+                'data' => $responseData['data'] ?? $responseData,
+                'message' => $responseData['message'] ?? ($response->successful() ? 'Reação enviada' : 'Erro ao enviar reação'),
+                'code' => $responseData['code'] ?? $response->status(),
+            ];
+        } catch (\Exception $e) {
+            Log::error('Wuzapi react to message error: ' . $e->getMessage());
+            return [
+                'success' => false,
+                'message' => $e->getMessage(),
+                'data' => null,
+            ];
+        }
+    }
+
+    /**
+     * Deleta uma mensagem.
+     */
+    public function deleteMessage(string $messageId, string $chatJid): array
+    {
+        $this->checkToken();
+
+        try {
+            $response = Http::withHeaders([
+                'token' => $this->token,
+                'Content-Type' => 'application/json',
+            ])->post($this->baseUrl . '/chat/delete', [
+                'MessageID' => $messageId,
+                'ChatJID' => $chatJid,
+            ]);
+
+            $responseData = $response->json();
+            
+            return [
+                'success' => $response->successful() && ($responseData['success'] ?? true),
+                'data' => $responseData['data'] ?? $responseData,
+                'message' => $responseData['message'] ?? ($response->successful() ? 'Mensagem deletada' : 'Erro ao deletar mensagem'),
+                'code' => $responseData['code'] ?? $response->status(),
+            ];
+        } catch (\Exception $e) {
+            Log::error('Wuzapi delete message error: ' . $e->getMessage());
+            return [
+                'success' => false,
+                'message' => $e->getMessage(),
+                'data' => null,
+            ];
+        }
+    }
+
+    /**
+     * Define o status de presença (online, typing, recording, etc).
+     */
+    public function setPresence(string $chatJid, string $state = 'available'): array
+    {
+        $this->checkToken();
+
+        try {
+            $response = Http::withHeaders([
+                'token' => $this->token,
+                'Content-Type' => 'application/json',
+            ])->post($this->baseUrl . '/chat/presence', [
+                'ChatJID' => $chatJid,
+                'State' => $state, // available, unavailable, composing, recording, paused
+            ]);
+
+            $responseData = $response->json();
+            
+            return [
+                'success' => $response->successful() && ($responseData['success'] ?? true),
+                'data' => $responseData['data'] ?? $responseData,
+                'message' => $responseData['message'] ?? ($response->successful() ? 'Presença atualizada' : 'Erro ao atualizar presença'),
+                'code' => $responseData['code'] ?? $response->status(),
+            ];
+        } catch (\Exception $e) {
+            Log::error('Wuzapi set presence error: ' . $e->getMessage());
+            return [
+                'success' => false,
+                'message' => $e->getMessage(),
+                'data' => null,
+            ];
+        }
+    }
+
+    /**
+     * Envia sticker (figurinha).
+     */
+    public function sendStickerMessage(string $phone, string $stickerBase64, ?string $id = null): array
+    {
+        $this->checkToken();
+
+        try {
+            $data = [
+                'Phone' => $phone,
+                'Sticker' => $stickerBase64,
+            ];
+
+            if ($id) {
+                $data['Id'] = $id;
+            }
+
+            $response = Http::withHeaders([
+                'token' => $this->token,
+                'Content-Type'  => 'application/json',
+            ])->post($this->baseUrl . '/chat/send/sticker', $data);
+
+            $responseData = $response->json();
+            
+            return [
+                'success' => $response->successful() && ($responseData['success'] ?? true),
+                'data' => $responseData['data'] ?? $responseData,
+                'message' => $responseData['message'] ?? ($response->successful() ? 'Sticker enviado' : 'Erro ao enviar sticker'),
+                'code' => $responseData['code'] ?? $response->status(),
+            ];
+        } catch (\Exception $e) {
+            Log::error('Wuzapi send sticker message error: ' . $e->getMessage());
+            return [
+                'success' => false,
+                'message' => $e->getMessage(),
+                'data' => null,
+            ];
+        }
+    }
+
+    /**
+     * Obtém lista de chats recentes.
+     */
+    public function getChats(): array
+    {
+        $this->checkToken();
+
+        try {
+            $response = Http::withHeaders([
+                'token' => $this->token,
+            ])->get($this->baseUrl . '/chat/list');
+
+            $responseData = $response->json();
+            
+            return [
+                'success' => $response->successful() && ($responseData['success'] ?? true),
+                'data' => $responseData['data'] ?? $responseData,
+                'message' => $responseData['message'] ?? ($response->successful() ? 'Chats obtidos' : 'Erro ao obter chats'),
+                'code' => $responseData['code'] ?? $response->status(),
+            ];
+        } catch (\Exception $e) {
+            Log::error('Wuzapi get chats error: ' . $e->getMessage());
+            return [
+                'success' => false,
+                'message' => $e->getMessage(),
+                'data' => [],
+            ];
+        }
+    }
+
 }
