@@ -48,16 +48,36 @@
             </div>
         </div>
     @elseif($subscriptions->count() > 0)
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
-            @foreach($subscriptions as $subscription)
-                <div class="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
-                    <div class="p-4 sm:p-6">
-                        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-4 gap-3">
+        <!-- Subscriptions List - Consistent View for All Resolutions -->
+        <div class="bg-card rounded-xl border border-border shadow-sm overflow-hidden">
+            <!-- Card Header -->
+            <div class="px-6 py-5 border-b border-border">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                        <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                    </div>
+                    <div class="flex-1">
+                        <h2 class="text-base font-semibold text-foreground">Subscrições Ativas</h2>
+                        <p class="text-sm text-muted-foreground">Gerencie suas subscrições e histórico de pagamentos</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subscriptions List Items -->
+            <div class="divide-y divide-border">
+                @foreach($subscriptions as $subscription)
+                    <div class="p-6">
+                        <!-- Subscription Header -->
+                        <div class="flex items-start justify-between gap-4 mb-4">
                             <div class="flex-1">
-                                <h3 class="text-lg sm:text-xl font-bold text-gray-900">{{ $subscription->plan->name }}</h3>
-                                <p class="text-sm sm:text-base text-gray-600 mt-1">{{ $subscription->plan->description }}</p>
+                                <div class="flex items-center gap-2 mb-1">
+                                    <h3 class="text-base font-semibold text-foreground">{{ $subscription->plan->name }}</h3>
+                                </div>
+                                <p class="text-sm text-muted-foreground">{{ $subscription->plan->description }}</p>
                             </div>
-                            <span class="px-3 py-1 rounded-full text-xs sm:text-sm font-semibold w-fit
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold flex-shrink-0
                                 @if($subscription->status === 'active') bg-green-100 text-green-800
                                 @elseif($subscription->status === 'pending') bg-yellow-100 text-yellow-800
                                 @elseif($subscription->status === 'cancelled') bg-red-100 text-red-800
@@ -73,53 +93,65 @@
                             </span>
                         </div>
 
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-4">
-                            <div>
-                                <div class="text-xs sm:text-sm text-gray-600">Início</div>
-                                <div class="text-sm sm:text-base font-semibold text-gray-900">{{ $subscription->starts_at->format('d/m/Y') }}</div>
+                        <!-- Nested Payment Card -->
+                        <div class="bg-muted/30 rounded-lg p-4 mb-4">
+                            <p class="text-xs text-muted-foreground font-semibold uppercase tracking-wider mb-3">Informações do Pagamento</p>
+                            <div class="flex items-center justify-between gap-4 flex-wrap">
+                                <div class="flex-1 min-w-[200px]">
+                                    <div class="text-sm font-semibold text-foreground mb-1">{{ $subscription->plan->name }}</div>
+                                    <div class="flex items-center gap-2 text-xs text-muted-foreground">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                        </svg>
+                                        <span>{{ $subscription->starts_at->format('d/m/Y') }} - {{ $subscription->expires_at->format('d/m/Y') }}</span>
+                                    </div>
+                                </div>
+                                <div class="text-lg font-bold text-primary">
+                                    {{ $subscription->plan->formatted_price }}<span class="text-sm font-normal text-muted-foreground">/{{ $subscription->plan->interval_description }}</span>
+                                </div>
                             </div>
-                            <div>
-                                <div class="text-xs sm:text-sm text-gray-600">Expira em</div>
-                                <div class="text-sm sm:text-base font-semibold text-gray-900">{{ $subscription->expires_at->format('d/m/Y') }}</div>
-                            </div>
+
+                            @if($subscription->status === 'active')
+                                <div class="mt-4">
+                                    <div class="flex items-center justify-between text-xs text-muted-foreground mb-2">
+                                        <span>Dias restantes</span>
+                                        <span class="font-semibold text-foreground">{{ $subscription->days_remaining }} dias</span>
+                                    </div>
+                                    <div class="w-full bg-border rounded-full h-2">
+                                        <div class="bg-primary h-2 rounded-full transition-all duration-300" style="width: {{ min(100, ($subscription->days_remaining / 30) * 100) }}%"></div>
+                                    </div>
+                                </div>
+                            @endif
                         </div>
 
-                        @if($subscription->status === 'active')
-                            <div class="mb-4">
-                                <div class="text-xs sm:text-sm text-gray-600 mb-2">Dias restantes</div>
-                                <div class="w-full bg-gray-200 rounded-full h-2 mb-2">
-                                    <div class="bg-blue-600 h-2 rounded-full transition-all duration-300" style="width: {{ min(100, ($subscription->days_remaining / 30) * 100) }}%"></div>
-                                </div>
-                                <div class="text-xs sm:text-sm text-gray-600 font-medium">{{ $subscription->days_remaining }} dias</div>
-                            </div>
-                        @endif
-
-                        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
-                            <div class="text-xl sm:text-2xl font-bold text-gray-900">
-                                {{ $subscription->plan->formatted_price }}
-                            </div>
+                        <!-- Actions -->
+                        <div class="flex items-center gap-2">
+                            <a href="{{ route('subscriptions.show', $subscription) }}" 
+                               class="inline-flex items-center justify-center px-4 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-medium hover:bg-primary/90 transition-all">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                </svg>
+                                Ver Detalhes
+                            </a>
                             
-                            <div class="flex flex-col sm:flex-row gap-2 sm:gap-3">
-                                <a href="{{ route('subscriptions.show', $subscription) }}" 
-                                   class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-lg text-sm font-semibold transition duration-200 text-center">
-                                    Ver Detalhes
-                                </a>
-                                
-                                @if($subscription->status === 'active')
-                                    <form action="{{ route('subscriptions.cancel', $subscription) }}" method="POST" class="w-full sm:w-auto">
-                                        @csrf
-                                        <button type="submit" 
-                                                class="w-full bg-red-600 hover:bg-red-700 text-white px-4 py-2.5 rounded-lg text-sm font-semibold transition duration-200"
-                                                onclick="return handleCancelSubscription(event, 'Tem certeza que deseja cancelar esta subscrição?', 'Esta ação não pode ser desfeita.')">
-                                            Cancelar
-                                        </button>
-                                    </form>
-                                @endif
-                            </div>
+                            @if($subscription->status === 'active')
+                                <form action="{{ route('subscriptions.cancel', $subscription) }}" method="POST" class="inline m-0">
+                                    @csrf
+                                    <button type="submit" 
+                                            class="inline-flex items-center justify-center px-4 py-2 bg-destructive/10 text-destructive rounded-lg text-sm font-medium hover:bg-destructive/20 transition-all"
+                                            onclick="return handleCancelSubscription(event, 'Tem certeza que deseja cancelar esta subscrição?', 'Esta ação não pode ser desfeita.')">
+                                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                        </svg>
+                                        Cancelar
+                                    </button>
+                                </form>
+                            @endif
                         </div>
                     </div>
-                </div>
-            @endforeach
+                @endforeach
+            </div>
         </div>
     @else
         <div class="text-center py-12">
