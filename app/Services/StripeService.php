@@ -574,4 +574,22 @@ class StripeService
             ];
         }
     }
+
+    /**
+     * Activate subscription in Stripe
+     */
+    public function activateSubscription(string $subscriptionId): \Stripe\Subscription
+    {
+        try {
+            $subscription = StripeSubscription::retrieve($subscriptionId);
+            $subscription->status = 'active';
+            return $subscription->save();
+        } catch (\Exception $e) {
+            Log::error('Failed to activate Stripe subscription', [
+                'subscription_id' => $subscriptionId,
+                'error' => $e->getMessage()
+            ]);
+            throw $e;
+        }
+    }
 }

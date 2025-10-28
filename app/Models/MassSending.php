@@ -9,6 +9,7 @@ class MassSending extends Model
 {
     protected $fillable = [
         'user_id',
+        'whatsapp_connection_id',
         'name',
         'message',
         'message_type',
@@ -17,19 +18,26 @@ class MassSending extends Model
         'contact_ids',
         'wuzapi_participants',
         'total_contacts',
+        'total_recipients',
         'sent_count',
         'delivered_count',
         'read_count',
         'replied_count',
+        'failed_count',
         'scheduled_at',
         'started_at',
         'completed_at',
+        'failed_at',
+        'cancelled_at',
+        'notes',
     ];
 
     protected $casts = [
         'scheduled_at' => 'datetime',
         'started_at' => 'datetime',
         'completed_at' => 'datetime',
+        'failed_at' => 'datetime',
+        'cancelled_at' => 'datetime',
         'contact_ids' => 'array',
         'wuzapi_participants' => 'array',
         'media_data' => 'array',
@@ -54,5 +62,13 @@ class MassSending extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Get the WhatsApp connection for this campaign.
+     */
+    public function whatsappConnection(): BelongsTo
+    {
+        return $this->belongsTo(WhatsAppConnection::class);
     }
 }

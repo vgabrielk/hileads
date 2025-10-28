@@ -129,6 +129,60 @@ Route::middleware('auth')->group(function () {
         Route::get('/admin/plans/{plan}/edit', [PlanController::class, 'edit'])->name('plans.edit');
         Route::put('/admin/plans/{plan}', [PlanController::class, 'update'])->name('plans.update');
         Route::delete('/admin/plans/{plan}', [PlanController::class, 'destroy'])->name('plans.destroy');
+        
+        // Subscriptions admin routes
+        Route::get('/admin/subscriptions', [App\Http\Controllers\AdminSubscriptionController::class, 'index'])->name('admin.subscriptions.index');
+        Route::get('/admin/subscriptions/{subscription}', [App\Http\Controllers\AdminSubscriptionController::class, 'show'])->name('admin.subscriptions.show');
+        Route::get('/admin/subscriptions/{subscription}/edit', [App\Http\Controllers\AdminSubscriptionController::class, 'edit'])->name('admin.subscriptions.edit');
+        Route::put('/admin/subscriptions/{subscription}', [App\Http\Controllers\AdminSubscriptionController::class, 'update'])->name('admin.subscriptions.update');
+        Route::post('/admin/subscriptions/{subscription}/cancel', [App\Http\Controllers\AdminSubscriptionController::class, 'cancel'])->name('admin.subscriptions.cancel');
+        Route::post('/admin/subscriptions/{subscription}/reactivate', [App\Http\Controllers\AdminSubscriptionController::class, 'reactivate'])->name('admin.subscriptions.reactivate');
+        Route::post('/admin/subscriptions/{subscription}/sync', [App\Http\Controllers\AdminSubscriptionController::class, 'sync'])->name('admin.subscriptions.sync');
+        Route::delete('/admin/subscriptions/{subscription}', [App\Http\Controllers\AdminSubscriptionController::class, 'destroy'])->name('admin.subscriptions.destroy');
+        
+        // Campaigns admin routes
+        Route::get('/admin/campaigns', [App\Http\Controllers\AdminCampaignController::class, 'index'])->name('admin.campaigns.index');
+        Route::get('/admin/campaigns/statistics', [App\Http\Controllers\AdminCampaignController::class, 'statistics'])->name('admin.campaigns.statistics');
+        Route::get('/admin/campaigns/{campaign}', [App\Http\Controllers\AdminCampaignController::class, 'show'])->name('admin.campaigns.show');
+        Route::get('/admin/campaigns/{campaign}/edit', [App\Http\Controllers\AdminCampaignController::class, 'edit'])->name('admin.campaigns.edit');
+        Route::put('/admin/campaigns/{campaign}', [App\Http\Controllers\AdminCampaignController::class, 'update'])->name('admin.campaigns.update');
+        Route::post('/admin/campaigns/{campaign}/cancel', [App\Http\Controllers\AdminCampaignController::class, 'cancel'])->name('admin.campaigns.cancel');
+        Route::post('/admin/campaigns/{campaign}/restart', [App\Http\Controllers\AdminCampaignController::class, 'restart'])->name('admin.campaigns.restart');
+        Route::delete('/admin/campaigns/{campaign}', [App\Http\Controllers\AdminCampaignController::class, 'destroy'])->name('admin.campaigns.destroy');
+        
+        // Analytics admin routes
+        Route::get('/admin/analytics', [App\Http\Controllers\AdminAnalyticsController::class, 'index'])->name('admin.analytics.index');
+        Route::post('/admin/analytics/export', [App\Http\Controllers\AdminAnalyticsController::class, 'export'])->name('admin.analytics.export');
+        
+        // Settings admin routes
+        Route::get('/admin/settings', [App\Http\Controllers\AdminSettingsController::class, 'index'])->name('admin.settings.index');
+        Route::post('/admin/settings/general', [App\Http\Controllers\AdminSettingsController::class, 'updateGeneral'])->name('admin.settings.update-general');
+        Route::post('/admin/settings/whatsapp', [App\Http\Controllers\AdminSettingsController::class, 'updateWhatsApp'])->name('admin.settings.update-whatsapp');
+        Route::post('/admin/settings/stripe', [App\Http\Controllers\AdminSettingsController::class, 'updateStripe'])->name('admin.settings.update-stripe');
+        Route::post('/admin/settings/email', [App\Http\Controllers\AdminSettingsController::class, 'updateEmail'])->name('admin.settings.update-email');
+        Route::post('/admin/settings/notifications', [App\Http\Controllers\AdminSettingsController::class, 'updateNotifications'])->name('admin.settings.update-notifications');
+        Route::post('/admin/settings/test-email', [App\Http\Controllers\AdminSettingsController::class, 'testEmail'])->name('admin.settings.test-email');
+        Route::post('/admin/settings/clear-cache', [App\Http\Controllers\AdminSettingsController::class, 'clearCache'])->name('admin.settings.clear-cache');
+        
+        // Logs admin routes
+        Route::get('/admin/logs', [App\Http\Controllers\AdminLogsController::class, 'index'])->name('admin.logs.index');
+        Route::get('/admin/logs/system', [App\Http\Controllers\AdminLogsController::class, 'system'])->name('admin.logs.system');
+        Route::get('/admin/logs/activity', [App\Http\Controllers\AdminLogsController::class, 'activity'])->name('admin.logs.activity');
+        Route::get('/admin/logs/errors', [App\Http\Controllers\AdminLogsController::class, 'errors'])->name('admin.logs.errors');
+        Route::get('/admin/logs/download', [App\Http\Controllers\AdminLogsController::class, 'download'])->name('admin.logs.download');
+        Route::post('/admin/logs/clear', [App\Http\Controllers\AdminLogsController::class, 'clear'])->name('admin.logs.clear');
+        
+        // Notifications admin routes
+        Route::get('/admin/notifications', [App\Http\Controllers\AdminNotificationsController::class, 'index'])->name('admin.notifications.index');
+        Route::get('/admin/notifications/create', [App\Http\Controllers\AdminNotificationsController::class, 'create'])->name('admin.notifications.create');
+        Route::post('/admin/notifications', [App\Http\Controllers\AdminNotificationsController::class, 'store'])->name('admin.notifications.store');
+        Route::get('/admin/notifications/{notification}', [App\Http\Controllers\AdminNotificationsController::class, 'show'])->name('admin.notifications.show');
+        Route::get('/admin/notifications/{notification}/edit', [App\Http\Controllers\AdminNotificationsController::class, 'edit'])->name('admin.notifications.edit');
+        Route::put('/admin/notifications/{notification}', [App\Http\Controllers\AdminNotificationsController::class, 'update'])->name('admin.notifications.update');
+        Route::post('/admin/notifications/{notification}/send', [App\Http\Controllers\AdminNotificationsController::class, 'send'])->name('admin.notifications.send');
+        Route::post('/admin/notifications/{notification}/cancel', [App\Http\Controllers\AdminNotificationsController::class, 'cancel'])->name('admin.notifications.cancel');
+        Route::delete('/admin/notifications/{notification}', [App\Http\Controllers\AdminNotificationsController::class, 'destroy'])->name('admin.notifications.destroy');
+        Route::post('/admin/notifications/bulk-send', [App\Http\Controllers\AdminNotificationsController::class, 'bulkSend'])->name('admin.notifications.bulk-send');
     });
 
     // Subscriptions routes (specific routes first to avoid conflicts)

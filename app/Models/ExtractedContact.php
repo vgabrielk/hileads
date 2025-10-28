@@ -11,6 +11,7 @@ class ExtractedContact extends Model
     
     protected $fillable = [
         'user_id',
+        'whatsapp_connection_id',
         'whatsapp_group_id',
         'phone_number',
         'contact_name',
@@ -32,6 +33,14 @@ class ExtractedContact extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Get the WhatsApp connection for the contact.
+     */
+    public function whatsappConnection(): BelongsTo
+    {
+        return $this->belongsTo(WhatsAppConnection::class);
     }
 
     /**

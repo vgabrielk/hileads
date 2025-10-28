@@ -1,0 +1,246 @@
+@extends('layouts.app')
+
+@section('content')
+<div class="p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6">
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+            <h1 class="text-2xl sm:text-3xl font-bold text-foreground">Logs de Erros</h1>
+            <p class="text-muted-foreground mt-1">Visualize erros e problemas do sistema</p>
+        </div>
+        <div class="flex gap-2">
+            <form method="POST" action="{{ route('admin.logs.clear') }}" class="inline">
+                @csrf
+                <input type="hidden" name="type" value="laravel">
+                <button type="submit" 
+                        onclick="return confirm('Tem certeza que deseja limpar os logs de erros?')"
+                        class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-destructive-foreground bg-destructive hover:bg-destructive/90 rounded-lg transition-colors">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                    </svg>
+                    Limpar Logs de Erros
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="bg-card rounded-lg border border-border">
+        <div class="border-b border-border">
+            <nav class="flex space-x-8 px-6" aria-label="Tabs">
+                <a href="{{ route('admin.logs.index') }}" 
+                   class="py-4 px-1 border-b-2 border-transparent font-medium text-sm text-muted-foreground hover:text-foreground hover:border-gray-300">
+                    Todos os Logs
+                </a>
+                <a href="{{ route('admin.logs.system') }}" 
+                   class="py-4 px-1 border-b-2 border-transparent font-medium text-sm text-muted-foreground hover:text-foreground hover:border-gray-300">
+                    Sistema
+                </a>
+                <a href="{{ route('admin.logs.activity') }}" 
+                   class="py-4 px-1 border-b-2 border-transparent font-medium text-sm text-muted-foreground hover:text-foreground hover:border-gray-300">
+                    Atividade
+                </a>
+                <a href="{{ route('admin.logs.errors') }}" 
+                   class="py-4 px-1 border-b-2 border-primary font-medium text-sm text-primary">
+                    Erros
+                </a>
+            </nav>
+        </div>
+
+        <div class="p-6">
+            <!-- Filters -->
+            <div class="bg-muted/30 rounded-lg p-4 mb-6">
+                <form method="GET" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-foreground mb-2">Data</label>
+                        <input type="date" name="date" value="{{ $date }}" 
+                               class="w-full px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-foreground mb-2">Buscar</label>
+                        <input type="text" name="search" value="{{ $search }}" 
+                               placeholder="Pesquisar nos erros..." 
+                               class="w-full px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-foreground mb-2">Por Página</label>
+                        <select name="per_page" class="w-full px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                            <option value="25" {{ $perPage == 25 ? 'selected' : '' }}>25</option>
+                            <option value="50" {{ $perPage == 50 ? 'selected' : '' }}>50</option>
+                            <option value="100" {{ $perPage == 100 ? 'selected' : '' }}>100</option>
+                            <option value="200" {{ $perPage == 200 ? 'selected' : '' }}>200</option>
+                        </select>
+                    </div>
+
+                    <div class="flex items-end">
+                        <button type="submit" class="w-full inline-flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-primary-foreground bg-primary hover:bg-primary/90 rounded-lg transition-colors">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            </svg>
+                            Filtrar
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Error Logs Table -->
+            <div class="bg-card rounded-lg border border-border overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-muted/50">
+                            <tr>
+                                <th class="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Timestamp</th>
+                                <th class="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Nível</th>
+                                <th class="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Erro</th>
+                                <th class="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Arquivo</th>
+                                <th class="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Linha</th>
+                                <th class="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-border">
+                            @forelse($logs as $log)
+                                <tr class="hover:bg-muted/30">
+                                    <td class="px-4 py-3">
+                                        <p class="text-sm text-foreground font-mono">{{ $log['timestamp'] }}</p>
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+                                            @if($log['level'] === 'ERROR') bg-destructive/10 text-destructive
+                                            @elseif($log['level'] === 'CRITICAL') bg-destructive/10 text-destructive
+                                            @elseif($log['level'] === 'ALERT') bg-destructive/10 text-destructive
+                                            @elseif($log['level'] === 'EMERGENCY') bg-destructive/10 text-destructive
+                                            @else bg-muted/10 text-muted-foreground @endif">
+                                            {{ $log['level'] }}
+                                        </span>
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        <p class="text-sm text-foreground">{{ Str::limit($log['message'], 80) }}</p>
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        @if($log['context'] && isset($log['context']['file']))
+                                            <p class="text-sm text-muted-foreground font-mono">{{ basename($log['context']['file']) }}</p>
+                                        @else
+                                            <span class="text-muted-foreground text-sm">-</span>
+                                        @endif
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        @if($log['context'] && isset($log['context']['line']))
+                                            <p class="text-sm text-muted-foreground font-mono">{{ $log['context']['line'] }}</p>
+                                        @else
+                                            <span class="text-muted-foreground text-sm">-</span>
+                                        @endif
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        <div class="flex items-center gap-2">
+                                            @if($log['context'])
+                                                <button onclick="showContext('{{ $log['timestamp'] }}')" 
+                                                        class="inline-flex items-center gap-1 px-2 py-1 text-xs font-medium text-primary hover:bg-primary/10 rounded transition-colors">
+                                                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                                    </svg>
+                                                    Contexto
+                                                </button>
+                                            @endif
+                                            <button onclick="showRawLog('{{ $log['timestamp'] }}')" 
+                                                    class="inline-flex items-center gap-1 px-2 py-1 text-xs font-medium text-warning hover:bg-warning/10 rounded transition-colors">
+                                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                                </svg>
+                                                Raw
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="6" class="px-4 py-8 text-center text-muted-foreground">
+                                        Nenhum erro encontrado para os filtros selecionados.
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Context Modal -->
+<div id="contextModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+    <div class="flex items-center justify-center min-h-screen p-4">
+        <div class="bg-card rounded-lg border border-border max-w-4xl w-full max-h-96 overflow-hidden">
+            <div class="flex items-center justify-between p-4 border-b border-border">
+                <h3 class="text-lg font-semibold text-foreground">Contexto do Erro</h3>
+                <button onclick="closeContextModal()" class="text-muted-foreground hover:text-foreground">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="p-4 overflow-auto">
+                <pre id="contextContent" class="text-sm text-foreground whitespace-pre-wrap"></pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Raw Log Modal -->
+<div id="rawLogModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+    <div class="flex items-center justify-center min-h-screen p-4">
+        <div class="bg-card rounded-lg border border-border max-w-6xl w-full max-h-96 overflow-hidden">
+            <div class="flex items-center justify-between p-4 border-b border-border">
+                <h3 class="text-lg font-semibold text-foreground">Log Raw</h3>
+                <button onclick="closeRawLogModal()" class="text-muted-foreground hover:text-foreground">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="p-4 overflow-auto">
+                <pre id="rawLogContent" class="text-sm text-foreground whitespace-pre-wrap"></pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Store logs data for modal display
+const logsData = @json($logs);
+
+function showContext(timestamp) {
+    const log = logsData.find(l => l.timestamp === timestamp);
+    if (log && log.context) {
+        document.getElementById('contextContent').textContent = JSON.stringify(log.context, null, 2);
+        document.getElementById('contextModal').classList.remove('hidden');
+    }
+}
+
+function showRawLog(timestamp) {
+    const log = logsData.find(l => l.timestamp === timestamp);
+    if (log) {
+        document.getElementById('rawLogContent').textContent = log.raw;
+        document.getElementById('rawLogModal').classList.remove('hidden');
+    }
+}
+
+function closeContextModal() {
+    document.getElementById('contextModal').classList.add('hidden');
+}
+
+function closeRawLogModal() {
+    document.getElementById('rawLogModal').classList.add('hidden');
+}
+
+// Close modals on escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeContextModal();
+        closeRawLogModal();
+    }
+});
+</script>
+@endsection
