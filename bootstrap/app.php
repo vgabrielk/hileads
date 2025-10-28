@@ -12,6 +12,7 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         // Global middleware
+        $middleware->append(\App\Http\Middleware\CheckRequestSize::class);
         $middleware->append(\App\Http\Middleware\SanitizeInputMiddleware::class);
         $middleware->append(\App\Http\Middleware\PerformanceHeadersMiddleware::class);
         $middleware->append(\App\Http\Middleware\OptimizeQueries::class);

@@ -66,11 +66,11 @@ class MassSendingRequest extends FormRequest
                     return;
                 }
 
-                // Validar tamanho do base64 (máximo 10MB)
+                // Validar tamanho do base64 (máximo 5MB para compatibilidade)
                 $base64Length = strlen($decodedMediaData['base64']);
-                $maxSize = 10 * 1024 * 1024; // 10MB
+                $maxSize = 5 * 1024 * 1024; // 5MB
                 if ($base64Length > $maxSize) {
-                    $validator->errors()->add('media_data', 'Arquivo muito grande. Tamanho máximo permitido: 10MB.');
+                    $validator->errors()->add('media_data', 'Arquivo muito grande. Tamanho máximo permitido: 5MB.');
                     return;
                 }
 

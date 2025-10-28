@@ -33,7 +33,8 @@ class PerformanceHeadersMiddleware
         }
 
         // Add performance timing headers
-        $response->headers->set('X-Response-Time', round((microtime(true) - LARAVEL_START) * 1000, 2) . 'ms');
+        $startTime = defined('LARAVEL_START') ? LARAVEL_START : $_SERVER['REQUEST_TIME_FLOAT'] ?? microtime(true);
+        $response->headers->set('X-Response-Time', round((microtime(true) - $startTime) * 1000, 2) . 'ms');
 
         return $response;
     }
