@@ -177,17 +177,20 @@
                     </div>
 
                     <!-- Navigation Links (Desktop) -->
-                    <nav class="hidden md:flex items-center space-x-8">
+                    <nav class="hidden lg:flex items-center space-x-6">
                         <a href="#benefits" class="nav-link text-white hover:text-white/80 font-medium transition-colors">
                             Funcionalidades
                         </a>
                         <a href="#pricing" class="nav-link text-white hover:text-white/80 font-medium transition-colors">
                             Preços
                         </a>
+                        <a href="#faq" class="nav-link text-white hover:text-white/80 font-medium transition-colors">
+                            FAQ
+                        </a>
                     </nav>
 
-                    <!-- Auth Buttons -->
-                    <div class="flex items-center gap-3">
+                    <!-- Auth Buttons (Desktop) -->
+                    <div class="hidden md:flex items-center gap-3">
                         <a
                             href="{{ route('login') }}"
                             class="auth-login px-6 py-2.5 rounded-lg text-white font-semibold hover:bg-white/10 transition-colors"
@@ -201,9 +204,76 @@
                             Criar Conta
                         </a>
                     </div>
+
+                    <!-- Mobile Menu Button -->
+                    <button 
+                        id="mobile-menu-button"
+                        class="md:hidden p-2 rounded-lg text-white hover:bg-white/10 transition-colors"
+                        aria-label="Menu"
+                    >
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
                 </div>
             </div>
         </header>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="fixed inset-0 z-[60] hidden">
+            <!-- Overlay -->
+            <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" onclick="closeMobileMenu()"></div>
+            
+            <!-- Menu Panel -->
+            <div class="absolute right-0 top-0 h-full w-80 max-w-[85vw] bg-white shadow-2xl transform translate-x-full transition-transform duration-300 z-10" id="mobile-menu-panel">
+                <div class="flex flex-col h-full">
+                    <!-- Header -->
+                    <div class="flex items-center justify-between p-6 border-b border-gray-200">
+                        <img src="{{ asset('logo-horizontal.png') }}" alt="HiLeads" class="h-8">
+                        <button 
+                            onclick="closeMobileMenu()"
+                            class="p-2 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors"
+                            aria-label="Fechar menu"
+                        >
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- Navigation Links -->
+                    <nav class="flex-1 overflow-y-auto p-6">
+                        <div class="space-y-1">
+                            <a href="#benefits" onclick="closeMobileMenu()" class="block px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-100 font-medium transition-colors">
+                                Funcionalidades
+                            </a>
+                            <a href="#pricing" onclick="closeMobileMenu()" class="block px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-100 font-medium transition-colors">
+                                Preços
+                            </a>
+                            <a href="#faq" onclick="closeMobileMenu()" class="block px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-100 font-medium transition-colors">
+                                FAQ
+                            </a>
+                        </div>
+                    </nav>
+
+                    <!-- Auth Buttons -->
+                    <div class="p-6 border-t border-gray-200 space-y-3">
+                        <a
+                            href="{{ route('login') }}"
+                            class="block w-full text-center px-6 py-3 rounded-lg border-2 border-hileads-blue text-hileads-blue font-semibold hover:bg-hileads-blue hover:text-white transition-colors"
+                        >
+                            Entrar
+                        </a>
+                        <a
+                            href="{{ route('register') }}"
+                            class="block w-full text-center px-6 py-3 rounded-lg bg-gradient-to-r from-hileads-blue to-blue-600 text-white font-semibold hover:shadow-lg transition-all"
+                        >
+                            Criar Conta
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Hero Section -->
         <section
@@ -445,10 +515,10 @@
                         <!-- Step 1 -->
                         <div class="text-center fade-in">
                             <div class="relative mb-8">
-                                <div class="w-20 h-20 bg-gradient-to-br from-hileads-blue to-blue-600 rounded-full flex items-center justify-center mx-auto shadow-xl">
+                                <div class="w-20 h-20 bg-gradient-to-br from-hileads-blue to-blue-600 rounded-full flex items-center justify-center mx-auto shadow-xl relative z-10">
                                     <span class="text-3xl font-bold text-white">1</span>
                                 </div>
-                                <div class="hidden md:block absolute top-10 left-1/2 w-full h-0.5 bg-gradient-to-r from-hileads-blue to-transparent"></div>
+                                <div class="hidden md:block absolute top-10 left-1/2 w-full h-0.5 bg-gradient-to-r from-hileads-blue to-transparent -z-10"></div>
                             </div>
                             <h3 class="font-display text-xl font-bold text-gray-900 mb-3">
                                 Conecte seu WhatsApp
@@ -461,10 +531,10 @@
                         <!-- Step 2 -->
                         <div class="text-center fade-in" style="transition-delay: 0.1s">
                             <div class="relative mb-8">
-                                <div class="w-20 h-20 bg-gradient-to-br from-hileads-blue to-blue-600 rounded-full flex items-center justify-center mx-auto shadow-xl">
+                                <div class="w-20 h-20 bg-gradient-to-br from-hileads-blue to-blue-600 rounded-full flex items-center justify-center mx-auto shadow-xl relative z-10">
                                     <span class="text-3xl font-bold text-white">2</span>
                                 </div>
-                                <div class="hidden md:block absolute top-10 left-1/2 w-full h-0.5 bg-gradient-to-r from-hileads-blue to-transparent"></div>
+                                <div class="hidden md:block absolute top-10 left-1/2 w-full h-0.5 bg-gradient-to-r from-hileads-blue to-transparent -z-10"></div>
                             </div>
                             <h3 class="font-display text-xl font-bold text-gray-900 mb-3">
                                 Importe seus contactos
@@ -477,7 +547,7 @@
                         <!-- Step 3 -->
                         <div class="text-center fade-in" style="transition-delay: 0.2s">
                             <div class="relative mb-8">
-                                <div class="w-20 h-20 bg-gradient-to-br from-whatsapp-green to-green-600 rounded-full flex items-center justify-center mx-auto shadow-xl">
+                                <div class="w-20 h-20 bg-gradient-to-br from-whatsapp-green to-green-600 rounded-full flex items-center justify-center mx-auto shadow-xl relative z-10">
                                     <span class="text-3xl font-bold text-white">3</span>
                                 </div>
                             </div>
@@ -1443,8 +1513,17 @@
                     });
                     
                     // Update auth button
-                    authLogin.classList.remove('text-white', 'hover:bg-white/10');
-                    authLogin.classList.add('text-gray-700', 'hover:bg-gray-100');
+                    if (authLogin) {
+                        authLogin.classList.remove('text-white', 'hover:bg-white/10');
+                        authLogin.classList.add('text-gray-700', 'hover:bg-gray-100');
+                    }
+
+                    // Update mobile menu button
+                    const mobileMenuButton = document.getElementById('mobile-menu-button');
+                    if (mobileMenuButton) {
+                        mobileMenuButton.classList.remove('text-white');
+                        mobileMenuButton.classList.add('text-gray-700');
+                    }
                 } else {
                     // Transparent state
                     header.classList.remove('header-scrolled');
@@ -1462,11 +1541,57 @@
                     });
                     
                     // Update auth button
-                    authLogin.classList.add('text-white', 'hover:bg-white/10');
-                    authLogin.classList.remove('text-gray-700', 'hover:bg-gray-100');
+                    if (authLogin) {
+                        authLogin.classList.add('text-white', 'hover:bg-white/10');
+                        authLogin.classList.remove('text-gray-700', 'hover:bg-gray-100');
+                    }
+
+                    // Update mobile menu button
+                    const mobileMenuButton = document.getElementById('mobile-menu-button');
+                    if (mobileMenuButton) {
+                        mobileMenuButton.classList.add('text-white');
+                        mobileMenuButton.classList.remove('text-gray-700');
+                    }
                 }
                 
                 lastScroll = currentScroll;
+            });
+
+            // Mobile Menu Functions
+            function openMobileMenu() {
+                const mobileMenu = document.getElementById('mobile-menu');
+                const mobileMenuPanel = document.getElementById('mobile-menu-panel');
+                
+                mobileMenu.classList.remove('hidden');
+                // Force reflow
+                mobileMenuPanel.offsetHeight;
+                mobileMenuPanel.classList.remove('translate-x-full');
+                
+                // Prevent body scroll
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeMobileMenu() {
+                const mobileMenu = document.getElementById('mobile-menu');
+                const mobileMenuPanel = document.getElementById('mobile-menu-panel');
+                
+                mobileMenuPanel.classList.add('translate-x-full');
+                
+                setTimeout(() => {
+                    mobileMenu.classList.add('hidden');
+                    // Restore body scroll
+                    document.body.style.overflow = '';
+                }, 300);
+            }
+
+            // Mobile menu button click
+            document.getElementById('mobile-menu-button')?.addEventListener('click', openMobileMenu);
+
+            // Close menu on escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    closeMobileMenu();
+                }
             });
         </script>
     </body>
