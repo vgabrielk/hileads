@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\WhatsAppController;
 use App\Http\Controllers\ContactController;
@@ -13,7 +14,10 @@ use App\Http\Controllers\PlanController;
 use App\Http\Controllers\SubscriptionController;
 
 Route::get('/', function () {
-    return redirect()->route('login');
+    if (Auth::check()) {
+        return redirect()->route('dashboard');
+    }
+    return view('welcome');
 });
 
 Route::middleware('auth')->group(function () {
