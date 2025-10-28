@@ -3,7 +3,7 @@
 @section('title', 'Detalhes do Grupo')
 
 @section('content')
-<div class="p-8 space-y-6">
+<div class="p-8 space-y-8">
     <!-- Header -->
     <div>
         <a href="{{ route('groups.index') }}" class="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground mb-4 transition-colors">
@@ -83,7 +83,7 @@
     </div>
 
     <!-- Contacts List -->
-    <div class="bg-card rounded-lg border border-border overflow-hidden">
+    <div class="bg-card rounded-lg border border-border overflow-hidden mt-4">
         <div class="px-6 py-4 border-b border-border">
             <div class="flex items-center justify-between">
                 <h2 class="text-lg font-semibold text-foreground">Contactos do Grupo</h2>
