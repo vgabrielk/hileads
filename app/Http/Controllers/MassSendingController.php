@@ -532,6 +532,8 @@ class MassSendingController extends Controller
             'media_type' => $request->input('media_type'),
             'message' => $request->input('message'),
             'media_caption' => $request->input('media_caption'),
+            'media_data_raw' => $request->input('media_data'),
+            'media_data_type' => gettype($request->input('media_data')),
             'all_input' => $request->all()
         ]);
 
@@ -621,6 +623,16 @@ class MassSendingController extends Controller
             'wuzapi_participants' => $allParticipants,
             'total_contacts' => $totalContacts,
             'scheduled_at' => $request->scheduled_at,
+        ]);
+
+        // Debug: Log after creation to verify data was saved
+        \Log::info('💾 Mass sending created in database', [
+            'mass_sending_id' => $massSending->id,
+            'message_type' => $massSending->message_type,
+            'media_data_saved' => $massSending->media_data,
+            'media_data_raw' => $massSending->getRawOriginal('media_data'),
+            'has_media_data' => !empty($massSending->media_data),
+            'media_data_keys' => is_array($massSending->media_data) ? array_keys($massSending->media_data) : 'not_array'
         ]);
 
         // Mass sending is created as draft - user needs to start it manually
