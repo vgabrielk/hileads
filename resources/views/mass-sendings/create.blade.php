@@ -1128,9 +1128,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const campaignForm = document.getElementById('campaign-form');
     if (campaignForm) {
         campaignForm.addEventListener('submit', function(e) {
+            // Debug: Log form submission data
+            console.log('🚀 Form submission debug:', {
+                currentMessageType: currentMessageType,
+                selectedFilesLength: selectedFiles.length,
+                selectedFiles: selectedFiles,
+                hasMediaType: document.querySelector('input[name="media_type"]') !== null,
+                hasMediaData: document.querySelector('input[name="media_data"]') !== null
+            });
+            
             // Add media data to form before submission
             if (currentMessageType === 'media' && selectedFiles.length > 0) {
                 const file = selectedFiles[0];
+                
+                console.log('📱 Adding media data to form:', {
+                    fileType: file.fileType,
+                    fileName: file.name,
+                    fileSize: file.size,
+                    hasBase64: !!file.base64,
+                    base64Length: file.base64 ? file.base64.length : 0
+                });
                 
                 // Remove any existing media inputs
                 const existingMediaType = document.querySelector('input[name="media_type"]');

@@ -78,6 +78,16 @@ class MassSendingRequest extends FormRequest
      */
     protected function prepareForValidation(): void
     {
+        // Debug: Log all incoming data before validation
+        \Log::info('🔍 MassSendingRequest validation data', [
+            'has_media_type' => $this->has('media_type'),
+            'has_media_data' => $this->has('media_data'),
+            'media_type' => $this->input('media_type'),
+            'media_data' => $this->input('media_data'),
+            'media_data_type' => gettype($this->input('media_data')),
+            'all_data' => $this->all()
+        ]);
+
         // Sanitize input data
         $this->merge([
             'name' => strip_tags(trim($this->name ?? '')),
