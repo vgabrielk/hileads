@@ -44,7 +44,19 @@ class GroupController extends Controller
             $apiError = true;
         }
 
-        return view('groups.create', compact('apiContacts', 'apiError'));
+        // Load country codes from ddi.json
+        $ddiPath = app_path('ddi.json');
+        $countries = [];
+        if (file_exists($ddiPath)) {
+            $ddiData = json_decode(file_get_contents($ddiPath), true);
+            // Sort by country name
+            uasort($ddiData, function($a, $b) {
+                return strcmp($a['pais'], $b['pais']);
+            });
+            $countries = $ddiData;
+        }
+
+        return view('groups.create', compact('apiContacts', 'apiError', 'countries'));
     }
 
     public function store(Request $request)
