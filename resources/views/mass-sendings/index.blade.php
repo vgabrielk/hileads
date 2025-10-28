@@ -41,24 +41,23 @@
             </div>
             
             <!-- Right side - Add Button and View Toggle -->
-            <div class="flex items-center gap-3">
+            <div class="flex items-center gap-4">
                 <!-- Add Mass Sending Button -->
-                <a href="{{ route('mass-sendings.create') }}" class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-xl text-sm font-semibold hover:bg-primary/90 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 w-full sm:w-auto justify-center">
+                <a href="{{ route('mass-sendings.create') }}" class="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground rounded-lg text-sm font-medium hover:bg-primary/90 transition-all hover:shadow-md w-full sm:w-auto justify-center">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                     </svg>
-                    <span class="hidden sm:inline">Nova Campanha</span>
-                    <span class="sm:hidden">Nova</span>
+                    <span>Nova Campanha</span>
                 </a>
                 
                 <!-- View Toggle Buttons -->
-                <div class="flex items-center bg-muted rounded-xl p-1">
-                    <button class="p-2.5 text-primary bg-background rounded-lg shadow-sm transition-all hover:shadow-md">
+                <div class="hidden sm:flex items-center bg-muted rounded-lg p-1 gap-1">
+                    <button class="p-2 text-primary bg-background rounded-md shadow-sm transition-all hover:shadow-md" title="Vista de lista">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
                         </svg>
                     </button>
-                    <button class="p-2.5 text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-background/50">
+                    <button class="p-2 text-muted-foreground hover:text-foreground transition-colors rounded-md hover:bg-background/50" title="Vista de grelha">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
                         </svg>
@@ -245,10 +244,10 @@
                         </div>
                         
                         <!-- Ações -->
-                        <div class="flex items-center gap-2">
+                        <div class="flex items-center gap-1.5">
                                 <!-- View Details Button -->
                                 <a href="{{ route('mass-sendings.show', $massSending) }}" 
-                                   class="p-2 text-muted-foreground hover:text-primary hover:bg-primary/10 rounded-lg transition-all"
+                                   class="inline-flex items-center justify-center w-8 h-8 text-muted-foreground hover:text-primary hover:bg-primary/10 rounded-md transition-all group"
                                    title="Ver detalhes">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
@@ -258,7 +257,7 @@
                                 
                                 <!-- Edit Button -->
                                 <a href="{{ route('mass-sendings.edit', $massSending) }}" 
-                                   class="p-2 text-muted-foreground hover:text-primary hover:bg-primary/10 rounded-lg transition-all"
+                                   class="inline-flex items-center justify-center w-8 h-8 text-muted-foreground hover:text-warning hover:bg-warning/10 rounded-md transition-all group"
                                    title="Editar campanha">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
@@ -267,7 +266,7 @@
                                 
                                 <!-- Actions Dropdown -->
                                 <div class="relative group">
-                                    <button class="p-2 text-muted-foreground hover:text-foreground hover:bg-muted rounded-lg transition-all"
+                                    <button class="inline-flex items-center justify-center w-8 h-8 text-muted-foreground hover:text-foreground hover:bg-muted rounded-md transition-all"
                                             title="Mais ações">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path>
