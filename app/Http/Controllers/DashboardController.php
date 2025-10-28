@@ -26,23 +26,33 @@ class DashboardController extends Controller
         // Cache das estatísticas por 5 minutos
         $stats = Cache::remember("dashboard_stats_user_{$user->id}", 300, function () use ($user) {
             $contactsCount = 0;
+            $groupsCount = 0;
             
-            // Buscar total de contactos da API Wuzapi (mesma fonte da página /contacts)
+            // Buscar dados da API Wuzapi (mesma fonte da página /contacts)
             try {
                 $service = new WuzapiService($user->api_token);
+                
+                // Buscar grupos da API
+                $groupsResponse = $service->getGroups();
+                if ($groupsResponse['success'] ?? false) {
+                    $groupsCount = count($groupsResponse['data'] ?? []);
+                }
+                
+                // Buscar contactos da API
                 $contactsResponse = $service->getContacts();
                 if ($contactsResponse['success'] ?? false) {
                     $contactsCount = count($contactsResponse['data'] ?? []);
                 }
             } catch (\Exception $e) {
-                \Log::warning('Erro ao buscar contactos da API na dashboard: ' . $e->getMessage());
+                \Log::warning('Erro ao buscar dados da API na dashboard: ' . $e->getMessage());
                 // Fallback para banco de dados local se a API falhar
+                $groupsCount = $user->whatsappGroups()->count();
                 $contactsCount = $user->extractedContacts()->count();
             }
             
             return [
                 'connections' => $user->whatsappConnections()->count(),
-                'groups' => $user->whatsappGroups()->count(),
+                'groups' => $groupsCount,
                 'contacts' => $contactsCount,
                 'mass-sendings' => $user->massSendings()->count(),
             ];
@@ -67,12 +77,30 @@ class DashboardController extends Controller
             ->take(5)
             ->get();
 
-        $recentGroups = $user->whatsappGroups()
-            ->select(['id', 'group_name', 'participants_count', 'created_at', 'whatsapp_connection_id'])
-            ->with(['whatsappConnection:id,phone_number,status'])
-            ->latest()
-            ->take(5)
-            ->get();
+        // Buscar grupos recentes da API Wuzapi
+        $recentGroups = collect([]);
+        try {
+            $groupsResponse = $this->service()->getGroups();
+            if ($groupsResponse['success'] ?? false) {
+                $recentGroups = collect($groupsResponse['data'] ?? [])->map(function($group) {
+                    return (object)[
+                        'group_name' => $group['Name'] ?? 'Grupo sem nome',
+                        'participants_count' => count($group['Participants'] ?? []),
+                        'is_extracted' => true, // Grupos da API estão sempre extraídos
+                        'created_at' => $group['GroupCreated'] ?? null,
+                    ];
+                })->take(5);
+            }
+        } catch (\Exception $e) {
+            \Log::warning('Erro ao buscar grupos recentes da API: ' . $e->getMessage());
+            // Fallback para banco de dados local
+            $recentGroups = $user->whatsappGroups()
+                ->select(['id', 'group_name', 'participants_count', 'created_at', 'whatsapp_connection_id'])
+                ->with(['whatsappConnection:id,phone_number,status'])
+                ->latest()
+                ->take(5)
+                ->get();
+        }
 
         $recentContacts = $user->extractedContacts()
             ->select(['id', 'contact_name', 'phone_number', 'created_at', 'whatsapp_group_id'])
