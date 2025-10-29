@@ -130,11 +130,42 @@ async function selectConversation(conversation) {
     });
     event.currentTarget?.classList.add('bg-gray-100');
     
+    // Em mobile, mostrar painel de chat e ocultar sidebar
+    showChatPanel();
+    
     // Carregar mensagens
     await loadMessages(conversation.id);
     
     // Marcar como lida
     await markAsRead(conversation.id);
+}
+
+// Mostrar painel de chat (mobile/desktop)
+function showChatPanel() {
+    const chatPanel = document.getElementById('chatPanel');
+    const sidebar = document.getElementById('conversationsSidebar');
+    
+    // Mostrar painel de chat
+    chatPanel.classList.remove('hidden');
+    chatPanel.classList.add('flex');
+    
+    // Em mobile, ocultar sidebar
+    if (window.innerWidth < 768) {
+        sidebar.classList.add('hidden');
+    }
+}
+
+// Voltar para lista de conversas (mobile)
+function backToConversations() {
+    const chatPanel = document.getElementById('chatPanel');
+    const sidebar = document.getElementById('conversationsSidebar');
+    
+    // Ocultar painel de chat
+    chatPanel.classList.add('hidden');
+    chatPanel.classList.remove('flex');
+    
+    // Mostrar sidebar
+    sidebar.classList.remove('hidden');
 }
 
 // Abrir conversa específica pelo ID (usado ao vir da lista de contatos)
@@ -197,6 +228,9 @@ async function selectConversationDirectly(conversation) {
         document.getElementById('chatAvatar').classList.add('hidden');
         document.getElementById('chatAvatarPlaceholder').classList.remove('hidden');
     }
+    
+    // Em mobile, mostrar painel de chat e ocultar sidebar
+    showChatPanel();
     
     // Carregar mensagens
     await loadMessages(conversation.id);
