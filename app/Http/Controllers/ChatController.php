@@ -150,6 +150,25 @@ class ChatController extends Controller
                 ->where('id', $conversationId)
                 ->firstOrFail();
 
+            // Verificar se usuário tem API token
+            if (!$user->api_token) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Você precisa conectar uma conta WhatsApp primeiro.',
+                    'no_session' => true,
+                    'data' => [
+                        'conversation' => [
+                            'id' => $conversation->id,
+                            'chat_jid' => $conversation->chat_jid,
+                            'contact_name' => $conversation->contact_name,
+                            'display_name' => $conversation->display_name,
+                            'avatar_url' => $conversation->avatar_url,
+                        ],
+                        'messages' => [],
+                    ],
+                ], 200);
+            }
+
             // Buscar histórico da API Wuzapi
             $wuzapiService = new WuzapiService($user->api_token);
             $limit = $request->input('limit', 50);
@@ -157,10 +176,44 @@ class ChatController extends Controller
             $response = $wuzapiService->getChatHistory($conversation->chat_jid, $limit);
 
             if (!$response['success']) {
+                // Verificar se é erro de sessão desconectada
+                $errorMessage = $response['message'] ?? 'Erro ao carregar mensagens';
+                $isNoSession = str_contains(strtolower($errorMessage), 'no session') || 
+                               str_contains(strtolower($errorMessage), 'desconectada') ||
+                               str_contains(strtolower($errorMessage), 'token inválido');
+                
+                if ($isNoSession) {
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Sua sessão do WhatsApp foi desconectada. Por favor, reconecte seu WhatsApp.',
+                        'no_session' => true,
+                        'data' => [
+                            'conversation' => [
+                                'id' => $conversation->id,
+                                'chat_jid' => $conversation->chat_jid,
+                                'contact_name' => $conversation->contact_name,
+                                'display_name' => $conversation->display_name,
+                                'avatar_url' => $conversation->avatar_url,
+                            ],
+                            'messages' => [],
+                        ],
+                    ], 200);
+                }
+
                 return response()->json([
                     'success' => false,
-                    'message' => $response['message'] ?? 'Erro ao carregar mensagens',
-                ], 500);
+                    'message' => $errorMessage,
+                    'data' => [
+                        'conversation' => [
+                            'id' => $conversation->id,
+                            'chat_jid' => $conversation->chat_jid,
+                            'contact_name' => $conversation->contact_name,
+                            'display_name' => $conversation->display_name,
+                            'avatar_url' => $conversation->avatar_url,
+                        ],
+                        'messages' => [],
+                    ],
+                ], 200);
             }
 
             $messages = $this->formatMessages($response['data']);
