@@ -1066,6 +1066,13 @@ class WuzapiService
         $this->checkToken();
 
         try {
+            Log::info('🔍 Buscando histórico de chat', [
+                'chat_jid' => $chatJid,
+                'limit' => $limit,
+                'url' => $this->baseUrl . '/chat/history',
+                'token' => substr($this->token, 0, 10) . '...'
+            ]);
+
             $response = Http::withHeaders([
                 'token' => $this->token,
                 'Content-Type' => 'application/json',
@@ -1076,14 +1083,23 @@ class WuzapiService
 
             $responseData = $response->json();
             
+            Log::info('📡 Resposta do histórico de chat', [
+                'status' => $response->status(),
+                'successful' => $response->successful(),
+                'response' => $responseData
+            ]);
+            
             return [
                 'success' => $response->successful() && ($responseData['success'] ?? true),
                 'data' => $responseData['data'] ?? $responseData,
-                'message' => $responseData['message'] ?? ($response->successful() ? 'Histórico obtido' : 'Erro ao obter histórico'),
+                'message' => $responseData['message'] ?? $responseData['error'] ?? ($response->successful() ? 'Histórico obtido' : 'Erro ao obter histórico'),
                 'code' => $responseData['code'] ?? $response->status(),
             ];
         } catch (\Exception $e) {
-            Log::error('Wuzapi get chat history error: ' . $e->getMessage());
+            Log::error('Wuzapi get chat history error: ' . $e->getMessage(), [
+                'chat_jid' => $chatJid,
+                'trace' => $e->getTraceAsString()
+            ]);
             return [
                 'success' => false,
                 'message' => $e->getMessage(),
