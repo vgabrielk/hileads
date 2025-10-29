@@ -139,6 +139,125 @@ function loadStats() {
 
 // Carregar estatísticas ao iniciar
 document.addEventListener('DOMContentLoaded', loadStats);
+
+// Função para copiar texto para a área de transferência
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(() => {
+        // Mostrar feedback visual
+        const btn = event.target;
+        const originalText = btn.textContent;
+        btn.textContent = 'Copiado!';
+        btn.classList.add('text-success');
+        setTimeout(() => {
+            btn.textContent = originalText;
+            btn.classList.remove('text-success');
+        }, 2000);
+    });
+}
+
+// Função para carregar página específica da paginação
+function loadPage(page) {
+    const url = new URL('{{ route('api.contacts.list') }}', window.location.origin);
+    url.searchParams.set('page', page);
+    const search = document.querySelector('input[name="search"]')?.value;
+    if (search) url.searchParams.set('search', search);
+    
+    window.asyncLoader.load(url.toString(), '#contacts-table-body', { cache: false });
+}
+
+// Função para iniciar chat com contato
+function startChat(phone, name, contactId) {
+    // Mostrar loading no botão
+    const btn = event.target.closest('button');
+    const originalHTML = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = `
+        <svg class="w-4 h-4 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+        </svg>
+        Iniciando...
+    `;
+
+    // Fazer requisição para iniciar conversa
+    fetch('{{ route('chat.start') }}', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+            'Accept': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+        body: JSON.stringify({
+            phone: phone,
+            name: name,
+            contact_id: contactId
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Redirecionar para o chat
+            if (window.confirmationModal) {
+                window.confirmationModal.show({
+                    title: 'Chat Iniciado',
+                    message: `Conversa com ${name} iniciada com sucesso!`,
+                    type: 'success',
+                    confirmText: 'Ir para o Chat',
+                    cancelText: 'Continuar Aqui'
+                }).then((confirmed) => {
+                    if (confirmed) {
+                        window.location.href = data.redirect;
+                    } else {
+                        btn.disabled = false;
+                        btn.innerHTML = originalHTML;
+                    }
+                });
+            } else {
+                window.location.href = data.redirect;
+            }
+        } else {
+            // Mostrar erro
+            btn.disabled = false;
+            btn.innerHTML = originalHTML;
+            
+            if (window.confirmationModal) {
+                window.confirmationModal.show({
+                    title: 'Erro ao Iniciar Chat',
+                    message: data.message || 'Não foi possível iniciar a conversa.',
+                    type: 'danger',
+                    confirmText: 'OK',
+                    cancelText: ''
+                }).then(() => {
+                    if (data.redirect) {
+                        window.location.href = data.redirect;
+                    }
+                });
+            } else {
+                alert(data.message);
+                if (data.redirect) {
+                    window.location.href = data.redirect;
+                }
+            }
+        }
+    })
+    .catch(error => {
+        console.error('Erro ao iniciar chat:', error);
+        btn.disabled = false;
+        btn.innerHTML = originalHTML;
+        
+        if (window.confirmationModal) {
+            window.confirmationModal.show({
+                title: 'Erro',
+                message: 'Erro ao iniciar conversa. Por favor, tente novamente.',
+                type: 'danger',
+                confirmText: 'OK',
+                cancelText: ''
+            });
+        } else {
+            alert('Erro ao iniciar conversa. Por favor, tente novamente.');
+        }
+    });
+}
 </script>
 @endsection
 
