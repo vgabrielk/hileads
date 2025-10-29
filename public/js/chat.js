@@ -260,17 +260,26 @@ async function loadMessages(conversationId) {
             // Verificar se é erro de sessão desconectada
             if (data.no_session) {
                 renderNoSessionError(data.message);
+                // Não mostrar toast, a tela de erro já é suficiente
             } else {
                 currentMessages = [];
                 renderMessages([]);
-                showToast(data.message || 'Erro ao carregar mensagens', 'error');
+                // Só mostrar toast para erros não relacionados a sessão
+                if (data.message && !data.message.toLowerCase().includes('desconectad')) {
+                    showToast(data.message, 'error');
+                }
             }
         }
     } catch (error) {
         console.error('Erro ao carregar mensagens:', error);
         currentMessages = [];
         renderMessages([]);
-        showToast('Erro ao carregar mensagens', 'error');
+        // Não mostrar toast para erros de rede quando WhatsApp desconectado
+        const errorMsg = error.message || error.toString();
+        if (!errorMsg.toLowerCase().includes('session') && 
+            !errorMsg.toLowerCase().includes('desconectad')) {
+            showToast('Erro de conexão. Verifique sua internet.', 'error');
+        }
     } finally {
         loader.classList.add('hidden');
     }
@@ -694,6 +703,20 @@ function escapeHtml(text) {
 // Mostrar toast notification
 function showToast(message, type = 'info') {
     const container = document.getElementById('toastContainer');
+    
+    // Evitar duplicatas - verificar se mesma mensagem já está visível
+    const existingToasts = container.querySelectorAll('.toast-message');
+    for (let toast of existingToasts) {
+        if (toast.textContent.trim() === message) {
+            return; // Não mostrar duplicata
+        }
+    }
+    
+    // Limitar quantidade de toasts (máximo 3)
+    while (container.children.length >= 3) {
+        container.removeChild(container.firstChild);
+    }
+    
     const toast = document.createElement('div');
     
     const colors = {
@@ -703,20 +726,27 @@ function showToast(message, type = 'info') {
         warning: 'bg-yellow-500'
     };
     
-    toast.className = `${colors[type]} text-white px-6 py-3 rounded-lg shadow-lg flex items-center space-x-2 transform transition-all duration-300 translate-x-0`;
+    const icons = {
+        success: '<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>',
+        error: '<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>',
+        info: '<path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>',
+        warning: '<path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>'
+    };
+    
+    toast.className = `${colors[type]} text-white px-4 py-3 rounded-lg shadow-lg flex items-center space-x-2 transform transition-all duration-300 translate-x-0`;
     toast.innerHTML = `
-        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+        <svg class="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+            ${icons[type]}
         </svg>
-        <span>${message}</span>
+        <span class="toast-message">${message}</span>
     `;
     
     container.appendChild(toast);
     
-    // Remover após 3 segundos
+    // Remover após 4 segundos
     setTimeout(() => {
         toast.style.transform = 'translateX(400px)';
         setTimeout(() => toast.remove(), 300);
-    }, 3000);
+    }, 4000);
 }
 
