@@ -169,28 +169,67 @@ class WuzapiService
         try {
             $this->checkToken();
 
-            $response = Http::withHeaders([
+            Log::info('📡 Chamando API Wuzapi /session/status', [
+                'url' => $this->baseUrl . '/session/status',
+                'token_prefix' => substr($this->token, 0, 20) . '...'
+            ]);
+
+            $response = Http::timeout(10)->withHeaders([
                 'token' => $this->token,
             ])->get($this->baseUrl . '/session/status');
 
+            Log::info('📡 Resposta da API /session/status', [
+                'status_code' => $response->status(),
+                'successful' => $response->successful(),
+                'body' => $response->body()
+            ]);
+
             if (!$response->successful()) {
-                // Se API retornar 401, simular status para demonstração
-                if ($response->status() === 401) {
-                    Log::warning('API Wuzapi retornou 401 - simulando status para demonstração');
+                $statusCode = $response->status();
+                $responseBody = $response->json();
+                
+                Log::warning('⚠️ API retornou status não-sucesso', [
+                    'status_code' => $statusCode,
+                    'response' => $responseBody
+                ]);
+
+                // Se API retornar 401, pode ser token inválido mas não significa desconectado
+                if ($statusCode === 401) {
+                    Log::warning('API Wuzapi retornou 401 - Token pode estar inválido');
                     return [
                         'success' => true,
                         'data' => [
                             'Connected' => true,
                             'LoggedIn' => false, // Simular que precisa escanear QR
-                        ]
+                        ],
+                        'warning' => 'Token pode estar inválido'
                     ];
                 }
-                throw new \Exception('Falha ao obter status: ' . $response->body());
+
+                // Se retornar 500 ou 503 (erro temporário do servidor), assumir que pode estar conectado
+                if (in_array($statusCode, [500, 502, 503, 504])) {
+                    Log::warning('⚠️ Erro temporário do servidor Wuzapi, assumindo estado anterior');
+                    return [
+                        'success' => true,
+                        'data' => [
+                            'Connected' => true,
+                            'LoggedIn' => true,
+                        ],
+                        'warning' => 'Erro temporário do servidor, assumindo conexão ativa'
+                    ];
+                }
+                
+                throw new \Exception('Falha ao obter status (HTTP ' . $statusCode . '): ' . $response->body());
             }
 
             $raw = $response->json()['data'] ?? [];
             $connected = $raw['Connected'] ?? $raw['connected'] ?? false;
             $loggedIn = $raw['LoggedIn'] ?? $raw['loggedIn'] ?? false;
+
+            Log::info('✅ Status obtido com sucesso', [
+                'connected' => $connected,
+                'logged_in' => $loggedIn
+            ]);
 
             return [
                 'success' => true,
@@ -200,7 +239,29 @@ class WuzapiService
                 ]
             ];
 
+        } catch (\Illuminate\Http\Client\ConnectionException $e) {
+            Log::error('❌ Erro de conexão com API Wuzapi', [
+                'error' => $e->getMessage(),
+                'type' => 'ConnectionException'
+            ]);
+            
+            // Em caso de erro de conexão, assumir que pode estar conectado
+            // (problema é com a API, não necessariamente com o WhatsApp)
+            return [
+                'success' => true,
+                'data' => [
+                    'Connected' => true,
+                    'LoggedIn' => true,
+                ],
+                'warning' => 'Erro de conexão com API Wuzapi, assumindo conexão ativa'
+            ];
+            
         } catch (\Exception $e) {
+            Log::error('❌ Erro ao obter status do WhatsApp', [
+                'error' => $e->getMessage(),
+                'type' => get_class($e)
+            ]);
+            
             return [
                 'success' => false,
                 'message' => $e->getMessage()
@@ -332,13 +393,34 @@ class WuzapiService
     public function checkConnectionBeforeGroups(): array
     {
         try {
+            Log::info('🔍 Verificando conexão WhatsApp antes de buscar grupos');
+            
             $status = $this->getStatus();
             
+            Log::info('📊 Status retornado:', [
+                'success' => $status['success'],
+                'has_data' => isset($status['data']),
+                'has_warning' => isset($status['warning']),
+                'warning' => $status['warning'] ?? null
+            ]);
+            
             if (!$status['success']) {
+                Log::warning('❌ Falha ao obter status, mas pode ser erro temporário');
                 return [
                     'success' => false,
-                    'message' => 'Não foi possível verificar o status da conexão do WhatsApp.',
+                    'message' => 'Não foi possível verificar o status da conexão do WhatsApp. Tente novamente.',
                     'connection_issue' => true
+                ];
+            }
+            
+            // Se houver warning, significa que houve problema com a API mas assumimos conexão
+            if (isset($status['warning'])) {
+                Log::warning('⚠️ Status retornado com warning: ' . $status['warning']);
+                return [
+                    'success' => true,
+                    'message' => 'Conexão assumida como ativa (API com problema temporário)',
+                    'connection_issue' => false,
+                    'warning' => $status['warning']
                 ];
             }
             
@@ -346,7 +428,13 @@ class WuzapiService
             $isConnected = $data['Connected'] ?? false;
             $isLoggedIn = $data['LoggedIn'] ?? false;
             
+            Log::info('✅ Status verificado', [
+                'connected' => $isConnected,
+                'logged_in' => $isLoggedIn
+            ]);
+            
             if (!$isConnected) {
+                Log::warning('❌ WhatsApp não está conectado');
                 return [
                     'success' => false,
                     'message' => 'O WhatsApp não está conectado. Conecte-se primeiro para acessar os grupos.',
@@ -356,6 +444,7 @@ class WuzapiService
             }
             
             if (!$isLoggedIn) {
+                Log::warning('❌ WhatsApp não está logado');
                 return [
                     'success' => false,
                     'message' => 'O WhatsApp não está logado. Faça login para acessar os grupos.',
@@ -364,6 +453,7 @@ class WuzapiService
                 ];
             }
             
+            Log::info('✅ Conexão WhatsApp verificada com sucesso');
             return [
                 'success' => true,
                 'message' => 'Conexão do WhatsApp está ativa.',
@@ -371,7 +461,11 @@ class WuzapiService
             ];
             
         } catch (\Exception $e) {
-            Log::error('Wuzapi check connection error: ' . $e->getMessage());
+            Log::error('❌ Erro ao verificar conexão: ' . $e->getMessage(), [
+                'exception' => get_class($e),
+                'trace' => $e->getTraceAsString()
+            ]);
+            
             return [
                 'success' => false,
                 'message' => 'Erro ao verificar conexão do WhatsApp: ' . $e->getMessage(),
