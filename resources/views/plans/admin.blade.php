@@ -5,8 +5,8 @@
     <!-- Header -->
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-            <h1 class="text-2xl sm:text-3xl font-bold text-foreground">Gerir Planos</h1>
-            <p class="text-muted-foreground mt-1">Crie, edite e faça a gestão os planos de subscrição</p>
+            <h1 class="text-2xl sm:text-3xl font-bold text-foreground">Gerenciar Planos</h1>
+            <p class="text-muted-foreground mt-1">Crie, edite e faça a gestão os planos de assinatura</p>
         </div>
         <a href="{{ route('plans.create') }}" class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-primary-foreground bg-primary hover:bg-primary/90 rounded-lg transition-colors w-full sm:w-auto justify-center">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -65,9 +65,9 @@
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-muted-foreground">
                             <div class="space-y-1">
                                 @if($plan->max_contacts)
-                                    <div>Contactos: {{ number_format($plan->max_contacts) }}</div>
+                                    <div>Contatos: {{ number_format($plan->max_contacts) }}</div>
                                 @else
-                                    <div>Contactos: Ilimitado</div>
+                                    <div>Contatos: Ilimitado</div>
                                 @endif
                                 
                                 @if($plan->max_campaigns)
@@ -101,7 +101,7 @@
                                     </svg>
                                 </a>
                                 
-                                <form method="POST" action="{{ route('plans.destroy', $plan) }}" class="inline" onsubmit="return confirm('Tem certeza que deseja eliminar este plano? Esta ação não pode ser desfeita.')">
+                                <form method="POST" action="{{ route('plans.destroy', $plan) }}" class="inline" onsubmit="return confirm('Tem certeza que deseja excluir este plano? Esta ação não pode ser desfeita.')">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="text-destructive hover:text-destructive/80 transition-colors">
@@ -121,7 +121,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                                 </svg>
                                 <h3 class="text-lg font-medium text-foreground mb-2">Nenhum plano encontrado</h3>
-                                <p class="text-sm text-muted-foreground mb-4">Comece criando seu primeiro plano de subscrição.</p>
+                                <p class="text-sm text-muted-foreground mb-4">Comece criando seu primeiro plano de assinatura.</p>
                                 <a href="{{ route('plans.create') }}" class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-primary-foreground bg-primary hover:bg-primary/90 rounded-lg transition-colors">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>

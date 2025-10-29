@@ -11,7 +11,7 @@
             Voltar para planos
         </a>
         <h1 class="text-3xl font-bold text-foreground">Criar Novo Plano</h1>
-        <p class="text-muted-foreground mt-1">Configure um novo plano de subscrição</p>
+        <p class="text-muted-foreground mt-1">Configure um novo plano de assinatura</p>
     </div>
 
     <form method="POST" action="{{ route('plans.store') }}" class="space-y-6">
@@ -62,7 +62,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
                         <label for="price" class="block text-sm font-semibold text-foreground mb-2">
-                            Preço (€)
+                            Preço (R$)
                             <span class="text-destructive">*</span>
                         </label>
                         <input type="number" 
@@ -127,7 +127,7 @@
                     <!-- Max Contacts -->
                     <div>
                         <label for="max_contacts" class="block text-sm font-semibold text-foreground mb-2">
-                            Máximo de Contactos
+                            Máximo de Contatos
                         </label>
                         <input type="number" 
                                id="max_contacts" 
@@ -284,7 +284,7 @@ document.getElementById('add-feature').addEventListener('click', function() {
                name="features[]" 
                value="{{ old('features.${featureIndex}') }}"
                class="flex-1 px-4 py-3 border border-input rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-colors bg-background text-foreground"
-               placeholder="Ex: Até 1.000 contactos">
+               placeholder="Ex: Até 1.000 contatos">
         <button type="button" 
                 onclick="removeFeature(this)" 
                 class="p-2 text-destructive hover:text-destructive/80 transition-colors">

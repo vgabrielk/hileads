@@ -78,8 +78,8 @@ class MassSendingController extends Controller
         $needsLogin = false;
         
         try {
-            // Primeiro, verificar se a ligação WhatsApp está ativa
-            \Log::info('🔍 Verificando estado da ligação WhatsApp');
+            // Primeiro, verificar se a conexão WhatsApp está ativa
+            \Log::info('🔍 Verificando estado da conexão WhatsApp');
             $connectionCheck = $this->service()->checkConnectionBeforeGroups();
             
             if (!$connectionCheck['success']) {
@@ -89,7 +89,7 @@ class MassSendingController extends Controller
                 $needsConnection = $connectionCheck['needs_connection'] ?? false;
                 $needsLogin = $connectionCheck['needs_login'] ?? false;
                 
-                \Log::warning('❌ Problema de ligação WhatsApp: ' . $apiErrorMessage);
+                \Log::warning('❌ Problema de conexão WhatsApp: ' . $apiErrorMessage);
             } else {
                 \Log::info('✅ Conexão WhatsApp verificada, buscando grupos...');
                 $response = $this->service()->getGroups();
@@ -346,7 +346,7 @@ class MassSendingController extends Controller
     }
 
     /**
-     * Regenera o token de API do utilizador
+     * Regenera o token de API do usuário
      */
     public function regenerateToken()
     {
@@ -371,7 +371,7 @@ class MassSendingController extends Controller
     }
 
     /**
-     * Inicia religação do WhatsApp
+     * Inicia reconexão do WhatsApp
      */
     public function reconnectWhatsApp()
     {
@@ -380,7 +380,7 @@ class MassSendingController extends Controller
             
             return response()->json([
                 'success' => $response['success'] ?? false,
-                'message' => $response['message'] ?? 'Tentativa de religação iniciada',
+                'message' => $response['message'] ?? 'Tentativa de reconexão iniciada',
                 'qr_code' => $response['qr_code'] ?? null,
                 'already_connected' => $response['already_connected'] ?? false,
                 'already_logged_in' => $response['already_logged_in'] ?? false
@@ -758,7 +758,7 @@ class MassSendingController extends Controller
                             $contactsData = $contactsResponse['data'] ?? [];
                         }
                     } catch (\Exception $e) {
-                        \Log::warning('Erro ao obter contactos da Wuzapi: ' . $e->getMessage());
+                        \Log::warning('Erro ao obter contatos da Wuzapi: ' . $e->getMessage());
                     }
                     
                     // Map JIDs for display with contact info
@@ -843,7 +843,7 @@ class MassSendingController extends Controller
         $remainingContacts = $massSending->total_contacts - $massSending->sent_count;
         
         if ($remainingContacts <= 0) {
-            return back()->with('error', 'Não há contactos restantes para enviar!');
+            return back()->with('error', 'Não há contatos restantes para enviar!');
         }
         
         // Update status to active
@@ -857,7 +857,7 @@ class MassSendingController extends Controller
             'remaining_contacts' => $remainingContacts
         ]);
         
-        return back()->with('success', "Envio em massa retomada! Processando {$remainingContacts} contactos restantes...");
+        return back()->with('success', "Envio em massa retomada! Processando {$remainingContacts} contatos restantes...");
     }
     
     public function progress(MassSending $massSending)
@@ -892,7 +892,7 @@ class MassSendingController extends Controller
         $this->authorize('delete', $massSending);
         
         if ($massSending->status === 'active') {
-            return back()->with('error', 'Não é possível eliminar uma envio em massa ativa.');
+            return back()->with('error', 'Não é possível excluir uma envio em massa ativa.');
         }
         
         $massSending->delete();

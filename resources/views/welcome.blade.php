@@ -438,7 +438,7 @@
                             Gestão de Leads
                         </h3>
                         <p class="text-gray-600">
-                            Capture e segmente contactos automaticamente para
+                            Capture e segmente contatos automaticamente para
                             campanhas mais eficazes.
                         </p>
                     </div>
@@ -555,10 +555,10 @@
                                 <div class="hidden md:block absolute top-10 left-1/2 w-full h-0.5 bg-gradient-to-r from-hileads-blue to-transparent -z-10"></div>
                             </div>
                             <h3 class="font-display text-xl font-bold text-gray-900 mb-3">
-                                Importe seus contactos
+                                Importe seus contatos
                             </h3>
                             <p class="text-gray-600">
-                                Carregue sua lista de contactos via CSV ou extraia diretamente de grupos WhatsApp.
+                                Carregue sua lista de contatos via CSV ou extraia diretamente de grupos WhatsApp.
                             </p>
                         </div>
 
@@ -657,7 +657,7 @@
                         </div>
                         <div>
                             <h4 class="font-semibold text-gray-900 mb-2">Gestão de Grupos</h4>
-                            <p class="text-sm text-gray-600">Organize contactos em grupos personalizados</p>
+                            <p class="text-sm text-gray-600">Organize contatos em grupos personalizados</p>
                         </div>
                     </div>
 
@@ -757,7 +757,7 @@
                             </h3>
                             <div class="flex items-baseline gap-2">
                                 <span class="text-5xl font-bold text-gray-900"
-                                    >€19</span
+                                    >R$ 19</span
                                 >
                                 <span class="text-gray-600">/mês</span>
                             </div>
@@ -871,7 +871,7 @@
                             </h3>
                             <div class="flex items-baseline gap-2">
                                 <span class="text-5xl font-bold text-white"
-                                    >€49</span
+                                    >R$ 49</span
                                 >
                                 <span class="text-white/80">/mês</span>
                             </div>
@@ -993,7 +993,7 @@
                             </h3>
                             <div class="flex items-baseline gap-2">
                                 <span class="text-5xl font-bold text-gray-900"
-                                    >€99</span
+                                    >R$ 99</span
                                 >
                                 <span class="text-gray-600">/mês</span>
                             </div>
@@ -1205,7 +1205,7 @@
                             </svg>
                         </div>
                         <p class="text-gray-700 mb-6 leading-relaxed">
-                            "Conseguimos gerir milhares de leads sem esforço. Os relatórios são excelentes e ajudam muito na tomada de decisões."
+                            "Conseguimos gerenciar milhares de leads sem esforço. Os relatórios são excelentes e ajudam muito na tomada de decisões."
                         </p>
                         <div class="flex items-center gap-3">
                             <div class="w-12 h-12 bg-gradient-to-br from-hileads-blue to-blue-600 rounded-full flex items-center justify-center text-white font-bold">

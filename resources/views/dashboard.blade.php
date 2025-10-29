@@ -25,11 +25,11 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
             </svg>
             <div class="flex-1">
-                <p class="font-semibold text-success mb-1">Subscrição Ativa</p>
+                <p class="font-semibold text-success mb-1">Assinatura Ativa</p>
                 <p class="text-sm text-success opacity-90">Plano: {{ $accessStatus['current_plan']->name }} - {{ $accessStatus['current_plan']->formatted_price }}</p>
             </div>
             <a href="{{ route('subscriptions.index') }}" class="text-success hover:opacity-70 transition-opacity">
-                Gerir →
+                Gerenciar →
             </a>
         </div>
     @else
@@ -38,8 +38,8 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.5 0L4.268 15.5c-.77.833.192 2.5 1.732 2.5z"></path>
             </svg>
             <div class="flex-1">
-                <p class="font-semibold text-warning mb-1">Subscrição Necessária</p>
-                <p class="text-sm text-warning opacity-90">Precisa de uma subscrição ativa para aceder a todas as funcionalidades.</p>
+                <p class="font-semibold text-warning mb-1">Assinatura Necessária</p>
+                <p class="text-sm text-warning opacity-90">Precisa de uma assinatura ativa para acessar a todas as funcionalidades.</p>
             </div>
             <a href="{{ route('plans.index') }}" class="px-4 py-2 text-sm font-medium text-warning-foreground bg-warning hover:bg-warning/90 rounded-lg transition-colors">
                 Ver Planos
@@ -49,14 +49,14 @@
 
     <!-- Metric Cards -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <!-- Card: Ligações -->
+        <!-- Card: Conexões -->
         <div class="bg-card rounded-lg border border-border p-6 hover:shadow-md transition-shadow">
             <div class="flex items-start justify-between">
                 <div class="space-y-2">
-                    <p class="text-sm font-medium text-muted-foreground">Ligações Ativas</p>
+                    <p class="text-sm font-medium text-muted-foreground">Conexões Ativas</p>
                     <p class="text-3xl font-bold text-foreground">{{ $stats['connections'] }}</p>
                     <div class="flex items-center gap-1">
-                        <span class="text-xs font-medium text-success">↑ WhatsApp ligados</span>
+                        <span class="text-xs font-medium text-success">↑ WhatsApp conectados</span>
                     </div>
                 </div>
                 <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
@@ -85,11 +85,11 @@
             </div>
         </div>
 
-        <!-- Card: Contactos -->
+        <!-- Card: Contatos -->
         <div class="bg-card rounded-lg border border-border p-6 hover:shadow-md transition-shadow">
             <div class="flex items-start justify-between">
                 <div class="space-y-2">
-                    <p class="text-sm font-medium text-muted-foreground">Total de Contactos</p>
+                    <p class="text-sm font-medium text-muted-foreground">Total de Contatos</p>
                     <p class="text-3xl font-bold text-foreground">{{ number_format($stats['contacts'], 0, ',', '.') }}</p>
                     <div class="flex items-center gap-1">
                         <span class="text-xs font-medium text-success">↑ Leads capturados</span>
@@ -127,7 +127,7 @@
         <!-- Recent Connections -->
         <div class="bg-card rounded-lg border border-border p-6">
             <div class="flex items-center justify-between mb-4">
-                <h3 class="text-lg font-semibold text-foreground">Ligações Recentes</h3>
+                <h3 class="text-lg font-semibold text-foreground">Conexões Recentes</h3>
                 <a href="{{ route('whatsapp.index') }}" class="text-primary hover:text-primary/80 text-sm font-medium flex items-center gap-1">
                     Ver todas
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -142,7 +142,7 @@
                     <div class="flex items-center gap-2">
                         <span class="w-2 h-2 rounded-full {{ $whatsappStatus['data']['Connected'] ? 'bg-success' : 'bg-destructive' }}"></span>
                         <span class="text-sm font-medium {{ $whatsappStatus['data']['Connected'] ? 'text-success' : 'text-destructive' }}">
-                            {{ $whatsappStatus['data']['Connected'] ? 'WhatsApp Ligado' : 'WhatsApp Desligado' }}
+                            {{ $whatsappStatus['data']['Connected'] ? 'WhatsApp Conectado' : 'WhatsApp Desconectado' }}
                         </span>
                         @if($whatsappStatus['data']['LoggedIn'] ?? false)
                             <span class="text-xs text-muted-foreground">• Autenticado</span>
@@ -182,7 +182,7 @@
                                 @elseif($connection->status === 'disconnected') bg-destructive
                                 @else bg-warning @endif">
                             </span>
-                            {{ $connection->status === 'active' || $connection->status === 'connected' ? 'Ligado' : ($connection->status === 'disconnected' ? 'Desligado' : ucfirst($connection->status)) }}
+                            {{ $connection->status === 'active' || $connection->status === 'connected' ? 'Conectado' : ($connection->status === 'disconnected' ? 'Desconectado' : ucfirst($connection->status)) }}
                         </span>
                     </div>
                 @empty
@@ -192,13 +192,13 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
                             </svg>
                         </div>
-                        <p class="text-sm font-medium text-foreground mb-1">Nenhuma ligação encontrada</p>
-                        <p class="text-xs text-muted-foreground mb-4">Ligue o seu WhatsApp para começar</p>
+                        <p class="text-sm font-medium text-foreground mb-1">Nenhuma conexão encontrada</p>
+                        <p class="text-xs text-muted-foreground mb-4">Conecte seu WhatsApp para começar</p>
                         <a href="{{ route('whatsapp.index') }}" class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-primary-foreground bg-primary hover:bg-primary/90 rounded-lg transition-colors">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                             </svg>
-                            Ligar WhatsApp
+                            Conectar WhatsApp
                         </a>
                     </div>
                 @endforelse
@@ -256,7 +256,7 @@
         <div class="p-6 border-b border-border">
             <div class="flex items-center justify-between">
                 <div>
-                    <h2 class="text-lg font-semibold text-foreground">Contactos Recentes</h2>
+                    <h2 class="text-lg font-semibold text-foreground">Contatos Recentes</h2>
                     <p class="text-sm text-muted-foreground mt-1">Últimos leads capturados</p>
                 </div>
                 <a href="{{ route('contacts.index') }}" class="text-primary hover:text-primary/80 text-sm font-medium flex items-center gap-1">
@@ -271,7 +271,7 @@
             <table class="w-full">
                 <thead class="bg-secondary border-b border-border">
                     <tr>
-                        <th class="text-left px-6 py-4 text-sm font-semibold text-foreground">Contacto</th>
+                        <th class="text-left px-6 py-4 text-sm font-semibold text-foreground">Contato</th>
                         <th class="text-left px-6 py-4 text-sm font-semibold text-foreground">Grupo</th>
                         <th class="text-left px-6 py-4 text-sm font-semibold text-foreground">Estado</th>
                         <th class="text-right px-6 py-4 text-sm font-semibold text-foreground">Ações</th>
@@ -321,8 +321,8 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
                                     </svg>
                                 </div>
-                                <p class="text-sm font-medium text-foreground mb-1">Nenhum contacto encontrado</p>
-                                <p class="text-xs text-muted-foreground">Extraia contactos dos grupos para começar</p>
+                                <p class="text-sm font-medium text-foreground mb-1">Nenhum contato encontrado</p>
+                                <p class="text-xs text-muted-foreground">Extraia contatos dos grupos para começar</p>
                             </td>
                         </tr>
                     @endforelse

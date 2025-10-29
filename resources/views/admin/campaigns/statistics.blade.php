@@ -120,12 +120,12 @@
 
     <!-- Top Users -->
     <div class="bg-card rounded-lg border border-border p-4 sm:p-6">
-        <h3 class="text-lg font-semibold text-foreground mb-4">Top Utilizadores por Campanhas</h3>
+        <h3 class="text-lg font-semibold text-foreground mb-4">Top Usuárioes por Campanhas</h3>
         <div class="overflow-x-auto">
             <table class="w-full">
                 <thead class="bg-muted/50">
                     <tr>
-                        <th class="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Utilizador</th>
+                        <th class="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Usuário</th>
                         <th class="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Campanhas</th>
                         <th class="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Total de Destinatários</th>
                         <th class="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Última Campanha</th>
@@ -153,7 +153,7 @@
                     @empty
                         <tr>
                             <td colspan="4" class="px-4 py-8 text-center text-muted-foreground">
-                                Nenhum utilizador encontrado.
+                                Nenhum usuário encontrado.
                             </td>
                         </tr>
                     @endforelse

@@ -23,13 +23,13 @@ class SubscriptionController extends Controller
     {
         $user = auth()->user();
         
-        // Se o utilizador é admin, mostra mensagem especial
+        // Se o usuário é admin, mostra mensagem especial
         if ($user->isAdmin()) {
             $subscriptions = collect(); // Lista vazia para admins
             return view('subscriptions.index', compact('subscriptions'))->with('admin_message', true);
         }
         
-        // Procurar apenas uma subscription por plano (a mais recente)
+        // Buscar apenas uma assinatura por plano (a mais recente)
         $subscriptions = $user->subscriptions()
             ->with('plan')
             ->whereIn('id', function($query) use ($user) {
@@ -71,7 +71,7 @@ class SubscriptionController extends Controller
 
         if ($subscription->status !== 'active') {
             return redirect()->back()
-                ->with('error', 'Esta subscrição não está ativa.');
+                ->with('error', 'Esta assinatura não está ativa.');
         }
 
         $subscription->update([
@@ -238,19 +238,19 @@ class SubscriptionController extends Controller
 
         if (!$sessionId) {
             return redirect()->route('subscriptions.error')
-                ->with('error', 'Sessão de checkout inválida.');
+                ->with('error', 'Sessão de pagamento inválida.');
         }
 
         try {
             $session = $this->stripeService->getCheckoutSession($sessionId);
 
             if ($session->payment_status === 'paid') {
-                // Procurar subscrição pendente relacionada a esta sessão
+                // Buscar assinatura pendente relacionada a esta sessão
                 $subscription = \App\Models\Subscription::where('stripe_session_id', $sessionId)
                     ->where('status', 'pending')
                     ->first();
 
-                // Se encontrou subscrição pendente, ativar automaticamente
+                // Se encontrou assinatura pendente, ativar automaticamente
                 if ($subscription) {
                     $subscription->update([
                         'status' => 'active',

@@ -37,7 +37,7 @@
                         Automatização WhatsApp para <span class="text-indigo-600">Resultados Reais</span>
                     </h1>
                     <p class="text-xl text-gray-600 mb-8 leading-relaxed">
-                        Automatize os seus envios em massa, faça a gestão de múltiplas ligações WhatsApp e alcance milhares de clientes com uma plataforma profissional e segura.
+                        Automatize os seus envios em massa, faça a gestão de múltiplas conexões WhatsApp e alcance milhares de clientes com uma plataforma profissional e segura.
                     </p>
                     <div class="flex flex-col sm:flex-row gap-4">
                         <a href="{{ route('register') }}" class="bg-indigo-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-indigo-700 transition text-center">
@@ -84,7 +84,7 @@
                                 </div>
                                 <div class="text-center">
                                     <div class="text-2xl font-bold text-indigo-600">+</div>
-                                    <div class="text-xs text-gray-500">Ligações</div>
+                                    <div class="text-xs text-gray-500">Conexões</div>
                                 </div>
                                 <div class="text-center">
                                     <div class="text-2xl font-bold text-indigo-600">✓</div>
@@ -117,7 +117,7 @@
                     </div>
                     <h3 class="text-xl font-bold text-gray-900 mb-3">Envio em Massa</h3>
                     <p class="text-gray-600">
-                        Envie mensagens para centenas de contactos simultaneamente com texto, imagens, vídeos e documentos.
+                        Envie mensagens para centenas de contatos simultaneamente com texto, imagens, vídeos e documentos.
                     </p>
                 </div>
 
@@ -128,7 +128,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/>
                         </svg>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Múltiplas Ligações</h3>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Múltiplas Conexões</h3>
                     <p class="text-gray-600">
                         Faça a gestão de várias contas WhatsApp num único painel. Ideal para equipas e agências.
                     </p>
@@ -203,7 +203,7 @@
                     <div class="mb-6">
                         <h3 class="text-2xl font-bold text-gray-900 mb-2">Básico</h3>
                         <div class="flex items-baseline">
-                            <span class="text-4xl font-bold text-gray-900">€29,90</span>
+                            <span class="text-4xl font-bold text-gray-900">R$ 29,90</span>
                             <span class="text-gray-600 ml-2">/mês</span>
                         </div>
                     </div>
@@ -218,7 +218,7 @@
                             <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                             </svg>
-                            <span>1 ligação WhatsApp</span>
+                            <span>1 conexão WhatsApp</span>
                         </li>
                         <li class="flex items-start">
                             <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
@@ -240,7 +240,7 @@
                         </div>
                         <h3 class="text-2xl font-bold text-white mb-2">Profissional</h3>
                         <div class="flex items-baseline">
-                            <span class="text-4xl font-bold text-white">€79,90</span>
+                            <span class="text-4xl font-bold text-white">R$ 79,90</span>
                             <span class="text-indigo-200 ml-2">/mês</span>
                         </div>
                     </div>
@@ -255,7 +255,7 @@
                             <svg class="w-5 h-5 text-green-400 mr-3 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                             </svg>
-                            <span>3 ligações WhatsApp</span>
+                            <span>3 conexões WhatsApp</span>
                         </li>
                         <li class="flex items-start">
                             <svg class="w-5 h-5 text-green-400 mr-3 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
@@ -280,7 +280,7 @@
                     <div class="mb-6">
                         <h3 class="text-2xl font-bold text-gray-900 mb-2">Empresarial</h3>
                         <div class="flex items-baseline">
-                            <span class="text-4xl font-bold text-gray-900">€199,90</span>
+                            <span class="text-4xl font-bold text-gray-900">R$ 199,90</span>
                             <span class="text-gray-600 ml-2">/mês</span>
                         </div>
                     </div>
@@ -289,7 +289,7 @@
                             <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                             </svg>
-                            <span>Ligações ilimitadas</span>
+                            <span>Conexões ilimitadas</span>
                         </li>
                         <li class="flex items-start">
                             <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
@@ -324,7 +324,7 @@
                 <div class="bg-gray-50 rounded-lg p-6">
                     <h3 class="text-lg font-bold text-gray-900 mb-2">Como funciona o envio em massa?</h3>
                     <p class="text-gray-600">
-                        A nossa plataforma permite que envie mensagens para múltiplos contactos simultaneamente através do WhatsApp. Pode enviar texto, imagens, vídeos e documentos para centenas de pessoas de uma só vez.
+                        A nossa plataforma permite que envie mensagens para múltiplos contatos simultaneamente através do WhatsApp. Pode enviar texto, imagens, vídeos e documentos para centenas de pessoas de uma só vez.
                     </p>
                 </div>
 
@@ -338,12 +338,12 @@
                 <div class="bg-gray-50 rounded-lg p-6">
                     <h3 class="text-lg font-bold text-gray-900 mb-2">Posso cancelar a qualquer momento?</h3>
                     <p class="text-gray-600">
-                        Sim, pode cancelar a sua subscrição a qualquer momento sem taxas ou multas. O seu acesso permanece ativo até ao final do período pago.
+                        Sim, pode cancelar a sua assinatura a qualquer momento sem taxas ou multas. O seu acesso permanece ativo até ao final do período pago.
                     </p>
                 </div>
 
                 <div class="bg-gray-50 rounded-lg p-6">
-                    <h3 class="text-lg font-bold text-gray-900 mb-2">Como faço para ligar o meu WhatsApp?</h3>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">Como faço para conectar o meu WhatsApp?</h3>
                     <p class="text-gray-600">
                         Basta digitalizar o código QR que aparece no painel de controlo. O processo é simples, rápido e seguro. Mantém o seu número e todas as suas conversas.
                     </p>

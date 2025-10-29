@@ -15,7 +15,7 @@
                         </div>
                         <h1 class="text-3xl font-bold text-gray-900">Painel Administrativo</h1>
                     </div>
-                    <p class="mt-2 text-sm text-gray-600 ml-15">Monitorize sessões Wuzapi e status de utilizadores</p>
+                    <p class="mt-2 text-sm text-gray-600 ml-15">Monitorize sessões Wuzapi e status de usuárioes</p>
                 </div>
                 <button onclick="location.reload()" class="btn-ripple flex items-center px-4 py-2.5 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-xl shadow-sm transition-all">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -53,9 +53,9 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
                     </svg>
                 </div>
-                <h3 class="text-xl font-bold text-gray-900 mb-2">Nenhum utilizador ligado</h3>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">Nenhum usuário conectado</h3>
                 <p class="text-gray-600 max-w-md mx-auto">
-                    No momento não há utilizadores com sessões ativas na Wuzapi
+                    No momento não há usuárioes com sessões ativas na Wuzapi
                 </p>
             </div>
         @elseif(count($users) > 0)
@@ -75,7 +75,7 @@
 
                 <div class="card-hover bg-white rounded-2xl shadow-sm border border-gray-100 p-6 hover:shadow-xl">
                     <div class="flex items-center justify-between mb-4">
-                        <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wider">Ligados</h3>
+                        <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wider">Conectados</h3>
                         <div class="w-12 h-12 bg-gradient-to-br from-green-100 to-green-200 rounded-xl flex items-center justify-center">
                             <svg class="w-6 h-6 text-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
@@ -109,13 +109,13 @@
                         <thead class="bg-gradient-to-r from-gray-50 to-gray-100">
                             <tr>
                                 <th scope="col" class="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
-                                    Utilizador Laravel
+                                    Usuário Laravel
                                 </th>
                                 <th scope="col" class="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
                                     Verificação
                                 </th>
                                 <th scope="col" class="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
-                                    Status Ligação
+                                    Status Conexão
                                 </th>
                                 <th scope="col" class="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
                                     Token
@@ -187,7 +187,7 @@
                                             @if($user['wuzapi']['connected'] ?? false)
                                                 <span class="inline-flex items-center px-3 py-1.5 rounded-xl text-xs font-semibold bg-green-100 text-green-700 border border-green-200">
                                                     <span class="w-2 h-2 bg-green-500 rounded-full mr-2 badge-pulse"></span>
-                                                    Ligado
+                                                    Conectado
                                                 </span>
                                             @else
                                                 <span class="inline-flex items-center px-3 py-1.5 rounded-xl text-xs font-semibold bg-red-100 text-red-700 border border-red-200">

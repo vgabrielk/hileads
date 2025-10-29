@@ -6,7 +6,7 @@
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
             <h1 class="text-2xl sm:text-3xl font-bold text-foreground">Logs de Atividade</h1>
-            <p class="text-muted-foreground mt-1">Visualize atividades dos utilizadores no sistema</p>
+            <p class="text-muted-foreground mt-1">Visualize atividades dos usuárioes no sistema</p>
         </div>
     </div>
 
@@ -38,9 +38,9 @@
             <div class="bg-muted/30 rounded-lg p-4 mb-6">
                 <form method="GET" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
                     <div>
-                        <label class="block text-sm font-medium text-foreground mb-2">Utilizador</label>
+                        <label class="block text-sm font-medium text-foreground mb-2">Usuário</label>
                         <select name="user_id" class="w-full px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
-                            <option value="">Todos os utilizadores</option>
+                            <option value="">Todos os usuárioes</option>
                             @foreach($users as $user)
                                 <option value="{{ $user->id }}" {{ $userId == $user->id ? 'selected' : '' }}>
                                     {{ $user->name }}
@@ -92,7 +92,7 @@
                         <thead class="bg-muted/50">
                             <tr>
                                 <th class="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Timestamp</th>
-                                <th class="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Utilizador</th>
+                                <th class="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Usuário</th>
                                 <th class="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Ação</th>
                                 <th class="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Mensagem</th>
                                 <th class="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Contexto</th>
@@ -115,7 +115,7 @@
                                                     <p class="text-xs text-muted-foreground">{{ $user->email }}</p>
                                                 </div>
                                             @else
-                                                <p class="text-sm text-muted-foreground">Utilizador #{{ $log['context']['user_id'] }}</p>
+                                                <p class="text-sm text-muted-foreground">Usuário #{{ $log['context']['user_id'] }}</p>
                                             @endif
                                         @else
                                             <span class="text-muted-foreground text-sm">-</span>

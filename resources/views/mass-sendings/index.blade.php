@@ -221,7 +221,7 @@
                                         <div class="border-t border-border my-1"></div>
                                         
                                         <form method="POST" action="{{ route('mass-sendings.destroy', $massSending) }}" 
-                                              onsubmit="return handleDeleteConfirmation(event, 'Tem certeza que deseja eliminar esta campanha?', 'Esta ação não pode ser desfeita.')" 
+                                              onsubmit="return handleDeleteConfirmation(event, 'Tem certeza que deseja excluir esta campanha?', 'Esta ação não pode ser desfeita.')" 
                                               class="block"
                                               onclick="event.stopPropagation()">
                                             @csrf
@@ -230,7 +230,7 @@
                                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                                                 </svg>
-                                                Eliminar Campanha
+                                                Excluir Campanha
                                             </button>
                                         </form>
                                     </div>
@@ -340,10 +340,10 @@ async function handleDeleteConfirmation(event, message, subtitle) {
     if (typeof confirmAction === 'function') {
         const confirmed = await confirmAction({
             type: 'danger',
-            title: 'Eliminar Campanha',
+            title: 'Excluir Campanha',
             subtitle: subtitle,
             message: message,
-            confirmText: 'Eliminar',
+            confirmText: 'Excluir',
             cancelText: 'Cancelar'
         });
         

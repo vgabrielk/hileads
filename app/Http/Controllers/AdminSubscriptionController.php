@@ -336,7 +336,7 @@ class AdminSubscriptionController extends Controller
     {
         if (!$subscription->stripe_subscription_id) {
             return redirect()->back()
-                ->with('error', 'Esta subscrição não possui ID do Stripe para sincronizar.');
+                ->with('error', 'Esta assinatura não possui ID do Stripe para sincronizar.');
         }
 
         try {

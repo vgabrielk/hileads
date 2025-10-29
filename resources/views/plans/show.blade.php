@@ -44,7 +44,7 @@
                         @if($plan->max_contacts)
                             <div class="text-center">
                                 <div class="text-2xl font-bold text-blue-600">{{ number_format($plan->max_contacts) }}</div>
-                                <div class="text-gray-600">Contactos</div>
+                                <div class="text-gray-600">Contatos</div>
                             </div>
                         @endif
                         @if($plan->max_campaigns)
@@ -118,7 +118,7 @@
             
             <!-- Subtitle -->
             <p style="color: #6b7280; font-size: 16px; margin-bottom: 32px; line-height: 1.5;">
-                Preparando a sua subscrição do <strong id="plan-name" style="color: #3b82f6;">Plano</strong>
+                Preparando a sua assinatura do <strong id="plan-name" style="color: #3b82f6;">Plano</strong>
             </p>
 
             <!-- Progress Steps -->
@@ -166,7 +166,7 @@
                             <p style="color: #6b7280; font-size: 14px; margin: 0;">Acesso completo ao sistema</p>
                         </div>
                         <div style="text-align: right;">
-                            <div id="plan-price" style="color: #3b82f6; font-size: 24px; font-weight: 700; margin: 0;">€0,00</div>
+                            <div id="plan-price" style="color: #3b82f6; font-size: 24px; font-weight: 700; margin: 0;">R$ 0,00</div>
                             <span style="color: #9ca3af; font-size: 12px;">Mensal</span>
                         </div>
                     </div>
@@ -262,7 +262,7 @@ function startCheckout(planId, planName, planPrice) {
     // Update plan details in overlay
     document.getElementById('plan-name').textContent = planName;
     document.getElementById('plan-name-detail').textContent = planName;
-    document.getElementById('plan-price').textContent = '€' + planPrice.toFixed(2).replace('.', ',');
+    document.getElementById('plan-price').textContent = 'R$ ' + planPrice.toFixed(2).replace('.', ',');
     
     // Show loading overlay
     showLoadingOverlay();

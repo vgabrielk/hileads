@@ -94,7 +94,7 @@ class WuzapiService
             return [
                 'success' => true,
                 'qr_code' => $qrData['data']['QRCode'] ?? null,
-                'message' => $isAlreadyConnected ? 'Já conectado, pegando QR code' : 'Sessão iniciada com sucesso',
+                'message' => $isAlreadyConnected ? 'Já conectado, obtendo QR code' : 'Sessão iniciada com sucesso',
                 'already_connected' => $isAlreadyConnected,
                 'already_logged_in' => $isAlreadyLoggedIn,
                 'details' => $connectResponse->successful() ? ($connectResponse->json()['data'] ?? []) : []
@@ -285,7 +285,7 @@ class WuzapiService
             if (!$status['success']) {
                 return [
                     'success' => false,
-                    'message' => 'Não foi possível verificar o status da conexão WhatsApp.',
+                    'message' => 'Não foi possível verificar o status da conexão do WhatsApp.',
                     'connection_issue' => true
                 ];
             }
@@ -297,7 +297,7 @@ class WuzapiService
             if (!$isConnected) {
                 return [
                     'success' => false,
-                    'message' => 'WhatsApp não está conectado. Conecte-se primeiro para acessar os grupos.',
+                    'message' => 'O WhatsApp não está conectado. Conecte-se primeiro para acessar os grupos.',
                     'connection_issue' => true,
                     'needs_connection' => true
                 ];
@@ -306,7 +306,7 @@ class WuzapiService
             if (!$isLoggedIn) {
                 return [
                     'success' => false,
-                    'message' => 'WhatsApp não está logado. Faça login para acessar os grupos.',
+                    'message' => 'O WhatsApp não está logado. Faça login para acessar os grupos.',
                     'connection_issue' => true,
                     'needs_login' => true
                 ];
@@ -314,7 +314,7 @@ class WuzapiService
             
             return [
                 'success' => true,
-                'message' => 'Conexão WhatsApp está ativa.',
+                'message' => 'Conexão do WhatsApp está ativa.',
                 'connection_issue' => false
             ];
             
@@ -322,7 +322,7 @@ class WuzapiService
             Log::error('Wuzapi check connection error: ' . $e->getMessage());
             return [
                 'success' => false,
-                'message' => 'Erro ao verificar conexão WhatsApp: ' . $e->getMessage(),
+                'message' => 'Erro ao verificar conexão do WhatsApp: ' . $e->getMessage(),
                 'connection_issue' => true
             ];
         }
@@ -384,7 +384,7 @@ class WuzapiService
                 
                 // Verificar se é erro de conexão/sessão
                 if ($response->status() === 500 || str_contains($errorBody, '500')) {
-                    $errorMessage = 'Sessão WhatsApp desconectada ou token inválido. Verifique sua conexão.';
+                    $errorMessage = 'Sessão do WhatsApp desconectada ou token inválido. Verifique sua conexão.';
                 }
                 
                 throw new \Exception($errorMessage);
@@ -566,7 +566,7 @@ class WuzapiService
             ]);
 
             if (!$response->successful()) {
-                throw new \Exception('Falha ao criar usuário na Wuzapi: ' . $response->body());
+                throw new \Exception('Falha ao criar usuário no Wuzapi: ' . $response->body());
             }
 
             return [
@@ -597,7 +597,7 @@ class WuzapiService
             ])->get($this->baseUrl . '/admin/users');
 
             if (!$response->successful()) {
-                throw new \Exception('Falha ao listar usuários da Wuzapi: ' . $response->body());
+                throw new \Exception('Falha ao listar usuários do Wuzapi: ' . $response->body());
             }
 
             return [
@@ -628,7 +628,7 @@ class WuzapiService
             ])->delete($this->baseUrl . '/admin/users/' . $userId);
 
             if (!$response->successful()) {
-                throw new \Exception('Falha ao deletar usuário da Wuzapi: ' . $response->body());
+                throw new \Exception('Falha ao deletar usuário do Wuzapi: ' . $response->body());
             }
 
             return [

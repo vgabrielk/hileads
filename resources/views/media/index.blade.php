@@ -183,7 +183,7 @@
                     📤 Envio em Lote
                 </h2>
                 <p class="text-gray-600">
-                    Envie a mesma mensagem para múltiplos contactos
+                    Envie a mesma mensagem para múltiplos contatos
                 </p>
             </div>
             
@@ -191,7 +191,7 @@
                 <div class="space-y-4">
                     <div>
                         <label for="batchContacts" class="block text-sm font-medium text-gray-700 mb-2">
-                            📞 Contactos (um por linha)
+                            📞 Contatos (um por linha)
                         </label>
                         <textarea 
                             id="batchContacts" 
@@ -203,7 +203,7 @@
                     
                     <div class="flex items-center justify-between">
                         <div class="text-sm text-gray-500">
-                            <span id="contactCount">0</span> contactos adicionados
+                            <span id="contactCount">0</span> contatos adicionados
                         </div>
                         <button 
                             type="button" 
@@ -480,7 +480,7 @@ async function sendBatch() {
     const messageText = document.getElementById('messageText').value.trim();
     
     if (!contactsText) {
-        showStatus('❌ Por favor, insira pelo menos um contacto.', 'error');
+        showStatus('❌ Por favor, insira pelo menos um contato.', 'error');
         return;
     }
     

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Detalhes da Subscrição')
+@section('title', 'Detalhes da Assinatura')
 
 @section('content')
 <div class="p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6">
@@ -10,7 +10,7 @@
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
             </svg>
-            Voltar para subscrições
+            Voltar para assinaturas
         </a>
         <div class="flex items-center gap-4">
             <h1 class="text-2xl sm:text-3xl font-bold text-foreground">{{ $subscription->plan->name }}</h1>
@@ -78,7 +78,7 @@
                 </div>
                 @if($subscription->plan->max_contacts)
                     <div class="flex items-center justify-between px-6 py-4">
-                        <span class="text-sm text-muted-foreground">Contactos</span>
+                        <span class="text-sm text-muted-foreground">Contatos</span>
                         <span class="text-sm font-semibold text-foreground">{{ number_format($subscription->plan->max_contacts) }}</span>
                     </div>
                 @endif
@@ -101,7 +101,7 @@
                         </svg>
                     </div>
                     <div class="flex-1">
-                        <h2 class="text-base font-semibold text-foreground">Cronologia da Subscrição</h2>
+                        <h2 class="text-base font-semibold text-foreground">Cronologia da Assinatura</h2>
                         <p class="text-sm text-muted-foreground">Datas importantes</p>
                     </div>
                 </div>
@@ -200,11 +200,11 @@
                     @csrf
                     <button type="submit" 
                             class="inline-flex items-center justify-center px-4 py-2 bg-destructive text-destructive-foreground rounded-lg text-sm font-medium hover:bg-destructive/90 transition-all"
-                            onclick="return handleCancelSubscription(event, 'Tem certeza que deseja cancelar esta subscrição?', 'Esta ação não pode ser desfeita.')">
+                            onclick="return handleCancelSubscription(event, 'Tem certeza que deseja cancelar esta assinatura?', 'Esta ação não pode ser desfeita.')">
                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                         </svg>
-                        Cancelar Subscrição
+                        Cancelar Assinatura
                     </button>
                 </form>
             @elseif($subscription->status === 'cancelled' || $subscription->status === 'expired')
@@ -228,11 +228,11 @@ async function handleCancelSubscription(event, message, subtitle) {
     
     const confirmed = await confirmAction({
         type: 'danger',
-        title: 'Cancelar Subscrição',
+        title: 'Cancelar Assinatura',
         subtitle: subtitle,
         message: message,
-        confirmText: 'Cancelar Subscrição',
-        cancelText: 'Manter Subscrição'
+        confirmText: 'Cancelar Assinatura',
+        cancelText: 'Manter Assinatura'
     });
     
     if (confirmed) {

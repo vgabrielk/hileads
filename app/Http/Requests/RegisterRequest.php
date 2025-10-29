@@ -43,10 +43,10 @@ class RegisterRequest extends FormRequest
             'email.max' => 'O email não pode ter mais de 255 caracteres.',
             'email.unique' => 'Este email já está em uso.',
             'email.regex' => 'Formato de email inválido.',
-            'password.required' => 'A palavra-passe é obrigatória.',
-            'password.min' => 'A palavra-passe deve ter pelo menos 8 caracteres.',
-            'password.confirmed' => 'A confirmação da palavra-passe não confere.',
-            'password.regex' => 'A palavra-passe deve conter pelo menos: 1 letra minúscula, 1 maiúscula, 1 número e 1 caractere especial.',
+            'password.required' => 'A senha é obrigatória.',
+            'password.min' => 'A senha deve ter pelo menos 8 caracteres.',
+            'password.confirmed' => 'A confirmação da senha não confere.',
+            'password.regex' => 'A senha deve conter pelo menos: 1 letra minúscula, 1 maiúscula, 1 número e 1 caractere especial.',
         ];
     }
 
@@ -58,7 +58,7 @@ class RegisterRequest extends FormRequest
         return [
             'name' => 'nome',
             'email' => 'email',
-            'password' => 'palavra-passe',
+            'password' => 'senha',
         ];
     }
 

@@ -123,7 +123,7 @@
 
             <!-- User Info -->
             <div class="bg-card rounded-lg border border-border p-4 sm:p-6">
-                <h3 class="text-lg font-semibold text-foreground mb-4">Informações do Utilizador</h3>
+                <h3 class="text-lg font-semibold text-foreground mb-4">Informações do Usuário</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-sm font-medium text-muted-foreground mb-1">Nome</label>
@@ -134,14 +134,14 @@
                         <p class="text-foreground">{{ $campaign->user->email }}</p>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-muted-foreground mb-1">ID do Utilizador</label>
+                        <label class="block text-sm font-medium text-muted-foreground mb-1">ID do Usuário</label>
                         <p class="text-foreground font-mono text-sm">{{ $campaign->user->id }}</p>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-muted-foreground mb-1">Tipo de Utilizador</label>
+                        <label class="block text-sm font-medium text-muted-foreground mb-1">Tipo de Usuário</label>
                         <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
                             {{ $campaign->user->isAdmin() ? 'bg-primary/10 text-primary' : 'bg-muted/10 text-muted-foreground' }}">
-                            {{ $campaign->user->isAdmin() ? 'Administrador' : 'Utilizador' }}
+                            {{ $campaign->user->isAdmin() ? 'Administrador' : 'Usuário' }}
                         </span>
                     </div>
                 </div>
@@ -150,10 +150,10 @@
             <!-- WhatsApp Connection Info -->
             @if($campaign->whatsappConnection)
             <div class="bg-card rounded-lg border border-border p-4 sm:p-6">
-                <h3 class="text-lg font-semibold text-foreground mb-4">Ligação WhatsApp</h3>
+                <h3 class="text-lg font-semibold text-foreground mb-4">Conexão WhatsApp</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-sm font-medium text-muted-foreground mb-1">ID da Ligação</label>
+                        <label class="block text-sm font-medium text-muted-foreground mb-1">ID da Conexão</label>
                         <p class="text-foreground font-mono text-sm">{{ $campaign->whatsappConnection->id }}</p>
                     </div>
                     <div>
@@ -212,12 +212,12 @@
                         @csrf
                         @method('DELETE')
                         <button type="submit" 
-                                onclick="return confirm('Tem certeza que deseja eliminar esta campanha? Esta ação não pode ser desfeita.')"
+                                onclick="return confirm('Tem certeza que deseja excluir esta campanha? Esta ação não pode ser desfeita.')"
                                 class="w-full inline-flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-destructive-foreground bg-destructive hover:bg-destructive/90 rounded-lg transition-colors">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                             </svg>
-                            Eliminar Campanha
+                            Excluir Campanha
                         </button>
                     </form>
                 </div>

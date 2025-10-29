@@ -36,8 +36,8 @@ class LoginRequest extends FormRequest
             'email.required' => 'O email é obrigatório.',
             'email.email' => 'O email deve ter um formato válido.',
             'email.max' => 'O email não pode ter mais de 255 caracteres.',
-            'password.required' => 'A palavra-passe é obrigatória.',
-            'password.max' => 'A palavra-passe não pode ter mais de 255 caracteres.',
+            'password.required' => 'A senha é obrigatória.',
+            'password.max' => 'A senha não pode ter mais de 255 caracteres.',
         ];
     }
 
@@ -48,7 +48,7 @@ class LoginRequest extends FormRequest
     {
         return [
             'email' => 'email',
-            'password' => 'palavra-passe',
+            'password' => 'senha',
         ];
     }
 

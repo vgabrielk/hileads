@@ -7,7 +7,7 @@
     <!-- Header -->
     <div>
         <h1 class="text-2xl sm:text-3xl font-bold text-foreground">Grupos</h1>
-        <p class="text-muted-foreground mt-1">Organize seus contactos em grupos</p>
+        <p class="text-muted-foreground mt-1">Organize seus contatos em grupos</p>
     </div>
 
     <!-- Filters and Search -->
@@ -51,7 +51,7 @@
                 </div>
                 <div class="flex-1 min-w-0">
                     <h2 class="text-base font-semibold text-foreground">Grupos</h2>
-                    <p class="text-sm text-muted-foreground">Gerencie seus grupos de contactos</p>
+                    <p class="text-sm text-muted-foreground">Gerencie seus grupos de contatos</p>
                 </div>
             </div>
         </div>
@@ -150,7 +150,7 @@
                                         
                                         <form action="{{ route('groups.destroy', $group) }}" 
                                               method="POST" 
-                                              onsubmit="return handleDeleteConfirmation(event, 'Tem certeza que deseja eliminar este grupo?', 'Esta ação não pode ser desfeita.')" 
+                                              onsubmit="return handleDeleteConfirmation(event, 'Tem certeza que deseja excluir este grupo?', 'Esta ação não pode ser desfeita.')" 
                                               class="block"
                                               onclick="event.stopPropagation()">
                                             @csrf
@@ -159,7 +159,7 @@
                                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                                                 </svg>
-                                                Eliminar Grupo
+                                                Excluir Grupo
                                             </button>
                                         </form>
                                     </div>
@@ -184,7 +184,7 @@
                     </div>
                     <h3 class="text-lg font-semibold text-foreground mb-2">Nenhum grupo encontrado</h3>
                     <p class="text-sm text-muted-foreground mb-6 max-w-sm mx-auto">
-                        Crie o seu primeiro grupo para organizar contactos e facilitar campanhas
+                        Crie o seu primeiro grupo para organizar contatos e facilitar campanhas
                     </p>
                     <a href="{{ route('groups.create') }}" class="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium text-primary-foreground bg-primary hover:bg-primary/90 rounded-lg transition-all hover:shadow-md">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -227,10 +227,10 @@ async function handleDeleteConfirmation(event, message, subtitle) {
     if (typeof confirmAction === 'function') {
         const confirmed = await confirmAction({
             type: 'danger',
-            title: 'Eliminar Grupo',
+            title: 'Excluir Grupo',
             subtitle: subtitle,
             message: message,
-            confirmText: 'Eliminar',
+            confirmText: 'Excluir',
             cancelText: 'Cancelar'
         });
         

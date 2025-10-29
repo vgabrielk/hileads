@@ -18,7 +18,7 @@ class AdminMiddleware
         if (!$request->user() || !$request->user()->isAdmin()) {
             return response()->json([
                 'success' => false,
-                'message' => 'Acesso negado. Apenas administradores podem aceder este recurso.'
+                'message' => 'Acesso negado. Apenas administradores podem acessar este recurso.'
             ], 403);
         }
 

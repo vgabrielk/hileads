@@ -166,7 +166,7 @@
                         </div>
 
                         <div>
-                            <label for="whatsapp_max_connections_per_user" class="block text-sm font-medium text-foreground mb-2">Máximo de Ligações por Utilizador</label>
+                            <label for="whatsapp_max_connections_per_user" class="block text-sm font-medium text-foreground mb-2">Máximo de Conexões por Usuário</label>
                             <input type="number" name="whatsapp_max_connections_per_user" id="whatsapp_max_connections_per_user" 
                                    value="{{ old('whatsapp_max_connections_per_user', $settings['whatsapp_max_connections_per_user']) }}" 
                                    min="1" max="10" class="w-full px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
@@ -176,7 +176,7 @@
                         </div>
 
                         <div>
-                            <label for="whatsapp_connection_timeout" class="block text-sm font-medium text-foreground mb-2">Timeout de Ligação (segundos)</label>
+                            <label for="whatsapp_connection_timeout" class="block text-sm font-medium text-foreground mb-2">Timeout de Conexão (segundos)</label>
                             <input type="number" name="whatsapp_connection_timeout" id="whatsapp_connection_timeout" 
                                    value="{{ old('whatsapp_connection_timeout', $settings['whatsapp_connection_timeout']) }}" 
                                    min="30" max="300" class="w-full px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
@@ -312,7 +312,7 @@
                         </div>
 
                         <div>
-                            <label for="mail_username" class="block text-sm font-medium text-foreground mb-2">Utilizador</label>
+                            <label for="mail_username" class="block text-sm font-medium text-foreground mb-2">Usuário</label>
                             <input type="text" name="mail_username" id="mail_username" value="{{ old('mail_username', $settings['mail_username']) }}" 
                                    class="w-full px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
                             @error('mail_username')
@@ -321,7 +321,7 @@
                         </div>
 
                         <div>
-                            <label for="mail_password" class="block text-sm font-medium text-foreground mb-2">Palavra-passe</label>
+                            <label for="mail_password" class="block text-sm font-medium text-foreground mb-2">Senha</label>
                             <input type="password" name="mail_password" id="mail_password" value="{{ old('mail_password', $settings['mail_password']) }}" 
                                    class="w-full px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
                             @error('mail_password')

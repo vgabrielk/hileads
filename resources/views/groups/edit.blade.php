@@ -46,7 +46,7 @@
 
             <!-- Contacts Selection -->
             <div class="bg-card rounded-lg border border-border p-6 mb-6">
-                <h2 class="text-lg font-semibold text-foreground mb-4">Selecionar Contactos</h2>
+                <h2 class="text-lg font-semibold text-foreground mb-4">Selecionar Contatos</h2>
                 
                 @if($apiError)
                     <div class="bg-warning/10 border border-warning/20 rounded-lg p-4 mb-6">
@@ -54,7 +54,7 @@
                             <svg class="w-5 h-5 text-warning mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
                             </svg>
-                            <p class="text-warning-foreground">Não foi possível carregar contactos da API. Pode adicionar contactos manualmente abaixo.</p>
+                            <p class="text-warning-foreground">Não foi possível carregar contatos da API. Pode adicionar contatos manualmente abaixo.</p>
                         </div>
                     </div>
                 @endif
@@ -62,7 +62,7 @@
                 <!-- API Contacts -->
                 @if(!$apiError && count($apiContacts) > 0)
                     <div class="mb-6">
-                        <h3 class="text-base font-medium text-foreground mb-3">Contactos da API ({{ count($apiContacts) }})</h3>
+                        <h3 class="text-base font-medium text-foreground mb-3">Contatos da API ({{ count($apiContacts) }})</h3>
                         <div class="max-h-64 overflow-y-auto border border-border rounded-lg">
                             <div class="p-4">
                                 <label class="flex items-center mb-3">
@@ -91,7 +91,7 @@
 
                 <!-- Manual Contacts -->
                 <div>
-                    <h3 class="text-base font-medium text-foreground mb-3">Adicionar Contactos Manualmente</h3>
+                    <h3 class="text-base font-medium text-foreground mb-3">Adicionar Contatos Manualmente</h3>
                     <div id="manualContactsContainer">
                         @foreach($currentContacts as $index => $contact)
                             @if(!in_array($contact->contact_jid, collect($apiContacts)->pluck('jid')->toArray()))
@@ -100,7 +100,7 @@
                                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                             <div>
                                                 <label class="block text-sm font-medium text-foreground mb-1">Nome</label>
-                                                <input type="text" name="manual_contacts[{{ $index }}][name]" value="{{ $contact->contact_name }}" placeholder="Nome do contacto"
+                                                <input type="text" name="manual_contacts[{{ $index }}][name]" value="{{ $contact->contact_name }}" placeholder="Nome do contato"
                                                        class="w-full px-3 py-2 border border-input rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-background text-foreground">
                                             </div>
                                             <div>
@@ -130,7 +130,7 @@
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                         </svg>
-                        Adicionar Contacto
+                        Adicionar Contato
                     </button>
                 </div>
             </div>
@@ -143,7 +143,7 @@
                     </svg>
                     <div>
                         <p class="text-primary font-medium">Resumo do Grupo</p>
-                        <p class="text-primary/80 text-sm">Total de contactos selecionados: <span id="totalContacts">0</span></p>
+                        <p class="text-primary/80 text-sm">Total de contatos selecionados: <span id="totalContacts">0</span></p>
                     </div>
                 </div>
             </div>
@@ -175,7 +175,7 @@ function addManualContact() {
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                     <label class="block text-sm font-medium text-foreground mb-1">Nome</label>
-                    <input type="text" name="manual_contacts[${manualContactIndex}][name]" placeholder="Nome do contacto"
+                    <input type="text" name="manual_contacts[${manualContactIndex}][name]" placeholder="Nome do contato"
                            class="w-full px-3 py-2 border border-input rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-background text-foreground">
                 </div>
                 <div>

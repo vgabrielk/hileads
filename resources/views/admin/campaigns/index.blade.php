@@ -5,7 +5,7 @@
     <!-- Header -->
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-            <h1 class="text-2xl sm:text-3xl font-bold text-foreground">Gerir Campanhas</h1>
+            <h1 class="text-2xl sm:text-3xl font-bold text-foreground">Gerenciar Campanhas</h1>
             <p class="text-muted-foreground mt-1">Visualize e faça a gestão todas as campanhas do sistema</p>
         </div>
         <div class="flex gap-2">
@@ -94,9 +94,9 @@
             </div>
 
             <div>
-                <label class="block text-sm font-medium text-foreground mb-2">Utilizador</label>
+                <label class="block text-sm font-medium text-foreground mb-2">Usuário</label>
                 <select name="user_id" class="w-full px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
-                    <option value="">Todos os utilizadores</option>
+                    <option value="">Todos os usuárioes</option>
                     @foreach($users as $user)
                         <option value="{{ $user->id }}" {{ request('user_id') == $user->id ? 'selected' : '' }}>
                             {{ $user->name }}
@@ -118,7 +118,7 @@
             </div>
 
             <div>
-                <label class="block text-sm font-medium text-foreground mb-2">Procurar Utilizador</label>
+                <label class="block text-sm font-medium text-foreground mb-2">Procurar Usuário</label>
                 <input type="text" name="user_search" value="{{ request('user_search') }}" 
                        placeholder="Nome ou e-mail" 
                        class="w-full px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
@@ -159,7 +159,7 @@
             <table class="w-full">
                 <thead class="bg-muted/50">
                     <tr>
-                        <th class="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Utilizador</th>
+                        <th class="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Usuário</th>
                         <th class="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Título</th>
                         <th class="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Status</th>
                         <th class="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Tipo</th>

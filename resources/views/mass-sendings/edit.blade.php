@@ -33,7 +33,7 @@
                         </div>
                         <div class="ml-4">
                             <h3 class="text-lg font-semibold text-primary">Enviando para o grupo: {{ $group->name }}</h3>
-                            <p class="text-primary/80">{{ $group->contacts_count ?? 0 }} contactos serão incluídos neste envio</p>
+                            <p class="text-primary/80">{{ $group->contacts_count ?? 0 }} contatos serão incluídos neste envio</p>
                             @if(isset($group->description) && $group->description)
                                 <p class="text-sm text-primary/70 mt-1">{{ $group->description }}</p>
                             @endif
@@ -104,7 +104,7 @@
                                       name="message" 
                                       rows="6"
                                       class="w-full px-4 py-3 border border-gray-200 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors resize-none"
-                                      placeholder="Digite a mensagem que será enviada para os contactos selecionados...">{{ old('message', $massSending->message) }}</textarea>
+                                      placeholder="Digite a mensagem que será enviada para os contatos selecionados...">{{ old('message', $massSending->message) }}</textarea>
                             <p class="mt-2 text-xs text-gray-500">A mensagem será enviada exatamente como digitada acima</p>
             </div>
 
@@ -286,7 +286,7 @@
                                     </div>
                                     <div class="flex-1 min-w-0">
                                         <h3 class="font-semibold text-foreground truncate">{{ $group->name }}</h3>
-                                        <p class="text-sm text-muted-foreground">{{ $group->contacts_count ?? 0 }} contactos</p>
+                                        <p class="text-sm text-muted-foreground">{{ $group->contacts_count ?? 0 }} contatos</p>
                                     </div>
                                     <div class="flex-shrink-0">
                                         <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-success/10 text-success">
@@ -322,16 +322,16 @@
 
             <!-- Manual Contacts -->
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-8">
-                <h2 class="text-xl font-semibold text-gray-900 mb-4">Adicionar Contactos Manualmente</h2>
+                <h2 class="text-xl font-semibold text-gray-900 mb-4">Adicionar Contatos Manualmente</h2>
                 <div id="manualContactsContainer">
-                    <!-- Contactos serão adicionados aqui dinamicamente -->
+                    <!-- Contatos serão adicionados aqui dinamicamente -->
                 </div>
                 
                 <button type="button" onclick="addManualContact()" class="btn-ripple inline-flex items-center px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-xl transition-all">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
                     </svg>
-                    Adicionar Contacto
+                    Adicionar Contato
                 </button>
             </div>
 
@@ -370,7 +370,7 @@ function addManualContact() {
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Nome</label>
-                    <input type="text" name="manual_contacts[${manualContactIndex}][name]" placeholder="Nome do contacto"
+                    <input type="text" name="manual_contacts[${manualContactIndex}][name]" placeholder="Nome do contato"
                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                 </div>
                 <div>

@@ -210,7 +210,7 @@
             <nav class="flex-1 p-4">
                 <ul class="space-y-2">
                     @if(!Auth::user()->isAdmin())
-                        <!-- Itens para utilizadores comuns -->
+                        <!-- Itens para usuários comuns -->
                         <li>
                             <a href="{{ route('dashboard') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg {{ request()->routeIs('dashboard') ? 'bg-primary text-primary-foreground shadow-sm' : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground' }} transition-all">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -224,7 +224,7 @@
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
                                 </svg>
-                                <span class="font-medium">Contactos</span>
+                                <span class="font-medium">Contatos</span>
                             </a>
                         </li>
                         <li>
@@ -272,7 +272,7 @@
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                 </svg>
-                                <span class="font-medium">Subscrições</span>
+                                <span class="font-medium">Assinaturas</span>
                             </a>
                         </li>
                     @endif
@@ -290,7 +290,7 @@
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
                                 </svg>
-                                <span class="font-medium">Gerir Planos</span>
+                                <span class="font-medium">Gerenciar Planos</span>
                             </a>
                         </li>
                         <li>
@@ -298,7 +298,7 @@
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                 </svg>
-                                <span class="font-medium">Gerir Subscrições</span>
+                                <span class="font-medium">Gerenciar Assinaturas</span>
                             </a>
                         </li>
                         <li>
@@ -306,7 +306,7 @@
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
                                 </svg>
-                                <span class="font-medium">Gerir Campanhas</span>
+                                <span class="font-medium">Gerenciar Campanhas</span>
                             </a>
                         </li>
                         <li>
@@ -347,7 +347,7 @@
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
                                 </svg>
-                                <span class="font-medium">Utilizadores</span>
+                                <span class="font-medium">Usuários</span>
                             </a>
                         </li>
                         <li>

@@ -41,7 +41,7 @@ class DashboardController extends Controller
                     \Log::warning('Dashboard: Falha ao buscar grupos da API', ['user_id' => $user->id, 'response' => $groupsResponse]);
                 }
                 
-                // Buscar contactos da API
+                // Buscar contatos da API
                 $contactsResponse = $service->getContacts();
                 if ($contactsResponse['success'] ?? false) {
                     $contactsCount = count($contactsResponse['data'] ?? []);
@@ -84,7 +84,7 @@ class DashboardController extends Controller
         // Verificar se há conexões ativas no banco
         $activeConnections = $recentConnections->where('status', 'active');
         
-        // Status da ligação (mesma lógica da página /whatsapp)
+        // Status da conexão (mesma lógica da página /whatsapp)
         $whatsappStatus = null;
         if ($activeConnections->count() > 0) {
             $whatsappStatus = [
@@ -98,7 +98,7 @@ class DashboardController extends Controller
         } else {
             $whatsappStatus = [
                 'success' => false,
-                'message' => 'Nenhuma ligação ativa. Clique em "Ligar WhatsApp" para iniciar.'
+                'message' => 'Nenhuma conexão ativa. Clique em "Ligar WhatsApp" para iniciar.'
             ];
         }
 

@@ -16,11 +16,11 @@ class WhatsAppController extends Controller
      */
     protected function getWuzapiService(): WuzapiService
     {
-        // Usa o token único do utilizador logado
+        // Usa o token único do usuário logado
         $userToken = auth()->user()->api_token;
         
         if (!$userToken) {
-            throw new \Exception('Utilizador não possui token de API. Por favor, acesse seu perfil para gerar um token.');
+            throw new \Exception('Usuário não possui token de API. Por favor, acesse seu perfil para gerar um token.');
         }
         
         return new WuzapiService($userToken);
@@ -51,10 +51,10 @@ class WhatsAppController extends Controller
                 ]
             ];
         } else {
-            // Se não há ligações ativas, mostrar mensagem para ligar
+            // Se não há conexões ativas, mostrar mensagem para conectar
             $status = [
                 'success' => false,
-                'message' => 'Nenhuma ligação ativa. Clique em "Ligar WhatsApp" para iniciar.'
+                'message' => 'Nenhuma conexão ativa. Clique em "Conectar WhatsApp" para iniciar.'
             ];
         }
 
@@ -88,12 +88,12 @@ class WhatsAppController extends Controller
                     'connection_data' => $result,
                 ]);
                 return redirect()->route('whatsapp.show', $connection)
-                    ->with('success', 'Ligação criada com sucesso! Digitalize o QR Code para ligar.');
+                    ->with('success', 'Conexão criada com sucesso! Escaneie o QR Code para conectar.');
             } else {
-                return back()->with('error', 'Erro ao criar ligação: ' . ($result['message'] ?? 'Erro desconhecido'));
+                return back()->with('error', 'Erro ao criar conexão: ' . ($result['message'] ?? 'Erro desconhecido'));
             }
         } catch (\Exception $e) {
-            return back()->with('error', 'Erro ao ligar com WhatsApp: ' . $e->getMessage());
+            return back()->with('error', 'Erro ao conectar com WhatsApp: ' . $e->getMessage());
         }
     }
 
@@ -140,12 +140,12 @@ class WhatsAppController extends Controller
 
                 $whatsapp->update(['last_sync' => now()]);
 
-                return back()->with('success', 'Contactos sincronizados com sucesso!');
+                return back()->with('success', 'Contatos sincronizados com sucesso!');
             } else {
-                return back()->with('error', 'Erro ao sincronizar contactos: ' . ($contacts['message'] ?? 'Erro desconhecido'));
+                return back()->with('error', 'Erro ao sincronizar contatos: ' . ($contacts['message'] ?? 'Erro desconhecido'));
             }
         } catch (\Exception $e) {
-            return back()->with('error', 'Erro ao sincronizar contactos: ' . $e->getMessage());
+            return back()->with('error', 'Erro ao sincronizar contatos: ' . $e->getMessage());
         }
     }
 
@@ -159,7 +159,7 @@ class WhatsAppController extends Controller
             $contacts = $wuzapiService->getContacts();
 
             if (!($contacts['success'] ?? false)) {
-                return back()->with('error', 'Erro ao sincronizar contactos: ' . ($contacts['message'] ?? 'Erro desconhecido'));
+                return back()->with('error', 'Erro ao sincronizar contatos: ' . ($contacts['message'] ?? 'Erro desconhecido'));
             }
 
             // Get or create a default connection for the user
@@ -209,9 +209,9 @@ class WhatsAppController extends Controller
 
             $connection->update(['last_sync' => now()]);
 
-            return redirect()->route('contacts.index')->with('success', "Contactos sincronizados! Novos: {$extractedCount}");
+            return redirect()->route('contacts.index')->with('success', "Contatos sincronizados! Novos: {$extractedCount}");
         } catch (\Exception $e) {
-            return back()->with('error', 'Erro ao sincronizar contactos: ' . $e->getMessage());
+            return back()->with('error', 'Erro ao sincronizar contatos: ' . $e->getMessage());
         }
     }
 
@@ -225,9 +225,9 @@ class WhatsAppController extends Controller
             $whatsapp->delete();
 
             return redirect()->route('whatsapp.index')
-                ->with('success', 'Ligação removida com sucesso!');
+                ->with('success', 'Conexão removida com sucesso!');
         } catch (\Exception $e) {
-            return back()->with('error', 'Erro ao remover ligação: ' . $e->getMessage());
+            return back()->with('error', 'Erro ao remover conexão: ' . $e->getMessage());
         }
     }
     public function connect()
@@ -235,13 +235,13 @@ class WhatsAppController extends Controller
         try {
             $wuzapiService = $this->getWuzapiService();
             
-            // Sempre desligar primeiro para garantir uma nova ligação
+            // Sempre desconectar primeiro para garantir uma nova conexão
             $disconnectResult = $wuzapiService->disconnectFromWhatsApp();
-            Log::info('Desconectando sessão existente antes de ligar', [
+            Log::info('Desconectando sessão existente antes de conectar', [
                 'disconnect_result' => $disconnectResult
             ]);
             
-            // Aguardar um momento para garantir que a desligação foi processada
+            // Aguardar um momento para garantir que a desconexão foi processada
             sleep(2);
             
             // Agora conectar e gerar novo QR code
@@ -264,7 +264,7 @@ class WhatsAppController extends Controller
 
         } catch (\Exception $e) {
             Log::error('Erro ao conectar WhatsApp: ' . $e->getMessage());
-            return back()->with('error', 'Erro ao ligar: ' . $e->getMessage());
+            return back()->with('error', 'Erro ao conectar: ' . $e->getMessage());
         }
     }
 
@@ -277,7 +277,7 @@ class WhatsAppController extends Controller
             $wuzapiService = $this->getWuzapiService();
             $result = $wuzapiService->checkLoginStatus();
 
-            // Se o utilizador está logado, salvar a ligação no banco de dados
+            // Se o usuário está logado, salvar a conexão no banco de dados
             if ($result['success'] && $result['logged_in']) {
                 $this->saveWhatsAppConnection($wuzapiService);
             }
@@ -294,20 +294,20 @@ class WhatsAppController extends Controller
     }
 
     /**
-     * Salva a ligação WhatsApp no banco de dados
+     * Salva a conexão WhatsApp no banco de dados
      */
     private function saveWhatsAppConnection($wuzapiService)
     {
         try {
             $user = auth()->user();
             
-            // Verificar se já existe uma ligação ativa para este utilizador
+            // Verificar se já existe uma conexão ativa para este usuário
             $existingConnection = $user->whatsappConnections()
                 ->where('status', 'active')
                 ->first();
 
             if ($existingConnection) {
-                // Atualizar ligação existente
+                // Atualizar conexão existente
                 $existingConnection->update([
                     'last_sync' => now(),
                     'status' => 'active',
@@ -318,9 +318,9 @@ class WhatsAppController extends Controller
                         'api_token' => substr($user->api_token, 0, 10) . '...'
                     ]
                 ]);
-                Log::info('Ligação WhatsApp atualizada', ['connection_id' => $existingConnection->id]);
+                Log::info('Conexão WhatsApp atualizada', ['connection_id' => $existingConnection->id]);
             } else {
-                // Criar nova ligação
+                // Criar nova conexão
                 $connection = $user->whatsappConnections()->create([
                     'phone_number' => 'WhatsApp Connected',
                     'instance_id' => 'wuzapi_' . $user->id,
@@ -333,7 +333,7 @@ class WhatsAppController extends Controller
                         'api_token' => substr($user->api_token, 0, 10) . '...'
                     ]
                 ]);
-                Log::info('Nova ligação WhatsApp criada', ['connection_id' => $connection->id]);
+                Log::info('Nova conexão WhatsApp criada', ['connection_id' => $connection->id]);
             }
             
             // Limpar cache relacionado às conexões
@@ -341,7 +341,7 @@ class WhatsAppController extends Controller
             $user->clearUserCaches();
             
         } catch (\Exception $e) {
-            Log::error('Erro ao salvar ligação WhatsApp: ' . $e->getMessage());
+            Log::error('Erro ao salvar conexão WhatsApp: ' . $e->getMessage());
         }
     }
 
@@ -391,13 +391,13 @@ class WhatsAppController extends Controller
         try {
             $wuzapiService = $this->getWuzapiService();
             
-            // Sempre desligar primeiro para garantir uma nova ligação
+            // Sempre desconectar primeiro para garantir uma nova conexão
             $disconnectResult = $wuzapiService->disconnectFromWhatsApp();
-            Log::info('Desconectando sessão existente antes de ligar', [
+            Log::info('Desconectando sessão existente antes de conectar', [
                 'disconnect_result' => $disconnectResult
             ]);
             
-            // Aguardar um momento para garantir que a desligação foi processada
+            // Aguardar um momento para garantir que a desconexão foi processada
             sleep(2);
             
             // Conectar ao WhatsApp
@@ -417,10 +417,10 @@ class WhatsAppController extends Controller
             }
         } catch (\Exception $e) {
             Log::error('Erro ao conectar sessão WhatsApp: ' . $e->getMessage());
-            return response()->json([
-                'success' => false,
-                'message' => 'Erro ao ligar: ' . $e->getMessage()
-            ], 500);
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Erro ao conectar: ' . $e->getMessage()
+                ], 500);
         }
     }
 
@@ -464,7 +464,7 @@ class WhatsAppController extends Controller
             $result = $wuzapiService->getStatus();
 
             if ($result['success']) {
-                // Se o utilizador está logado, salvar a ligação no banco de dados
+                // Se o usuário está logado, salvar a conexão no banco de dados
                 if ($result['data']['LoggedIn'] ?? false) {
                     $this->saveWhatsAppConnection($wuzapiService);
                 }
@@ -490,7 +490,7 @@ class WhatsAppController extends Controller
     }
 
     /**
-     * Exibe o fluxo de ligação
+     * Exibe o fluxo de conexão
      */
     public function showConnectFlow()
     {

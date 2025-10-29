@@ -6,7 +6,7 @@
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
             <h1 class="text-2xl sm:text-3xl font-bold text-foreground">Sistema de Notificações</h1>
-            <p class="text-muted-foreground mt-1">Faça a gestão notificações para utilizadores</p>
+            <p class="text-muted-foreground mt-1">Faça a gestão notificações para usuárioes</p>
         </div>
         <div class="flex gap-2">
             <a href="{{ route('admin.notifications.create') }}" 
@@ -98,7 +98,7 @@
                         <th class="px-4 py-3 text-left text-sm font-medium text-muted-foreground">
                             <input type="checkbox" id="selectAll" onchange="toggleAll()" class="rounded border-border">
                         </th>
-                        <th class="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Utilizador</th>
+                        <th class="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Usuário</th>
                         <th class="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Título</th>
                         <th class="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Tipo</th>
                         <th class="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Status</th>

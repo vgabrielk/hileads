@@ -59,11 +59,11 @@ class StripeService
             // Criar ou obter produto no Stripe
             $stripeProduct = $this->getOrCreateStripeProduct($plan);
             
-            // Criar ou obter preço no Stripe (em EUR)
+            // Criar ou obter preço no Stripe (em BRL - Reais)
             $stripePrice = $this->getOrCreateStripePrice($plan, $stripeProduct);
 
-            // Criar ou obter customer no Stripe (com moeda EUR)
-            $stripeCustomer = $this->getOrCreateStripeCustomer($user, 'eur');
+            // Criar ou obter customer no Stripe (com moeda BRL)
+            $stripeCustomer = $this->getOrCreateStripeCustomer($user, 'brl');
 
             // URLs padrão
             $successUrl = $successUrl ?? route('subscriptions.success');
@@ -139,39 +139,39 @@ class StripeService
      */
     private function getOrCreateStripePrice(Plan $plan, \Stripe\Product $stripeProduct): \Stripe\Price
     {
-        // Verificar se já existe um preço com o metadata plan_id E moeda EUR
+        // Verificar se já existe um preço com o metadata plan_id E moeda BRL
         $prices = Price::all([
             'product' => $stripeProduct->id,
             'limit' => 100
         ]);
         
-        $oldPriceInBRL = null;
+        $oldPriceInOtherCurrency = null;
         foreach ($prices->data as $price) {
             if (isset($price->metadata['plan_id']) && $price->metadata['plan_id'] == $plan->id) {
-                // Se encontrou o preço mas está em EUR, retorna
-                if ($price->currency === 'eur') {
+                // Se encontrou o preço e está em BRL, retorna
+                if ($price->currency === 'brl') {
                     return $price;
                 }
-                // Se está em outra moeda (BRL), guarda para log
-                $oldPriceInBRL = $price;
+                // Se está em outra moeda (EUR, USD, etc), guarda para log
+                $oldPriceInOtherCurrency = $price;
             }
         }
 
-        // Se encontrou um preço antigo em BRL, loga isso
-        if ($oldPriceInBRL) {
-            Log::info('Creating new EUR price because old price is in wrong currency', [
+        // Se encontrou um preço antigo em outra moeda, loga isso
+        if ($oldPriceInOtherCurrency) {
+            Log::info('Creating new BRL price because old price is in wrong currency', [
                 'plan_id' => $plan->id,
-                'old_price_id' => $oldPriceInBRL->id,
-                'old_currency' => $oldPriceInBRL->currency,
-                'new_currency' => 'eur'
+                'old_price_id' => $oldPriceInOtherCurrency->id,
+                'old_currency' => $oldPriceInOtherCurrency->currency,
+                'new_currency' => 'brl'
             ]);
         }
 
-        // Criar novo preço em EUR
+        // Criar novo preço em BRL (Reais brasileiros)
         return Price::create([
             'product' => $stripeProduct->id,
-            'unit_amount' => $plan->price_cents,
-            'currency' => 'eur',
+            'unit_amount' => $plan->price_cents, // Valor em centavos (ex: 4990 = R$ 49,90)
+            'currency' => 'brl',
             'recurring' => [
                 'interval' => $plan->interval === 'monthly' ? 'month' : 'year',
                 'interval_count' => $plan->interval_count ?? 1,
@@ -185,7 +185,7 @@ class StripeService
     /**
      * Get or create Stripe customer
      */
-    private function getOrCreateStripeCustomer(User $user, string $currency = 'eur'): \Stripe\Customer
+    private function getOrCreateStripeCustomer(User $user, string $currency = 'brl'): \Stripe\Customer
     {
         // Verificar se já existe um customer com o metadata user_id E currency
         $customers = Customer::all(['limit' => 100]);
@@ -212,7 +212,7 @@ class StripeService
             }
         }
 
-        // Criar novo customer com a moeda especificada
+        // Criar novo customer com a moeda BRL (Reais brasileiros)
         return Customer::create([
             'email' => $user->email,
             'name' => $user->name,

@@ -4,11 +4,11 @@
 <div class="p-8 space-y-6">
     <div class="max-w-6xl mx-auto">
         <div class="mb-4 flex items-center justify-between">
-            <h1 class="text-2xl font-bold">Status da Ligação</h1>
+            <h1 class="text-2xl font-bold">Status da Conexão</h1>
             <div class="space-x-2">
                 <a href="{{ route('whatsapp.status') }}" class="px-3 py-2 rounded bg-green-600 text-white">Status</a>
-                <a href="{{ route('whatsapp.contacts') }}" class="px-3 py-2 rounded bg-gray-200">Contactos</a>
-                <a href="{{ route('whatsapp.index') }}" class="px-3 py-2 rounded bg-gray-200">Ligações</a>
+                <a href="{{ route('whatsapp.contacts') }}" class="px-3 py-2 rounded bg-gray-200">Contatos</a>
+                <a href="{{ route('whatsapp.index') }}" class="px-3 py-2 rounded bg-gray-200">Conexões</a>
             </div>
         </div>
 

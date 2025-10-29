@@ -185,7 +185,7 @@
             <!-- Total Contacts -->
             <div class="card-hover bg-white rounded-2xl shadow-sm border border-gray-100 p-6 hover:shadow-xl">
                 <div class="flex items-center justify-between mb-4">
-                    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wider">Total de Contactos</h3>
+                    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wider">Total de Contatos</h3>
                     <div class="w-12 h-12 bg-gradient-to-br from-blue-100 to-blue-200 rounded-xl flex items-center justify-center">
                         <svg class="w-6 h-6 text-blue-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
@@ -193,7 +193,7 @@
                     </div>
                 </div>
                 <p class="text-3xl font-bold text-gray-900">{{ number_format($massSending->total_contacts) }}</p>
-                <p class="text-xs text-gray-500 mt-2">Contactos selecionados</p>
+                <p class="text-xs text-gray-500 mt-2">Contatos selecionados</p>
             </div>
 
             <!-- Sent Count -->
@@ -246,7 +246,7 @@
                     </div>
                     <div class="flex-1">
                         <h2 class="text-base font-semibold text-foreground">Mensagem da Campanha</h2>
-                        <p class="text-sm text-muted-foreground">Conteúdo enviado aos contactos</p>
+                        <p class="text-sm text-muted-foreground">Conteúdo enviado aos contatos</p>
                     </div>
                     <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700">
                         {{ $massSending->message_type ?? 'texto' }}
@@ -343,7 +343,7 @@
                         </div>
                         <div class="flex-1">
                             <h2 class="text-base font-semibold text-foreground">Leads da Campanha</h2>
-                            <p class="text-sm text-muted-foreground">Contactos que receberão a mensagem</p>
+                            <p class="text-sm text-muted-foreground">Contatos que receberão a mensagem</p>
                         </div>
                         <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-primary/10 text-primary">
                             {{ count($wuzapiParticipants) }} {{ count($wuzapiParticipants) === 1 ? 'lead' : 'leads' }}
@@ -456,7 +456,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Show toast notification
                 const toast = document.getElementById('toast-notification');
                 if (toast) {
-                    toast.querySelector('#toast-message').textContent = 'Retomando campanha! Processando contactos restantes...';
+                    toast.querySelector('#toast-message').textContent = 'Retomando campanha! Processando contatos restantes...';
                     toast.classList.remove('hidden');
                     setTimeout(() => {
                         toast.classList.add('hidden');

@@ -24,7 +24,7 @@ class ContactController extends Controller
         ];
         
         // Pagination parameters
-        $perPage = 50; // Limite de contactos por página
+        $perPage = 50; // Limite de contatos por página
         $page = $request->get('page', 1);
         $search = $request->get('search', '');
         
@@ -159,7 +159,7 @@ class ContactController extends Controller
                 $apiError = true;
             }
             
-            // Se não conseguiu procurar grupos, tenta procurar contactos mesmo assim
+            // Se não conseguiu procurar grupos, tenta procurar contatos mesmo assim
             $contacts = [];
             try {
                 $contactsResponse = $this->service()->getContacts();
@@ -200,7 +200,7 @@ class ContactController extends Controller
                     $contacts = $allContacts->forPage($page, $perPage)->values()->toArray();
                 }
             } catch (\Exception $e3) {
-                \Log::error('Erro ao procurar contactos: ' . $e3->getMessage());
+                \Log::error('Erro ao procurar contatos: ' . $e3->getMessage());
             }
             */
             

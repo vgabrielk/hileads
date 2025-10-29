@@ -6,15 +6,15 @@
     <div>
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
-                <h1 class="text-2xl sm:text-3xl font-bold text-foreground">Ligações WhatsApp</h1>
-                <p class="text-muted-foreground mt-1">Faça a gestão das suas ligações WhatsApp</p>
+                <h1 class="text-2xl sm:text-3xl font-bold text-foreground">Conexões WhatsApp</h1>
+                <p class="text-muted-foreground mt-1">Faça a gestão das suas conexões WhatsApp</p>
             </div>
             @if($connections->count() == 0 && (!isset($status) || !$status['success'] || !($status['data']['Connected'] ?? false)))
                 <a href="{{ route('whatsapp.connect-flow') }}" class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-primary-foreground bg-primary hover:bg-primary/90 rounded-lg transition-colors w-full sm:w-auto justify-center">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                     </svg>
-                    Ligar WhatsApp
+                    Conectar WhatsApp
                 </a>
             @endif
         </div>
@@ -32,7 +32,7 @@
                                 </svg>
                             </div>
                             <div class="ml-3">
-                                <p class="text-sm font-medium text-blue-800">{{ $status['message'] ?? 'Não foi possível obter o estado da ligação.' }}</p>
+                                <p class="text-sm font-medium text-blue-800">{{ $status['message'] ?? 'Não foi possível obter o estado da conexão.' }}</p>
                             </div>
                         </div>
                     </div>
@@ -42,13 +42,13 @@
                         <div class="bg-card rounded-lg border border-border p-4 sm:p-6 hover:shadow-md transition-shadow">
                             <div class="flex items-center justify-between">
                                 <div>
-                                    <p class="text-sm font-medium text-muted-foreground mb-2">Estado da Ligação</p>
+                                    <p class="text-sm font-medium text-muted-foreground mb-2">Estado da Conexão</p>
                                     <div class="flex items-center">
                                         <span class="inline-flex items-center px-3 py-1.5 rounded-lg text-sm font-medium
                                             @if($status['data']['Connected'] ?? false) bg-success/10 text-success
                                             @else bg-destructive/10 text-destructive @endif">
                                             <span class="w-2 h-2 rounded-full mr-2 @if($status['data']['Connected'] ?? false) bg-success @else bg-destructive @endif"></span>
-                                            {{ ($status['data']['Connected'] ?? false) ? 'Ligado' : 'Desligado' }}
+                                            {{ ($status['data']['Connected'] ?? false) ? 'Conectado' : 'Desconectado' }}
                                         </span>
                                     </div>
                                 </div>
@@ -97,8 +97,8 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path>
                             </svg>
                         </div>
-                        <h3 class="text-xl font-bold text-foreground mb-2">Digitalize o QR Code</h3>
-                        <p class="text-muted-foreground mb-8">Abra o WhatsApp no seu telemóvel e digitalize o código abaixo</p>
+                        <h3 class="text-xl font-bold text-foreground mb-2">Escaneie o QR Code</h3>
+                        <p class="text-muted-foreground mb-8">Abra o WhatsApp no seu telemóvel e escaneie o código abaixo</p>
                         <div class="inline-block p-6 bg-background rounded-lg border-2 border-border shadow-lg">
                             <img src="{{ $qrCode }}" alt="QR Code WhatsApp" class="w-64 h-64 mx-auto">
                         </div>
@@ -119,7 +119,7 @@
                                 <svg class="w-5 h-5 mr-2 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path>
                                 </svg>
-                                <span>3. Digitalize o QR Code</span>
+                                <span>3. Escaneie o QR Code</span>
                             </div>
                         </div>
                     </div>
@@ -130,7 +130,7 @@
         <!-- Connections List -->
         @if($connections->count() > 0 || (isset($status) && $status['success'] && ($status['data']['Connected'] ?? false)))
             <div class="space-y-4">
-                <h2 class="text-lg font-bold text-foreground mb-4">Minhas Ligações</h2>
+                <h2 class="text-lg font-bold text-foreground mb-4">Minhas Conexões</h2>
                 
                 @if($connections->count() > 0)
                     @foreach($connections as $connection)
@@ -169,7 +169,7 @@
                                         @elseif($connection->status === 'disconnected') bg-destructive
                                         @else bg-warning @endif">
                                     </span>
-                                    {{ $connection->status === 'connected' ? 'Ligado' : ($connection->status === 'disconnected' ? 'Desconectado' : ucfirst($connection->status)) }}
+                                    {{ $connection->status === 'connected' ? 'Conectado' : ($connection->status === 'disconnected' ? 'Desconectado' : ucfirst($connection->status)) }}
                                 </span>
                             </div>
 
@@ -183,7 +183,7 @@
                                     Ver Detalhes
                                 </a>
 
-                                <form method="POST" action="{{ route('whatsapp.destroy', $connection) }}" class="inline ml-auto" onsubmit="return handleDeleteConfirmation(event, 'Tem certeza que deseja remover esta ligação?', 'Esta ação não pode ser desfeita.')">
+                                <form method="POST" action="{{ route('whatsapp.destroy', $connection) }}" class="inline ml-auto" onsubmit="return handleDeleteConfirmation(event, 'Tem certeza que deseja remover esta conexão?', 'Esta ação não pode ser desfeita.')">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-destructive-foreground bg-destructive hover:bg-destructive/90 rounded-lg transition-colors">
@@ -210,10 +210,10 @@
                                         </svg>
                                     </div>
                                     <div class="flex-1 min-w-0">
-                                        <h3 class="text-lg font-bold text-foreground">Ligação WhatsApp Ativa</h3>
+                                        <h3 class="text-lg font-bold text-foreground">Conexão WhatsApp Ativa</h3>
                                         <p class="text-sm text-muted-foreground mt-1">
                                             <span class="font-medium">Status:</span> 
-                                            <span class="text-success font-medium">Ligado via API</span>
+                                            <span class="text-success font-medium">Conectado via API</span>
                                         </p>
                                         <p class="text-xs text-muted-foreground mt-1">
                                             <svg class="w-3.5 h-3.5 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -227,7 +227,7 @@
                                 <!-- Status Badge -->
                                 <span class="inline-flex items-center px-3 py-1.5 rounded-lg text-sm font-medium bg-success/10 text-success">
                                     <span class="w-2 h-2 rounded-full mr-2 bg-success"></span>
-                                    Ligado
+                                    Conectado
                                 </span>
                             </div>
 
@@ -244,7 +244,7 @@
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
                                     </svg>
-                                    Ver Contactos
+                                    Ver Contatos
                                 </a>
 
                                 <!-- Disconnect Button -->
@@ -280,15 +280,15 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
                     </svg>
                 </div>
-                <h3 class="text-lg font-medium text-foreground mb-2">Nenhuma ligação WhatsApp encontrada</h3>
+                <h3 class="text-lg font-medium text-foreground mb-2">Nenhuma conexão WhatsApp encontrada</h3>
                 <p class="text-muted-foreground mb-6 max-w-md mx-auto">
-                    Conecte o seu WhatsApp para começar a criar campanhas e gerir contactos
+                    Conecte o seu WhatsApp para começar a criar campanhas e gerenciar contatos
                 </p>
                 <a href="{{ route('whatsapp.connect-flow') }}" class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-primary-foreground bg-primary hover:bg-primary/90 rounded-lg transition-colors">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                     </svg>
-                    Ligar Primeiro WhatsApp
+                    Conectar Primeiro WhatsApp
                 </a>
             </div>
         @endif
@@ -303,7 +303,7 @@ async function handleDeleteConfirmation(event, message, subtitle) {
     
     const confirmed = await confirmAction({
         type: 'danger',
-        title: 'Remover Ligação',
+        title: 'Remover Conexão',
         subtitle: subtitle,
         message: message,
         confirmText: 'Remover',
@@ -327,7 +327,7 @@ async function handleDisconnectConfirmation(event, message, subtitle) {
         subtitle: subtitle,
         message: message,
         confirmText: 'Desconectar',
-        cancelText: 'Manter Ligado'
+        cancelText: 'Manter Conectado'
     });
     
     if (confirmed) {

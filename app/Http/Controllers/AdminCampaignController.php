@@ -232,7 +232,7 @@ class AdminCampaignController extends Controller
             ]);
 
             return redirect()->back()
-                ->with('error', 'Erro ao eliminar campanha: ' . $e->getMessage());
+                ->with('error', 'Erro ao excluir campanha: ' . $e->getMessage());
         }
     }
 

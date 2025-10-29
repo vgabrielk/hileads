@@ -63,7 +63,7 @@ class AdminUserController extends Controller
             $token = $user->generateApiToken();
         }
 
-        // Criar utilizador na Wuzapi com o mesmo token
+        // Criar usuário na Wuzapi com o mesmo token
         try {
             $wuzapiService = new WuzapiService($token);
             $wuzapiResult = $wuzapiService->createWuzapiUser($user->name, $token);
@@ -204,7 +204,7 @@ class AdminUserController extends Controller
         if ($user->id === auth()->id()) {
             return response()->json([
                 'success' => false,
-                'message' => 'Não pode eliminar a sua própria conta.'
+                'message' => 'Não pode excluir a sua própria conta.'
             ], 403);
         }
 
@@ -255,10 +255,10 @@ class AdminUserController extends Controller
             // Procurar todos os usuários do Laravel com token
             $laravelUsers = User::whereNotNull('api_token')->get();
 
-            // Verificar status de cada utilizador na Wuzapi
+            // Verificar status de cada usuário na Wuzapi
             $enrichedUsers = $laravelUsers->map(function ($user) {
                 try {
-                    // Tentar pegar status da sessão com o token do utilizador
+                    // Tentar pegar status da sessão com o token do usuário
                     $response = Http::withHeaders([
                         'token' => $user->api_token,
                     ])->get(config('services.wuzapi.base_url') . '/session/status');

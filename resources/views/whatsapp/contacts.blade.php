@@ -6,13 +6,13 @@
     <div>
         <div class="flex items-center justify-between">
             <div>
-                <h1 class="text-3xl font-bold text-foreground">Contactos</h1>
-                <p class="text-muted-foreground mt-1">Faça a gestão seus contactos do WhatsApp</p>
+                <h1 class="text-3xl font-bold text-foreground">Contatos</h1>
+                <p class="text-muted-foreground mt-1">Faça a gestão seus contatos do WhatsApp</p>
             </div>
             <div class="space-x-2">
                 <a href="{{ route('whatsapp.status') }}" class="px-3 py-2 rounded bg-gray-200">Status</a>
-                <a href="{{ route('whatsapp.contacts') }}" class="px-3 py-2 rounded bg-green-600 text-white">Contactos</a>
-                <a href="{{ route('whatsapp.index') }}" class="px-3 py-2 rounded bg-gray-200">Ligações</a>
+                <a href="{{ route('whatsapp.contacts') }}" class="px-3 py-2 rounded bg-green-600 text-white">Contatos</a>
+                <a href="{{ route('whatsapp.index') }}" class="px-3 py-2 rounded bg-gray-200">Conexões</a>
             </div>
         </div>
     </div>
@@ -21,7 +21,7 @@
             <div class="bg-red-100 border-l-4 border-red-500 p-4">{{ $result['message'] }}</div>
         @else
             <div class="bg-white rounded shadow p-4 mb-6">
-                <h2 class="font-semibold mb-2">Lista de Contactos (da conta conectada)</h2>
+                <h2 class="font-semibold mb-2">Lista de Contatos (da conta conectada)</h2>
                 <div class="overflow-x-auto">
                     <table class="min-w-full text-sm">
                         <thead>
@@ -39,7 +39,7 @@
                                 <td class="p-2">{{ ($contact['Found'] ?? false) ? 'Sim' : 'Não' }}</td>
                             </tr>
                         @empty
-                            <tr><td class="p-2" colspan="3">Sem contactos retornados.</td></tr>
+                            <tr><td class="p-2" colspan="3">Sem contatos retornados.</td></tr>
                         @endforelse
                         </tbody>
                     </table>
@@ -143,7 +143,7 @@
                     <form method="POST" action="{{ route('whatsapp.delete') }}" class="space-y-2 mt-2">
                         @csrf
                         <input type="text" name="id" class="border rounded p-2 w-full" placeholder="Message Id"/>
-                        <button class="px-3 py-2 bg-red-600 text-white rounded">Eliminar</button>
+                        <button class="px-3 py-2 bg-red-600 text-white rounded">Excluir</button>
                     </form>
                     @if(session('result_react') || session('result_delete'))
                         <pre class="mt-3 text-xs bg-gray-50 p-2 rounded overflow-auto">{{ json_encode(session('result_react') ?? session('result_delete'), JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE) }}</pre>

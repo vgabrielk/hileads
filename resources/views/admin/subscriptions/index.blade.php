@@ -5,8 +5,8 @@
     <!-- Header -->
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-            <h1 class="text-2xl sm:text-3xl font-bold text-foreground">Gerir Subscrições</h1>
-            <p class="text-muted-foreground mt-1">Visualize e faça a gestão todas as subscrições do sistema</p>
+            <h1 class="text-2xl sm:text-3xl font-bold text-foreground">Gerenciar Assinaturas</h1>
+            <p class="text-muted-foreground mt-1">Visualize e faça a gestão todas as assinaturas do sistema</p>
         </div>
     </div>
 
@@ -58,7 +58,7 @@
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-sm font-medium text-muted-foreground mb-2">Receita Total</p>
-                    <p class="text-2xl font-bold text-foreground">€{{ number_format($stats['revenue'], 2, ',', '.') }}</p>
+                    <p class="text-2xl font-bold text-foreground">R$ {{ number_format($stats['revenue'], 2, ',', '.') }}</p>
                 </div>
                 <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
                     <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -97,7 +97,7 @@
             </div>
 
             <div>
-                <label class="block text-sm font-medium text-foreground mb-2">Utilizador</label>
+                <label class="block text-sm font-medium text-foreground mb-2">Usuário</label>
                 <input type="text" name="user_search" value="{{ request('user_search') }}" 
                        placeholder="Nome ou e-mail" 
                        class="w-full px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
@@ -138,7 +138,7 @@
             <table class="w-full">
                 <thead class="bg-muted/50">
                     <tr>
-                        <th class="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Utilizador</th>
+                        <th class="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Usuário</th>
                         <th class="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Plano</th>
                         <th class="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Status</th>
                         <th class="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Valor</th>
@@ -173,7 +173,7 @@
                                 </span>
                             </td>
                             <td class="px-4 py-3">
-                                <p class="font-medium text-foreground">€{{ number_format($subscription->amount ?? $subscription->plan->price, 2, ',', '.') }}</p>
+                                <p class="font-medium text-foreground">R$ {{ number_format($subscription->amount ?? $subscription->plan->price, 2, ',', '.') }}</p>
                             </td>
                             <td class="px-4 py-3">
                                 <div class="text-sm text-muted-foreground">
@@ -207,7 +207,7 @@
                     @empty
                         <tr>
                             <td colspan="7" class="px-4 py-8 text-center text-muted-foreground">
-                                Nenhuma subscrição encontrada.
+                                Nenhuma assinatura encontrada.
                             </td>
                         </tr>
                     @endforelse
