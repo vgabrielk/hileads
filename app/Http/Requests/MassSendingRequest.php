@@ -30,9 +30,12 @@ class MassSendingRequest extends FormRequest
             'media_caption' => 'nullable|string|max:1000',
             'media_type' => 'nullable|string|in:text,image,video,audio,document',
             'media_data' => 'nullable|string',
-            'wuzapi_participants' => 'nullable|array|min:1',
+            'wuzapi_participants' => 'nullable|array',
             'wuzapi_participants.*' => 'string|max:50',
             'manual_numbers' => 'nullable|string|max:10000',
+            'manual_contacts' => 'nullable|array',
+            'manual_contacts.*.phone' => 'nullable|string|max:20',
+            'manual_contacts.*.name' => 'nullable|string|max:100',
             'scheduled_at' => 'nullable|date|after:now',
             'group_id' => 'nullable|exists:groups,id',
         ];
@@ -236,6 +239,33 @@ class MassSendingRequest extends FormRequest
                 ]);
             }
 
+            // Validar se há pelo menos uma forma de destinatários (grupos, participantes ou contatos manuais)
+            $hasGroupId = !empty($this->input('group_id'));
+            $hasWuzapiParticipants = !empty($this->input('wuzapi_participants')) && is_array($this->input('wuzapi_participants')) && count($this->input('wuzapi_participants')) > 0;
+            $hasManualNumbers = !empty($this->input('manual_numbers')) && trim($this->input('manual_numbers')) !== '';
+            $hasManualContacts = !empty($this->input('manual_contacts')) && is_array($this->input('manual_contacts')) && count($this->input('manual_contacts')) > 0;
+
+            CampaignLogger::info('Validando destinatários', [
+                'has_group_id' => $hasGroupId,
+                'has_wuzapi_participants' => $hasWuzapiParticipants,
+                'has_manual_numbers' => $hasManualNumbers,
+                'has_manual_contacts' => $hasManualContacts,
+                'group_id' => $this->input('group_id'),
+                'wuzapi_participants_count' => is_array($this->input('wuzapi_participants')) ? count($this->input('wuzapi_participants')) : 0,
+                'manual_numbers' => $this->input('manual_numbers'),
+                'manual_contacts_count' => is_array($this->input('manual_contacts')) ? count($this->input('manual_contacts')) : 0
+            ]);
+
+            if (!$hasGroupId && !$hasWuzapiParticipants && !$hasManualNumbers && !$hasManualContacts) {
+                CampaignLogger::error('Nenhum destinatário fornecido');
+                $validator->errors()->add('wuzapi_participants', 'Selecione pelo menos um grupo ou adicione contatos manualmente.');
+                return;
+            }
+
+            CampaignLogger::validation('Validação de destinatários concluída', [
+                'has_recipients' => true
+            ]);
+
             CampaignLogger::endProcess('MassSendingRequest Validation', [
                 'validation_passed' => $validator->errors()->isEmpty(),
                 'error_count' => $validator->errors()->count()
@@ -255,7 +285,7 @@ class MassSendingRequest extends FormRequest
             'message.max' => 'A mensagem não pode ter mais de 4096 caracteres.',
             'media_caption.max' => 'A legenda da mídia não pode ter mais de 1000 caracteres.',
             'media_type.in' => 'Tipo de mídia inválido.',
-            'wuzapi_participants.min' => 'Selecione pelo menos um grupo ou adicione números manualmente.',
+            'wuzapi_participants.array' => 'Os participantes devem ser uma lista.',
             'wuzapi_participants.*.max' => 'Cada participante deve ter no máximo 50 caracteres.',
             'manual_numbers.max' => 'Os números manuais não podem exceder 10000 caracteres.',
             'scheduled_at.after' => 'A data agendada deve ser no futuro.',
