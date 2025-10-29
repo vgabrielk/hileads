@@ -47,7 +47,7 @@
         </div>
 
         <!-- Step 2: Get QR Code -->
-        <div class="bg-card rounded-lg border border-border p-6 mb-6">
+        <div class="bg-card rounded-lg border border-border p-6 mb-6 hidden" id="qr-step">
             <div class="flex items-center justify-between mb-4">
                 <div class="flex items-center space-x-3">
                     <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-primary-foreground font-bold text-sm">
@@ -192,6 +192,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const successMessage = document.getElementById('success-message');
     const errorMessage = document.getElementById('error-message');
     const errorText = document.getElementById('error-text');
+    const qrStep = document.getElementById('qr-step');
     
     let isConnected = false;
     let statusCheckInterval = null;
@@ -216,6 +217,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 showStepStatus('connect-status');
                 enableButton(qrBtn);
                 showMessage('success', 'Ligado ao WhatsApp com sucesso!');
+                qrStep.classList.remove('hidden');
             } else {
                 throw new Error(result.message || 'Erro ao ligar');
             }
