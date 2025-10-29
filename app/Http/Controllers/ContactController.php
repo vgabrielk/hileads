@@ -15,6 +15,14 @@ class ContactController extends Controller
 
     public function index(Request $request)
     {
+        return view('contacts.index');
+    }
+
+    /**
+     * API: Get contacts data
+     */
+    public function getContacts(Request $request)
+    {
         // Get groups from Wuzapi API in real-time
         $groups = [];
         $contacts = [];
@@ -223,7 +231,22 @@ class ContactController extends Controller
         $totalPages = ceil($totalContacts / $perPage);
         $currentPage = $page;
         
-        return view('contacts.index', compact('groups', 'contacts', 'stats', 'apiError', 'perPage', 'totalPages', 'currentPage', 'search', 'totalContacts'));
+        $html = view('contacts.partials.contacts-table', compact('groups', 'contacts', 'stats', 'apiError', 'perPage', 'totalPages', 'currentPage', 'search', 'totalContacts'))->render();
+        
+        return response()->json([
+            'html' => $html,
+            'data' => [
+                'contacts' => $contacts,
+                'groups' => $groups,
+                'stats' => $stats,
+                'pagination' => [
+                    'total' => $totalContacts,
+                    'perPage' => $perPage,
+                    'currentPage' => $currentPage,
+                    'totalPages' => $totalPages,
+                ]
+            ]
+        ]);
     }
 
     /**

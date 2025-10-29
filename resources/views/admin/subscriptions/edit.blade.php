@@ -198,7 +198,17 @@ document.getElementById('expires_at').addEventListener('change', function() {
     const expiresAt = this.value;
     
     if (startsAt && expiresAt && new Date(expiresAt) <= new Date(startsAt)) {
-        alert('A data de expiração deve ser posterior à data de início.');
+        if (window.confirmationModal) {
+            window.confirmationModal.show({
+                title: 'Data Inválida',
+                message: 'A data de expiração deve ser posterior à data de início.',
+                type: 'warning',
+                confirmText: 'OK',
+                cancelText: ''
+            });
+        } else {
+            alert('A data de expiração deve ser posterior à data de início.');
+        }
         this.value = '';
     }
 });

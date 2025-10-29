@@ -536,8 +536,18 @@ const campaignTypeChart = new Chart(campaignTypeCtx, {
 
 // Export function
 function exportData(type) {
-    // This would implement actual export functionality
-    alert('Funcionalidade de exportação será implementada em breve!');
+    // Show info message using modal
+    if (window.confirmationModal) {
+        window.confirmationModal.show({
+            title: 'Em Desenvolvimento',
+            message: 'Funcionalidade de exportação será implementada em breve!',
+            type: 'info',
+            confirmText: 'OK',
+            cancelText: ''
+        });
+    } else {
+        alert('Funcionalidade de exportação será implementada em breve!');
+    }
 }
 </script>
 @endsection

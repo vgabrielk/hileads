@@ -123,29 +123,13 @@ function startCheckout(planId, planName, planPrice) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': '{{ csrf_token() }}',
-            'Accept': 'application/json',
-            'X-Requested-With': 'XMLHttpRequest'
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
         }
     })
-    .then(response => {
-        // Parse JSON even if status is not OK
-        return response.json().then(data => {
-            if (!response.ok) {
-                throw new Error(data.message || 'Erro ao processar checkout');
-            }
-            return data;
-        }).catch(error => {
-            // If JSON parsing fails, throw generic error
-            if (error instanceof SyntaxError) {
-                throw new Error('Erro de comunicação com o servidor. Por favor, tente novamente.');
-            }
-            throw error;
-        });
-    })
+    .then(response => response.json())
     .then(data => {
         if (data.success && data.checkoutUrl) {
-            // Redirect to checkout page
+            // Redirect to Bestfy checkout page
             window.location.href = data.checkoutUrl;
         } else {
             // Hide loading overlay
@@ -158,7 +142,6 @@ function startCheckout(planId, planName, planPrice) {
                 type: 'warning',
                 confirmText: 'OK',
                 onConfirm: () => {
-                    // If there's a redirect URL, navigate to it
                     if (data.redirect) {
                         window.location.href = data.redirect;
                     }
@@ -174,7 +157,7 @@ function startCheckout(planId, planName, planPrice) {
         // Show error message using modal
         showMessage({
             title: 'Erro ao Processar Checkout',
-            message: error.message || 'Erro ao processar checkout. Por favor, tente novamente.',
+            message: 'Erro ao processar checkout. Por favor, tente novamente.',
             type: 'danger',
             confirmText: 'OK'
         });
@@ -187,12 +170,11 @@ function showMessage(options) {
         title = 'Atenção',
         subtitle = '',
         message = '',
-        type = 'info', // info, warning, danger, success
+        type = 'info',
         confirmText = 'OK',
         onConfirm = null
     } = options;
     
-    // Usar o modal de confirmação existente
     if (window.confirmationModal) {
         window.confirmationModal.show({
             title: title,
@@ -200,19 +182,17 @@ function showMessage(options) {
             message: message,
             type: type,
             confirmText: confirmText,
-            cancelText: '', // Sem botão cancelar para mensagens simples
+            cancelText: '',
         }).then((confirmed) => {
             if (confirmed && onConfirm) {
                 onConfirm();
             }
         });
     } else {
-        // Fallback para alert se modal não estiver disponível
         alert(message);
         if (onConfirm) onConfirm();
     }
 }
 </script>
 @endsection
-
 

@@ -21,34 +21,32 @@ class DashboardController extends Controller
 
     public function index()
     {
+        return view('dashboard');
+    }
+
+    // API Endpoints para carregamento assíncrono
+    public function getStats()
+    {
         $user = auth()->user();
         
-        // Cache das estatísticas por 5 minutos
         $stats = Cache::remember("dashboard_stats_user_{$user->id}", 300, function () use ($user) {
             $contactsCount = 0;
             $groupsCount = 0;
             
-            // Buscar dados da API Wuzapi (mesma fonte da página /contacts)
             try {
                 $service = new WuzapiService($user->api_token);
                 
-                // Buscar grupos da API
                 $groupsResponse = $service->getGroups();
                 if ($groupsResponse['success'] ?? false) {
                     $groupsCount = count($groupsResponse['data'] ?? []);
-                    \Log::info('Dashboard: Grupos encontrados na API', ['count' => $groupsCount, 'user_id' => $user->id]);
-                } else {
-                    \Log::warning('Dashboard: Falha ao buscar grupos da API', ['user_id' => $user->id, 'response' => $groupsResponse]);
                 }
                 
-                // Buscar contatos da API
                 $contactsResponse = $service->getContacts();
                 if ($contactsResponse['success'] ?? false) {
                     $contactsCount = count($contactsResponse['data'] ?? []);
                 }
             } catch (\Exception $e) {
                 \Log::warning('Erro ao buscar dados da API na dashboard: ' . $e->getMessage());
-                // Fallback para banco de dados local se a API falhar
                 $groupsCount = $user->whatsappGroups()->count();
                 $contactsCount = $user->extractedContacts()->count();
             }
@@ -61,7 +59,14 @@ class DashboardController extends Controller
             ];
         });
 
-        // Cache do status de acesso por 2 minutos
+        $html = view('dashboard.partials.stats-cards', compact('stats'))->render();
+        return response()->json(['html' => $html, 'data' => $stats]);
+    }
+
+    public function getAccessStatus()
+    {
+        $user = auth()->user();
+        
         $accessStatus = Cache::remember("access_status_user_{$user->id}", 120, function () use ($user) {
             $currentSubscription = $user->activeSubscription()->with('plan')->first();
             return [
@@ -72,7 +77,14 @@ class DashboardController extends Controller
             ];
         });
 
-        // Buscar conexões do banco (mesma fonte da página /whatsapp)
+        $html = view('dashboard.partials.access-status', compact('accessStatus'))->render();
+        return response()->json(['html' => $html, 'data' => $accessStatus]);
+    }
+
+    public function getRecentConnections()
+    {
+        $user = auth()->user();
+        
         $recentConnections = Cache::remember("whatsapp_connections_user_{$user->id}", 120, function () use ($user) {
             return $user->whatsappConnections()
                 ->select(['id', 'phone_number', 'status', 'created_at', 'last_sync', 'instance_id'])
@@ -81,10 +93,8 @@ class DashboardController extends Controller
                 ->get();
         });
 
-        // Verificar se há conexões ativas no banco
         $activeConnections = $recentConnections->where('status', 'active');
         
-        // Status da conexão (mesma lógica da página /whatsapp)
         $whatsappStatus = null;
         if ($activeConnections->count() > 0) {
             $whatsappStatus = [
@@ -102,7 +112,14 @@ class DashboardController extends Controller
             ];
         }
 
-        // Buscar grupos recentes da API Wuzapi
+        $html = view('dashboard.partials.recent-connections', compact('recentConnections', 'whatsappStatus'))->render();
+        return response()->json(['html' => $html, 'data' => $recentConnections]);
+    }
+
+    public function getRecentGroups()
+    {
+        $user = auth()->user();
+        
         $recentGroups = collect([]);
         try {
             $groupsResponse = $this->service()->getGroups();
@@ -111,14 +128,13 @@ class DashboardController extends Controller
                     return (object)[
                         'group_name' => $group['Name'] ?? 'Grupo sem nome',
                         'participants_count' => count($group['Participants'] ?? []),
-                        'is_extracted' => true, // Grupos da API estão sempre extraídos
+                        'is_extracted' => true,
                         'created_at' => $group['GroupCreated'] ?? null,
                     ];
                 })->take(5);
             }
         } catch (\Exception $e) {
             \Log::warning('Erro ao buscar grupos recentes da API: ' . $e->getMessage());
-            // Fallback para banco de dados local
             $recentGroups = $user->whatsappGroups()
                 ->select(['id', 'group_name', 'participants_count', 'created_at', 'whatsapp_connection_id'])
                 ->with(['whatsappConnection:id,phone_number,status'])
@@ -127,13 +143,22 @@ class DashboardController extends Controller
                 ->get();
         }
 
+        $html = view('dashboard.partials.recent-groups', compact('recentGroups'))->render();
+        return response()->json(['html' => $html, 'data' => $recentGroups]);
+    }
+
+    public function getRecentContacts()
+    {
+        $user = auth()->user();
+        
         $recentContacts = $user->extractedContacts()
-            ->select(['id', 'contact_name', 'phone_number', 'created_at', 'whatsapp_group_id'])
+            ->select(['id', 'contact_name', 'phone_number', 'created_at', 'whatsapp_group_id', 'status'])
             ->with(['whatsappGroup:id,group_name'])
             ->latest()
             ->take(10)
             ->get();
 
-        return view('dashboard', compact('stats', 'recentConnections', 'recentGroups', 'recentContacts', 'accessStatus', 'whatsappStatus'));
+        $html = view('dashboard.partials.recent-contacts', compact('recentContacts'))->render();
+        return response()->json(['html' => $html, 'data' => $recentContacts]);
     }
 }

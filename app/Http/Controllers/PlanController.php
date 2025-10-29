@@ -22,12 +22,21 @@ class PlanController extends Controller
      */
     public function index()
     {
+        return view('plans.index');
+    }
+
+    /**
+     * API: Get plans data
+     */
+    public function getPlans()
+    {
         $plans = Plan::active()
             ->orderBy('sort_order')
             ->orderBy('price')
             ->get();
 
-        return view('plans.index', compact('plans'));
+        $html = view('plans.partials.plans-grid', compact('plans'))->render();
+        return response()->json(['html' => $html, 'data' => $plans]);
     }
 
     /**
@@ -37,11 +46,22 @@ class PlanController extends Controller
     {
         $this->authorize('manage', Plan::class);
         
+        return view('plans.admin');
+    }
+
+    /**
+     * API: Get admin plans data
+     */
+    public function getAdminPlans()
+    {
+        $this->authorize('manage', Plan::class);
+        
         $plans = Plan::orderBy('sort_order')
             ->orderBy('price')
             ->get();
 
-        return view('plans.admin', compact('plans'));
+        $html = view('plans.partials.admin-plans-table', compact('plans'))->render();
+        return response()->json(['html' => $html, 'data' => $plans]);
     }
 
     /**
@@ -275,9 +295,16 @@ class PlanController extends Controller
     public function checkout(Request $request, Plan $plan)
     {
         $user = auth()->user();
+        $isAjax = $request->ajax() || $request->wantsJson();
         
         // Se o usuário é admin, não precisa de assinatura
         if ($user->isAdmin()) {
+            if ($isAjax) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Usuários administradores não precisam de assinatura.'
+                ], 403);
+            }
             return redirect()->route('dashboard')
                 ->with('info', 'Usuários administradores não precisam de assinatura.');
         }
@@ -289,6 +316,13 @@ class PlanController extends Controller
             ->first();
 
         if ($activeSubscription) {
+            if ($isAjax) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Você já possui uma assinatura ativa.',
+                    'redirect' => route('subscriptions.show', $activeSubscription)
+                ], 400);
+            }
             return redirect()->route('subscriptions.show', $activeSubscription)
                 ->with('error', 'Você já possui uma assinatura ativa.');
         }
@@ -330,10 +364,10 @@ class PlanController extends Controller
             }
 
             // Se for uma requisição AJAX, retornar JSON
-            if (request()->ajax() || request()->wantsJson()) {
+            if ($isAjax) {
                 return response()->json([
                     'success' => true,
-                    'redirect_url' => $checkoutData['url'],
+                    'checkoutUrl' => $checkoutData['url'],
                     'message' => 'Redirecionando para o pagamento...'
                 ]);
             }
@@ -343,6 +377,15 @@ class PlanController extends Controller
                 ->with('success', 'Redirecionando para o pagamento...');
 
         } catch (\Exception $e) {
+            Log::error('Checkout error', ['error' => $e->getMessage(), 'trace' => $e->getTraceAsString()]);
+            
+            if ($isAjax) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Erro ao criar checkout: ' . $e->getMessage()
+                ], 500);
+            }
+            
             return redirect()->back()
                 ->with('error', 'Erro ao criar checkout: ' . $e->getMessage());
         }

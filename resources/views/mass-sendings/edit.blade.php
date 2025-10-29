@@ -751,7 +751,6 @@ document.addEventListener('DOMContentLoaded', () => {
         campaignForm.addEventListener('submit', function(e) {
             console.log('Form submission - currentMessageType:', currentMessageType);
             console.log('Form submission - selectedFiles:', selectedFiles.length);
-            // alert('Form submitting - Type: ' + currentMessageType + ', Files: ' + selectedFiles.length);
             
             // Add media data to form before submission
             if (currentMessageType === 'media' && selectedFiles.length > 0) {

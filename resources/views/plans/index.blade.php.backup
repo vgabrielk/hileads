@@ -64,25 +64,70 @@
             </div>
         </div>
 
-        <!-- Plans List Items (Carregamento Assíncrono) -->
-        <div id="plans-list-container" data-async-load="{{ route('api.plans.list') }}" data-async-cache="true" data-async-cache-duration="300000">
-            <!-- Skeleton Loader -->
-            <div class="divide-y divide-border">
-                @for($i = 0; $i < 3; $i++)
-                    <div class="flex items-center gap-4 px-6 py-5 animate-pulse">
-                        <div class="w-1 h-20 rounded-full flex-shrink-0 bg-gray-200"></div>
-                        <div class="flex-1 space-y-3">
-                            <div class="h-5 bg-gray-200 rounded w-1/4"></div>
-                            <div class="h-4 bg-gray-200 rounded w-3/4"></div>
-                            <div class="flex gap-2">
-                                <div class="h-6 bg-gray-200 rounded w-20"></div>
-                                <div class="h-6 bg-gray-200 rounded w-24"></div>
+        <!-- Plans List Items -->
+        <div class="divide-y divide-border">
+            @php
+                $colors = ['green', 'orange', 'yellow', 'purple', 'blue', 'pink'];
+            @endphp
+            @foreach($plans as $index => $plan)
+                @php
+                    $color = $colors[$index % count($colors)];
+                @endphp
+                <div class="flex items-center gap-4 px-6 py-5 hover:bg-accent/30 transition-all duration-200 group relative cursor-pointer" 
+                     @if(!auth()->user()->isAdmin()) onclick="startCheckout({{ $plan->id }}, '{{ $plan->name }}', {{ $plan->price }})" @endif>
+                    <!-- Status Indicator Bar -->
+                    <div class="w-1 h-20 rounded-full flex-shrink-0 bg-{{ $color }}-500"></div>
+                    
+                    <!-- Plan Info -->
+                    <div class="flex-1 min-w-0">
+                        <div class="flex items-start justify-between gap-4 mb-2">
+                            <div class="flex-1 min-w-0">
+                                <div class="flex items-center gap-2 mb-1">
+                                    <h3 class="text-base font-semibold text-foreground group-hover:text-primary transition-colors">
+                                        {{ $plan->name }}
+                                    </h3>
+                                    @if($plan->is_popular)
+                                        <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-primary text-primary-foreground">
+                                            Popular
+                                        </span>
+                                    @endif
+                                </div>
+                                <p class="text-sm text-muted-foreground mb-2">{{ $plan->description }}</p>
                             </div>
                         </div>
-                        <div class="w-5 h-5 bg-gray-200 rounded"></div>
+                        
+                        <div class="flex items-center gap-4 text-sm flex-wrap">
+                            <div class="flex items-center gap-2">
+                                <span class="text-lg font-bold text-foreground">{{ $plan->formatted_price }}</span>
+                                <span class="text-muted-foreground">{{ $plan->interval_description }}</span>
+                            </div>
+                            @if($plan->max_contacts)
+                                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs bg-muted text-muted-foreground">
+                                    {{ number_format($plan->max_contacts) }} contatos
+                                </span>
+                            @endif
+                            @if($plan->max_campaigns)
+                                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs bg-muted text-muted-foreground">
+                                    {{ $plan->max_campaigns }} campanhas
+                                </span>
+                            @endif
+                        </div>
                     </div>
-                @endfor
-            </div>
+                    
+                    <!-- Arrow Icon / Admin Badge -->
+                    <div class="flex-shrink-0">
+                        @if(auth()->user()->isAdmin())
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-primary/10 text-primary">
+                                Admin
+                            </span>
+                        @else
+                            <svg class="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        @endif
+                    </div>
+                </div>
+            @endforeach
         </div>
     </div>
 
@@ -104,115 +149,53 @@
     </div>
 </div>
 
-<!-- CSS Animation for Spinner -->
 <style>
-    @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-    }
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
 </style>
 
 <script>
+// Show loading overlay
+function showLoadingOverlay() {
+    const overlay = document.getElementById('checkout-loading-overlay');
+    overlay.style.display = 'flex';
+    document.body.style.overflow = 'hidden'; // Prevent scrolling
+}
+
+// Hide loading overlay
+function hideLoadingOverlay() {
+    document.getElementById('checkout-loading-overlay').style.display = 'none';
+    document.body.style.overflow = 'auto'; // Restore scrolling
+}
+
+// Start checkout process
 function startCheckout(planId, planName, planPrice) {
     // Show loading overlay
-    const loadingOverlay = document.getElementById('checkout-loading-overlay');
-    loadingOverlay.style.display = 'flex';
+    showLoadingOverlay();
     
-    // Make AJAX request to create checkout session
-    fetch(`/plans/${planId}/checkout`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': '{{ csrf_token() }}',
-            'Accept': 'application/json',
-            'X-Requested-With': 'XMLHttpRequest'
-        }
-    })
-    .then(response => {
-        // Parse JSON even if status is not OK
-        return response.json().then(data => {
-            if (!response.ok) {
-                throw new Error(data.message || 'Erro ao processar checkout');
-            }
-            return data;
-        }).catch(error => {
-            // If JSON parsing fails, throw generic error
-            if (error instanceof SyntaxError) {
-                throw new Error('Erro de comunicação com o servidor. Por favor, tente novamente.');
-            }
-            throw error;
-        });
-    })
-    .then(data => {
-        if (data.success && data.checkoutUrl) {
-            // Redirect to checkout page
-            window.location.href = data.checkoutUrl;
-        } else {
-            // Hide loading overlay
-            loadingOverlay.style.display = 'none';
-            
-            // Show error message using modal
-            showMessage({
-                title: 'Atenção',
-                message: data.message || 'Erro ao processar checkout. Por favor, tente novamente.',
-                type: 'warning',
-                confirmText: 'OK',
-                onConfirm: () => {
-                    // If there's a redirect URL, navigate to it
-                    if (data.redirect) {
-                        window.location.href = data.redirect;
-                    }
-                }
-            });
-        }
-    })
-    .catch(error => {
-        // Hide loading overlay
-        loadingOverlay.style.display = 'none';
-        console.error('Checkout error:', error);
-        
-        // Show error message using modal
-        showMessage({
-            title: 'Erro ao Processar Checkout',
-            message: error.message || 'Erro ao processar checkout. Por favor, tente novamente.',
-            type: 'danger',
-            confirmText: 'OK'
-        });
-    });
+    // Redirect directly to checkout page endpoint
+    window.location.href = `/plans/${planId}/checkout-page`;
 }
 
-// Função helper para mostrar mensagens usando o modal do sistema
-function showMessage(options) {
-    const {
-        title = 'Atenção',
-        subtitle = '',
-        message = '',
-        type = 'info', // info, warning, danger, success
-        confirmText = 'OK',
-        onConfirm = null
-    } = options;
-    
-    // Usar o modal de confirmação existente
-    if (window.confirmationModal) {
-        window.confirmationModal.show({
-            title: title,
-            subtitle: subtitle,
-            message: message,
-            type: type,
-            confirmText: confirmText,
-            cancelText: '', // Sem botão cancelar para mensagens simples
-        }).then((confirmed) => {
-            if (confirmed && onConfirm) {
-                onConfirm();
-            }
-        });
+// Handle page visibility change
+document.addEventListener('visibilitychange', function() {
+    if (document.hidden) {
+        console.log('Página oculta - redirecionamento pode ter falhado');
     } else {
-        // Fallback para alert se modal não estiver disponível
-        alert(message);
-        if (onConfirm) onConfirm();
+        console.log('Página visível novamente');
     }
-}
+});
 </script>
 @endsection
-
-

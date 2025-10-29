@@ -23,6 +23,15 @@ Route::get('/', function () {
 Route::middleware('auth')->group(function () {
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    
+    // Dashboard API Endpoints (async loading)
+    Route::prefix('api/dashboard')->name('api.dashboard.')->group(function () {
+        Route::get('/stats', [DashboardController::class, 'getStats'])->name('stats');
+        Route::get('/access-status', [DashboardController::class, 'getAccessStatus'])->name('access-status');
+        Route::get('/recent-connections', [DashboardController::class, 'getRecentConnections'])->name('recent-connections');
+        Route::get('/recent-groups', [DashboardController::class, 'getRecentGroups'])->name('recent-groups');
+        Route::get('/recent-contacts', [DashboardController::class, 'getRecentContacts'])->name('recent-contacts');
+    });
 
     // Profile
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
@@ -77,6 +86,7 @@ Route::middleware('auth')->group(function () {
     
     // Contacts (apenas visualização via API)
     Route::get('contacts', [ContactController::class, 'index'])->name('contacts.index');
+    Route::get('api/contacts', [ContactController::class, 'getContacts'])->name('api.contacts.list');
     
 
     // Mass Sendings
@@ -131,6 +141,7 @@ Route::middleware('auth')->group(function () {
 
     // Plans routes
     Route::get('/plans', [PlanController::class, 'index'])->name('plans.index');
+    Route::get('/api/plans', [PlanController::class, 'getPlans'])->name('api.plans.list');
     Route::get('/plans/{plan}', [PlanController::class, 'show'])->name('plans.show');
     Route::post('/plans/{plan}/checkout', [PlanController::class, 'checkout'])->name('plans.checkout');
     Route::get('/plans/{plan}/checkout-page', [PlanController::class, 'checkoutPage'])->name('plans.checkout-page');
@@ -139,6 +150,7 @@ Route::middleware('auth')->group(function () {
     Route::middleware(['auth', 'admin'])->group(function () {
         Route::get('/admin/dashboard', [App\Http\Controllers\AdminDashboardController::class, 'index'])->name('admin.dashboard');
         Route::get('/admin/plans', [PlanController::class, 'admin'])->name('plans.admin');
+        Route::get('/api/admin/plans', [PlanController::class, 'getAdminPlans'])->name('api.admin.plans.list');
         Route::get('/admin/plans/create', [PlanController::class, 'create'])->name('plans.create');
         Route::post('/admin/plans', [PlanController::class, 'store'])->name('plans.store');
         Route::get('/admin/plans/{plan}/edit', [PlanController::class, 'edit'])->name('plans.edit');
