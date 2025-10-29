@@ -182,11 +182,40 @@ class ChatController extends Controller
                                str_contains(strtolower($errorMessage), 'desconectada') ||
                                str_contains(strtolower($errorMessage), 'token inválido');
                 
+                // Verificar se histórico está desabilitado
+                $isHistoryDisabled = str_contains(strtolower($errorMessage), 'message history is disabled') ||
+                                    str_contains(strtolower($errorMessage), 'history is disabled') ||
+                                    str_contains(strtolower($errorMessage), 'not implemented');
+                
                 if ($isNoSession) {
                     return response()->json([
                         'success' => false,
                         'message' => 'Sua sessão do WhatsApp foi desconectada. Por favor, reconecte seu WhatsApp.',
                         'no_session' => true,
+                        'data' => [
+                            'conversation' => [
+                                'id' => $conversation->id,
+                                'chat_jid' => $conversation->chat_jid,
+                                'contact_name' => $conversation->contact_name,
+                                'display_name' => $conversation->display_name,
+                                'avatar_url' => $conversation->avatar_url,
+                            ],
+                            'messages' => [],
+                        ],
+                    ], 200);
+                }
+                
+                if ($isHistoryDisabled) {
+                    // Histórico desabilitado - retornar sucesso mas sem mensagens antigas
+                    Log::warning('Message history disabled for user', [
+                        'user_id' => $user->id,
+                        'conversation_id' => $conversation->id
+                    ]);
+                    
+                    return response()->json([
+                        'success' => true,
+                        'history_disabled' => true,
+                        'message' => 'Histórico de mensagens não disponível. Novas mensagens aparecerão aqui.',
                         'data' => [
                             'conversation' => [
                                 'id' => $conversation->id,

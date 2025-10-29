@@ -255,6 +255,12 @@ async function loadMessages(conversationId) {
         if (data.success) {
             currentMessages = data.data.messages || [];
             renderMessages(currentMessages);
+            
+            // Se histórico desabilitado, mostrar aviso
+            if (data.history_disabled) {
+                renderHistoryDisabledMessage();
+            }
+            
             scrollToBottom();
         } else {
             // Verificar se é erro de sessão desconectada
@@ -315,6 +321,44 @@ function renderNoSessionError(message) {
     `;
     
     messagesArea.appendChild(errorDiv);
+}
+
+// Renderizar mensagem de histórico desabilitado
+function renderHistoryDisabledMessage() {
+    const messagesArea = document.getElementById('messagesArea');
+    const loader = document.getElementById('messagesLoader');
+    
+    // Verificar se já não existe a mensagem
+    if (document.getElementById('history-disabled-message')) {
+        return;
+    }
+    
+    const infoDiv = document.createElement('div');
+    infoDiv.id = 'history-disabled-message';
+    infoDiv.className = 'flex flex-col items-center justify-center py-12 px-4 mb-4';
+    infoDiv.innerHTML = `
+        <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 max-w-md">
+            <div class="flex items-start space-x-3">
+                <svg class="w-6 h-6 text-blue-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <div>
+                    <h4 class="text-sm font-semibold text-blue-900 mb-1">Histórico Não Disponível</h4>
+                    <p class="text-sm text-blue-700">
+                        O histórico de mensagens não está ativado para esta conta. 
+                        Você pode enviar e receber novas mensagens normalmente, mas mensagens antigas não serão exibidas.
+                    </p>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    // Inserir no início da área de mensagens (após loader)
+    if (loader && loader.nextSibling) {
+        messagesArea.insertBefore(infoDiv, loader.nextSibling);
+    } else {
+        messagesArea.appendChild(infoDiv);
+    }
 }
 
 // Renderizar mensagens
