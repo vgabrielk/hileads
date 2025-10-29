@@ -78,6 +78,7 @@ Route::middleware('auth')->group(function () {
     // WhatsApp API Endpoints for Connect Flow
     Route::post('/whatsapp/connect-session', [WhatsAppController::class, 'connectSession'])->name('whatsapp.connect-session')->middleware('subscription.security');
     Route::get('/whatsapp/get-qr', [WhatsAppController::class, 'getQR'])->name('whatsapp.get-qr')->middleware('subscription.security');
+    Route::post('/whatsapp/pair-phone', [WhatsAppController::class, 'pairPhone'])->name('whatsapp.pair-phone')->middleware('subscription.security');
     Route::get('/whatsapp/check-status', [WhatsAppController::class, 'getStatus'])->name('whatsapp.check-status')->middleware('subscription.security');
     
     // WhatsApp Routes with parameters - devem vir por último

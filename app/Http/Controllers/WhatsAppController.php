@@ -490,6 +490,49 @@ class WhatsAppController extends Controller
     }
 
     /**
+     * Pareamento por telefone - alternativa ao QR Code
+     */
+    public function pairPhone(Request $request)
+    {
+        try {
+            $request->validate([
+                'phone' => 'required|string|min:10'
+            ]);
+
+            $user = auth()->user();
+
+            if (!$user->api_token) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Token de API não configurado. Configure seu token primeiro.'
+                ], 400);
+            }
+
+            $wuzapiService = new \App\Services\WuzapiService($user->api_token);
+            $result = $wuzapiService->pairByPhone($request->phone);
+
+            if ($result['success']) {
+                return response()->json([
+                    'success' => true,
+                    'data' => $result['data'],
+                    'message' => $result['message']
+                ]);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => $result['message'] ?? 'Erro ao obter código de pareamento'
+                ], 400);
+            }
+        } catch (\Exception $e) {
+            Log::error('Erro ao parear por telefone: ' . $e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => 'Erro ao parear por telefone: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
      * Exibe o fluxo de conexão
      */
     public function showConnectFlow()

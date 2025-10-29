@@ -110,6 +110,58 @@ class WuzapiService
     }
 
     /**
+     * Pareamento por telefone - alternativa ao QR Code.
+     * Retorna um código de vinculação que o usuário digita no WhatsApp.
+     */
+    public function pairByPhone(string $phone): array
+    {
+        try {
+            $this->checkToken();
+
+            Log::info('📱 Tentando pareamento por telefone:', [
+                'phone' => $phone,
+                'token' => substr($this->token, 0, 20) . '...'
+            ]);
+
+            $response = Http::withHeaders([
+                'token' => $this->token,
+                'Content-Type' => 'application/json',
+            ])->post($this->baseUrl . '/session/pairphone', [
+                'Phone' => $phone
+            ]);
+
+            Log::info('📡 Resposta Wuzapi pairphone:', [
+                'status' => $response->status(),
+                'body' => $response->body()
+            ]);
+
+            if (!$response->successful()) {
+                $responseBody = $response->json();
+                $errorMessage = $responseBody['error'] ?? 'Erro desconhecido';
+                throw new \Exception('Falha ao obter código de pareamento: ' . $errorMessage);
+            }
+
+            $data = $response->json();
+
+            return [
+                'success' => true,
+                'data' => [
+                    'LinkingCode' => $data['data']['LinkingCode'] ?? null,
+                    'Phone' => $phone,
+                ],
+                'message' => 'Código de pareamento gerado com sucesso'
+            ];
+
+        } catch (\Exception $e) {
+            Log::error('Erro ao parear por telefone: ' . $e->getMessage());
+            return [
+                'success' => false,
+                'message' => $e->getMessage()
+            ];
+        }
+    }
+
+    /**
      * Obtém status da sessão.
      */
     public function getStatus(): array

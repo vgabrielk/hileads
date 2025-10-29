@@ -46,43 +46,116 @@
             </button>
         </div>
 
-        <!-- Step 2: Get QR Code -->
-        <div class="bg-card rounded-lg border border-border p-6 mb-6 hidden" id="qr-step">
-            <div class="flex items-center justify-between mb-4">
-                <div class="flex items-center space-x-3">
-                    <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-primary-foreground font-bold text-sm">
-                        2
-                    </div>
-                    <h3 class="text-lg font-semibold text-foreground">Obter QR Code</h3>
+        <!-- Step 2: Choose Connection Method -->
+        <div class="bg-card rounded-lg border border-border p-6 mb-6 hidden" id="method-step">
+            <div class="flex items-center space-x-3 mb-4">
+                <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-primary-foreground font-bold text-sm">
+                    2
                 </div>
-                <div id="qr-status" class="hidden">
-                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-success/10 text-success">
-                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                        </svg>
-                        QR Code Gerado
-                    </span>
-                </div>
+                <h3 class="text-lg font-semibold text-foreground">Escolher Método de Conexão</h3>
             </div>
             
-            <p class="text-muted-foreground mb-4">
-                Após ligar, clique no botão abaixo para obter o QR Code que será escaneado no seu telemóvel.
+            <p class="text-muted-foreground mb-6">
+                Escolha como deseja conectar o seu WhatsApp.
             </p>
-            
-            <button id="qr-btn" 
-                    class="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium text-secondary-foreground bg-secondary hover:bg-secondary/90 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path>
-                </svg>
-                <span id="qr-text">Obter QR Code</span>
-                <svg id="qr-spinner" class="hidden w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-            </button>
+
+            <!-- Tabs -->
+            <div class="flex border-b border-border mb-6">
+                <button id="tab-qr" 
+                        class="tab-button px-6 py-3 font-medium text-primary border-b-2 border-primary transition-colors"
+                        onclick="switchTab('qr')">
+                    <div class="flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path>
+                        </svg>
+                        QR Code
+                    </div>
+                </button>
+                <button id="tab-phone" 
+                        class="tab-button px-6 py-3 font-medium text-muted-foreground hover:text-foreground transition-colors"
+                        onclick="switchTab('phone')">
+                    <div class="flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                        </svg>
+                        Código pelo Telefone
+                    </div>
+                </button>
+            </div>
+
+            <!-- QR Code Method -->
+            <div id="qr-method" class="method-content">
+                <div class="bg-primary/5 border border-primary/20 rounded-lg p-4 mb-4">
+                    <div class="flex items-start gap-3">
+                        <svg class="w-5 h-5 text-primary mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <div class="flex-1">
+                            <h4 class="font-medium text-foreground mb-1">Como funciona?</h4>
+                            <p class="text-sm text-muted-foreground">Você verá um QR Code que deverá ser escaneado usando a câmera do seu telemóvel no WhatsApp.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <button id="qr-btn" 
+                        class="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium text-secondary-foreground bg-secondary hover:bg-secondary/90 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path>
+                    </svg>
+                    <span id="qr-text">Obter QR Code</span>
+                    <svg id="qr-spinner" class="hidden w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Phone Pairing Method -->
+            <div id="phone-method" class="method-content hidden">
+                <div class="bg-primary/5 border border-primary/20 rounded-lg p-4 mb-4">
+                    <div class="flex items-start gap-3">
+                        <svg class="w-5 h-5 text-primary mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <div class="flex-1">
+                            <h4 class="font-medium text-foreground mb-1">Como funciona?</h4>
+                            <p class="text-sm text-muted-foreground">Digite o número do telefone e você receberá um código que deverá inserir no WhatsApp do seu telemóvel.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <div>
+                        <label for="phone-input" class="block text-sm font-medium text-foreground mb-2">
+                            Número de Telefone
+                        </label>
+                        <input 
+                            type="text" 
+                            id="phone-input" 
+                            placeholder="5491155553934"
+                            class="w-full px-4 py-3 bg-background border border-input rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                        />
+                        <p class="text-xs text-muted-foreground mt-1">
+                            Exemplo: 5491155553934 (código do país + número)
+                        </p>
+                    </div>
+                    
+                    <button id="phone-btn" 
+                            class="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium text-secondary-foreground bg-secondary hover:bg-secondary/90 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                        </svg>
+                        <span id="phone-text">Obter Código</span>
+                        <svg id="phone-spinner" class="hidden w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
         </div>
 
-        <!-- Step 3: QR Code Display -->
+        <!-- QR Code Display -->
         <div id="qr-display" class="bg-card rounded-lg border border-border p-8 text-center hidden">
             <div class="inline-flex items-center justify-center w-16 h-16 bg-success/10 rounded-lg mb-6 animate-pulse">
                 <svg class="w-8 h-8 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -94,7 +167,7 @@
             <div class="inline-block p-6 bg-background rounded-lg border-2 border-border shadow-lg">
                 <img id="qr-image" src="" alt="QR Code WhatsApp" class="w-64 h-64 mx-auto">
             </div>
-            <div class="mt-8 flex items-center justify-center space-x-4">
+            <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
                 <div class="flex items-center text-sm text-muted-foreground">
                     <svg class="w-5 h-5 mr-2 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
@@ -116,7 +189,42 @@
             </div>
         </div>
 
-        <!-- Step 4: Status Check -->
+        <!-- Phone Pairing Code Display -->
+        <div id="phone-display" class="bg-card rounded-lg border border-border p-8 text-center hidden">
+            <div class="inline-flex items-center justify-center w-16 h-16 bg-success/10 rounded-lg mb-6 animate-pulse">
+                <svg class="w-8 h-8 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                </svg>
+            </div>
+            <h3 class="text-xl font-bold text-foreground mb-2">Código de Vinculação</h3>
+            <p class="text-muted-foreground mb-6">Digite este código no WhatsApp do seu telemóvel</p>
+            
+            <div class="inline-block p-8 bg-background rounded-lg border-2 border-primary shadow-lg mb-6">
+                <div id="linking-code" class="text-5xl font-bold text-primary tracking-widest font-mono">
+                    ----
+                </div>
+            </div>
+
+            <div class="max-w-md mx-auto space-y-4">
+                <div class="bg-primary/5 border border-primary/20 rounded-lg p-4">
+                    <h4 class="font-medium text-foreground mb-2 flex items-center gap-2">
+                        <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        Como usar?
+                    </h4>
+                    <ol class="text-sm text-muted-foreground text-left space-y-2">
+                        <li>1. Abra o WhatsApp no seu telemóvel</li>
+                        <li>2. Vá em <strong>Configurações → Aparelhos conectados</strong></li>
+                        <li>3. Toque em <strong>Conectar um aparelho</strong></li>
+                        <li>4. Escolha <strong>"Ligar com número de telefone"</strong></li>
+                        <li>5. Digite o código acima</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Status Check -->
         <div id="status-check" class="bg-card rounded-lg border border-border p-6 hidden">
             <div class="flex items-center justify-between mb-4">
                 <div class="flex items-center space-x-3">
@@ -142,7 +250,7 @@
                         <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
                 </div>
-                <p class="text-muted-foreground mb-4">A aguardar a digitalização o QR Code...</p>
+                <p class="text-muted-foreground mb-4" id="status-message">A aguardar a conexão...</p>
                 <p class="text-sm text-muted-foreground">Verificando status automaticamente...</p>
             </div>
         </div>
@@ -183,19 +291,34 @@
     </div>
 </div>
 
+<style>
+.tab-button {
+    position: relative;
+}
+
+.tab-button:not(.active) {
+    border-bottom: 2px solid transparent;
+}
+</style>
+
 <script>
+let currentMethod = 'qr';
+let statusCheckInterval = null;
+
 document.addEventListener('DOMContentLoaded', function() {
     const connectBtn = document.getElementById('connect-btn');
     const qrBtn = document.getElementById('qr-btn');
+    const phoneBtn = document.getElementById('phone-btn');
+    const phoneInput = document.getElementById('phone-input');
     const qrDisplay = document.getElementById('qr-display');
+    const phoneDisplay = document.getElementById('phone-display');
     const statusCheck = document.getElementById('status-check');
     const successMessage = document.getElementById('success-message');
     const errorMessage = document.getElementById('error-message');
     const errorText = document.getElementById('error-text');
-    const qrStep = document.getElementById('qr-step');
+    const methodStep = document.getElementById('method-step');
     
     let isConnected = false;
-    let statusCheckInterval = null;
 
     // Connect to WhatsApp
     connectBtn.addEventListener('click', async function() {
@@ -215,14 +338,13 @@ document.addEventListener('DOMContentLoaded', function() {
             if (result.success) {
                 isConnected = true;
                 showStepStatus('connect-status');
-                enableButton(qrBtn);
+                methodStep.classList.remove('hidden');
                 showMessage('success', 'Conectado ao WhatsApp com sucesso!');
-                qrStep.classList.remove('hidden');
             } else {
-                throw new Error(result.message || 'Erro ao ligar');
+                throw new Error(result.message || 'Erro ao conectar');
             }
         } catch (error) {
-            showError('Erro ao ligar: ' + error.message);
+            showError('Erro ao conectar: ' + error.message);
         } finally {
             setButtonLoading(connectBtn, false);
         }
@@ -244,7 +366,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             if (result.success && result.data.QRCode) {
                 showQRCode(result.data.QRCode);
-                showStepStatus('qr-status');
+                document.getElementById('status-message').textContent = 'A aguardar a digitalização do QR Code...';
                 startStatusCheck();
             } else {
                 throw new Error(result.message || 'Erro ao obter QR Code');
@@ -256,10 +378,63 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    // Get Phone Pairing Code
+    phoneBtn.addEventListener('click', async function() {
+        const phone = phoneInput.value.trim();
+        
+        if (!phone) {
+            alert('Por favor, digite o número de telefone');
+            phoneInput.focus();
+            return;
+        }
+        
+        if (phone.length < 10) {
+            alert('Por favor, digite um número de telefone válido (mínimo 10 dígitos)');
+            phoneInput.focus();
+            return;
+        }
+        
+        setButtonLoading(phoneBtn, true);
+        
+        try {
+            const response = await fetch('{{ route("whatsapp.pair-phone") }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({ phone: phone })
+            });
+            
+            const result = await response.json();
+            
+            if (result.success && result.data.LinkingCode) {
+                showPhoneCode(result.data.LinkingCode);
+                document.getElementById('status-message').textContent = 'A aguardar a digitação do código...';
+                startStatusCheck();
+            } else {
+                throw new Error(result.message || 'Erro ao obter código de pareamento');
+            }
+        } catch (error) {
+            showError('Erro ao obter código: ' + error.message);
+        } finally {
+            setButtonLoading(phoneBtn, false);
+        }
+    });
+
     function showQRCode(qrCodeData) {
         const qrImage = document.getElementById('qr-image');
         qrImage.src = qrCodeData;
+        methodStep.classList.add('hidden');
         qrDisplay.classList.remove('hidden');
+        statusCheck.classList.remove('hidden');
+    }
+
+    function showPhoneCode(linkingCode) {
+        const codeElement = document.getElementById('linking-code');
+        codeElement.textContent = linkingCode;
+        methodStep.classList.add('hidden');
+        phoneDisplay.classList.remove('hidden');
         statusCheck.classList.remove('hidden');
     }
 
@@ -288,6 +463,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function showSuccess() {
         statusCheck.classList.add('hidden');
         qrDisplay.classList.add('hidden');
+        phoneDisplay.classList.add('hidden');
         successMessage.classList.remove('hidden');
         showStepStatus('final-status');
     }
@@ -296,11 +472,12 @@ document.addEventListener('DOMContentLoaded', function() {
         errorText.textContent = message;
         errorMessage.classList.remove('hidden');
         qrDisplay.classList.add('hidden');
+        phoneDisplay.classList.add('hidden');
         statusCheck.classList.add('hidden');
+        methodStep.classList.add('hidden');
     }
 
     function showMessage(type, message) {
-        // You can implement a toast notification here
         console.log(type + ':', message);
     }
 
@@ -310,18 +487,13 @@ document.addEventListener('DOMContentLoaded', function() {
         
         if (loading) {
             button.disabled = true;
-            text.classList.add('hidden');
-            spinner.classList.remove('hidden');
+            if (text) text.classList.add('hidden');
+            if (spinner) spinner.classList.remove('hidden');
         } else {
             button.disabled = false;
-            text.classList.remove('hidden');
-            spinner.classList.add('hidden');
+            if (text) text.classList.remove('hidden');
+            if (spinner) spinner.classList.add('hidden');
         }
-    }
-
-    function enableButton(button) {
-        button.disabled = false;
-        button.classList.remove('opacity-50', 'cursor-not-allowed');
     }
 
     function showStepStatus(statusElementId) {
@@ -338,5 +510,34 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+// Tab switching function
+function switchTab(method) {
+    currentMethod = method;
+    
+    // Update tab buttons
+    const tabQR = document.getElementById('tab-qr');
+    const tabPhone = document.getElementById('tab-phone');
+    const qrMethod = document.getElementById('qr-method');
+    const phoneMethod = document.getElementById('phone-method');
+    
+    if (method === 'qr') {
+        tabQR.classList.remove('text-muted-foreground');
+        tabQR.classList.add('text-primary', 'border-b-2', 'border-primary');
+        tabPhone.classList.remove('text-primary', 'border-b-2', 'border-primary');
+        tabPhone.classList.add('text-muted-foreground');
+        
+        qrMethod.classList.remove('hidden');
+        phoneMethod.classList.add('hidden');
+    } else {
+        tabPhone.classList.remove('text-muted-foreground');
+        tabPhone.classList.add('text-primary', 'border-b-2', 'border-primary');
+        tabQR.classList.remove('text-primary', 'border-b-2', 'border-primary');
+        tabQR.classList.add('text-muted-foreground');
+        
+        phoneMethod.classList.remove('hidden');
+        qrMethod.classList.add('hidden');
+    }
+}
 </script>
 @endsection
