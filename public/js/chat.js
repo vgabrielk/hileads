@@ -8,7 +8,20 @@ let lastCheckTimestamp = null;
 
 // Inicializar chat ao carregar página
 document.addEventListener('DOMContentLoaded', function() {
-    loadConversations();
+    loadConversations().then(() => {
+        // Verificar se há um parâmetro 'conversation' na URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const conversationId = urlParams.get('conversation');
+        
+        if (conversationId) {
+            // Tentar abrir a conversa específica
+            openConversationById(parseInt(conversationId));
+            
+            // Limpar o parâmetro da URL sem recarregar
+            const newUrl = window.location.pathname;
+            window.history.replaceState({}, document.title, newUrl);
+        }
+    });
     startLongPolling();
     setupMessageInput();
     setupSearch();
@@ -116,6 +129,74 @@ async function selectConversation(conversation) {
         item.classList.remove('bg-gray-100');
     });
     event.currentTarget?.classList.add('bg-gray-100');
+    
+    // Carregar mensagens
+    await loadMessages(conversation.id);
+    
+    // Marcar como lida
+    await markAsRead(conversation.id);
+}
+
+// Abrir conversa específica pelo ID (usado ao vir da lista de contatos)
+async function openConversationById(conversationId) {
+    try {
+        // Buscar a conversa específica na API
+        const response = await fetch('/chat/conversations');
+        const data = await response.json();
+        
+        if (data.success && data.data.length > 0) {
+            const conversation = data.data.find(c => c.id === conversationId);
+            
+            if (conversation) {
+                // Simular evento para marcar visualmente a conversa
+                const conversationElements = document.querySelectorAll('.conversation-item');
+                conversationElements.forEach(item => {
+                    item.classList.remove('bg-gray-100');
+                });
+                
+                // Abrir a conversa
+                await selectConversationDirectly(conversation);
+                
+                // Marcar visualmente o item na lista
+                setTimeout(() => {
+                    const selectedItem = Array.from(conversationElements).find(el => 
+                        el.textContent.includes(conversation.display_name)
+                    );
+                    if (selectedItem) {
+                        selectedItem.classList.add('bg-gray-100');
+                        selectedItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }
+                }, 100);
+            } else {
+                showToast('Conversa não encontrada', 'error');
+            }
+        }
+    } catch (error) {
+        console.error('Erro ao abrir conversa:', error);
+        showToast('Erro ao abrir conversa', 'error');
+    }
+}
+
+// Selecionar conversa diretamente (sem depender do evento)
+async function selectConversationDirectly(conversation) {
+    currentConversation = conversation;
+    
+    // Atualizar UI
+    document.getElementById('noChatSelected').classList.add('hidden');
+    document.getElementById('chatArea').classList.remove('hidden');
+    
+    // Atualizar header
+    document.getElementById('chatContactName').textContent = conversation.display_name;
+    document.getElementById('chatContactPhone').textContent = conversation.formatted_phone;
+    
+    if (conversation.avatar_url) {
+        document.getElementById('chatAvatar').src = conversation.avatar_url;
+        document.getElementById('chatAvatar').classList.remove('hidden');
+        document.getElementById('chatAvatarPlaceholder').classList.add('hidden');
+    } else {
+        document.getElementById('chatAvatar').classList.add('hidden');
+        document.getElementById('chatAvatarPlaceholder').classList.remove('hidden');
+    }
     
     // Carregar mensagens
     await loadMessages(conversation.id);

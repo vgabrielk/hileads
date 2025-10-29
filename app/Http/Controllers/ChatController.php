@@ -437,5 +437,76 @@ class ChatController extends Controller
             ], 500);
         }
     }
+
+    /**
+     * Inicia ou busca uma conversa existente a partir de um telefone.
+     * Usado para iniciar chat a partir da lista de contatos.
+     */
+    public function startConversation(Request $request)
+    {
+        $request->validate([
+            'phone' => 'required|string',
+            'name' => 'nullable|string',
+            'contact_id' => 'nullable|integer|exists:extracted_contacts,id',
+        ]);
+
+        try {
+            $user = auth()->user();
+            
+            // Verificar se usuário tem conexão WhatsApp ativa
+            $hasActiveConnection = $user->whatsappConnections()
+                ->whereIn('status', ['active', 'connected'])
+                ->exists();
+            
+            if (!$hasActiveConnection) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Você precisa conectar uma conta WhatsApp primeiro.',
+                    'redirect' => route('whatsapp.index'),
+                ], 403);
+            }
+
+            // Limpar telefone e criar JID
+            $phone = preg_replace('/[^0-9]/', '', $request->phone);
+            $chatJid = $phone . '@s.whatsapp.net';
+
+            // Buscar ou criar conversa
+            $conversation = ChatConversation::firstOrCreate(
+                [
+                    'user_id' => $user->id,
+                    'chat_jid' => $chatJid,
+                ],
+                [
+                    'extracted_contact_id' => $request->contact_id,
+                    'contact_name' => $request->name,
+                    'contact_phone' => $phone,
+                    'is_active' => true,
+                ]
+            );
+
+            // Se a conversa já existia mas estava inativa, reativá-la
+            if (!$conversation->is_active) {
+                $conversation->update(['is_active' => true]);
+            }
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Conversa iniciada com sucesso',
+                'data' => [
+                    'conversation_id' => $conversation->id,
+                    'chat_jid' => $conversation->chat_jid,
+                    'display_name' => $conversation->display_name,
+                ],
+                'redirect' => route('chat.index') . '?conversation=' . $conversation->id,
+            ]);
+
+        } catch (\Exception $e) {
+            Log::error('Error starting conversation: ' . $e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => 'Erro ao iniciar conversa: ' . $e->getMessage(),
+            ], 500);
+        }
+    }
 }
 

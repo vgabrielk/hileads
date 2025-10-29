@@ -120,6 +120,7 @@ Route::middleware('auth')->group(function () {
     // Chat Routes (WhatsApp Chat Module)
     Route::prefix('chat')->name('chat.')->middleware('subscription.security')->group(function () {
         Route::get('/', [App\Http\Controllers\ChatController::class, 'index'])->name('index');
+        Route::post('/start', [App\Http\Controllers\ChatController::class, 'startConversation'])->name('start');
         Route::get('/conversations', [App\Http\Controllers\ChatController::class, 'getConversations'])->name('conversations');
         Route::get('/conversations/{conversation}/messages', [App\Http\Controllers\ChatController::class, 'getMessages'])->name('messages');
         Route::post('/conversations/{conversation}/send', [App\Http\Controllers\ChatController::class, 'sendMessage'])->name('send');
