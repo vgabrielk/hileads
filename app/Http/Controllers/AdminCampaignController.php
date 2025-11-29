@@ -12,7 +12,7 @@ use Carbon\Carbon;
 class AdminCampaignController extends Controller
 {
     /**
-     * Display a listing of all campaigns for admin.
+     * Display a listing of all campaigns 
      */
     public function index(Request $request)
     {
